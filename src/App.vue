@@ -9,7 +9,7 @@ import useApp from "@hooks/use-app";
 import Layout from "@/Layout/index.vue";
 
 const app = useApp();
-console.log("app", app);
+console.log(app);
 const state = reactive({
     count: 0,
 });

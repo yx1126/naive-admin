@@ -1,22 +1,22 @@
 <template>
     <div class="home">
+        <h1>home</h1>
+        <h2>user：{{ user.count }}</h2>
+        <h2>menu：{{ menu.count }}</h2>
         <button @click="showSub">click me</button>
-        <router-view></router-view>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-    methods: {
-        showSub() {
-            this.$router.push("/home/sub");
-        },
-    },
-    created() {
-        console.log("home");
-    },
-});
+<script setup lang="ts">
+import useMenuStore from "@/stores/menu";
+import useUserStore from "@/stores/user";
+const user = useUserStore();
+const menu = useMenuStore();
+
+const showSub = () => {
+    user.increment();
+    menu.increment();
+};
 </script>
 
 <style lang="scss">

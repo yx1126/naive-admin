@@ -1,23 +1,13 @@
 import { defineStore } from "pinia";
 
-export type UserId = "user";
-
 export interface UserState {
     info: { readonly [key: string]: any } | null;
     count: number;
 }
 
-export interface UserGetter<S> {
-    doubleCount: (s: S) => number;
-}
-
-export interface UserActions {
-    increment: () => void;
-}
-
-const useUserStore = defineStore<UserId, UserState>({
+const useUserStore = defineStore({
     id: "user",
-    state: () => ({
+    state: (): UserState => ({
         info: null,
         count: 0,
     }),
