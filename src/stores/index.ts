@@ -1,9 +1,25 @@
 import { createPinia } from "pinia";
 
-import VuexPinia from "./plugins/vuex-pinia";
+import createVuePinia from "./plugins/vuex-pinia";
 
 const pinia = createPinia();
 
-pinia.use(VuexPinia);
+pinia.use(
+    createVuePinia({
+        separate: false,
+        reducer: state => {
+            return {
+                menu: {
+                    count: state.menu?.count,
+                    menu: state.menu?.menu,
+                },
+                user: {
+                    info: state.user?.info,
+                    count: state.user?.count,
+                },
+            };
+        },
+    }),
+);
 
 export default pinia;
