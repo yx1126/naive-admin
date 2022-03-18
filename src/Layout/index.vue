@@ -9,10 +9,12 @@
             <router-view />
         </div>
     </div>
+    <Drawer />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import Drawer from "./components/Drawer.vue";
 
 const show = ref(false);
 

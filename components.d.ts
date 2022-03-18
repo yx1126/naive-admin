@@ -4,9 +4,9 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import("naive-ui")["NConfigProvider"];
+    NDrawer: typeof import('naive-ui')['NDrawer']
     NGlobalStyle: typeof import("naive-ui")["NGlobalStyle"];
     NIcon: typeof import('naive-ui')['NIcon']
   }

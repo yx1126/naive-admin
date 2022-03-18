@@ -1,0 +1,14 @@
+.ndraw-fade-leave-active {
+    transition: right 0.2s cubic-bezier(0.4, 0, 1, 1);
+}
+.ndraw-fade-enter-active {
+    transition: right 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+.ndraw-fade-enter-to,
+.ndraw-fade-leave-from {
+    right: 0;
+}
+.ndraw-fade-enter-from,
+.ndraw-fade-leave-to {
+    right: 250px;
+}

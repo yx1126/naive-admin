@@ -1,28 +1,30 @@
-import type { PiniaPluginContext, StateTree } from "pinia";
+import type { PiniaPluginContext, PiniaPlugin, StateTree, PiniaCustomProperties, PiniaCustomStateProperties } from "pinia";
 
 const assign = Object.assign;
 
 export type VuePiniaOptions = {
-    name?: string;
+    key?: string;
     separate?: boolean;
-    stroage?: Storage;
+    stroage?: Pick<Storage, "getItem" | "setItem">;
     reducer?: (state: Record<string, StateTree>) => object;
 };
 
 /**
  * Creates a Pinia plugin to be used by keep data
  */
-function createVuePinia(options?: VuePiniaOptions) {
+function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
+    const storage = options?.stroage || (window && window.localStorage);
+
     function getItem(key: string) {
-        const value = (options?.stroage || window.sessionStorage).getItem(key);
+        const value = storage.getItem(key);
         return value ? JSON.parse(value) : {};
     }
     function setItem(key: string, value: any) {
-        (options?.stroage || window.sessionStorage).setItem(key, JSON.stringify(value));
+        storage.setItem(key, JSON.stringify(value));
     }
-    return ({ store }: PiniaPluginContext) => {
-        // default key
-        const key = (options?.separate ? `${options.name || "vue-pinia"}-${store.$id}` : options?.name || "vue-pinia") as string;
+    return ({ store }: PiniaPluginContext): Partial<PiniaCustomProperties & PiniaCustomStateProperties> | void => {
+        const key = `${options?.key || "vue-pinia"}${options?.separate ? "-" + store.$id : ""}`;
+
         store.$subscribe(
             (mutation, state) => {
                 let saveValue = { [mutation.storeId]: state };

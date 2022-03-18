@@ -6,7 +6,6 @@ const pinia = createPinia();
 
 pinia.use(
     createVuePinia({
-        separate: false,
         reducer: state => {
             return {
                 menu: {
@@ -16,6 +15,18 @@ pinia.use(
                 user: {
                     info: state.user?.info,
                     count: state.user?.count,
+                },
+            };
+        },
+    }),
+);
+pinia.use(
+    createVuePinia({
+        stroage: window.sessionStorage,
+        reducer: state => {
+            return {
+                set: {
+                    drawerStatus: state.set?.drawerStatus,
                 },
             };
         },
