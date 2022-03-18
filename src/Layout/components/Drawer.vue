@@ -8,7 +8,7 @@
     </transition>
 
     <n-drawer class="drawer" placement="right" v-bind="attrs" :width="260" v-model:show="isShowDrawer">
-        <slot />
+        <span>12</span>
     </n-drawer>
 </template>
 

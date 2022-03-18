@@ -2578,6 +2578,11 @@ vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
     lodash "^4.17.21"
     semver "^7.3.5"
 
+vue-pinia-store@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue-pinia-store/-/vue-pinia-store-1.1.0.tgz#e7f5daaddeca447530016e02de4054e644598091"
+  integrity sha512-NPJ5nAVWh8ca3ZqUFYYuLRORpFV+Zs4z893ztRYeePKgilSaCEGK33jZ1BZ1LyUNm+XuSVDGslWTv3o1oy6bkA==
+
 vue-router@^4.0.12:
   version "4.0.12"
   resolved "https://repo.huaweicloud.com/repository/npm/vue-router/-/vue-router-4.0.12.tgz#8dc792cddf5bb1abcc3908f9064136de7e13c460"

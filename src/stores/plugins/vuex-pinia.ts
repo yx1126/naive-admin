@@ -1,47 +1,56 @@
-import type { PiniaPluginContext, PiniaPlugin, StateTree, PiniaCustomProperties, PiniaCustomStateProperties } from "pinia";
+import type { PiniaPluginContext, PiniaPlugin, PiniaCustomProperties, PiniaCustomStateProperties } from "pinia";
 
 const assign = Object.assign;
 
-export type VuePiniaOptions = {
+/**
+ * Turns tree structure data into optional nodes
+ */
+export type DeepPartial<T> = {
+    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+export type Options<Store> = {
     key?: string;
     separate?: boolean;
     stroage?: Pick<Storage, "getItem" | "setItem">;
-    reducer?: (state: Record<string, StateTree>) => object;
+    modules?: (keyof Store)[];
+    reducer?: (state: Store) => DeepPartial<Store>;
 };
 
 /**
  * Creates a Pinia plugin to be used by keep data
  */
-function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
+function createVuePinia<Store extends object = any>(options?: Options<Store>): PiniaPlugin {
     const storage = options?.stroage || (window && window.localStorage);
+    const isSeparate = options?.separate || false;
 
     function getItem(key: string) {
         const value = storage.getItem(key);
         return value ? JSON.parse(value) : {};
     }
     function setItem(key: string, value: any) {
-        storage.setItem(key, JSON.stringify(value));
+        storage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
     }
     return ({ store }: PiniaPluginContext): Partial<PiniaCustomProperties & PiniaCustomStateProperties> | void => {
-        const key = `${options?.key || "vue-pinia"}${options?.separate ? "-" + store.$id : ""}`;
+        const key = `${options?.key || "vue-pinia"}${isSeparate ? "-" + store.$id : ""}`;
 
         store.$subscribe(
             (mutation, state) => {
                 let saveValue = { [mutation.storeId]: state };
-                if (!options?.separate) saveValue = assign(getItem(key), saveValue);
+                if (!isSeparate) saveValue = assign(getItem(key), saveValue);
                 const reducerValue = options?.reducer
-                    ? options.separate
-                        ? (options.reducer(saveValue) as any)[mutation.storeId]
-                        : options.reducer(saveValue)
+                    ? isSeparate
+                        ? (options.reducer(saveValue as Store) as any)[mutation.storeId]
+                        : options.reducer(saveValue as Store)
                     : saveValue;
-                setItem(key, reducerValue);
+                reducerValue && setItem(key, reducerValue);
             },
             {
                 detached: true,
             },
         );
         const value = getItem(key);
-        return options?.separate ? value : assign(store.$state, value[store.$id]);
+        return isSeparate ? value : assign(store.$state, value[store.$id]);
     };
 }
 
