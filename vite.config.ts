@@ -15,7 +15,7 @@ export default defineConfig({
     plugins: [
         vue(),
         Components({
-            // dts: true,
+            dts: true,
             resolvers: [NaiveUiResolver()],
         }),
         vueJsx(),

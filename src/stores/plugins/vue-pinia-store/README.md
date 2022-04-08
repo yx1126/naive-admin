@@ -1,11 +1,3 @@
-# vue-pinia-store
-
-## Install
-
-```bash
-npm install --save vue-pinia-store
-```
-
 ## Usage
 
 ```js
