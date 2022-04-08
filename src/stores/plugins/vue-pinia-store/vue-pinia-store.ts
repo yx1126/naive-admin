@@ -43,7 +43,7 @@ function createVuePinia<Store extends object = any>(options?: Options<Store>): P
                         ? (options.reducer(saveValue as Store) as any)[mutation.storeId]
                         : options.reducer(saveValue as Store)
                     : saveValue;
-                reducerValue && setItem(key, reducerValue);
+                if (reducerValue) setItem(key, reducerValue);
             },
             {
                 detached: true,

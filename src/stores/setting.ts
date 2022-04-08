@@ -14,8 +14,10 @@ const useSetStore = defineStore({
             this.drawerStatus = value ? value : !this.drawerStatus;
         },
     },
+    persistedstate: {
+        storage: [{ storage: window.sessionStorage, paths: ["drawerStatus"] }],
+    },
 });
 
 export { useSetStore };
-
 export default useSetStore;
