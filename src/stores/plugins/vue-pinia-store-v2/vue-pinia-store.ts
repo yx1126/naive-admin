@@ -85,7 +85,7 @@ function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
                     const value = s.paths.reduce((baseState, cur) => {
                         baseState[cur] = state[cur];
                         return baseState;
-                    }, {} as Partial<typeof state>);
+                    }, {} as PartialState);
                     setItem(key, value, s.storage);
                 });
             },

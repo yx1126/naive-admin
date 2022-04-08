@@ -19,10 +19,11 @@ const useUserStore = defineStore({
         increment() {
             this.count++;
         },
-    },
+    }
 });
 // const useUserStore = defineStore("user", () => {
 //     const count = ref(0);
+//     const info = ref({});
 
 //     const increment = () => {
 //         count.value++;
@@ -30,8 +31,13 @@ const useUserStore = defineStore({
 
 //     return {
 //         count,
+//         info,
 //         increment,
 //     };
+// }, {
+//     persistedstate: {
+//         paths: ["count", "info"]
+//     }
 // });
 
 export { useUserStore };

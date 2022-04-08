@@ -3,11 +3,11 @@
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
 declare module 'vue' {
-    export interface GlobalComponents {
-        NButton: typeof import('naive-ui')['NButton']
-        NDrawer: typeof import('naive-ui')['NDrawer']
-        NIcon: typeof import('naive-ui')['NIcon']
-    }
+  export interface GlobalComponents {
+    NButton: typeof import('naive-ui')['NButton']
+    NDrawer: typeof import('naive-ui')['NDrawer']
+    NIcon: typeof import('naive-ui')['NIcon']
+  }
 }
 
 export { }
