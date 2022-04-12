@@ -1,44 +1,38 @@
 import { defineStore } from "pinia";
-// import { ref } from "vue";
+import { ref } from "vue";
 
-export interface UserState {
-    info: { readonly [key: string]: any } | null;
-    count: number;
+export interface UserInfo {
+    [key: string]: any;
 }
 
-const useUserStore = defineStore({
-    id: "user",
-    state: (): UserState => ({
-        info: null,
-        count: 0,
-    }),
-    getters: {
-        doubleCount: s => s.count * 2,
+const useUserStore = defineStore(
+    "user",
+    () => {
+        const count = ref(0);
+        const info = ref<UserInfo | null>(null);
+
+        const increment = () => {
+            count.value++;
+        };
+
+        return {
+            count,
+            info,
+            increment,
+        };
     },
-    actions: {
-        increment() {
-            this.count++;
+    {
+        persistedstate: {
+            enabled: true,
+            key: "user-test",
+            // paths: ["count", "info"],
+            storage: [
+                { storage: window.localStorage, paths: ["info"] },
+                { key: "test2", storage: window.localStorage, paths: ["count"] },
+            ],
         },
     }
-});
-// const useUserStore = defineStore("user", () => {
-//     const count = ref(0);
-//     const info = ref({});
-
-//     const increment = () => {
-//         count.value++;
-//     };
-
-//     return {
-//         count,
-//         info,
-//         increment,
-//     };
-// }, {
-//     persistedstate: {
-//         paths: ["count", "info"]
-//     }
-// });
+);
 
 export { useUserStore };
 

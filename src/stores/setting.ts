@@ -1,23 +1,25 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export interface SetState {
-    drawerStatus: boolean;
-}
+const useSetStore = defineStore(
+    "set",
+    () => {
+        const drawerStatus = ref(false);
 
-const useSetStore = defineStore({
-    id: "set",
-    state: (): SetState => ({
-        drawerStatus: false,
-    }),
-    actions: {
-        toggleDrawer(value?: boolean) {
-            this.drawerStatus = value ? value : !this.drawerStatus;
+        function toggleDrawer(value?: boolean) {
+            drawerStatus.value = typeof value === "boolean" ? value : !drawerStatus.value;
+        }
+        return {
+            drawerStatus,
+            toggleDrawer,
+        };
+    },
+    {
+        persistedstate: {
+            storage: [{ storage: window.sessionStorage, paths: ["drawerStatus"] }],
         },
-    },
-    persistedstate: {
-        storage: [{ storage: window.sessionStorage, paths: ["drawerStatus"] }],
-    },
-});
+    }
+);
 
 export { useSetStore };
 export default useSetStore;

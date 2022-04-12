@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
 export interface Menu {
     name: string;
@@ -6,24 +7,29 @@ export interface Menu {
     children?: Menu[];
 }
 
-export interface MenuState {
-    menu: Menu[];
-    count: number;
-}
+const useMenuStore = defineStore(
+    "menu",
+    () => {
+        const menu = ref<Menu[]>([]);
+        const count = ref(0);
 
-const useMenuStore = defineStore({
-    id: "menu",
-    state: (): MenuState => ({
-        menu: [],
-        count: 0,
-    }),
-    getters: {},
-    actions: {
-        increment() {
-            this.count++;
-        },
+        function increment() {
+            count.value++;
+        }
+
+        return {
+            menu,
+            count,
+            increment,
+        };
     },
-});
+    {
+        persistedstate: {
+            enabled: true,
+            storage: [{ storage: window.localStorage, paths: ["count"] }],
+        },
+    }
+);
 
 export { useMenuStore };
 

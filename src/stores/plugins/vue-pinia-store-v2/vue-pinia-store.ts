@@ -17,13 +17,15 @@ type BaseStorage = Pick<Storage, "getItem" | "setItem">;
 type Paths<S> = (keyof S)[];
 
 type StorageOptions<S> = {
-    storage: BaseStorage;
+    key?: string;
     paths: Paths<S>;
+    storage: BaseStorage;
 };
 
 type StorageOption<S> = BaseStorage | StorageOptions<S>[];
 
 type StoreOption<S> = {
+    enabled?: boolean;
     key?: string;
     paths?: Paths<S>;
     storage?: StorageOption<S>;
@@ -52,17 +54,18 @@ function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
     const storage = options?.storage || window.localStorage;
     const watchOptions = options?.watchOptions || {};
 
+    const getKey = (key: string) => prefix + key + suffix;
+
     function getItem(key: string, storage: BaseStorage) {
-        const value = storage.getItem(key);
+        const value = storage.getItem(getKey(key));
         return value ? JSON.parse(value) : {};
     }
     function setItem(key: string, value: any, storage: BaseStorage) {
-        storage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
+        storage.setItem(getKey(key), typeof value === "string" ? value : JSON.stringify(value));
     }
 
     return ({ store, options: { persistedstate } }: PiniaPluginContext) => {
-        const key = prefix + store.$id + suffix;
-
+        if (!persistedstate?.enabled) return;
         function stateList(state: Store["$state"]) {
             let stateList: StorageOptions<PartialState>[] = [];
 
@@ -71,6 +74,7 @@ function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
             } else {
                 stateList = [
                     {
+                        key: persistedstate?.key,
                         storage: persistedstate?.storage || storage,
                         paths: persistedstate?.paths || Object.keys(state),
                     },
@@ -80,13 +84,13 @@ function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
         }
 
         store.$subscribe(
-            (_, state) => {
+            (mutation, state) => {
                 stateList(state).forEach((s) => {
                     const value = s.paths.reduce((baseState, cur) => {
                         baseState[cur] = state[cur];
                         return baseState;
                     }, {} as PartialState);
-                    setItem(key, value, s.storage);
+                    setItem(s.key || persistedstate?.key || mutation.storeId, value, s.storage);
                 });
             },
             assign(
@@ -98,7 +102,7 @@ function createVuePinia(options?: VuePiniaOptions): PiniaPlugin {
         );
 
         return stateList(store.$state).reduce((state, s) => {
-            const value = getItem(key, s.storage);
+            const value = getItem(s.key || persistedstate?.key || store.$id, s.storage);
             if (value) state = assign(state, value);
             return state;
         }, {} as PartialState);
