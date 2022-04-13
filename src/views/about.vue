@@ -5,6 +5,11 @@
         <h2>menu：{{ menu.count }}</h2>
         <button @click="showSub">click me</button>
         <button @click="reset">reset</button>
+        <!-- <input type="text" value="123" @keyup.enter="inputchange"> -->
+
+        <div id="message">
+            <h2>message</h2>
+        </div>
     </div>
 </template>
 
@@ -20,6 +25,7 @@ const showSub = () => {
     user.increment();
     menu.increment();
 };
+
 const reset = () => {
     menu.$reset();
 };

@@ -21,7 +21,7 @@
             "@/*": ["./src/*"],
             "@comps/*": ["./src/components/*"],
             "@hooks/*": ["./src/hooks/*"],
-            "@types/*": ["./src/model/*"]
+            "@types/*": ["./types/*"]
         }
     },
 

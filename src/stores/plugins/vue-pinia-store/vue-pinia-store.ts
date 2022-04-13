@@ -47,8 +47,9 @@ function createVuePinia<Store extends object = any>(options?: Options<Store>): P
             },
             {
                 detached: true,
-            },
+            }
         );
+
         const value = getItem(key);
         return isSeparate ? value : assign(store.$state, value[store.$id]);
     };

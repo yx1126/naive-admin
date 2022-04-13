@@ -9,7 +9,7 @@
             <router-view />
         </div>
     </div>
-    <Drawer />
+    <Drawer class="test" />
 </template>
 
 <script setup lang="ts">

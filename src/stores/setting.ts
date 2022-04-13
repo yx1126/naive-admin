@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { defineStore, acceptHMRUpdate } from "pinia";
 import { ref } from "vue";
 
 const useSetStore = defineStore(
@@ -16,10 +16,16 @@ const useSetStore = defineStore(
     },
     {
         persistedstate: {
+            enabled: true,
             storage: [{ storage: window.sessionStorage, paths: ["drawerStatus"] }],
         },
     }
 );
 
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useSetStore, import.meta.hot));
+}
+
 export { useSetStore };
+
 export default useSetStore;

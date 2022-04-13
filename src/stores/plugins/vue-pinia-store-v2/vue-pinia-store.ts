@@ -67,24 +67,14 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
     return ({ store, options: { persistedstate } }: PiniaPluginContext) => {
         if (!persistedstate?.enabled) return;
         function createStateList(state: Store["$state"]) {
-            let stateList: StorageOptions<PartialState>[] = [];
-
-            if (isArray(persistedstate?.storage)) {
-                stateList = persistedstate?.storage || [];
-            } else {
-                stateList = [
-                    {
-                        storage: persistedstate?.storage || storage,
-                        paths: persistedstate?.paths || Object.keys(state),
-                    },
-                ];
-            }
-            return stateList;
+            return isArray(persistedstate?.storage)
+                ? persistedstate?.storage || []
+                : [{ storage: persistedstate?.storage || storage, paths: persistedstate?.paths || Object.keys(state) }];
         }
 
         store.$subscribe(
             (mutation, state) => {
-                createStateList(state).forEach((s) => {
+                createStateList(state).forEach(s => {
                     const value = s.paths.reduce((baseState, cur) => {
                         baseState[cur] = state[cur];
                         return baseState;
@@ -96,8 +86,8 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
                 {
                     detached: true,
                 },
-                watchOptions
-            )
+                watchOptions,
+            ),
         );
 
         return createStateList(store.$state).reduce((state, s) => {

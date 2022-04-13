@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { defineStore, acceptHMRUpdate } from "pinia";
 import { ref } from "vue";
 
 export interface Menu {
@@ -26,10 +26,13 @@ const useMenuStore = defineStore(
     {
         persistedstate: {
             enabled: true,
-            storage: [{ storage: window.localStorage, paths: ["count"] }],
         },
     }
 );
+
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useMenuStore, import.meta.hot));
+}
 
 export { useMenuStore };
 

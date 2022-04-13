@@ -25,7 +25,7 @@ export default defineConfig({
             "@": resolve("src"),
             "@comps": resolve("src/components"),
             "@hooks": resolve("src/hooks"),
-            "@types": resolve("src/model"),
+            "@types": resolve("types"),
         },
     },
     server: {
@@ -36,6 +36,7 @@ export default defineConfig({
         proxy: {},
     },
     build: {
+        // minify: "terser", // use terser will prod clear console debugger
         terserOptions: {
             // prod clear console debugger
             compress: {
