@@ -1,39 +1,29 @@
 <template>
-    <div class="layput">
-        <n-button @click="handleClick">click：{{ show }}</n-button>
-        <div class="link">
-            <router-link to="/about">about</router-link>
-            <router-link to="/home">home</router-link>
-        </div>
-        <div>
-            <router-view />
-        </div>
-    </div>
-    <Drawer class="test" />
+    <component :is="mode" />
+    <Setting />
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import Drawer from "./components/Drawer.vue";
+import { computed } from "vue";
+import Setting from "./components/Setting.vue";
+import AsideLayout from "./layout/AsideLayout.vue";
+import TopLayout from "./layout/TopLayout.vue";
+import MixinLayout from "./layout/MixinLayout.vue";
+import AsideMixinLaout from "./layout/AsideMixinLayout.vue";
+import { useSetStore } from "@/stores/setting";
 
-const show = ref(false);
+const set = useSetStore();
 
-const handleClick = () => {
-    show.value = !show.value;
+const layputMap = {
+    aside: AsideLayout,
+    top: TopLayout,
+    mixin: MixinLayout,
+    asideMixin: AsideMixinLaout,
 };
+
+const mode = computed(() => {
+    return layputMap[set.layoutMode];
+});
 </script>
 
-<style lang="scss">
-.layput {
-    text-align: center;
-    padding: 100px;
-}
-.link {
-    display: flex;
-    justify-content: center;
-    & > * {
-        margin: 20px;
-        color: #1171ee;
-    }
-}
-</style>
+<style lang="scss" scoped></style>

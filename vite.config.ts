@@ -37,12 +37,12 @@ export default defineConfig({
     },
     build: {
         // minify: "terser", // use terser will prod clear console debugger
-        terserOptions: {
-            // prod clear console debugger
-            compress: {
-                drop_console: true,
-                drop_debugger: true,
-            },
-        },
+        // terserOptions: {
+        //     // prod clear console debugger
+        //     compress: {
+        //         drop_console: true,
+        //         drop_debugger: true,
+        //     },
+        // },
     },
 });

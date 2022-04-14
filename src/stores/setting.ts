@@ -1,25 +1,61 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { ref } from "vue";
+import { reactive, toRefs } from "vue";
+
+export type NavTheme = "light" | "dark" | "diablo";
+export type LayoutMode = "aside" | "top" | "mixin" | "asideMixin";
+export type RouterTrans = "fade" | "slide" | "scale" | "scale-slide" | null;
+
+export const user = {
+    name: "test",
+    age: 18,
+};
+
+export interface SetState {
+    drawerStatus: boolean;
+    navMode: NavTheme;
+    layoutMode: LayoutMode;
+    isShowLogo: boolean;
+    uniqueMenuOpened: boolean;
+    isShowBreadcrumb: boolean;
+    isKeepHeader: boolean;
+    isKeepTabs: boolean;
+    isCutMenu: boolean;
+    routerTrans: RouterTrans;
+}
 
 const useSetStore = defineStore(
     "set",
     () => {
-        const drawerStatus = ref(false);
+        const state = reactive<SetState>({
+            drawerStatus: false,
+            navMode: "light",
+            layoutMode: "aside",
+            isShowLogo: false,
+            uniqueMenuOpened: false,
+            isShowBreadcrumb: false,
+            isKeepHeader: false,
+            isKeepTabs: false,
+            isCutMenu: false,
+            routerTrans: null,
+        });
 
-        function toggleDrawer(value?: boolean) {
-            drawerStatus.value = typeof value === "boolean" ? value : !drawerStatus.value;
-        }
+        const toggleDrawer = (value?: boolean) => {
+            state.drawerStatus = typeof value === "boolean" ? value : !state.drawerStatus;
+        };
+
         return {
-            drawerStatus,
+            ...toRefs(state),
             toggleDrawer,
         };
     },
     {
         persistedstate: {
             enabled: true,
-            storage: [{ storage: window.sessionStorage, paths: ["drawerStatus"] }],
+            // paths: s => {
+            //     return s.filter(k => !["drawerStatus"].includes(k));
+            // },
         },
-    }
+    },
 );
 
 if (import.meta.hot) {

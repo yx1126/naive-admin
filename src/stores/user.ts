@@ -1,23 +1,36 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { ref } from "vue";
+import { reactive, toRefs } from "vue";
 
 export interface UserInfo {
     [key: string]: any;
 }
 
+export interface Menu {
+    name: string;
+    path: string;
+    children?: Menu[];
+}
+
+export interface UserState {
+    count: number;
+    info: UserInfo | null;
+    menu: Menu[];
+}
 const useUserStore = defineStore(
     "user",
     () => {
-        const count = ref(0);
-        const info = ref<UserInfo | null>(null);
+        const state = reactive<UserState>({
+            count: 0,
+            info: null,
+            menu: [],
+        });
 
         const increment = () => {
-            count.value++;
+            state.count++;
         };
 
         return {
-            count,
-            info,
+            ...toRefs(state),
             increment,
         };
     },
@@ -25,7 +38,7 @@ const useUserStore = defineStore(
         persistedstate: {
             enabled: true,
         },
-    }
+    },
 );
 
 if (import.meta.hot) {

@@ -1,11 +1,11 @@
 <template>
-    <div class="drawer-set" :class="`drawer-tans-${isShowDrawer ? 'enter' : 'leave'}`" @click="isShowDrawer = !isShowDrawer">
-        <n-icon :size="isShowDrawer ? 34 : 26" color="#fff">
-            <component :is="isShowDrawer ? CloseOutline : SettingOutlined" />
+    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" @click="onUpdateShow(!show)">
+        <n-icon :size="show ? 34 : 26" color="#fff">
+            <component :is="show ? CloseOutline : SettingOutlined" />
         </n-icon>
     </div>
-    <n-drawer class="drawer" placement="right" v-bind="attrs" :width="260" v-model:show="isShowDrawer">
-        <span>12</span>
+    <n-drawer class="drawer" placement="right" v-bind="attrs" :width="280" :show="show" @update:show="onUpdateShow">
+        <slot />
     </n-drawer>
 </template>
 
@@ -18,18 +18,23 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { useAttrs, computed } from "vue";
+import { useAttrs } from "vue";
 import { SettingOutlined } from "@vicons/antd";
 import { CloseOutline } from "@vicons/ionicons5";
-import useSetStore from "@/stores/setting";
 
 const attrs = useAttrs();
-const set = useSetStore();
 
-const isShowDrawer = computed({
-    get: () => set.drawerStatus,
-    set: set.toggleDrawer,
-});
+defineProps<{
+    show?: boolean;
+}>();
+
+const emit = defineEmits<{
+    (e: "update:show", value: boolean): void;
+}>();
+
+function onUpdateShow(show: boolean) {
+    emit("update:show", show);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -46,9 +51,9 @@ const isShowDrawer = computed({
     position: fixed;
     top: 50%;
     right: 1px;
-    z-index: 2001;
+    z-index: 2050;
     &.drawer-tans-enter {
-        transform: translate(-260px, -50%);
+        transform: translate(-280px, -50%);
         transition: transform 0.33s cubic-bezier(0, 0, 0.2, 1);
     }
     &.drawer-tans-leave {

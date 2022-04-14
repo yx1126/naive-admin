@@ -14,7 +14,7 @@ type BaseStorage = Pick<Storage, "getItem" | "setItem">;
 /**
  * Stored keys
  */
-type Paths<S> = (keyof S)[];
+type Paths<S> = (keyof S)[] | ((s: (keyof S)[]) => (keyof S)[]);
 
 type StorageOptions<S> = {
     key?: string;
@@ -67,28 +67,23 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
     return ({ store, options: { persistedstate } }: PiniaPluginContext) => {
         if (!persistedstate?.enabled) return;
         function createStateList(state: Store["$state"]) {
+            const stateKeys = Object.keys(state);
+            const pathsList = typeof persistedstate?.paths === "function" ? persistedstate?.paths(stateKeys) : persistedstate?.paths;
             return isArray(persistedstate?.storage)
                 ? persistedstate?.storage || []
-                : [{ storage: persistedstate?.storage || storage, paths: persistedstate?.paths || Object.keys(state) }];
+                : [{ storage: persistedstate?.storage || storage, paths: pathsList || stateKeys }];
         }
 
-        store.$subscribe(
-            (mutation, state) => {
-                createStateList(state).forEach(s => {
-                    const value = s.paths.reduce((baseState, cur) => {
-                        baseState[cur] = state[cur];
-                        return baseState;
-                    }, {} as PartialState);
-                    setItem(s.key || persistedstate?.key || mutation.storeId, value, s.storage);
-                });
-            },
-            assign(
-                {
-                    detached: true,
-                },
-                watchOptions,
-            ),
-        );
+        store.$subscribe((mutation, state) => {
+            createStateList(state).forEach(s => {
+                const pathsList = typeof s.paths === "function" ? s.paths(Object.keys(state)) : s.paths;
+                const value = pathsList.reduce((baseState, cur) => {
+                    baseState[cur] = state[cur];
+                    return baseState;
+                }, {} as PartialState);
+                setItem(s.key || persistedstate?.key || mutation.storeId, value, s.storage);
+            });
+        }, assign({ detached: true }, watchOptions));
 
         return createStateList(store.$state).reduce((state, s) => {
             const value = getItem(s.key || persistedstate?.key || store.$id, s.storage);

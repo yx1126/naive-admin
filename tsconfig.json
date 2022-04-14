@@ -24,7 +24,6 @@
             "@types/*": ["./types/*"]
         }
     },
-
     "references": [
         {
             "path": "./tsconfig.vite-config.json"

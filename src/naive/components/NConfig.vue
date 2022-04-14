@@ -1,5 +1,5 @@
 <template>
-    <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme">
+    <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme" :abstract="true">
         <slot />
         <n-global-style />
     </n-config-provider>
