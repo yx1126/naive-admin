@@ -3,18 +3,15 @@ import { reactive, toRefs } from "vue";
 
 export type NavTheme = "light" | "dark" | "diablo";
 export type LayoutMode = "aside" | "top" | "mixin" | "asideMixin";
-export type RouterTrans = "fade" | "slide" | "scale" | "scale-slide" | null;
-
-export const user = {
-    name: "test",
-    age: 18,
-};
+export type RouterTrans = "fade" | "slide" | "scale" | "scale-slide" | "null";
 
 export interface SetState {
     drawerStatus: boolean;
+    themeColor: string;
     navMode: NavTheme;
     layoutMode: LayoutMode;
     isShowLogo: boolean;
+    isShowTabs: boolean;
     uniqueMenuOpened: boolean;
     isShowBreadcrumb: boolean;
     isKeepHeader: boolean;
@@ -23,29 +20,52 @@ export interface SetState {
     routerTrans: RouterTrans;
 }
 
+export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
+export const layoutMode: LayoutMode[] = ["aside", "top", "mixin", "asideMixin"];
+
+export const routerTransOptions = ["null", "fade", "slide", "scale", "scale-slide"].map(t => ({
+    label: t,
+    value: t,
+}));
+
+export const defaultSetting: SetState = {
+    drawerStatus: false, // 全局设置
+    themeColor: "#409EFF",
+    navMode: "dark", // 系统主题
+    layoutMode: "aside", // 导航模式
+    isShowLogo: false, // 显示 logo
+    isShowTabs: true, // 显示 标签页
+    uniqueMenuOpened: false, // 菜单单选
+    isShowBreadcrumb: false, // 显示 面包屑
+    isKeepHeader: false, // 固定 顶栏
+    isKeepTabs: false, // 固定 标签页
+    isCutMenu: false, // 切割菜单
+    routerTrans: "null", // 路由动画
+};
+
 const useSetStore = defineStore(
     "set",
     () => {
-        const state = reactive<SetState>({
-            drawerStatus: false,
-            navMode: "light",
-            layoutMode: "aside",
-            isShowLogo: false,
-            uniqueMenuOpened: false,
-            isShowBreadcrumb: false,
-            isKeepHeader: false,
-            isKeepTabs: false,
-            isCutMenu: false,
-            routerTrans: null,
-        });
+        const state = reactive<SetState>(Object.assign({}, defaultSetting));
 
         const toggleDrawer = (value?: boolean) => {
             state.drawerStatus = typeof value === "boolean" ? value : !state.drawerStatus;
         };
 
+        const setState = <T extends keyof SetState>(key: T, value: SetState[T]) => {
+            state[key] = value;
+        };
+
+        const reset = () => {
+            const set = useSetStore();
+            set.$patch(defaultSetting);
+        };
+
         return {
             ...toRefs(state),
             toggleDrawer,
+            setState,
+            reset,
         };
     },
     {
