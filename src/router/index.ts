@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import useMitt from "@hooks/use-mitt";
 import routes from "./routes";
 
 const router = createRouter({
@@ -6,11 +7,15 @@ const router = createRouter({
     routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//     console.log(to);
-//     console.log(from);
-//     console.log(next);
-//     next();
-// });
+router.beforeEach((to, from, next) => {
+    const mitt = useMitt();
+    mitt.emit("load:start");
+    next();
+});
+
+router.afterEach(() => {
+    const mitt = useMitt();
+    mitt.emit("load:finish");
+});
 
 export default router;

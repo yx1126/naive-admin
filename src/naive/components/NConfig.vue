@@ -1,6 +1,10 @@
 <template>
     <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
-        <slot />
+        <n-loading-bar-provider>
+            <n-freeback>
+                <slot />
+            </n-freeback>
+        </n-loading-bar-provider>
         <n-global-style />
     </n-config-provider>
 </template>
@@ -9,18 +13,21 @@
 import { zhCN, dateZhCN, darkTheme } from "naive-ui";
 import { computed } from "vue";
 import useSetStore from "@/stores/setting";
+import { createHoverColor, createPressedColor } from "@/util/color";
+import NFreeback from "./NFreeback.vue";
 import type { GlobalThemeOverrides } from "naive-ui";
 
 const set = useSetStore();
 
-console.log(set);
-
 const themeOverrides = computed<GlobalThemeOverrides>(() => {
     return {
         common: {
-            primaryColor: set.themeCalcColor.color,
-            primaryColorHover: set.themeCalcColor.hoverColor,
-            primaryColorPressed: set.themeCalcColor.pressedColor,
+            primaryColor: set.themeColor,
+            primaryColorHover: createHoverColor(set.themeColor),
+            primaryColorPressed: createPressedColor(set.themeColor),
+            infoColor: "#909399",
+            infoColorHover: createHoverColor("#909399"),
+            infoColorPressed: createPressedColor("#909399"),
         },
         LoadingBar: {
             colorLoading: set.themeColor,

@@ -14,11 +14,11 @@ const resolve = (path: string) => {
 export default defineConfig({
     plugins: [
         vue(),
+        vueJsx(),
         Components({
             dts: true,
             resolvers: [NaiveUiResolver()],
         }),
-        vueJsx(),
     ],
     resolve: {
         alias: {
