@@ -1,5 +1,7 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { reactive, toRefs } from "vue";
+import { createHoverColor, createPressedColor } from "@/util/color";
+import { computed } from "@vue/reactivity";
 
 export type NavTheme = "light" | "dark" | "diablo";
 export type LayoutMode = "aside" | "top" | "mixin" | "asideMixin";
@@ -56,6 +58,14 @@ const useSetStore = defineStore(
             state[key] = value;
         };
 
+        const themeCalcColor = computed(() => {
+            return {
+                color: state.themeColor,
+                hoverColor: createHoverColor(state.themeColor),
+                pressedColor: createPressedColor(state.themeColor),
+            };
+        });
+
         const reset = () => {
             const set = useSetStore();
             set.$patch(defaultSetting);
@@ -63,6 +73,7 @@ const useSetStore = defineStore(
 
         return {
             ...toRefs(state),
+            themeCalcColor,
             toggleDrawer,
             setState,
             reset,

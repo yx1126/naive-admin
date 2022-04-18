@@ -7,6 +7,7 @@ declare module 'vue' {
     Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
     Message: typeof import('./src/components/Message/Message.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
+    NColorPicker: typeof import('naive-ui')['NColorPicker']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDivider: typeof import('naive-ui')['NDivider']
     NDrawer: typeof import('naive-ui')['NDrawer']

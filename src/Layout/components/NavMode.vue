@@ -5,7 +5,7 @@
                 <div v-if="mode === 'asideMixin'" class="nav-mode-asideMixin-item"></div>
                 <div class="nav-icon-box">
                     <slot v-if="chose" name="icon">
-                        <n-icon class="nav-choose" size="20">
+                        <n-icon class="nav-choose" :color="color" size="20">
                             <CheckFilled />
                         </n-icon>
                     </slot>
@@ -35,10 +35,12 @@ withDefaults(
     defineProps<{
         mode?: NavTheme | LayoutMode;
         chose?: boolean;
+        color?: string;
     }>(),
     {
         mode: "aside",
         chose: false,
+        color: "#409eff",
     },
 );
 </script>
@@ -89,7 +91,6 @@ $body-color: #f0f2f5;
     align-items: center;
 }
 .nav-choose {
-    color: #409eff;
     font-weight: bold;
 }
 .nav-mode-aside {

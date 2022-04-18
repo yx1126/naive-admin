@@ -5,13 +5,13 @@
             <n-divider> 系统主题 </n-divider>
             <n-space justify="center">
                 <template v-for="n in navTheme" :key="n">
-                    <nav-mode :mode="n" :chose="set.navMode === n" @click="set.navMode = n" />
+                    <nav-mode :mode="n" :chose="set.navMode === n" :color="set.themeColor" @click="set.navMode = n" />
                 </template>
             </n-space>
             <n-divider> 导航模式 </n-divider>
             <n-space justify="center">
                 <template v-for="n in layoutMode" :key="n">
-                    <nav-mode :mode="n" :chose="set.layoutMode === n" @click="set.layoutMode = n" />
+                    <nav-mode :mode="n" :chose="set.layoutMode === n" :color="set.themeColor" @click="set.layoutMode = n" />
                 </template>
             </n-space>
             <n-divider> 界面显示 </n-divider>
@@ -52,7 +52,17 @@
             <div class="divider-content">
                 <div class="divider-content-item">
                     <div>路由动画</div>
-                    <n-select v-model:value="set.routerTrans" style="width: 120px" :options="routerTransOptions" size="small" />
+                    <n-select class="divider-content-item__input" v-model:value="set.routerTrans" :options="routerTransOptions" size="small" />
+                </div>
+                <div class="divider-content-item">
+                    <div>组件主题</div>
+                    <n-color-picker
+                        class="divider-content-item__input"
+                        v-model:value="set.themeColor"
+                        :swatches="swatches"
+                        :actions="['confirm']"
+                        show-preview
+                    />
                 </div>
             </div>
             <template #footer>
@@ -75,6 +85,8 @@ const isShowDrawer = computed({
     set: set.toggleDrawer,
 });
 
+const swatches = ["#409EFF", "#18a058"];
+
 // const
 </script>
 
@@ -86,6 +98,9 @@ const isShowDrawer = computed({
         justify-content: space-between;
         &:not(:last-child) {
             margin-bottom: 15px;
+        }
+        .divider-content-item__input {
+            width: 120px;
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" @click="onUpdateShow(!show)">
+    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" @click="onUpdateShow(!show)" :style="drawerStyles">
         <n-icon :size="show ? 34 : 26" color="#fff">
             <component :is="show ? CloseOutline : SettingOutlined" />
         </n-icon>
@@ -18,11 +18,13 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { useAttrs } from "vue";
+import { useAttrs, computed } from "vue";
 import { SettingOutlined } from "@vicons/antd";
 import { CloseOutline } from "@vicons/ionicons5";
+import useSetStore from "@/stores/setting";
 
 const attrs = useAttrs();
+const set = useSetStore();
 
 defineProps<{
     show?: boolean;
@@ -31,6 +33,12 @@ defineProps<{
 const emit = defineEmits<{
     (e: "update:show", value: boolean): void;
 }>();
+
+const drawerStyles = computed<Record<string, string>>(() => {
+    return {
+        "--drawer-set-color": set.themeColor,
+    };
+});
 
 function onUpdateShow(show: boolean) {
     emit("update:show", show);
@@ -41,7 +49,7 @@ function onUpdateShow(show: boolean) {
 .drawer-set {
     width: 48px;
     height: 48px;
-    background: #1890ff;
+    background: var(--drawer-set-color);
     cursor: pointer;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;

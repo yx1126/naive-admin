@@ -12,15 +12,21 @@ import useSetStore from "@/stores/setting";
 import type { GlobalThemeOverrides } from "naive-ui";
 
 const set = useSetStore();
+
+console.log(set);
+
 const themeOverrides = computed<GlobalThemeOverrides>(() => {
     return {
         common: {
-            primaryColor: set.themeColor,
-            primaryColorHover: set.themeColor,
-            primaryColorPressed: set.themeColor,
+            primaryColor: set.themeCalcColor.color,
+            primaryColorHover: set.themeCalcColor.hoverColor,
+            primaryColorPressed: set.themeCalcColor.pressedColor,
         },
         LoadingBar: {
             colorLoading: set.themeColor,
+        },
+        Switch: {
+            railColorActive: set.themeColor,
         },
     };
 });
