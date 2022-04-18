@@ -26,6 +26,7 @@ export default defineConfig({
             "@comps": resolve("src/components"),
             "@hooks": resolve("src/hooks"),
             "@types": resolve("types"),
+            "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
         },
     },
     server: {
@@ -44,5 +45,10 @@ export default defineConfig({
         //         drop_debugger: true,
         //     },
         // },
+    },
+    define: {
+        __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
+        __VUE_I18N_LEGACY_API__: JSON.stringify(false),
+        __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
     },
 });

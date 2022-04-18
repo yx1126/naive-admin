@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { reactive, toRefs } from "vue";
+import type { Lang } from "@/locales";
 
 export type NavTheme = "light" | "dark" | "diablo";
 export type LayoutMode = "aside" | "top" | "mixin" | "asideMixin";
@@ -18,6 +19,7 @@ export interface SetState {
     isKeepTabs: boolean;
     isCutMenu: boolean;
     routerTrans: RouterTrans;
+    lang: Lang;
 }
 
 export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
@@ -41,6 +43,7 @@ export const defaultSetting: SetState = {
     isKeepTabs: false, // 固定 标签页
     isCutMenu: false, // 切割菜单
     routerTrans: "null", // 路由动画
+    lang: "zh-CN",
 };
 
 const useSetStore = defineStore(

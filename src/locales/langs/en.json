@@ -1,0 +1,21 @@
+{
+    "set": {
+        "isCutMenu": "分割菜单",
+        "isKeepHeader": "Fixed the top bar",
+        "isKeepTabs": "Fixed Tabs",
+        "isShowBreadcrumb": "Show Breadcrumb",
+        "isShowLogo": "Show Logo",
+        "isShowTabs": "Show Tabs",
+        "layoutMode": "Navigation mode",
+        "navTheme": "System theme",
+        "otherSet": "Other Settings",
+        "pageDisplay": "Page Display",
+        "pageFunction": "Page Function",
+        "reset": "reset",
+        "routerTrans": "Routing animation",
+        "themeColor": "Component theme",
+        "title": "Project configuration",
+        "uniqueMenuOpened": "Keep a submenu open",
+        "lang": "Change language"
+    }
+}

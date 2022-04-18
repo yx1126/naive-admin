@@ -43,6 +43,7 @@ export type PiniaStateOptions = {
     suffix?: string;
     storage?: BaseStorage;
     watchOptions?: WatchOptions;
+    callback?: (app: PiniaPluginContext, state: PartialState) => void;
 };
 
 /**
@@ -64,7 +65,9 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
         storage.setItem(createDefaultKey(key), typeof value === "string" ? value : JSON.stringify(value));
     }
 
-    return ({ store, options: { persistedstate } }: PiniaPluginContext) => {
+    return (context: PiniaPluginContext) => {
+        const store = context.store;
+        const persistedstate = context.options.persistedstate;
         if (!persistedstate?.enabled) return;
         function createStateList(state: Store["$state"]) {
             const stateKeys = Object.keys(state);
@@ -85,11 +88,13 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
             });
         }, assign({ detached: true }, watchOptions));
 
-        return createStateList(store.$state).reduce((state, s) => {
+        const storeState = createStateList(store.$state).reduce((state, s) => {
             const value = getItem(s.key || persistedstate?.key || store.$id, s.storage);
             if (value) state = assign(state, value);
             return state;
         }, {} as PartialState);
+        options?.callback?.(context, storeState);
+        return storeState;
     };
 }
 
