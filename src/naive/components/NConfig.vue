@@ -1,12 +1,14 @@
 <template>
     <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
-        <!-- loading bar -->
         <n-loading-bar-provider>
-            <!-- dialog -->
             <n-dialog-provider>
-                <n-freeback>
-                    <slot />
-                </n-freeback>
+                <n-message-provider>
+                    <n-notification-provider>
+                        <n-freeback>
+                            <slot />
+                        </n-freeback>
+                    </n-notification-provider>
+                </n-message-provider>
             </n-dialog-provider>
         </n-loading-bar-provider>
         <n-global-style />

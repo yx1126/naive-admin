@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import useMitt from "@hooks/use-mitt";
+import { useLoadingBar } from "@/naive";
 import routes from "./routes";
-
-const mitt = useMitt();
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,12 +8,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    mitt.emit("loadingbar:start");
+    const loadingbar = useLoadingBar();
+    loadingbar.start();
     next();
 });
 
 router.afterEach(() => {
-    mitt.emit("loadingbar:finish");
+    const loadingbar = useLoadingBar();
+    loadingbar.finish();
 });
 
 export default router;

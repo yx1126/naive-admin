@@ -1,32 +1,15 @@
 import mitt from "mitt";
-import type { VNodeChild } from "vue";
-import type { DialogOptions, MessageOptions } from "naive-ui";
-
-export interface MessageOption {
-    content: string | (() => VNodeChild);
-    option?: MessageOptions;
-}
+import type { LoadingBarOption, DialogOption, MessageOption, NotificationOption } from "@/naive";
 
 type Events = {
     // loadingbar
-    "loadingbar:start"?: undefined;
-    "loadingbar:finish"?: undefined;
-    "loadingbar:error"?: undefined;
+    loadingbar: LoadingBarOption;
     // dialog
-    "dialog:destroyAll"?: undefined;
-    "dialog:create": DialogOptions;
-    "dialog:error": DialogOptions;
-    "dialog:info": DialogOptions;
-    "dialog:success": DialogOptions;
-    "dialog:warning": DialogOptions;
+    dialog: DialogOption;
     // message
-    "message:destroyAll"?: undefined;
-    "message:create": MessageOption;
-    "message:error": MessageOption;
-    "message:info": MessageOption;
-    "message:loading": MessageOption;
-    "message:success": MessageOption;
-    "message:warning": MessageOption;
+    message: MessageOption;
+    // notification
+    notification: NotificationOption;
 };
 
 const emitter = mitt<Events>();

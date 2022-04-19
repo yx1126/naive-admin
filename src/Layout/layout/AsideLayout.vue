@@ -2,20 +2,21 @@
     <div>
         <h1>AsideLayout</h1>
         <n-button>test</n-button>
-        <n-button type="primary" @click="mitt.emit('loadingbar:start')">test</n-button>
-        <n-button type="success" @click="mitt.emit('loadingbar:finish')">test</n-button>
-        <n-button type="info" @click="handleInfo">test</n-button>
+        <n-button type="primary" @click="handleInfo">test</n-button>
+        <n-button type="success" @click="loadingbar.start()">test</n-button>
+        <n-button type="info" @click="loadingbar.finish()">test</n-button>
         <n-button type="warning">test</n-button>
-        <n-button type="error" @click="mitt.emit('loadingbar:error')">test</n-button>
+        <n-button type="error">test</n-button>
     </div>
 </template>
 
 <script setup lang="ts">
-import useMitt from "@hooks/use-mitt";
-const mitt = useMitt();
+import { useLoadingBar, useMessage } from "@/naive";
+
+const loadingbar = useLoadingBar();
+const message = useMessage();
+
 const handleInfo = () => {
-    mitt.emit("dialog:info", {
-        title: "test",
-    });
+    message.success("test");
 };
 </script>
