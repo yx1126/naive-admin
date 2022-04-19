@@ -19,9 +19,6 @@
         "types": ["vite/client"],
         "paths": {
             "@/*": ["./src/*"],
-            "@comps/*": ["./src/components/*"],
-            "@hooks/*": ["./src/hooks/*"],
-            "@types/*": ["./types/*"]
         }
     },
     "references": [

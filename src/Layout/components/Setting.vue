@@ -1,61 +1,61 @@
 <template>
     <Drawer v-model:show="isShowDrawer" :mask-closable="true">
         <n-drawer-content :native-scrollbar="false" body-content-style="padding: 0 15px 15px 15px;">
-            <template #header>{{ t("set.title") }}</template>
-            <n-divider> {{ t("set.navTheme") }} </n-divider>
+            <template #header>{{ $t("set.title") }}</template>
+            <n-divider> {{ $t("set.navTheme") }} </n-divider>
             <n-space justify="center">
                 <template v-for="n in navTheme" :key="n">
                     <nav-mode :mode="n" :chose="set.navMode === n" :color="set.themeColor" @click="set.navMode = n" />
                 </template>
             </n-space>
-            <n-divider> {{ t("set.layoutMode") }} </n-divider>
+            <n-divider> {{ $t("set.layoutMode") }} </n-divider>
             <n-space justify="center">
                 <template v-for="n in layoutMode" :key="n">
                     <nav-mode :mode="n" :chose="set.layoutMode === n" :color="set.themeColor" @click="set.layoutMode = n" />
                 </template>
             </n-space>
-            <n-divider> {{ t("set.pageDisplay") }} </n-divider>
+            <n-divider> {{ $t("set.pageDisplay") }} </n-divider>
             <div class="divider-content">
                 <div class="divider-content-item">
-                    <n-ellipsis class="">{{ t("set.isShowLogo") }}</n-ellipsis>
+                    <n-ellipsis class="">{{ $t("set.isShowLogo") }}</n-ellipsis>
                     <n-switch v-model:value="set.isShowLogo" size="medium" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.isShowBreadcrumb") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.isShowBreadcrumb") }}</n-ellipsis>
                     <n-switch v-model:value="set.isShowBreadcrumb" size="medium" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.isShowTabs") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.isShowTabs") }}</n-ellipsis>
                     <n-switch v-model:value="set.isShowTabs" size="medium" />
                 </div>
             </div>
-            <n-divider> {{ t("set.pageFunction") }} </n-divider>
+            <n-divider> {{ $t("set.pageFunction") }} </n-divider>
             <div class="divider-content">
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.isKeepHeader") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.isKeepHeader") }}</n-ellipsis>
                     <n-switch v-model:value="set.isKeepHeader" size="medium" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.isKeepTabs") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.isKeepTabs") }}</n-ellipsis>
                     <n-switch v-model:value="set.isKeepTabs" size="medium" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.isCutMenu") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.isCutMenu") }}</n-ellipsis>
                     <n-switch v-model:value="set.isCutMenu" size="medium" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.uniqueMenuOpened") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.uniqueMenuOpened") }}</n-ellipsis>
                     <n-switch v-model:value="set.uniqueMenuOpened" size="medium" />
                 </div>
             </div>
-            <n-divider> {{ t("set.otherSet") }} </n-divider>
+            <n-divider> {{ $t("set.otherSet") }} </n-divider>
             <div class="divider-content">
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.routerTrans") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.routerTrans") }}</n-ellipsis>
                     <n-select class="divider-content-item__input" v-model:value="set.routerTrans" :options="routerTransOptions" size="small" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.themeColor") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.themeColor") }}</n-ellipsis>
                     <n-color-picker
                         class="divider-content-item__input"
                         v-model:value="set.themeColor"
@@ -65,12 +65,12 @@
                     />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ t("set.lang") }}</n-ellipsis>
+                    <n-ellipsis>{{ $t("set.lang") }}</n-ellipsis>
                     <n-select class="divider-content-item__input" v-model:value="set.lang" @update:value="changeLang" :options="lang" size="small" />
                 </div>
             </div>
             <template #footer>
-                <n-button @click="set.reset">{{ t("set.reset") }}</n-button>
+                <n-button @click="set.reset">{{ $t("set.reset") }}</n-button>
             </template>
         </n-drawer-content>
     </Drawer>
@@ -79,12 +79,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import useSetStore, { navTheme, layoutMode, routerTransOptions } from "@/stores/setting";
-import Drawer from "@comps/Drawer";
+import Drawer from "@/components/Drawer";
 import { useI18n, lang } from "@/locales";
 import type { Lang } from "@/locales";
 import NavMode from "./NavMode.vue";
 
-const { t, locale } = useI18n();
+const { locale } = useI18n();
 
 const set = useSetStore();
 

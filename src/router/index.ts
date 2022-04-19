@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useLoadingBar } from "@/naive";
+import { useLoadingBar } from "@/hooks/useFreeBack";
 import routes from "./routes";
 
 const router = createRouter({

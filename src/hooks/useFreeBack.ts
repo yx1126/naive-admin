@@ -1,4 +1,4 @@
-import useMitt from "@hooks/use-mitt";
+import useMitt from "@/hooks/use-mitt";
 import type { LoadingBarApiInjection, DialogApiInjection, MessageApiInjection, NotificationApiInjection } from "@/naive";
 
 export type LoadingBarOption = (back: LoadingBarApiInjection) => void;
@@ -43,11 +43,11 @@ export const useNotification = () => {
     return notification as NotificationApiInjection;
 };
 
-export const useFreeBack = <T extends keyof FreeBackOptions>(type: T): FreeBackOptions[T] => {
+const useFreeBack = <T extends keyof FreeBackOptions>(type: T): FreeBackOptions[T] => {
     const mitt = useMitt();
     let back: FreeBack | undefined;
     mitt.emit(type, (cbValue: FreeBack) => (back = cbValue));
     return back as FreeBackOptions[T];
 };
 
-export {};
+export { useFreeBack as default };

@@ -6,7 +6,5 @@ export type DialogApiInjection = ReturnType<typeof useDialog>;
 export type MessageApiInjection = ReturnType<typeof useMessage>;
 export type NotificationApiInjection = ReturnType<typeof useNotification>;
 
-export * from "./hooks";
-
 export { NConfig };
 export default {};

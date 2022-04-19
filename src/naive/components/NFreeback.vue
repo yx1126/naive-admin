@@ -4,11 +4,10 @@
 
 <script setup lang="ts">
 import { onBeforeMount } from "vue";
-import useMitt from "@hooks/use-mitt";
+import useMitt from "@/hooks/use-mitt";
 import { useLoadingBar, useDialog, useMessage, useNotification } from "naive-ui";
 
 const loadingBar = useLoadingBar();
-
 const dialog = useDialog();
 const message = useMessage();
 const notification = useNotification();

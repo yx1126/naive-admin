@@ -1,5 +1,5 @@
 import mitt from "mitt";
-import type { LoadingBarOption, DialogOption, MessageOption, NotificationOption } from "@/naive";
+import type { LoadingBarOption, DialogOption, MessageOption, NotificationOption } from "./useFreeBack";
 
 type Events = {
     // loadingbar

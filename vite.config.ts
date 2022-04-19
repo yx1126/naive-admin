@@ -23,9 +23,6 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": resolve("src"),
-            "@comps": resolve("src/components"),
-            "@hooks": resolve("src/hooks"),
-            "@types": resolve("types"),
             "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
         },
     },
