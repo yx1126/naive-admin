@@ -1,5 +1,5 @@
 <template>
-    <Drawer v-model:show="isShowDrawer" :mask-closable="true">
+    <Drawer v-model:show="toggleDrawer" :mask-closable="true">
         <n-drawer-content :native-scrollbar="false" body-content-style="padding: 0 15px 15px 15px;">
             <template #header>{{ $t("set.title") }}</template>
             <n-divider> {{ $t("set.navTheme") }} </n-divider>
@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import useSetStore, { navTheme, layoutMode, routerTransOptions } from "@/stores/setting";
 import Drawer from "@/components/Drawer";
 import { useI18n, lang } from "@/locales";
@@ -88,7 +88,21 @@ const { locale } = useI18n();
 
 const set = useSetStore();
 
-const isShowDrawer = computed({
+watch(
+    () => set.isKeepTabs,
+    value => {
+        if (value) set.setState("isKeepHeader", value);
+    },
+);
+
+watch(
+    () => set.isKeepHeader,
+    value => {
+        if (!value) set.setState("isKeepTabs", value);
+    },
+);
+
+const toggleDrawer = computed({
     get: () => set.drawerStatus,
     set: set.toggleDrawer,
 });

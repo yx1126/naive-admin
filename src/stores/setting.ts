@@ -20,6 +20,7 @@ export interface SetState {
     isCutMenu: boolean;
     routerTrans: RouterTrans;
     lang: Lang;
+    collapsed: boolean;
 }
 
 export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
@@ -44,6 +45,7 @@ export const defaultSetting: SetState = {
     isCutMenu: false, // 切割菜单
     routerTrans: "null", // 路由动画
     lang: "zh-CN",
+    collapsed: false,
 };
 
 const useSetStore = defineStore(

@@ -1,10 +1,10 @@
 import { fileURLToPath, URL } from "url";
-
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
+import DefineOptions from "unplugin-vue-define-options/vite";
 
 const resolve = (path: string) => {
     return fileURLToPath(new URL(`./${path}`, import.meta.url));
@@ -15,6 +15,7 @@ export default defineConfig({
     plugins: [
         vue(),
         vueJsx(),
+        DefineOptions(),
         Components({
             dts: true,
             resolvers: [NaiveUiResolver()],
