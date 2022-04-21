@@ -2,6 +2,8 @@ import { createPinia } from "pinia";
 import { useI18n } from "@/locales";
 // import createVuePinia from "./plugins/vue-pinia-store/vue-pinia-store";
 import createVuePinia from "./plugins/vue-pinia-store-v2/vue-pinia-store";
+import useSetStore from "./setting";
+import useUserStore from "./user";
 
 const pinia = createPinia();
 pinia.use(
@@ -13,5 +15,7 @@ pinia.use(
         },
     }),
 );
+
+export { useSetStore, useUserStore };
 
 export default pinia;

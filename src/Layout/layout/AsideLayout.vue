@@ -8,7 +8,11 @@
             :inverted="defaultInverted"
             bordered
             show-trigger="bar"
+            :native-scrollbar="false"
         >
+            <Logo :collapsed="set.collapsed" :collapsed-width="64" :width="240">
+                <span>vue-admin</span>
+            </Logo>
             <Menu class="test" :default-value="defaultValue" :options="defaultMenus" @update:value="handleMenuChange" />
         </n-layout-sider>
         <n-layout>
@@ -28,10 +32,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import useSetStore from "@/stores/setting";
-import useUserStore from "@/stores/user";
+import { useSetStore, useUserStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Menu from "../components/Menu.vue";
+import Logo from "../components/Logo.vue";
 
 withDefaults(
     defineProps<{
@@ -49,7 +53,6 @@ const user = useUserStore();
 
 const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["aside"].includes(set.layoutMode));
 const defaultMenus = computed(() => user.menus);
-
 const defaultValue = computed(() => route.path);
 
 const handleMenuChange = (key: string) => {

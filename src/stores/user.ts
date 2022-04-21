@@ -1,8 +1,7 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { reactive, toRefs } from "vue";
 import menus from "@/assets/menu";
-import { getMenusList } from "@/util/menus";
-import type { RouteRecordRaw } from "vue-router";
+import { formatKey } from "@/util/menus";
 import type { MenuOption } from "naive-ui";
 
 export interface UserInfo {
@@ -12,7 +11,6 @@ export interface UserInfo {
 export interface UserState {
     count: number;
     info: UserInfo | null;
-    routes: RouteRecordRaw[];
     menus: MenuOption[];
 }
 
@@ -22,7 +20,6 @@ const useUserStore = defineStore(
         const state = reactive<UserState>({
             count: 0,
             info: null,
-            routes: [],
             menus: [],
         });
 
@@ -35,7 +32,7 @@ const useUserStore = defineStore(
         };
 
         const initMenu = async () => {
-            state.menus = getMenusList(menus) as any;
+            state.menus = formatKey(menus) as any;
         };
 
         return {
@@ -48,7 +45,7 @@ const useUserStore = defineStore(
     {
         persistedstate: {
             enabled: true,
-            paths: ["info", "menus"],
+            paths: ["info"],
         },
     },
 );

@@ -16,9 +16,9 @@
         "allowSyntheticDefaultImports": true,
         "lib": ["esnext", "dom"],
         "baseUrl": ".",
-        "types": ["vite/client"],
+        "types": ["vite/client", "naive-ui/volar"],
         "paths": {
-            "@/*": ["./src/*"],
+            "@/*": ["./src/*"]
         }
     },
     "references": [

@@ -1,5 +1,5 @@
 <template>
-    <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
+    <n-config-provider :locale="locale" :date-locale="dateLocale" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
         <n-loading-bar-provider>
             <n-dialog-provider>
                 <n-message-provider>
@@ -16,14 +16,28 @@
 </template>
 
 <script setup lang="ts">
-import { zhCN, dateZhCN, darkTheme } from "naive-ui";
+import { zhCN, enUS, dateZhCN, dateEnUS, darkTheme } from "naive-ui";
 import { computed } from "vue";
-import useSetStore from "@/stores/setting";
+import { useSetStore } from "@/stores";
 import { createHoverColor, createPressedColor } from "@/util/color";
 import NFreeback from "./NFreeback.vue";
 import type { GlobalThemeOverrides } from "naive-ui";
 
 const set = useSetStore();
+
+const locale = computed(() => {
+    return {
+        "zh-CN": zhCN,
+        en: enUS,
+    }[set.lang];
+});
+
+const dateLocale = computed(() => {
+    return {
+        "zh-CN": dateZhCN,
+        en: dateEnUS,
+    }[set.lang];
+});
 
 const themeOverrides = computed<GlobalThemeOverrides>(() => {
     return {

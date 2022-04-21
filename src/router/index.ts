@@ -1,18 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useLoadingBar } from "@/hooks/useFreeBack";
-import menus from "@/assets/menu";
-import { getRoutesByMenu } from "@/util/menus";
+import routes from "./routes";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: "",
-            redirect: "/dashboard/console",
-        },
-        ...getRoutesByMenu(menus),
-    ],
-    strict: true,
+    routes: routes,
     scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 

@@ -1,139 +1,118 @@
-import type { Menu } from "@/types/menus";
+import { renderIcon } from "@/naive";
+import {
+    DashboardOutlined,
+    TableOutlined,
+    WalletOutlined,
+    ProfileOutlined,
+    ExclamationCircleOutlined,
+    SafetyCertificateOutlined,
+    SettingOutlined,
+    ReadOutlined,
+} from "@vicons/antd";
+import type { MenuOption } from "naive-ui";
 
-const menus: Menu[] = [
+const menus: MenuOption[] = [
     {
         label: "Dashboard",
-        path: "/dashboard",
-        name: "Dashboard",
-        component: null,
+        key: "/dashboard",
+        icon: renderIcon(DashboardOutlined),
         children: [
             {
                 label: "主控台",
-                path: "console",
-                name: "Console",
-                component: "@/views/dashboard/console.vue",
+                key: "console",
             },
             {
                 label: "工作台",
-                path: "workspace",
-                name: "Workspace",
-                component: "@/views/dashboard/workspace.vue",
+                key: "workspace",
             },
         ],
     },
     {
         label: "列表页面",
-        path: "/list-page",
-        name: "ListPage",
-        component: null,
+        key: "/list-page",
+        icon: renderIcon(TableOutlined),
         children: [
             {
                 label: "基础列表",
-                path: "base-list",
-                name: "BaseList",
-                component: "@/views/list-page/base-list.vue",
+                key: "base-list",
             },
         ],
     },
     {
         label: "表单页面",
-        path: "/form-page",
-        name: "FormPage",
-        component: null,
+        key: "/form-page",
+        icon: renderIcon(ProfileOutlined),
         children: [
             {
                 label: "基础表单",
-                path: "base-list",
-                name: "BaseList",
-                component: "@/views/form-page/base-form.vue",
+                key: "base-list",
             },
         ],
     },
     {
         label: "组件示例",
-        path: "/components",
-        name: "Components",
-        component: null,
+        key: "/components",
+        icon: renderIcon(WalletOutlined),
         children: [
             {
                 label: "基础表单",
-                path: "base-table",
-                name: "BaseTable",
-                component: "@/views/components/base-table.vue",
+                key: "base-table",
             },
         ],
     },
     {
         label: "异常页面",
-        path: "/error",
-        name: "Error",
-        component: null,
+        key: "/error",
+        icon: renderIcon(ExclamationCircleOutlined),
         children: [
             {
                 label: "403",
-                path: "403",
-                name: "403",
-                component: "@/views/error/403.vue",
+                key: "403",
             },
             {
                 label: "404",
-                path: "404",
-                name: "404",
-                component: "@/views/error/404.vue",
+                key: "404",
             },
         ],
     },
     {
         label: "权限管理",
-        path: "/permission",
-        name: "Permission",
-        component: null,
+        key: "/permission",
+        icon: renderIcon(SafetyCertificateOutlined),
         children: [
             {
                 label: "用户管理",
-                path: "user-manage",
-                name: "UserManage",
-                component: "@/views/permission/user-manage.vue",
+                key: "user-manage",
             },
             {
                 label: "角色管理",
-                path: "role-manage",
-                name: "RoleManage",
-                component: "@/views/permission/role-manage.vue",
+                key: "role-manage",
             },
             {
                 label: "菜单管理",
-                path: "menu-manage",
-                name: "MenuManage",
-                component: "@/views/permission/menu-manage.vue",
+                key: "menu-manage",
             },
         ],
     },
     {
         label: "设置页面",
-        path: "/set",
-        name: "Set",
-        component: null,
+        key: "/set",
+        icon: renderIcon(SettingOutlined),
         children: [
             {
                 label: "系统设置",
-                path: "system-set",
-                name: "SystemSet",
-                component: "@/views/set/system-set.vue",
+                key: "system-set",
             },
             {
                 label: "用户设置",
-                path: "user-set",
-                name: "UserSet",
-                component: "@/views/set/user-set.vue",
+                key: "user-set",
             },
         ],
     },
     {
         label: "关于",
-        path: "/about",
-        name: "About",
-        component: "@/views/other-pages/about.vue",
+        key: "/about",
+        icon: renderIcon(ReadOutlined),
     },
 ];
 export default menus;

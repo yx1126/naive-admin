@@ -17,6 +17,17 @@ export function dynamicImport(menu: Menu): any {
     return modules[path as string];
 }
 
+export function formatKey(menus: MenuOption[], key?: string | number): MenuOption[] {
+    return menus.map(menu => {
+        const back: MenuOption = {
+            ...menu,
+            key: key ? key + "/" + menu.key : menu.key,
+        };
+        if (menu.children?.length) back.children = formatKey(menu.children, menu.key);
+        return back;
+    });
+}
+
 export function getMenusList(menus: Menu[], path?: string): MenuOption[] {
     return menus.map<MenuOption>(menu => {
         const back: MenuOption = {
