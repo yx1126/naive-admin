@@ -72,4 +72,6 @@ export function getRouteByPath(path: string, routes: RouteRecordRaw[]): RouteRec
     return route;
 }
 
+export {};
+
 export default {};

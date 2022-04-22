@@ -28,14 +28,14 @@ const set = useSetStore();
 const locale = computed(() => {
     return {
         "zh-CN": zhCN,
-        en: enUS,
+        enUS: enUS,
     }[set.lang];
 });
 
 const dateLocale = computed(() => {
     return {
         "zh-CN": dateZhCN,
-        en: dateEnUS,
+        enUS: dateEnUS,
     }[set.lang];
 });
 
