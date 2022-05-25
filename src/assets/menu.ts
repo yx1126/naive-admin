@@ -45,7 +45,7 @@ const menus: MenuOption[] = [
         children: [
             {
                 label: "基础表单",
-                key: "base-list",
+                key: "base-form",
             },
         ],
     },
