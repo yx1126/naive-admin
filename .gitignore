@@ -13,8 +13,8 @@ dist
 dist-ssr
 coverage
 *.local
-components.d.ts
 yarn.lock
+pnpm-lock.yaml
 
 /cypress/videos/
 /cypress/screenshots/

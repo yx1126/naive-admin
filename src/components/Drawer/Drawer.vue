@@ -9,19 +9,16 @@
     </n-drawer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-    name: "Drawer",
-    inheritAttrs: false,
-});
-</script>
-
 <script setup lang="ts">
 import { useAttrs, computed } from "vue";
 import { SettingOutlined } from "@vicons/antd";
 import { CloseOutline } from "@vicons/ionicons5";
 import useSetStore from "@/stores/setting";
+
+defineOptions({
+    name: "Drawer",
+    inheritAttrs: false,
+});
 
 const attrs = useAttrs();
 const set = useSetStore();
@@ -34,7 +31,7 @@ const emit = defineEmits<{
     (e: "update:show", value: boolean): void;
 }>();
 
-const drawerStyles = computed<Record<string, string>>(() => {
+const drawerStyles = computed(() => {
     return {
         "--drawer-set-color": set.themeColor,
     };

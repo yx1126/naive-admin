@@ -47,7 +47,7 @@ function createVuePinia<Store extends object = any>(options?: Options<Store>): P
             },
             {
                 detached: true,
-            }
+            },
         );
 
         const value = getItem(key);

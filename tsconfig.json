@@ -16,7 +16,7 @@
         "allowSyntheticDefaultImports": true,
         "lib": ["esnext", "dom"],
         "baseUrl": ".",
-        "types": ["vite/client", "naive-ui/volar"],
+        "types": ["vite/client", "naive-ui/volar", "unplugin-vue-define-options"],
         "paths": {
             "@/*": ["./src/*"]
         }

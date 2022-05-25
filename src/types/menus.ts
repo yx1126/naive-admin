@@ -1,5 +1,3 @@
-import { pick } from "lodash";
-
 export interface Menu {
     label: string;
     path: string;
@@ -7,5 +5,4 @@ export interface Menu {
     component: string | null;
     children?: Menu[];
 }
-pick
 export {};
