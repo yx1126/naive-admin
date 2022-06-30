@@ -16,7 +16,7 @@
         "allowSyntheticDefaultImports": true,
         "lib": ["esnext", "dom"],
         "baseUrl": ".",
-        "types": ["vite/client", "naive-ui/volar", "unplugin-vue-define-options"],
+        "types": ["vite/client", "naive-ui/volar", "unplugin-vue-define-options", "vite-plugin-svg-icons/client"],
         "paths": {
             "@/*": ["./src/*"]
         }

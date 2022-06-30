@@ -5,6 +5,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import DefineOptions from "unplugin-vue-define-options/vite";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 const resolve = (path: string) => {
     return fileURLToPath(new URL(`./${path}`, import.meta.url));
@@ -19,6 +20,22 @@ export default defineConfig({
         Components({
             dts: true,
             resolvers: [NaiveUiResolver()],
+        }),
+        createSvgIconsPlugin({
+            // 指定需要缓存的图标文件夹
+            iconDirs: [resolve("src/assets/svg")],
+            // 指定symbolId格式
+            symbolId: "icon-[dir]-[name]",
+            /**
+             * 自定义插入位置
+             * @default: body-last | "body-first"
+             */
+            inject: "body-last",
+            /**
+             * custom dom id
+             * @default: __svg__icons__dom__
+             */
+            customDomId: "__svg__icons__dom__",
         }),
     ],
     resolve: {

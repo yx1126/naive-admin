@@ -76,9 +76,9 @@ const useSetStore = defineStore(
     {
         persistedstate: {
             enabled: true,
-            // paths: s => {
-            //     return s.filter(k => !["drawerStatus"].includes(k));
-            // },
+            paths: s => {
+                return s.filter(k => !["drawerStatus"].includes(k));
+            },
         },
     },
 );
