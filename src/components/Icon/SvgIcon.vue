@@ -1,6 +1,6 @@
 <template>
-    <svg aria-hidden="true">
-        <use :xlink:href="symbolId" :fill="color" />
+    <svg class="svg-icon" aria-hidden="true">
+        <use :xlink:href="symbolId" />
     </svg>
 </template>
 
@@ -10,11 +10,9 @@ const props = withDefaults(
     defineProps<{
         prefix?: string;
         icon: string;
-        color?: string;
     }>(),
     {
         prefix: "icon",
-        color: "#333",
     },
 );
 
@@ -24,3 +22,12 @@ defineOptions({
 
 const symbolId = computed(() => `#${props.prefix}-${props.icon}`);
 </script>
+
+<style>
+.svg-icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    overflow: hidden;
+}
+</style>

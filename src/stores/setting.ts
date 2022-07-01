@@ -51,7 +51,7 @@ export const defaultSetting: SetState = {
 const useSetStore = defineStore(
     "set",
     () => {
-        const state = reactive<SetState>(Object.assign({}, defaultSetting));
+        const state: SetState = reactive(Object.assign({}, defaultSetting));
 
         const toggleDrawer = (value?: boolean) => {
             state.drawerStatus = typeof value === "boolean" ? value : !state.drawerStatus;

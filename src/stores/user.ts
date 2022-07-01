@@ -17,7 +17,7 @@ export interface UserState {
 const useUserStore = defineStore(
     "user",
     () => {
-        const state = reactive<UserState>({
+        const state: UserState = reactive({
             count: 0,
             info: null,
             menus: [],
@@ -28,11 +28,11 @@ const useUserStore = defineStore(
         };
 
         const setState = <T extends keyof UserState>(key: T, value: UserState[T]) => {
-            state[key] = value as any;
+            state[key] = value;
         };
 
         const initMenu = async () => {
-            state.menus = formatKey(menus) as any;
+            state.menus = formatKey(menus);
         };
 
         return {
