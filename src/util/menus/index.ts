@@ -17,13 +17,13 @@ export function dynamicImport(menu: Menu): any {
     return modules[path as string];
 }
 
-export function formatKey(menus: MenuOption[], key?: string | number): MenuOption[] {
+export function formatKey(menus: MenuOption[], path?: string | number): MenuOption[] {
     return menus.map(menu => {
         const back: MenuOption = {
             ...menu,
-            key: key ? key + "/" + menu.key : menu.key,
+            path: path ? path + "/" + menu.path : menu.path,
         };
-        if (menu.children?.length) back.children = formatKey(menu.children, menu.key);
+        if (menu.children?.length) back.children = formatKey(menu.children, menu.path as string);
         return back;
     });
 }

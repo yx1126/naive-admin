@@ -2,12 +2,8 @@
     <n-icon>
         <slot>
             <template v-if="icon">
-                <template v-if="isIcon">
-                    <i :class="icon" />
-                </template>
-                <template v-else>
-                    <svg-icon :icon="icon" />
-                </template>
+                <i v-if="isIcon" :class="icon" />
+                <svg-icon v-else :icon="icon" />
             </template>
         </slot>
     </n-icon>
@@ -17,7 +13,6 @@
 import { computed } from "vue";
 import { NIcon } from "naive-ui";
 import SvgIcon from "./SvgIcon.vue";
-
 const props = withDefaults(
     defineProps<{
         icon?: string;
@@ -29,5 +24,7 @@ const props = withDefaults(
 
 const iconPrefixReg = /^[a-z]{1,}-icon-/;
 
-const isIcon = computed(() => iconPrefixReg.test(props.icon));
+const isIcon = computed(() => {
+    return typeof props.icon === "string" ? iconPrefixReg.test(props.icon) : false;
+});
 </script>

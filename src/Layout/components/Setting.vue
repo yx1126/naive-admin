@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue";
+import { watch, computed } from "vue";
 import useSetStore, { navTheme, layoutMode, routerTransOptions } from "@/stores/setting";
 import Drawer from "@/components/Drawer";
 import { useI18n, lang } from "@/locales";

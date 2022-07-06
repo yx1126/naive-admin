@@ -36,7 +36,7 @@ export const defaultSetting: SetState = {
     themeColor: "#409EFF",
     navMode: "dark", // 系统主题
     layoutMode: "aside", // 导航模式
-    isShowLogo: false, // 显示 logo
+    isShowLogo: true, // 显示 logo
     isShowTabs: true, // 显示 标签页
     uniqueMenuOpened: false, // 菜单单选
     isShowBreadcrumb: false, // 显示 面包屑

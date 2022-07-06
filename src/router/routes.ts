@@ -19,6 +19,7 @@ const routes: RouteRecordRaw[] = [
         name: "Dashboard",
         meta: {
             title: "Dashboard",
+            icon: "",
         },
         redirect: "/dashboard/console",
         component: Layout,
@@ -28,6 +29,7 @@ const routes: RouteRecordRaw[] = [
                 name: "Console",
                 meta: {
                     title: "主控台",
+                    icon: "",
                 },
                 component: () => import("@/views/dashboard/console.vue"),
             },
@@ -36,6 +38,7 @@ const routes: RouteRecordRaw[] = [
                 name: "Workspace",
                 meta: {
                     title: "工作台",
+                    icon: "",
                 },
                 component: () => import("@/views/dashboard/workspace.vue"),
             },
@@ -46,6 +49,7 @@ const routes: RouteRecordRaw[] = [
         name: "ListPage",
         meta: {
             title: "列表页面",
+            icon: "",
         },
         redirect: "/list-page/base-list",
         component: Layout,
@@ -55,6 +59,7 @@ const routes: RouteRecordRaw[] = [
                 name: "BaseList",
                 meta: {
                     title: "基础列表",
+                    icon: "",
                 },
                 component: () => import("@/views/list-page/base-list.vue"),
             },
@@ -65,6 +70,7 @@ const routes: RouteRecordRaw[] = [
         name: "FormPage",
         meta: {
             title: "表单页面",
+            icon: "",
         },
         redirect: "/form-page/base-form",
         component: Layout,
@@ -74,6 +80,7 @@ const routes: RouteRecordRaw[] = [
                 name: "BaseForm",
                 meta: {
                     title: "基础表单",
+                    icon: "",
                 },
                 component: () => import("@/views/form-page/base-form.vue"),
             },
@@ -84,6 +91,7 @@ const routes: RouteRecordRaw[] = [
         name: "Components",
         meta: {
             title: "组件示例",
+            icon: "",
         },
         redirect: "/components/base-table",
         component: Layout,
@@ -93,6 +101,7 @@ const routes: RouteRecordRaw[] = [
                 name: "BaseTable",
                 meta: {
                     title: "基础表单",
+                    icon: "",
                 },
                 component: () => import("@/views/components/base-table.vue"),
             },
@@ -103,6 +112,7 @@ const routes: RouteRecordRaw[] = [
         name: "Error",
         meta: {
             title: "异常页面",
+            icon: "",
         },
         redirect: "/error/403",
         component: Layout,
@@ -112,6 +122,7 @@ const routes: RouteRecordRaw[] = [
                 name: "403",
                 meta: {
                     title: "403",
+                    icon: "",
                 },
                 component: () => import("@/views/error/403.vue"),
             },
@@ -120,6 +131,7 @@ const routes: RouteRecordRaw[] = [
                 name: "404",
                 meta: {
                     title: "404",
+                    icon: "",
                 },
                 component: () => import("@/views/error/404.vue"),
             },
@@ -130,6 +142,7 @@ const routes: RouteRecordRaw[] = [
         name: "Permission",
         meta: {
             title: "异常页面",
+            icon: "",
         },
         redirect: "/permission/user-manage",
         component: Layout,
@@ -139,6 +152,7 @@ const routes: RouteRecordRaw[] = [
                 name: "UserManage",
                 meta: {
                     title: "用户管理",
+                    icon: "",
                 },
                 component: () => import("@/views/permission/user-manage.vue"),
             },
@@ -147,6 +161,7 @@ const routes: RouteRecordRaw[] = [
                 name: "RoleManage",
                 meta: {
                     title: "角色管理",
+                    icon: "",
                 },
                 component: () => import("@/views/permission/role-manage.vue"),
             },
@@ -155,6 +170,7 @@ const routes: RouteRecordRaw[] = [
                 name: "MenuManage",
                 meta: {
                     title: "菜单管理",
+                    icon: "",
                 },
                 component: () => import("@/views/permission/menu-manage.vue"),
             },
@@ -165,6 +181,7 @@ const routes: RouteRecordRaw[] = [
         name: "Set",
         meta: {
             title: "设置页面",
+            icon: "",
         },
         redirect: "/set/system-set",
         component: Layout,
@@ -174,6 +191,7 @@ const routes: RouteRecordRaw[] = [
                 name: "SystemSet",
                 meta: {
                     title: "系统设置",
+                    icon: "",
                 },
                 component: () => import("@/views/set/system-set.vue"),
             },
@@ -182,6 +200,7 @@ const routes: RouteRecordRaw[] = [
                 name: "UserSet",
                 meta: {
                     title: "用户设置",
+                    icon: "",
                 },
                 component: () => import("@/views/set/user-set.vue"),
             },
@@ -192,6 +211,7 @@ const routes: RouteRecordRaw[] = [
         name: "About",
         meta: {
             title: "关于",
+            icon: "",
         },
         component: () => import("@/views/other-pages/about.vue"),
     },

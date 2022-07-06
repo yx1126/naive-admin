@@ -7,6 +7,9 @@
         <Icon icon="404" size="26" color="red" />
         <Icon><GameControllerOutline /></Icon>
         <Icon><GameController /></Icon>
+        <template v-for="i in 100" :key="i">
+            <p>{{ i }}</p>
+        </template>
     </div>
 </template>
 

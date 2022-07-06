@@ -1,5 +1,5 @@
 <template>
-    <div class="logo" :style="logoStyle">
+    <div v-if="set.isShowLogo" class="logo" :style="logoStyle">
         <div class="logo-icon">
             <slot name="icon">
                 <n-icon :size="32"><Vue /></n-icon>
@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { useSetStore } from "@/stores";
 import Vue from "@/components/Vue";
 
 interface Logo {
@@ -23,6 +24,8 @@ interface Logo {
     text?: string;
     mode?: "vertical" | "horizontal";
 }
+
+const set = useSetStore();
 
 const props = withDefaults(defineProps<Logo>(), {
     width: 272,
