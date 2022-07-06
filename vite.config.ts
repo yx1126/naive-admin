@@ -15,7 +15,7 @@ const resolve = (path: string) => {
 export default defineConfig({
     plugins: [
         vue({
-            reactivityTransform: false,
+            reactivityTransform: true,
         }),
         vueJsx(),
         DefineOptions(),

@@ -36,8 +36,8 @@
                     <n-switch v-model:value="set.isKeepHeader" size="medium" />
                 </div>
                 <div class="divider-content-item">
-                    <n-ellipsis>{{ $t("set.isKeepTabs") }}</n-ellipsis>
-                    <n-switch v-model:value="set.isKeepTabs" size="medium" />
+                    <n-ellipsis>{{ $t("set.isKeepTags") }}</n-ellipsis>
+                    <n-switch v-model:value="set.isKeepTags" size="medium" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.isCutMenu") }}</n-ellipsis>
@@ -89,7 +89,7 @@ const { locale } = useI18n();
 const set = useSetStore();
 
 watch(
-    () => set.isKeepTabs,
+    () => set.isKeepTags,
     value => {
         if (value) set.setState("isKeepHeader", value);
     },
@@ -98,7 +98,7 @@ watch(
 watch(
     () => set.isKeepHeader,
     value => {
-        if (!value) set.setState("isKeepTabs", value);
+        if (!value) set.setState("isKeepTags", value);
     },
 );
 

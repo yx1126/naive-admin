@@ -2,7 +2,7 @@
     "set": {
         "isCutMenu": "分割菜单",
         "isKeepHeader": "Fixed the top bar",
-        "isKeepTabs": "Fixed Tabs",
+        "isKeepTags": "Fixed Tabs",
         "isShowBreadcrumb": "Show Breadcrumb",
         "isShowLogo": "Show Logo",
         "isShowTabs": "Show Tabs",

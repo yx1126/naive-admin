@@ -16,7 +16,7 @@ export interface SetState {
     uniqueMenuOpened: boolean;
     isShowBreadcrumb: boolean;
     isKeepHeader: boolean;
-    isKeepTabs: boolean;
+    isKeepTags: boolean;
     isCutMenu: boolean;
     routerTrans: RouterTrans;
     lang: Lang;
@@ -41,7 +41,7 @@ export const defaultSetting: SetState = {
     uniqueMenuOpened: false, // 菜单单选
     isShowBreadcrumb: false, // 显示 面包屑
     isKeepHeader: false, // 固定 顶栏
-    isKeepTabs: false, // 固定 标签页
+    isKeepTags: false, // 固定 标签页
     isCutMenu: false, // 切割菜单
     routerTrans: "null", // 路由动画
     lang: "zh-CN",
