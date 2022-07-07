@@ -59,6 +59,7 @@ $body-color: #f0f2f5;
     box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
     position: relative;
+    overflow: hidden;
     &::before {
         content: "";
         display: block;

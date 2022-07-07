@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore, useUserStore } from "@/stores";
 import Header from "../components/Header.vue";
@@ -73,7 +73,7 @@ export default defineComponent({
                 >
                     {this.isKeepHeader ? null : HeaderLayout}
                     {this.isKeepTags ? null : TagsLayout}
-                    <router-view />
+                    {renderSlot(this.$slots, "default")}
                 </n-layout-content>
             </n-layout>
         );

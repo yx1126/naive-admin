@@ -56,10 +56,8 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => {
             railColorActive: set.themeColor,
         },
         Menu: {
-            // 主题色配置
-            itemColorHoverInverted: set.themeColor,
-            itemColorActiveInverted: set.themeColor,
             // 反转主题色配置
+            itemColorActiveInverted: set.themeColor,
             itemColorActiveHoverInverted: set.themeColor,
             itemColorActiveCollapsedInverted: set.themeColor,
         },

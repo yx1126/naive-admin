@@ -1,5 +1,8 @@
 <template>
-    <component :is="mode" :native-scrollbar="false" />
+    <component :is="mode" :native-scrollbar="false">
+        <router-view />
+        <n-back-top />
+    </component>
     <Setting />
 </template>
 
@@ -27,12 +30,6 @@ const mode = computed(() => {
     height: 100%;
     .layout-header {
         height: 60px;
-        &.layout-header-mixin {
-            display: flex;
-            .logo {
-                flex: 0 0 auto;
-            }
-        }
     }
     .layout-tags {
         height: 35px;

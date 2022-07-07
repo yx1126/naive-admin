@@ -18,12 +18,10 @@ import Vue from "@/components/Vue";
 
 interface Logo {
     collapsed?: boolean;
-    inverted?: boolean;
     width?: number;
     height?: number;
     collapsedWidth?: number;
     text?: string;
-    mode?: "vertical" | "horizontal";
 }
 
 const set = useSetStore();
@@ -32,7 +30,6 @@ const props = withDefaults(defineProps<Logo>(), {
     width: 272,
     height: 50,
     collapsedWidth: 48,
-    mode: "vertical",
 });
 
 const logoStyle = computed(() => {

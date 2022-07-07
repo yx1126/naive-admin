@@ -55,8 +55,12 @@ const useSetStore = defineStore(
     () => {
         const state: SetState = reactive(Object.assign({}, defaultSetting));
 
-        const toggleDrawer = (value?: boolean) => {
+        const toggleDrawer = (value?: boolean | MouseEvent) => {
             state.drawerStatus = typeof value === "boolean" ? value : !state.drawerStatus;
+        };
+
+        const togglCollapse = (value?: boolean | MouseEvent) => {
+            state.collapsed = typeof value === "boolean" ? value : !state.collapsed;
         };
 
         const setState = <T extends keyof SetState>(key: T, value: SetState[T]) => {
@@ -71,6 +75,7 @@ const useSetStore = defineStore(
         return {
             ...toRefs(state),
             toggleDrawer,
+            togglCollapse,
             setState,
             reset,
         };

@@ -1,15 +1,16 @@
 <script lang="tsx">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore, useUserStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
+import Collapse from "../components/Collapse.vue";
 
 export default defineComponent({
     name: "MixinLayout",
-    components: { Header, Tags, Menu, Logo },
+    components: { Header, Tags, Menu, Logo, Collapse },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -75,9 +76,17 @@ export default defineComponent({
                         bordered
                         inverted={this.inverted}
                         show-trigger="bar"
+                        content-style="height: 100%; padding-bottom: 42px; position: relative;"
                         native-scrollbar={false}
                     >
                         <Menu v-model={[this.defaultValue, "value"]} inverted={this.inverted} options={this.defaultMenus} />
+                        <Collapse
+                            class="mixin-collapse"
+                            collapsed={this.collapsed}
+                            size={this.collapsed ? 24 : 22}
+                            width={240}
+                            collapsed-width={64}
+                        />
                     </n-layout-sider>
                     <n-layout>
                         {this.isKeepTags ? TagsLayout : null}
@@ -88,7 +97,7 @@ export default defineComponent({
                             native-scrollbar={this.nativeScrollbar}
                         >
                             {this.isKeepTags ? null : TagsLayout}
-                            <router-view />
+                            {renderSlot(this.$slots, "default")}
                         </n-layout-content>
                     </n-layout>
                 </n-layout>
@@ -97,3 +106,16 @@ export default defineComponent({
     },
 });
 </script>
+
+<style lang="scss">
+.layout-header-mixin {
+    display: flex;
+    .logo {
+        flex: 0 0 auto;
+    }
+}
+.mixin-collapse {
+    position: absolute;
+    bottom: 0;
+}
+</style>
