@@ -47,6 +47,10 @@
                     <n-ellipsis>{{ $t("set.uniqueMenuOpened") }}</n-ellipsis>
                     <n-switch v-model:value="set.uniqueMenuOpened" size="medium" />
                 </div>
+                <div class="divider-content-item">
+                    <n-ellipsis>{{ $t("set.inverted") }}</n-ellipsis>
+                    <n-switch v-model:value="set.inverted" size="medium" />
+                </div>
             </div>
             <n-divider> {{ $t("set.otherSet") }} </n-divider>
             <div class="divider-content">
@@ -57,10 +61,11 @@
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.themeColor") }}</n-ellipsis>
                     <n-color-picker
-                        class="divider-content-item__input"
+                        class="divider-content-item__input custom-picker-set"
                         v-model:value="set.themeColor"
-                        :swatches="swatches"
+                        :swatches="defaultThemeList"
                         :actions="['confirm']"
+                        :to="false"
                         show-preview
                     />
                 </div>
@@ -70,7 +75,12 @@
                 </div>
             </div>
             <template #footer>
-                <n-button @click="set.reset">{{ $t("set.reset") }}</n-button>
+                <n-popconfirm @positive-click="set.reset">
+                    <template #trigger>
+                        <n-button>{{ $t("set.reset") }}</n-button>
+                    </template>
+                    <span>{{ $t("set.confirmSet") }}</span>
+                </n-popconfirm>
             </template>
         </n-drawer-content>
     </Drawer>
@@ -102,12 +112,12 @@ watch(
     },
 );
 
+const defaultThemeList = ["#409EFF", "#18a058", "#67C23A", "#E6A23C", "#F56C6C", "#909399"];
+
 const toggleDrawer = computed({
     get: () => set.drawerStatus,
     set: set.toggleDrawer,
 });
-
-const swatches = ["#409EFF", "#18a058"];
 
 const changeLang = (e: Lang) => {
     locale.value = e;

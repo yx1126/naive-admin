@@ -16,6 +16,8 @@
         "themeColor": "Component theme",
         "title": "Project configuration",
         "uniqueMenuOpened": "Keep a submenu open",
-        "lang": "Change language"
+        "lang": "Change language",
+        "confirmSet": "Are you sure to restore the default Settings?",
+        "inverted": "Reverse background color"
     }
 }

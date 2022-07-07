@@ -55,6 +55,19 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => {
         Switch: {
             railColorActive: set.themeColor,
         },
+        Menu: {
+            // 主题色配置
+            itemColorHoverInverted: set.themeColor,
+            itemColorActiveInverted: set.themeColor,
+            // 反转主题色配置
+            itemColorActiveHoverInverted: set.themeColor,
+            itemColorActiveCollapsedInverted: set.themeColor,
+        },
+        Dropdown: {
+            // 反转主题色配置
+            optionColorHoverInverted: set.themeColor,
+            optionColorActiveInverted: set.themeColor,
+        },
     };
 });
 

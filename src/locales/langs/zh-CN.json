@@ -16,6 +16,8 @@
         "routerTrans": "路由动画",
         "themeColor": "组件主题",
         "reset": "还原设置",
-        "lang": "语言切换"
+        "lang": "语言切换",
+        "confirmSet": "确认还原为默认设置吗？",
+        "inverted": "反转背景色"
     }
 }

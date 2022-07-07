@@ -21,6 +21,7 @@ export interface SetState {
     routerTrans: RouterTrans;
     lang: Lang;
     collapsed: boolean;
+    inverted: boolean;
 }
 
 export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
@@ -46,6 +47,7 @@ export const defaultSetting: SetState = {
     routerTrans: "null", // 路由动画
     lang: "zh-CN",
     collapsed: false,
+    inverted: false,
 };
 
 const useSetStore = defineStore(
@@ -76,9 +78,9 @@ const useSetStore = defineStore(
     {
         persistedstate: {
             enabled: true,
-            paths: s => {
-                return s.filter(k => !["drawerStatus"].includes(k));
-            },
+            // paths: s => {
+            //     return s.filter(k => !["drawerStatus"].includes(k));
+            // },
         },
     },
 );

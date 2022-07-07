@@ -20,6 +20,7 @@ interface Logo {
     collapsed?: boolean;
     inverted?: boolean;
     width?: number;
+    height?: number;
     collapsedWidth?: number;
     text?: string;
     mode?: "vertical" | "horizontal";
@@ -29,6 +30,7 @@ const set = useSetStore();
 
 const props = withDefaults(defineProps<Logo>(), {
     width: 272,
+    height: 50,
     collapsedWidth: 48,
     mode: "vertical",
 });
@@ -36,6 +38,7 @@ const props = withDefaults(defineProps<Logo>(), {
 const logoStyle = computed(() => {
     return {
         "--logo-width": (props.collapsed ? props.collapsedWidth : props.width) + "px",
+        "--logo-height": props.height + "px",
         "--logo-padding": props.collapsed ? `0 ${(props.collapsedWidth - 32) / 2}px` : "0 18px 0 20px",
         "--logo-icon-margin-right": props.collapsed ? 0 : "8px",
         "--logo-text-width": props.collapsed ? 0 : "auto",
@@ -47,7 +50,7 @@ const logoStyle = computed(() => {
 <style lang="scss" scoped>
 .logo {
     width: var(--logo-width);
-    height: 50px;
+    height: var(--logo-height);
     display: flex;
     align-items: center;
     padding: var(--logo-padding);

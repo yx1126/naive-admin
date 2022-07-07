@@ -12,7 +12,7 @@
                 </div>
             </div>
         </template>
-        <span>{{ "test" }}</span>
+        <span>{{ mode }}</span>
     </n-tooltip>
 </template>
 

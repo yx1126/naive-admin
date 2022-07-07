@@ -2,12 +2,13 @@
 import { defineComponent, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore, useUserStore } from "@/stores";
-import Header from "../../components/Header.vue";
-import Tags from "../../components/Tags.vue";
-import Menu from "../../components/Menu.vue";
-import Logo from "../../components/Logo.vue";
+import Header from "../components/Header.vue";
+import Tags from "../components/Tags.vue";
+import Menu from "../components/Menu.vue";
+import Logo from "../components/Logo.vue";
 
 export default defineComponent({
+    name: "AsideLayout",
     components: { Header, Tags, Menu, Logo },
     props: {
         nativeScrollbar: {
@@ -38,6 +39,7 @@ export default defineComponent({
         const contentTop = computed(() => {
             return (isKeepHeader.value ? 60 : 0) + (isKeepTags.value ? 35 : 0);
         });
+        const inverted = computed(() => set.inverted);
 
         return {
             defaultInverted,
@@ -47,11 +49,12 @@ export default defineComponent({
             isKeepHeader,
             isKeepTags,
             contentTop,
+            inverted,
         };
     },
     render() {
         const HeaderLayout = (
-            <n-layout-header class="layout-header" bordered position={this.isKeepHeader ? "absolute" : "static"}>
+            <n-layout-header class="layout-header" bordered inverted={this.inverted} position={this.isKeepHeader ? "absolute" : "static"}>
                 <Header />
             </n-layout-header>
         );
