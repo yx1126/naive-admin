@@ -40,8 +40,8 @@ export const defaultSetting: SetState = {
     isShowTabs: true, // 显示 标签页
     uniqueMenuOpened: false, // 菜单单选
     isShowBreadcrumb: false, // 显示 面包屑
-    isKeepHeader: false, // 固定 顶栏
-    isKeepTags: false, // 固定 标签页
+    isKeepHeader: true, // 固定 顶栏
+    isKeepTags: true, // 固定 标签页
     isCutMenu: false, // 切割菜单
     routerTrans: "null", // 路由动画
     lang: "zh-CN",

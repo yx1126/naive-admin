@@ -33,53 +33,61 @@ export default defineComponent({
                 set.setState("collapsed", value);
             },
         });
+        const isKeepHeader = computed(() => set.isKeepHeader);
+        const isKeepTags = computed(() => set.isKeepTags);
+        const contentTop = computed(() => {
+            return (isKeepHeader.value ? 60 : 0) + (isKeepTags.value ? 35 : 0);
+        });
+
         return {
             defaultInverted,
             defaultMenus,
             defaultValue,
             collapsed,
+            isKeepHeader,
+            isKeepTags,
+            contentTop,
         };
     },
     render() {
-        const SiderLayout = (
-            <n-layout-sider
-                v-model={[this.collapsed, "collapsed"]}
-                collapse-mode="width"
-                collapsed-width={64}
-                width={240}
-                inverted={this.defaultInverted}
-                bordered
-                show-trigger="bar"
-                native-scrollbar={false}
-            >
-                <Logo collapsed={this.collapsed} collapsed-width={64} width={240}>
-                    <span>vue-admin</span>
-                </Logo>
-                <Menu v-model={[this.defaultValue, "value"]} options={this.defaultMenus} />
-            </n-layout-sider>
-        );
         const HeaderLayout = (
-            <n-layout-header class="layout-header" position="absolute" bordered>
+            <n-layout-header class="layout-header" bordered position={this.isKeepHeader ? "absolute" : "static"}>
                 <Header />
             </n-layout-header>
         );
         const TagsLayout = (
-            <n-layout-header class="layout-tags" position="absolute" style="top: 60px" bordered>
+            <n-layout-header class="layout-tags" bordered position={this.isKeepTags ? "absolute" : "static"} style="top: 60px">
                 <Tags />
             </n-layout-header>
         );
         return (
             <n-layout class="layout-wrapper" has-sider position="absolute">
-                {SiderLayout}
+                <n-layout-sider
+                    v-model={[this.collapsed, "collapsed"]}
+                    collapse-mode="width"
+                    collapsed-width={64}
+                    width={240}
+                    inverted={this.defaultInverted}
+                    bordered
+                    show-trigger="bar"
+                    native-scrollbar={false}
+                >
+                    <Logo collapsed={this.collapsed} collapsed-width={64} width={240}>
+                        <span>vue-admin</span>
+                    </Logo>
+                    <Menu v-model={[this.defaultValue, "value"]} options={this.defaultMenus} />
+                </n-layout-sider>
                 <n-layout>
-                    {HeaderLayout}
-                    {TagsLayout}
+                    {this.isKeepHeader ? HeaderLayout : null}
+                    {this.isKeepTags ? TagsLayout : null}
                     <n-layout-content
                         class="layout-content"
                         position="absolute"
-                        style="top: 100px; bottom: 0"
+                        style={`top: ${this.contentTop}px; bottom: 0`}
                         native-scrollbar={this.nativeScrollbar}
                     >
+                        {this.isKeepHeader ? null : HeaderLayout}
+                        {this.isKeepTags ? null : TagsLayout}
                         <router-view />
                     </n-layout-content>
                 </n-layout>

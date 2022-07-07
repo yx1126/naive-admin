@@ -27,17 +27,9 @@ const mode = computed(() => {
     height: 100%;
     .layout-header {
         height: 60px;
-        background-color: #fff;
     }
     .layout-tags {
-        height: 40px;
-        background-color: #fff;
-    }
-    .layout-content {
-        .layout-tags {
-            height: 44px;
-            background-color: #fff;
-        }
+        height: 35px;
     }
 }
 </style>
