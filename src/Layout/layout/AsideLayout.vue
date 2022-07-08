@@ -6,6 +6,7 @@ import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
+import Collapse from "../components/Collapse.vue";
 
 export default defineComponent({
     name: "AsideLayout",
@@ -55,7 +56,7 @@ export default defineComponent({
     render() {
         const HeaderLayout = (
             <n-layout-header class="layout-header" bordered inverted={this.inverted} position={this.isKeepHeader ? "absolute" : "static"}>
-                <Header />
+                <Header>{{ left: () => <Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} /> }}</Header>
             </n-layout-header>
         );
         const TagsLayout = (
@@ -75,9 +76,7 @@ export default defineComponent({
                     show-trigger="bar"
                     native-scrollbar={false}
                 >
-                    <Logo collapsed={this.collapsed} collapsed-width={64} width={240}>
-                        <span>vue-admin</span>
-                    </Logo>
+                    <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
                     <Menu v-model={[this.defaultValue, "value"]} options={this.defaultMenus} />
                 </n-layout-sider>
                 <n-layout>

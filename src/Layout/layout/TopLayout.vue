@@ -53,7 +53,7 @@ export default defineComponent({
     render() {
         const HeaderLayout = (
             <n-layout-header class="layout-header" inverted={this.defaultInverted} bordered position={this.isKeepHeader ? "absolute" : "static"}>
-                <Header />
+                <Header>{{ logo: () => <Logo width={240} height={59} /> }}</Header>
             </n-layout-header>
         );
         const TagsLayout = (

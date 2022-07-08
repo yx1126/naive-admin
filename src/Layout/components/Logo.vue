@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<Logo>(), {
     width: 272,
     height: 50,
     collapsedWidth: 48,
+    text: "vue-admin",
 });
 
 const logoStyle = computed(() => {
