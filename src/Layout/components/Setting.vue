@@ -41,15 +41,15 @@
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.isCutMenu") }}</n-ellipsis>
-                    <n-switch v-model:value="set.isCutMenu" size="medium" />
+                    <n-switch v-model:value="set.isCutMenu" :disabled="!['asideMixin'].includes(set.layoutMode)" size="medium" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.uniqueMenuOpened") }}</n-ellipsis>
-                    <n-switch v-model:value="set.uniqueMenuOpened" size="medium" />
+                    <n-switch v-model:value="set.uniqueMenuOpened" :disabled="['top'].includes(set.layoutMode)" size="medium" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.inverted") }}</n-ellipsis>
-                    <n-switch v-model:value="set.inverted" size="medium" />
+                    <n-switch v-model:value="set.inverted" :disabled="['top'].includes(set.layoutMode)" size="medium" />
                 </div>
             </div>
             <n-divider> {{ $t("set.otherSet") }} </n-divider>
@@ -119,9 +119,9 @@ const toggleDrawer = computed({
     set: set.toggleDrawer,
 });
 
-const changeLang = (e: Lang) => {
+function changeLang(e: Lang) {
     locale.value = e;
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,8 +1,8 @@
 <template>
     <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" @click="onUpdateShow(!show)" :style="drawerStyles">
-        <n-icon :size="show ? 34 : 26" color="#fff">
+        <Icon :size="show ? 34 : 26" color="#fff">
             <component :is="show ? CloseOutline : SettingOutlined" />
-        </n-icon>
+        </Icon>
     </div>
     <n-drawer class="drawer" placement="right" v-bind="attrs" :width="280" :show="show" @update:show="onUpdateShow">
         <slot />

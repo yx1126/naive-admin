@@ -5,9 +5,9 @@
                 <div v-if="mode === 'asideMixin'" class="nav-mode-asideMixin-item"></div>
                 <div class="nav-icon-box">
                     <slot v-if="chose" name="icon">
-                        <n-icon class="nav-choose" :color="color" size="20">
+                        <Icon class="nav-choose" :color="color" size="20">
                             <CheckFilled />
-                        </n-icon>
+                        </Icon>
                     </slot>
                 </div>
             </div>

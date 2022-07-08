@@ -1,6 +1,6 @@
 <template>
     <component :is="mode" :native-scrollbar="false">
-        <router-view />
+        <slot></slot>
         <n-back-top />
     </component>
     <Setting />

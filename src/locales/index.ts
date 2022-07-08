@@ -1,7 +1,8 @@
+import { zhCN, enUS, dateZhCN, dateEnUS } from "naive-ui";
 import { createI18n, useI18n } from "vue-i18n";
 // import { location } from "@/util/storage";
-import zhCN from "./langs/zh-CN.json";
-import enUS from "./langs/enUS.json";
+import zhCNJson from "./langs/zh-CN.json";
+import enUSJson from "./langs/enUS.json";
 
 // const set = location.getItem("vue-pinia-set");
 
@@ -9,8 +10,8 @@ const i18n = createI18n({
     // locale: set?.lang || "zh-CN",
     fallbackLocale: "enUS",
     messages: {
-        "zh-CN": zhCN,
-        enUS: enUS,
+        "zh-CN": zhCNJson,
+        enUS: enUSJson,
     },
 });
 
@@ -25,6 +26,11 @@ const lang: LangMap[] = [
     { label: "English", value: "enUS" },
 ];
 
-export { useI18n, lang };
+// n-config-provider local 配置
+const localeMap = { "zh-CN": zhCN, enUS: enUS };
+// n-config-provider dateLocal 配置
+const dateLocaleMap = { "zh-CN": dateZhCN, enUS: dateEnUS };
+
+export { useI18n, lang, localeMap, dateLocaleMap };
 
 export default i18n;

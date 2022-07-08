@@ -15,6 +15,7 @@ module.exports = {
         "vue/multi-word-component-names": "off",
     },
     globals: {
+        $: "readonly",
         $ref: "readonly",
         $computed: "readonly",
         $shallowRef: "readonly",

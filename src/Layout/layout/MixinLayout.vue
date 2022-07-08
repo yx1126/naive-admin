@@ -40,7 +40,7 @@ export default defineComponent({
         const contentTop = computed(() => {
             return isKeepTags.value ? 35 : 0;
         });
-        const inverted = computed(() => set.inverted);
+        const inverted = computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
         return {
             defaultInverted,
@@ -68,26 +68,31 @@ export default defineComponent({
                     <Header />
                 </n-layout-header>
                 <n-layout has-sider position="absolute" style="top: 60px">
-                    <n-layout-sider
-                        v-model={[this.collapsed, "collapsed"]}
-                        collapse-mode="width"
-                        collapsed-width={64}
-                        width={240}
-                        bordered
-                        inverted={this.inverted}
-                        show-trigger="bar"
-                        content-style="height: 100%; padding-bottom: 42px; position: relative;"
-                        native-scrollbar={false}
-                    >
-                        <Menu v-model={[this.defaultValue, "value"]} inverted={this.inverted} options={this.defaultMenus} />
+                    <div class="layout-sider-wrapper">
+                        <n-layout-sider
+                            class="layout-sider"
+                            v-model={[this.collapsed, "collapsed"]}
+                            collapse-mode="width"
+                            collapsed-width={64}
+                            width={240}
+                            bordered
+                            inverted={this.inverted}
+                            show-trigger="bar"
+                            content-style="height: 100%;"
+                            native-scrollbar={false}
+                        >
+                            <Menu v-model={[this.defaultValue, "value"]} inverted={this.inverted} options={this.defaultMenus} />
+                        </n-layout-sider>
                         <Collapse
                             class="mixin-collapse"
                             collapsed={this.collapsed}
                             size={this.collapsed ? 24 : 22}
                             width={240}
+                            border="border-top"
+                            inverted={this.inverted}
                             collapsed-width={64}
                         />
-                    </n-layout-sider>
+                    </div>
                     <n-layout>
                         {this.isKeepTags ? TagsLayout : null}
                         <n-layout-content
@@ -108,14 +113,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.layout-header-mixin {
-    display: flex;
-    .logo {
-        flex: 0 0 auto;
+.layout-wrapper {
+    .layout-header-mixin {
+        display: flex;
+        .logo {
+            flex: 0 0 auto;
+        }
     }
-}
-.mixin-collapse {
-    position: absolute;
-    bottom: 0;
+    .layout-sider {
+        height: calc(100% - 42px);
+    }
 }
 </style>

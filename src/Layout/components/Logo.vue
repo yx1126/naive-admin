@@ -2,7 +2,7 @@
     <div v-if="set.isShowLogo" class="logo" :style="logoStyle">
         <div class="logo-icon">
             <slot name="icon">
-                <n-icon :size="32"><Vue /></n-icon>
+                <Icon :size="32"><Vue /></Icon>
             </slot>
         </div>
         <div class="logo-text">

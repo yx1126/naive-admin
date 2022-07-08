@@ -1,16 +1,24 @@
 import NConfig from "./components/NConfig.vue";
-import { NIcon } from "naive-ui";
-import { h, resolveComponent } from "vue";
+import Icon from "@/components/Icon";
+import { h } from "vue";
 import type { Component } from "vue";
-import type { useLoadingBar, useDialog, useMessage, useNotification } from "naive-ui";
+import type {
+    useLoadingBar as useLoadingBarType,
+    useDialog as useDialogType,
+    useMessage as useMessageType,
+    useNotification as useNotificationType,
+} from "naive-ui";
 
-export type LoadingBarApiInjection = ReturnType<typeof useLoadingBar>;
-export type DialogApiInjection = ReturnType<typeof useDialog>;
-export type MessageApiInjection = ReturnType<typeof useMessage>;
-export type NotificationApiInjection = ReturnType<typeof useNotification>;
+export type LoadingBarApiInjection = ReturnType<typeof useLoadingBarType>;
+export type DialogApiInjection = ReturnType<typeof useDialogType>;
+export type MessageApiInjection = ReturnType<typeof useMessageType>;
+export type NotificationApiInjection = ReturnType<typeof useNotificationType>;
 
 export function renderIcon(icon: string | Component) {
-    return () => h(NIcon, null, { default: () => h(typeof icon === "string" ? (resolveComponent(icon) as Component) : icon) });
+    if (typeof icon === "string") {
+        return h(Icon, { icon });
+    }
+    return () => h(Icon, null, { default: () => h(icon) });
 }
 
 export { NConfig };

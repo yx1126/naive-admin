@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { zhCN, enUS, dateZhCN, dateEnUS, darkTheme } from "naive-ui";
-import { computed } from "vue";
+import { darkTheme, lightTheme } from "naive-ui";
+import { localeMap, dateLocaleMap } from "@/locales";
 import { useSetStore } from "@/stores";
 import { createHoverColor, createPressedColor } from "@/util/color";
 import NFreeback from "./NFreeback.vue";
@@ -25,29 +25,23 @@ import type { GlobalThemeOverrides } from "naive-ui";
 
 const set = useSetStore();
 
-const locale = computed(() => {
-    return {
-        "zh-CN": zhCN,
-        enUS: enUS,
-    }[set.lang];
-});
+const locale = $computed(() => localeMap[set.lang]);
 
-const dateLocale = computed(() => {
-    return {
-        "zh-CN": dateZhCN,
-        enUS: dateEnUS,
-    }[set.lang];
-});
+const dateLocale = $computed(() => dateLocaleMap[set.lang]);
 
-const themeOverrides = computed<GlobalThemeOverrides>(() => {
+const theme = $computed<typeof darkTheme | null>(() => (set.navMode === "diablo" ? darkTheme : lightTheme));
+
+const INFOCOLOR = "#909399";
+
+const themeOverrides = $computed<GlobalThemeOverrides>(() => {
     return {
         common: {
             primaryColor: set.themeColor,
             primaryColorHover: createHoverColor(set.themeColor),
             primaryColorPressed: createPressedColor(set.themeColor),
-            infoColor: "#909399",
-            infoColorHover: createHoverColor("#909399"),
-            infoColorPressed: createPressedColor("#909399"),
+            infoColor: INFOCOLOR,
+            infoColorHover: createHoverColor(INFOCOLOR),
+            infoColorPressed: createPressedColor(INFOCOLOR),
         },
         LoadingBar: {
             colorLoading: set.themeColor,
@@ -68,6 +62,4 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => {
         },
     };
 });
-
-const theme = computed<typeof darkTheme | null>(() => (set.navMode === "diablo" ? darkTheme : null));
 </script>

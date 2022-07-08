@@ -1,6 +1,8 @@
 <template>
     <n-config>
-        <Layout />
+        <Layout>
+            <router-view />
+        </Layout>
     </n-config>
 </template>
 <script setup lang="ts">

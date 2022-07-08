@@ -39,7 +39,7 @@ export default defineComponent({
         const contentTop = computed(() => {
             return (isKeepHeader.value ? 60 : 0) + (isKeepTags.value ? 35 : 0);
         });
-        const inverted = computed(() => set.inverted);
+        const inverted = computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
         return {
             defaultInverted,
