@@ -6,12 +6,11 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import MenuFoldOutlined from "@vicons/antd/MenuFoldOutlined";
 import MenuUnfoldOutlined from "@vicons/antd/MenuUnfoldOutlined";
 import { useSetStore } from "@/stores";
 import { useThemeVars } from "naive-ui";
-import type { Direction } from "@/types/util";
 
 interface Collapse {
     collapsed?: boolean;
@@ -20,7 +19,7 @@ interface Collapse {
     collapsedWidth?: number;
     size?: number;
     inverted?: boolean;
-    border?: `border-${Direction}` | boolean;
+    border?: "border-top" | "border-bottom" | "border-left" | "border-right" | boolean;
 }
 
 const props = withDefaults(defineProps<Collapse>(), {
