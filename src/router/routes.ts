@@ -105,6 +105,15 @@ const routes: RouteRecordRaw[] = [
                 },
                 component: () => import("@/views/components/base-table.vue"),
             },
+            {
+                path: "wang-editor",
+                name: "WandEditor",
+                meta: {
+                    title: "富文本编辑器",
+                    icon: "",
+                },
+                component: () => import("@/views/components/wang-editor.vue"),
+            },
         ],
     },
     {

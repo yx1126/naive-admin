@@ -19,6 +19,7 @@ import Vue from "@/components/Vue";
 interface Logo {
     collapsed?: boolean;
     width?: number;
+    minWidth?: number | string;
     height?: number;
     collapsedWidth?: number;
     text?: string;
@@ -36,6 +37,7 @@ const props = withDefaults(defineProps<Logo>(), {
 const logoStyle = computed(() => {
     return {
         "--logo-width": (props.collapsed ? props.collapsedWidth : props.width) + "px",
+        "--logo-min-width": typeof props.minWidth === "string" ? props.minWidth : props.minWidth + "px",
         "--logo-height": props.height + "px",
         "--logo-padding": props.collapsed ? `0 ${(props.collapsedWidth - 32) / 2}px` : "0 18px 0 20px",
         "--logo-icon-margin-right": props.collapsed ? 0 : "8px",
@@ -48,6 +50,7 @@ const logoStyle = computed(() => {
 <style lang="scss" scoped>
 .logo {
     width: var(--logo-width);
+    min-width: var(--logo-min-width);
     height: var(--logo-height);
     display: flex;
     align-items: center;

@@ -58,6 +58,10 @@ const menus: MenuOption[] = [
                 name: "基础表单",
                 path: "base-table",
             },
+            {
+                name: "富文本编辑器",
+                path: "wang-editor",
+            },
         ],
     },
     {

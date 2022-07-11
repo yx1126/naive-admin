@@ -24,28 +24,43 @@ export function typeOf(value: any) {
     return map[Object.prototype.toString.call(value) as string];
 }
 
-export const isPhoneNum = (val: string) => mobileReg.test(val);
-export const isIdCard = (val: string) => idCardReg.test(val);
-export const isLink = (val: string) => linkReg.test(val);
-export const isEmail = (val: string) => emailReg.test(val);
+export function isPhoneNum(val: string) {
+    return mobileReg.test(val);
+}
 
-export function isObject(value: any) {
+export function isIdCard(val: string) {
+    return idCardReg.test(val);
+}
+
+export function isLink(val: string) {
+    return linkReg.test(val);
+}
+
+export function isEmail(val: string) {
+    return emailReg.test(val);
+}
+
+export function isObject(value: any): value is object {
     return typeOf(value) === "object";
 }
 
-export function isString(value: any) {
+export function isString(value: any): value is string {
     return typeOf(value) === "string";
 }
 
-export function isNumber(value: any) {
+export function isBol(value: any): value is boolean {
+    return typeOf(value) === "boolean";
+}
+
+export function isNumber(value: any): value is number {
     return typeOf(value) === "number";
 }
 
-export function isArray(value: any) {
+export function isArray(value: any): value is Array<any> {
     return typeOf(value) === "array";
 }
 
-export function isFunction(value: any) {
+export function isFunction(value: any): value is () => void {
     return typeOf(value) === "function";
 }
 

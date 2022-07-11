@@ -19,7 +19,7 @@ interface Collapse {
     collapsedWidth?: number;
     size?: number;
     inverted?: boolean;
-    border?: "border-top" | "border-bottom" | "border-left" | "border-right" | boolean;
+    border?: string | boolean;
 }
 
 const props = withDefaults(defineProps<Collapse>(), {
@@ -35,8 +35,7 @@ const set = useSetStore();
 const themeVars = $(useThemeVars());
 
 const mixinStyle = $computed(() => {
-    return {
-        [typeof props.border === "string" ? props.border : "border"]: `${props.border ? 1 : 0}px solid ${themeVars.dividerColor}`,
+    const defaultValue: Record<string, string> = {
         "--collapse-width": (props.collapsed ? props.collapsedWidth : props.width) + "px",
         "--collapse-height": props.height + "px",
         "--collapse-padding": props.collapsed ? `0 ${(props.collapsedWidth - props.size) / 2}px` : "0 18px 0 20px",
@@ -45,6 +44,12 @@ const mixinStyle = $computed(() => {
         "--collapse-hover-color": props.inverted ? "#fff" : "",
         "--collaspe-trans": themeVars.cubicBezierEaseInOut,
     };
+    const borderKeys = typeof props.border === "string" ? props.border.split(",").map(item => `border-${item}`) : ["border"],
+        borderValue = `${props.border ? 1 : 0}px solid ${themeVars.dividerColor}`;
+    borderKeys.forEach(item => {
+        defaultValue[item] = borderValue;
+    });
+    return defaultValue;
 });
 </script>
 
@@ -55,9 +60,10 @@ const mixinStyle = $computed(() => {
     display: flex;
     align-items: center;
     padding: var(--collapse-padding);
-    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s var(--collaspe-trans);
     cursor: pointer;
     background-color: var(--collapse-background);
+    transition: padding 0.3s var(--collaspe-trans), width 0.3s var(--collaspe-trans), background-color 0.3s var(--collaspe-trans),
+        border-color 0.3s var(--collaspe-trans);
     .collapse-icon {
         color: var(--collapse-color);
     }

@@ -16,7 +16,7 @@ export type NotificationApiInjection = ReturnType<typeof useNotificationType>;
 
 export function renderIcon(icon: string | Component) {
     if (typeof icon === "string") {
-        return h(Icon, { icon });
+        return () => h(Icon, { icon });
     }
     return () => h(Icon, null, { default: () => h(icon) });
 }

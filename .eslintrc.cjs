@@ -16,6 +16,7 @@ module.exports = {
     },
     globals: {
         $: "readonly",
+        $$: "readonly",
         $ref: "readonly",
         $computed: "readonly",
         $shallowRef: "readonly",

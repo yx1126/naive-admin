@@ -62,7 +62,7 @@ export default defineComponent({
         return (
             <n-layout class="layout-wrapper">
                 <n-layout-header class="layout-header layout-header-mixin" inverted={this.defaultInverted} bordered>
-                    <Logo collapsed={this.collapsed} height={60} collapsed-width={64} width={240}>
+                    <Logo height={60} width={240}>
                         <span>vue-admin</span>
                     </Logo>
                     <Header />
@@ -88,7 +88,7 @@ export default defineComponent({
                             collapsed={this.collapsed}
                             size={this.collapsed ? 24 : 22}
                             width={240}
-                            border="border-top"
+                            border={this.inverted ? "top" : "top,right"}
                             inverted={this.inverted}
                             collapsed-width={64}
                         />
