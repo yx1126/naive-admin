@@ -24,9 +24,9 @@ h1 {
     margin: 20px 0;
 }
 .html {
-    padding: 50px;
+    padding: 10px;
     height: 583px;
-    overflow: scroll;
+    overflow: auto;
     border: 1px solid #ccc;
 }
 </style>

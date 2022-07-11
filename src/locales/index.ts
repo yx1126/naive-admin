@@ -3,6 +3,7 @@ import { createI18n, useI18n } from "vue-i18n";
 // import { location } from "@/util/storage";
 import zhCNJson from "./langs/zh-CN.json";
 import enUSJson from "./langs/enUS.json";
+import type { SelectOption } from "naive-ui";
 
 // const set = location.getItem("vue-pinia-set");
 
@@ -21,7 +22,7 @@ export interface LangMap {
     value: Lang;
 }
 
-const lang: LangMap[] = [
+const lang: SelectOption[] = [
     { label: "简体中文", value: "zh-CN" },
     { label: "English", value: "enUS" },
 ];
