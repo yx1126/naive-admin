@@ -79,7 +79,7 @@ export default defineComponent({
                     <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
                     <Menu v-model={[this.defaultValue, "value"]} options={this.defaultMenus} />
                 </n-layout-sider>
-                <n-layout>
+                <n-layout class="n-layout-main">
                     {this.isKeepHeader ? HeaderLayout : null}
                     {this.isKeepTags ? TagsLayout : null}
                     <n-layout-content

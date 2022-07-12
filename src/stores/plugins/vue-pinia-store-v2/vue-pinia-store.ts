@@ -2,6 +2,7 @@ import type { PiniaPluginContext, PiniaPlugin } from "pinia";
 
 const assign = Object.assign;
 const isArray = Array.isArray;
+const isString = (value: any): value is string => typeof value === "string";
 
 type Store = PiniaPluginContext["store"];
 
@@ -62,7 +63,7 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
         return value ? JSON.parse(value) : {};
     }
     function setItem(key: string, value: any, storage: BaseStorage) {
-        storage.setItem(createDefaultKey(key), typeof value === "string" ? value : JSON.stringify(value));
+        storage.setItem(createDefaultKey(key), isString(value) ? value : JSON.stringify(value));
     }
 
     return (context: PiniaPluginContext) => {

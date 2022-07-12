@@ -62,7 +62,7 @@ export default defineComponent({
             </n-layout-header>
         );
         return (
-            <n-layout class="layout-wrapper" position="absolute">
+            <n-layout class="layout-wrapper n-layout-main" position="absolute">
                 {this.isKeepHeader ? HeaderLayout : null}
                 {this.isKeepTags ? TagsLayout : null}
                 <n-layout-content

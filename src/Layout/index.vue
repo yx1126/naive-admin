@@ -1,6 +1,8 @@
 <template>
     <component :is="mode" :native-scrollbar="false">
-        <slot></slot>
+        <div class="layout-container">
+            <slot></slot>
+        </div>
         <n-back-top />
     </component>
     <Setting />
@@ -31,8 +33,11 @@ const mode = computed(() => {
     .layout-header {
         height: 60px;
     }
-    .layout-tags {
-        height: 35px;
+    .layout-container {
+        width: 100%;
+        background-color: #f5f7f9;
+        min-height: calc(100vh - 60px - 36px);
+        border: 1px solid #f5f7f9;
     }
 }
 </style>

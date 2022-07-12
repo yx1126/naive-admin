@@ -93,7 +93,7 @@ export default defineComponent({
                             collapsed-width={64}
                         />
                     </div>
-                    <n-layout>
+                    <n-layout class="n-layout-main">
                         {this.isKeepTags ? TagsLayout : null}
                         <n-layout-content
                             class="layout-content"

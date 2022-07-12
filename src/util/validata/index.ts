@@ -40,7 +40,7 @@ export function isEmail(val: string) {
     return emailReg.test(val);
 }
 
-export function isObject(value: any): value is object {
+export function isObject<T extends object>(value: any): value is T {
     return typeOf(value) === "object";
 }
 
@@ -56,11 +56,11 @@ export function isNumber(value: any): value is number {
     return typeOf(value) === "number";
 }
 
-export function isArray(value: any): value is Array<any> {
+export function isArray<T = any>(value: any): value is Array<T> {
     return typeOf(value) === "array";
 }
 
-export function isFunction(value: any): value is () => void {
+export function isFunction<T = any>(value: any): value is T {
     return typeOf(value) === "function";
 }
 

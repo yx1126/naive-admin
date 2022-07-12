@@ -15,11 +15,11 @@ import { routerTransOptions } from "@/stores/setting";
 const set = useSetStore();
 const tags = useTagsStore();
 
-const noKeepAliveList = $ref<string[]>([]);
+const noKeepAliveList = $ref<string>("");
 
 const transitionMode = $computed(() => routerTransOptions.find(r => r.value === set.routerTrans)?.mode || "default");
 
 const keepAliveList = $computed<string[]>(() => {
-    return tags.tags.filter(t => t.meta?.keepAlive && !noKeepAliveList.includes(t.name)).map(t => t.name);
+    return tags.keepAliveList.filter(n => noKeepAliveList !== n);
 });
 </script>
