@@ -1,10 +1,12 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { reactive, toRefs } from "vue";
 import type { Lang } from "@/locales";
+import type { SelectOption } from "naive-ui";
 
 export type NavTheme = "light" | "dark" | "diablo";
 export type LayoutMode = "aside" | "top" | "mixin" | "asideMixin";
-export type RouterTrans = "fade" | "slide" | "scale" | "scale-slide" | "null";
+export type RouterTrans = "fade" | "scale" | "scale-slide" | "null";
+export type RouterTransOptions = { mode?: "default" | "out-in" | "in-out" } & SelectOption;
 
 export interface SetState {
     drawerStatus: boolean;
@@ -27,10 +29,12 @@ export interface SetState {
 export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
 export const layoutMode: LayoutMode[] = ["aside", "top", "mixin", "asideMixin"];
 
-export const routerTransOptions = ["null", "fade", "slide", "scale", "scale-slide"].map(t => ({
-    label: t,
-    value: t,
-}));
+export const routerTransOptions: RouterTransOptions[] = [
+    { label: "fade", value: "fade", mode: "out-in" },
+    { label: "scale", value: "scale", mode: "out-in" },
+    { label: "fade-slide", value: "fade-slide", mode: "out-in" },
+    { label: "scale-slide", value: "scale-slide", mode: "out-in" },
+];
 
 export const defaultSetting: SetState = {
     drawerStatus: false, // 全局设置
@@ -44,7 +48,7 @@ export const defaultSetting: SetState = {
     isKeepHeader: true, // 固定 顶栏
     isKeepTags: true, // 固定 标签页
     isCutMenu: false, // 切割菜单
-    routerTrans: "null", // 路由动画
+    routerTrans: "fade", // 路由动画
     lang: "zh-CN",
     collapsed: false,
     inverted: false,

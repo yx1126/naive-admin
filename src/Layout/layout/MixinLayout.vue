@@ -26,7 +26,7 @@ export default defineComponent({
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const defaultMenus = computed(() => user.menus);
         const defaultValue = computed({
-            get: () => route.path,
+            get: () => route?.meta?.activeMenu || route.path,
             set: value => router.push(value),
         });
         const collapsed = computed({

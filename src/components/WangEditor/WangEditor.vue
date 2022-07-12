@@ -62,7 +62,7 @@ let toolbarRef = $shallowRef<ToolbarType | null>(null);
 
 let isShowMask = $ref(false);
 
-const valueHtml = $computed({
+const valueHtml = $computed<string>({
     get() {
         return props.value;
     },
