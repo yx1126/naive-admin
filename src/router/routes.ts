@@ -123,17 +123,17 @@ const routes: RouteRecordRaw[] = [
             title: "异常页面",
             icon: "",
         },
-        redirect: "/error/403",
+        redirect: "/error/401",
         component: Layout,
         children: [
             {
-                path: "403",
-                name: "403",
+                path: "401",
+                name: "401",
                 meta: {
-                    title: "403",
+                    title: "401",
                     icon: "",
                 },
-                component: () => import("@/views/error/403.vue"),
+                component: () => import("@/views/error/401.vue"),
             },
             {
                 path: "404",
@@ -150,7 +150,7 @@ const routes: RouteRecordRaw[] = [
         path: "/permission",
         name: "Permission",
         meta: {
-            title: "异常页面",
+            title: "权限管理",
             icon: "",
         },
         redirect: "/permission/user-manage",
