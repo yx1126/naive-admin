@@ -15,39 +15,27 @@ export interface FreeBackOptions {
     notification: NotificationApiInjection;
 }
 
-export const useLoadingBar = () => {
-    const mitt = useMitt();
-    let loadingbar: LoadingBarApiInjection | undefined;
-    mitt.emit("loadingbar", back => (loadingbar = back));
-    return loadingbar as LoadingBarApiInjection;
-};
-
-export const useDialog = () => {
-    const mitt = useMitt();
-    let dialog: DialogApiInjection | undefined;
-    mitt.emit("dialog", back => (dialog = back));
-    return dialog as DialogApiInjection;
-};
-
-export const useMessage = () => {
-    const mitt = useMitt();
-    let message: MessageApiInjection | undefined;
-    mitt.emit("message", back => (message = back));
-    return message as MessageApiInjection;
-};
-
-export const useNotification = () => {
-    const mitt = useMitt();
-    let notification: NotificationApiInjection | undefined;
-    mitt.emit("notification", back => (notification = back));
-    return notification as NotificationApiInjection;
-};
-
 const useFreeBack = <T extends keyof FreeBackOptions>(type: T): FreeBackOptions[T] => {
     const mitt = useMitt();
     let back: FreeBack | undefined;
     mitt.emit(type, (cbValue: FreeBack) => (back = cbValue));
     return back as FreeBackOptions[T];
+};
+
+export const useLoadingBar = () => {
+    return useFreeBack("loadingbar");
+};
+
+export const useDialog = () => {
+    return useFreeBack("dialog");
+};
+
+export const useMessage = () => {
+    return useFreeBack("message");
+};
+
+export const useNotification = () => {
+    return useFreeBack("notification");
 };
 
 export { useFreeBack as default };

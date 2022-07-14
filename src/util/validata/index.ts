@@ -1,3 +1,5 @@
+import type { TypeOfKey, TypeOfValues } from "@/types/util";
+
 // 手机号正则验证
 export const mobileReg = /^1(3[0-9]|4[5,7]|5[0,1,2,3,5,6,7,8,9]|6[2,5,6,7]|7[0,1,7,8]|8[0-9]|9[1,8,9])\d{8}$/;
 // 身份证正则验证
@@ -9,7 +11,7 @@ export const linkReg = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)
 export const emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 
 export function typeOf(value: any) {
-    const map: Record<string, string> = {
+    const map: Record<TypeOfKey, TypeOfValues> = {
         "[object Boolean]": "boolean",
         "[object Number]": "number",
         "[object String]": "string",
@@ -21,7 +23,7 @@ export function typeOf(value: any) {
         "[object Null]": "null",
         "[object Object]": "object",
     };
-    return map[Object.prototype.toString.call(value) as string];
+    return map[Object.prototype.toString.call(value) as TypeOfKey];
 }
 
 export function isPhoneNum(val: string) {
@@ -44,23 +46,30 @@ export function isObject<T extends object>(value: any): value is T {
     return typeOf(value) === "object";
 }
 
-export function isString(value: any): value is string {
+export function isString(value: any, flag?: boolean): value is string {
+    if (flag && value === "") return false;
     return typeOf(value) === "string";
 }
 
-export function isBol(value: any): value is boolean {
+export function isUndefined(value: any): value is undefined {
+    return typeOf(value) === "undefined";
+}
+
+export function isBoolean(value: any): value is boolean {
     return typeOf(value) === "boolean";
 }
 
-export function isNumber(value: any): value is number {
+export function isNumber(value: any, flag?: boolean): value is number {
+    if (flag && value === 0) return false;
     return typeOf(value) === "number";
 }
 
-export function isArray<T = any>(value: any): value is Array<T> {
+export function isArray<T = any>(value: any, flag?: boolean): value is Array<T> {
+    if (flag && value?.length === 0) return false;
     return typeOf(value) === "array";
 }
 
-export function isFunction<T = any>(value: any): value is T {
+export function isFunction<T = () => void>(value: any): value is T {
     return typeOf(value) === "function";
 }
 

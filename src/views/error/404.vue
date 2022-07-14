@@ -23,10 +23,13 @@
 
 <style lang="scss" scoped>
 .four-zero-four {
-    transform: translate(-50%, -50%);
-    position: absolute;
-    top: 40%;
-    left: 50%;
+    width: 100%;
+    padding: 100px 0;
+    @extend .flex-just-center;
+    // transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 40%;
+    // left: 50%;
 }
 .wscn-http404 {
     position: relative;

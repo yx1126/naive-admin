@@ -9,3 +9,7 @@ export type LRTBDirection = "top-start" | "top-end" | "bottom-start" | "bottom-e
 export type Direction = LRDirection | TBDirection;
 
 export type Placement = Direction | LRTBDirection;
+
+export type BaseTypeOfKeys = "Boolean" | "Number" | "String" | "Function" | "Array" | "Date" | "RegExp" | "Undefined" | "Null" | "Object";
+export type TypeOfKey = `[object ${BaseTypeOfKeys}]`;
+export type TypeOfValues = "boolean" | "number" | "string" | "function" | "array" | "date" | "regExp" | "undefined" | "null" | "object";

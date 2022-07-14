@@ -1,6 +1,6 @@
 <template>
     <component :is="mode" :native-scrollbar="false">
-        <div class="layout-container">
+        <div class="layout-container" :style="layoutConStyle">
             <slot></slot>
         </div>
         <n-back-top />
@@ -11,9 +11,11 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent } from "vue";
 import Setting from "./components/Setting.vue";
-import { useSetStore } from "@/stores/setting";
+import { useSetStore, useStore } from "@/stores";
 
 const set = useSetStore();
+const store = useStore("set");
+console.log(store);
 
 const layputMap = {
     aside: defineAsyncComponent(() => import("./layout/AsideLayout.vue")),
@@ -25,6 +27,12 @@ const layputMap = {
 const mode = computed(() => {
     return layputMap[set.layoutMode];
 });
+
+const layoutConStyle = $computed(() => {
+    return {
+        "--diablo-color": set.navMode === "diablo" ? "transparent" : "#f5f7f9",
+    };
+});
 </script>
 
 <style lang="scss">
@@ -35,9 +43,9 @@ const mode = computed(() => {
     }
     .layout-container {
         width: 100%;
-        background-color: #f5f7f9;
+        background-color: var(--diablo-color);
         min-height: calc(100vh - 60px - 36px);
-        border: 1px solid #f5f7f9;
+        border: 1px solid var(--diablo-color);
     }
 }
 </style>
