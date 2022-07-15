@@ -14,7 +14,7 @@ export interface TagsState {
     activeTags: Tags[];
 }
 
-type TagsType = "keepTags" | "activeTags";
+export type TagsType = "keepTags" | "activeTags";
 
 const defaultTags: Tags[] = [{ title: "主控台", name: "Console", path: "/dashboard/console" }];
 
@@ -41,13 +41,14 @@ const useTagsStore = defineStore(
         }
         // 添加
         function insert(type: TagsType, value: Tags) {
+            if (!value.path) return;
             const tag = [...state.keepTags, ...state.activeTags].find(t => t.path === value.path);
             if (tag) return;
             state[type].push(value);
         }
 
         // base 移除
-        function baseRemove(type: TagsType, path: string, direction: "this" | "left" | "right" = "this") {
+        function baseRemove(type: TagsType, path: string, direction: "this" | "left" | "right" | "other" | "all" = "this") {
             const index = state[type].findIndex(t => t.path === path);
             if (index === -1) return;
             switch (direction) {
@@ -60,13 +61,25 @@ const useTagsStore = defineStore(
                 case "right":
                     state[type].splice(index + 1, state[type].length);
                     break;
+                case "other":
+                    setState(
+                        type,
+                        state[type].filter(t => t.path === path),
+                    );
+                    break;
+                case "all":
+                    setState(type, []);
+                    break;
                 default:
                     break;
             }
         }
         // 移除
-        function remove(type: TagsType, path: string) {
-            baseRemove(type, path);
+        function remove(path: string) {
+            const kTags = state.keepTags.find(t => t.path === path);
+            const aTags = state.activeTags.find(t => t.path === path);
+            if (kTags) baseRemove("keepTags", path);
+            else if (aTags) baseRemove("activeTags", path);
         }
         // 移除左边
         function removeLeft(path: string) {
@@ -77,22 +90,25 @@ const useTagsStore = defineStore(
             baseRemove("activeTags", path, "right");
         }
         // 移除 其他
-        function removeOther(type: TagsType, path: string) {
-            const tags = state[type].filter(t => t.path === path);
-            setState("activeTags", tags);
+        function removeOther(path: string) {
+            baseRemove("activeTags", path, "other");
+        }
+        // 移除 其他
+        function removeAll(path: string) {
+            baseRemove("activeTags", path, "all");
         }
         // 保持固定
         function keepFixed(path: string) {
             const tag = state.activeTags.find(t => t.path === path);
             if (!tag) return;
-            remove("activeTags", path);
+            remove(path);
             insert("keepTags", tag);
         }
         // 解除固定
         function removeFixed(path: string) {
             const tag = state.activeTags.find(t => t.path === path);
             if (!tag) return;
-            remove("keepTags", path);
+            remove(path);
             insert("activeTags", tag);
         }
 
@@ -103,9 +119,10 @@ const useTagsStore = defineStore(
             init,
             insert,
             remove,
-            removeOther,
             removeLeft,
             removeRight,
+            removeOther,
+            removeAll,
             keepFixed,
             removeFixed,
         };

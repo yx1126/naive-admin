@@ -3,7 +3,7 @@ import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore, useUserStore } from "@/stores";
 import Header from "../components/Header.vue";
-import Tags from "../components/Tags.vue";
+import Tags from "../components/Tags/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
@@ -63,7 +63,7 @@ export default defineComponent({
             <n-layout class="layout-wrapper">
                 <n-layout-header class="layout-header layout-header-mixin" inverted={this.defaultInverted} bordered>
                     <Logo height={60} width={240}>
-                        <span>vue-admin</span>
+                        <span>VueAdmin</span>
                     </Logo>
                     <Header />
                 </n-layout-header>

@@ -11,11 +11,9 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent } from "vue";
 import Setting from "./components/Setting.vue";
-import { useSetStore, useStore } from "@/stores";
+import { useSetStore } from "@/stores";
 
 const set = useSetStore();
-const store = useStore("set");
-console.log(store);
 
 const layputMap = {
     aside: defineAsyncComponent(() => import("./layout/AsideLayout.vue")),
