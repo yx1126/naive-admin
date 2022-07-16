@@ -1,5 +1,5 @@
 <template>
-    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" @click="onUpdateShow(!show)" :style="drawerStyles">
+    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" @click="onUpdateShow(!show)">
         <Icon :size="show ? 34 : 26" color="#fff">
             <component :is="show ? CloseOutline : SettingOutlined" />
         </Icon>
@@ -14,6 +14,7 @@ import { useAttrs, computed } from "vue";
 import { SettingOutlined } from "@vicons/antd";
 import { CloseOutline } from "@vicons/ionicons5";
 import useSetStore from "@/stores/setting";
+import { useThemeVars } from "naive-ui";
 
 defineOptions({
     name: "Drawer",
@@ -22,6 +23,7 @@ defineOptions({
 
 const attrs = useAttrs();
 const set = useSetStore();
+const themeVars = $(useThemeVars());
 
 defineProps<{
     show?: boolean;
@@ -34,6 +36,8 @@ const emit = defineEmits<{
 const drawerStyles = computed(() => {
     return {
         "--drawer-set-color": set.themeColor,
+        "--drawer-tans-leave": themeVars.cubicBezierEaseIn,
+        "--drawer-tans-enter": themeVars.cubicBezierEaseOut,
     };
 });
 
@@ -56,14 +60,14 @@ function onUpdateShow(show: boolean) {
     position: fixed;
     top: 50%;
     right: 1px;
-    z-index: 2050;
+    z-index: 2001;
     &.drawer-tans-enter {
         transform: translate(-280px, -50%);
-        transition: transform 0.33s cubic-bezier(0, 0, 0.2, 1);
+        transition: transform 0.3s var(--drawer-tans-enter);
     }
     &.drawer-tans-leave {
         transform: translate(0, -50%);
-        transition: transform 0.24s cubic-bezier(0.4, 0, 1, 1);
+        transition: transform 0.2s var(--drawer-tans-leave);
     }
 }
 </style>
