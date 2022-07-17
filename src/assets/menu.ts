@@ -55,7 +55,7 @@ const menus: MenuOption[] = [
         icon: renderIcon(WalletOutlined),
         children: [
             {
-                name: "基础表单",
+                name: "基础表格",
                 path: "base-table",
             },
             {

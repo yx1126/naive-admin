@@ -2,7 +2,7 @@
     <div class="tags-wrapper" @contextmenu.prevent>
         <div class="tags" ref="tagsRef" @wheel="onMouseWheel">
             <template v-for="(t, i) in keepTags" :key="t.path">
-                <tags-item :active="currentPath === t.path" @click="onTagsClick(t)" @contextmenu="onTagsContextmenu($event, t, i, 'keepTags')">
+                <tags-item :active="currentPath === t.path" @click="onTagsClick(t)" @contextmenu="onTagsContextmenu($event, t, i)">
                     {{ t.title }}
                 </tags-item>
             </template>
@@ -11,10 +11,11 @@
                     :active="currentPath === t.path"
                     closable
                     @click="onTagsClick(t)"
-                    @contextmenu="onTagsContextmenu($event, t, i, 'activeTags')"
+                    @contextmenu="onTagsContextmenu($event, t, i)"
                     @close="onTagsClose(t, i)"
-                    >{{ t.title }}</tags-item
                 >
+                    {{ t.title }}
+                </tags-item>
             </template>
         </div>
         <div class="tags-btn">
@@ -50,16 +51,18 @@ import ReloadOutline from "@vicons/ionicons5/ReloadOutline";
 import { GpsFixedRound, GpsNotFixedRound } from "@vicons/material";
 import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
 import TagsItem from "./TagsItem.vue";
-import { watch, nextTick } from "vue";
+import { watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useTagsStore } from "@/stores";
+import { useFreeBack } from "@/hooks";
 import { renderIcon } from "@/naive";
-import type { Tags, TagsType } from "@/stores";
+import type { Tags } from "@/stores";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
 const route = useRoute();
 const router = useRouter();
 const tags = useTagsStore();
+const dialog = useFreeBack("dialog");
 
 const tagsRef = $ref<HTMLDivElement>();
 let showDropdownRef = $ref(false);
@@ -68,25 +71,41 @@ let dropdownX = $ref(0);
 let dropdownY = $ref(0);
 let chooseTags = $ref<Tags | null | undefined>(null);
 let chooseTagsIndex = $ref(-1);
-let chooseTagsType = $ref<TagsType>("activeTags");
 
 const keepTags = $computed(() => tags.keepTags);
 const activeTags = $computed(() => tags.activeTags);
 const currentPath = $computed(() => route.fullPath);
 
 const dropDownOptions = $computed(() => {
-    const result: Array<DropdownOption | DropdownDividerOption> = [
-        { label: "关闭当前", key: "remove", icon: renderIcon(CloseOutlined) },
-        { label: "关闭左侧", key: "removeLeft", icon: renderIcon(ArrowLeftOutlined) },
-        { label: "关闭右侧", key: "removeRight", icon: renderIcon(ArrowRightOutlined) },
-        { label: "关闭其他", key: "removeOther", icon: renderIcon(MinusOutlined) },
-        { label: "关闭全部", key: "removeAll", icon: renderIcon(ColumnWidthOutlined) },
-        { type: "divider", key: "d0" },
-        { label: "保持固定", key: "keepFixed", icon: renderIcon(GpsFixedRound) },
-        { label: "移除固定", key: "removeFixed", icon: renderIcon(GpsNotFixedRound) },
-    ];
-    if (isShowCloseAll) {
+    const result: Array<DropdownOption | DropdownDividerOption> = [];
+    const isInKeep = keepTags.find(t => t.path === chooseTags?.path);
+    const isInActive = activeTags.find(t => t.path === chooseTags?.path);
+    const isIndexPage = "/dashboard/console" === chooseTags?.path;
+    if (isInActive) {
+        result.push({ label: "关闭当前", key: "remove", icon: renderIcon(CloseOutlined) });
+    }
+    if (chooseTagsIndex > 0 && isInActive) {
+        result.push({ label: "关闭左侧", key: "removeLeft", icon: renderIcon(ArrowLeftOutlined) });
+    }
+    if (chooseTagsIndex < activeTags.length - 1 && isInActive) {
+        result.push({ label: "关闭右侧", key: "removeRight", icon: renderIcon(ArrowRightOutlined) });
+    }
+    if (isInActive) {
+        result.push({ type: "divider", key: "d0" });
+        activeTags.length > 1 && result.push({ label: "关闭其他", key: "removeOther", icon: renderIcon(ColumnWidthOutlined) });
+        result.push({ label: "关闭全部", key: "removeAll", icon: renderIcon(MinusOutlined) });
+    }
+    if ((isInKeep && !isIndexPage && result.length) || isInActive) {
         result.push({ type: "divider", key: "d1" });
+    }
+    if (isInKeep && !isIndexPage) {
+        result.push({ label: "移除固定", key: "removeFixed", icon: renderIcon(GpsNotFixedRound) });
+    }
+    if (isInActive) {
+        result.push({ label: "保持固定", key: "keepFixed", icon: renderIcon(GpsFixedRound) });
+    }
+    if (isShowCloseAll) {
+        result.length && result.push({ type: "divider", key: "d2" });
         result.push({ label: "一键清除", key: "init", icon: renderIcon(CloseCircleOutlined) });
     }
     return result;
@@ -106,33 +125,41 @@ watch(
         immediate: true,
     },
 );
-watch(
-    () => showDropdownRef,
-    value => {
-        if (!value) {
-            chooseTags = null;
-            chooseTagsIndex = -1;
-        }
-    },
-);
 
 function onTagsClick(tags: Tags) {
     router.push(tags.path);
 }
 
 function onTagsClose(tags: Tags, index: number) {
-    console.log(tags, index);
-}
-
-async function onTagsContextmenu(e: MouseEvent, tags: Tags, index: number, type: TagsType) {
     chooseTags = tags;
     chooseTagsIndex = index;
-    chooseTagsType = type;
+    onDropdownSelect("remove");
+}
+
+async function onTagsContextmenu(e: MouseEvent, tags: Tags, index: number) {
+    if (tags.path === "/dashboard/console") return;
+    isShowCloseAll = false;
+    chooseTags = tags;
+    chooseTagsIndex = index;
     const currentTarget = e.currentTarget as HTMLDivElement;
-    onClickoutside();
-    await nextTick();
     dropdownX = e.clientX;
     dropdownY = currentTarget.getBoundingClientRect().top + currentTarget.clientHeight;
+    showDropdownRef = true;
+}
+
+async function onShowDropdown(e: MouseEvent) {
+    // 设置当前 tags index type
+    const tags = keepTags.find(t => t.path === currentPath);
+    const index = keepTags.findIndex(t => t.path === currentPath);
+    chooseTags = tags || activeTags.find(t => t.path === currentPath);
+    chooseTagsIndex = index !== -1 ? index : activeTags.findIndex(t => t.path === currentPath);
+    // 设置  dropdown x,y
+    const currentTarget = e.currentTarget as HTMLDivElement;
+    const offset = currentTarget.getBoundingClientRect();
+    isShowCloseAll = true;
+    // 14: dropdown 箭头距离右边的距离
+    dropdownX = offset.left + 14 + currentTarget.clientWidth / 2;
+    dropdownY = offset.top + currentTarget.clientHeight;
     showDropdownRef = true;
 }
 
@@ -142,15 +169,68 @@ function onMouseWheel(e: WheelEvent) {
     tagsRef.scrollLeft += e.deltaY || e.detail * 20;
 }
 
-function onDropdownSelect(key: string | number, option: DropdownOption) {
-    console.log(key, option);
+async function onDropdownSelect(key: string | number) {
     onClickoutside();
+    if (!chooseTags || chooseTagsIndex === -1) return;
+    const activeTagsLength = activeTags.length - 1;
+    const keepTagsLength = keepTags.length - 1;
+    const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
+    switch (key) {
+        case "remove":
+            if (activeTagsLength < 1) {
+                router.push(keepTags[keepTagsLength].path);
+            } else {
+                if (currentPath === chooseTags.path) router.push(activeTags[chooseTagsIndex + (chooseTagsIndex < activeTagsLength ? 1 : -1)].path);
+            }
+            tags.remove(chooseTags.path);
+            break;
+        case "removeLeft":
+            if (currentPageIndex === -1) break;
+            if (chooseTagsIndex > currentPageIndex) {
+                router.push(chooseTags.path);
+            }
+            tags.removeLeft(chooseTags.path);
+            break;
+        case "removeRight":
+            if (currentPageIndex === -1) break;
+            if (chooseTagsIndex < currentPageIndex) {
+                router.push(chooseTags.path);
+            }
+            tags.removeRight(chooseTags.path);
+            break;
+        case "removeOther":
+            if (chooseTags.path !== currentPath && activeTags.findIndex(t => t.path === currentPath) !== -1) {
+                router.push(chooseTags.path);
+            }
+            tags.removeOther(chooseTags.path);
+            break;
+        case "removeAll":
+            router.push(keepTags[keepTagsLength].path);
+            tags.removeAll(chooseTags.path);
+            break;
+        case "removeFixed":
+            tags.removeFixed(chooseTags.path);
+            break;
+        case "keepFixed":
+            tags.keepFixed(chooseTags.path);
+            break;
+        case "init":
+            dialog.warning({
+                title: "提示",
+                content: "确认清空所有 “Tags” 吗？",
+                positiveText: "确定",
+                negativeText: "取消",
+                onPositiveClick: () => {
+                    router.push("/");
+                    tags.init();
+                },
+            });
+            break;
+    }
 }
-function onClickoutside() {
+
+async function onClickoutside() {
     showDropdownRef = false;
-    chooseTags = null;
-    chooseTagsIndex = -1;
-    chooseTagsType = "keepTags";
 }
 
 function onRefresh() {
@@ -159,25 +239,6 @@ function onRefresh() {
 
 function onFullScreen() {
     console.log("onFullScreen");
-}
-
-async function onShowDropdown(e: MouseEvent) {
-    // 设置当前 tags index type
-    const tags = keepTags.find(t => t.path === currentPath);
-    const index = keepTags.findIndex(t => t.path === currentPath);
-    chooseTags = tags || activeTags.find(t => t.path === currentPath);
-    chooseTagsIndex = index !== -1 ? index : activeTags.findIndex(t => t.path === currentPath);
-    chooseTagsType = tags ? "keepTags" : "activeTags";
-    // 设置  dropdown x,y
-    const currentTarget = e.currentTarget as HTMLDivElement;
-    const offset = currentTarget.getBoundingClientRect();
-    onClickoutside();
-    isShowCloseAll = true;
-    await nextTick();
-    // 14: dropdown 箭头距离右边的距离
-    dropdownX = offset.left + 14 + currentTarget.clientWidth / 2;
-    dropdownY = offset.top + currentTarget.clientHeight;
-    showDropdownRef = true;
 }
 </script>
 
@@ -196,6 +257,7 @@ async function onShowDropdown(e: MouseEvent) {
     flex-wrap: nowrap;
     white-space: nowrap;
     flex: 1;
+    padding-right: 5px;
     @extend .flex-align-center, .scroll-hide;
 }
 .tags-btn {

@@ -106,7 +106,7 @@ const useTagsStore = defineStore(
         }
         // 解除固定
         function removeFixed(path: string) {
-            const tag = state.activeTags.find(t => t.path === path);
+            const tag = state.keepTags.find(t => t.path === path);
             if (!tag) return;
             remove(path);
             insert("activeTags", tag);

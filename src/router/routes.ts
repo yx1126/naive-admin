@@ -100,7 +100,7 @@ const routes: RouteRecordRaw[] = [
                 path: "base-table",
                 name: "BaseTable",
                 meta: {
-                    title: "基础表单",
+                    title: "基础表格",
                     icon: "",
                 },
                 component: () => import("@/views/components/base-table.vue"),
