@@ -2,20 +2,30 @@
     <div class="tags-wrapper" @contextmenu.prevent>
         <div class="tags" ref="tagsRef" @wheel="onMouseWheel">
             <template v-for="(t, i) in keepTags" :key="t.path">
-                <tags-item :active="currentPath === t.path" @click="onTagsClick(t)" @contextmenu="onTagsContextmenu($event, t, i)">
+                <n-tag
+                    class="tags-item"
+                    ref="tagsItemRefs"
+                    :data-path="t.path"
+                    :type="currentPath === t.path ? 'primary' : 'default'"
+                    @click="onTagsClick(t)"
+                    @contextmenu="onTagsContextmenu($event, t, i)"
+                >
                     {{ t.title }}
-                </tags-item>
+                </n-tag>
             </template>
             <template v-for="(t, i) in activeTags" :key="t.path">
-                <tags-item
-                    :active="currentPath === t.path"
+                <n-tag
+                    class="tags-item"
+                    ref="tagsItemRefs"
+                    :data-path="t.path"
+                    :type="currentPath === t.path ? 'primary' : 'default'"
                     closable
                     @click="onTagsClick(t)"
                     @contextmenu="onTagsContextmenu($event, t, i)"
-                    @close="onTagsClose(t, i)"
+                    @close.stop="onTagsClose(t, i)"
                 >
                     {{ t.title }}
-                </tags-item>
+                </n-tag>
             </template>
         </div>
         <div class="tags-btn">
@@ -50,12 +60,12 @@ import FullScreenMaximize24Filled from "@vicons/fluent/FullScreenMaximize24Fille
 import ReloadOutline from "@vicons/ionicons5/ReloadOutline";
 import { GpsFixedRound, GpsNotFixedRound } from "@vicons/material";
 import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
-import TagsItem from "./TagsItem.vue";
-import { watch } from "vue";
+import { watch, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useTagsStore } from "@/stores";
 import { useFreeBack } from "@/hooks";
 import { renderIcon } from "@/naive";
+import { NTag } from "naive-ui";
 import type { Tags } from "@/stores";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
@@ -65,6 +75,8 @@ const tags = useTagsStore();
 const dialog = useFreeBack("dialog");
 
 const tagsRef = $ref<HTMLDivElement>();
+let tagsItemRefs = $ref<InstanceType<typeof NTag>[]>([]);
+
 let showDropdownRef = $ref(false);
 let isShowCloseAll = $ref(false);
 let dropdownX = $ref(0);
@@ -120,6 +132,7 @@ watch(
             path: path,
             meta: route.meta,
         });
+        moveToCurrentTag();
     },
     {
         immediate: true,
@@ -174,7 +187,6 @@ async function onDropdownSelect(key: string | number) {
     if (!chooseTags || chooseTagsIndex === -1) return;
     const activeTagsLength = activeTags.length - 1;
     const keepTagsLength = keepTags.length - 1;
-    const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
     switch (key) {
         case "remove":
             if (activeTagsLength < 1) {
@@ -184,20 +196,22 @@ async function onDropdownSelect(key: string | number) {
             }
             tags.remove(chooseTags.path);
             break;
-        case "removeLeft":
-            if (currentPageIndex === -1) break;
-            if (chooseTagsIndex > currentPageIndex) {
+        case "removeLeft": {
+            const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
+            if (currentPageIndex !== -1 && chooseTagsIndex > currentPageIndex) {
                 router.push(chooseTags.path);
             }
             tags.removeLeft(chooseTags.path);
             break;
-        case "removeRight":
-            if (currentPageIndex === -1) break;
-            if (chooseTagsIndex < currentPageIndex) {
+        }
+        case "removeRight": {
+            const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
+            if (currentPageIndex !== -1 && chooseTagsIndex < currentPageIndex) {
                 router.push(chooseTags.path);
             }
             tags.removeRight(chooseTags.path);
             break;
+        }
         case "removeOther":
             if (chooseTags.path !== currentPath && activeTags.findIndex(t => t.path === currentPath) !== -1) {
                 router.push(chooseTags.path);
@@ -229,7 +243,7 @@ async function onDropdownSelect(key: string | number) {
     }
 }
 
-async function onClickoutside() {
+function onClickoutside() {
     showDropdownRef = false;
 }
 
@@ -240,6 +254,28 @@ function onRefresh() {
 function onFullScreen() {
     console.log("onFullScreen");
 }
+
+async function moveToCurrentTag() {
+    await nextTick();
+    // v-for ref 数组不能保证与源数组相同的顺序
+    // https://staging-cn.vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for
+    const tagsItemRef = tagsItemRefs.find(t => {
+        const el = t.$el as HTMLDivElement;
+        return el.dataset.path === currentPath;
+    });
+    if (!tagsItemRef) return;
+    const tagsItemRefEl = tagsItemRef.$el as HTMLDivElement;
+    // 超出 左边 视野
+    const beyondLeft = tagsItemRefEl.offsetLeft < tagsRef.scrollLeft;
+    // 超出 右边 视野
+    const beyondRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.scrollLeft + tagsRef.clientWidth;
+    if (beyondLeft || beyondRight) {
+        tagsRef.scrollTo({
+            left: beyondLeft ? tagsItemRefEl.offsetLeft - 5 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth,
+            behavior: "smooth",
+        });
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -247,7 +283,6 @@ function onFullScreen() {
     width: 100%;
     height: 35px;
     box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-    padding: 0 5px;
     @extend .flex-align-center;
     @extend .no-select;
 }
@@ -257,8 +292,14 @@ function onFullScreen() {
     flex-wrap: nowrap;
     white-space: nowrap;
     flex: 1;
-    padding-right: 5px;
+    padding: 0 5px;
     @extend .flex-align-center, .scroll-hide;
+}
+.tags-item {
+    cursor: pointer;
+    &:not(:first-child) {
+        margin-left: 5px;
+    }
 }
 .tags-btn {
     height: 80%;

@@ -3,7 +3,7 @@ import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore, useUserStore } from "@/stores";
 import Header from "../components/Header.vue";
-import Tags from "../components/Tags/Tags.vue";
+import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
@@ -65,7 +65,7 @@ export default defineComponent({
             </n-layout-header>
         );
         return (
-            <n-layout class="layout-wrapper" has-sider position="absolute">
+            <n-layout class="layout-wrapper" has-sider position="a  bsolute">
                 <n-layout-sider
                     v-model={[this.collapsed, "collapsed"]}
                     collapse-mode="width"

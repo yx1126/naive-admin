@@ -3,7 +3,7 @@ import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore, useUserStore } from "@/stores";
 import Header from "../components/Header.vue";
-import Tags from "../components/Tags/Tags.vue";
+import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 
