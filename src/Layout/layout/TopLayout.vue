@@ -1,11 +1,13 @@
 <script lang="tsx">
 import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useSetStore, useUserStore } from "@/stores";
+import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
+import type { PropType } from "vue";
+import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "TopLayout",
@@ -15,24 +17,20 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        menuOptions: {
+            type: Array as PropType<MenuOption[]>,
+            default: () => [],
+        },
     },
     setup() {
         const route = useRoute();
         const router = useRouter();
         const set = useSetStore();
-        const user = useUserStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
-        const defaultMenus = computed(() => user.menus);
         const defaultValue = computed({
             get: () => route?.meta?.activeMenu || route.path,
             set: value => router.push(value),
-        });
-        const collapsed = computed({
-            get: () => set.collapsed,
-            set: value => {
-                set.setState("collapsed", value);
-            },
         });
         const isKeepHeader = computed(() => set.isKeepHeader);
         const isKeepTags = computed(() => set.isKeepTags);
@@ -42,9 +40,7 @@ export default defineComponent({
 
         return {
             defaultInverted,
-            defaultMenus,
             defaultValue,
-            collapsed,
             isKeepHeader,
             isKeepTags,
             contentTop,
@@ -53,7 +49,12 @@ export default defineComponent({
     render() {
         const HeaderLayout = (
             <n-layout-header class="layout-header" inverted={this.defaultInverted} bordered position={this.isKeepHeader ? "absolute" : "static"}>
-                <Header>{{ logo: () => <Logo width={240} height={59} /> }}</Header>
+                <Header>
+                    {{
+                        logo: () => <Logo width={240} height={59} />,
+                        left: () => <Menu v-model={[this.defaultValue, "value"]} mode="horizontal" options={this.menuOptions} />,
+                    }}
+                </Header>
             </n-layout-header>
         );
         const TagsLayout = (

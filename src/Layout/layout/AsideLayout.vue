@@ -1,12 +1,14 @@
 <script lang="tsx">
 import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useSetStore, useUserStore } from "@/stores";
+import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
+import type { PropType } from "vue";
+import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "AsideLayout",
@@ -16,15 +18,18 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        menuOptions: {
+            type: Array as PropType<MenuOption[]>,
+            default: () => [],
+        },
     },
+    emits: ["update:collapsed"],
     setup() {
         const route = useRoute();
         const router = useRouter();
         const set = useSetStore();
-        const user = useUserStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["aside"].includes(set.layoutMode));
-        const defaultMenus = computed(() => user.menus);
         const defaultValue = computed({
             get: () => route?.meta?.activeMenu || route.path,
             set: value => router.push(value),
@@ -44,7 +49,6 @@ export default defineComponent({
 
         return {
             defaultInverted,
-            defaultMenus,
             defaultValue,
             collapsed,
             isKeepHeader,
@@ -77,7 +81,7 @@ export default defineComponent({
                     native-scrollbar={false}
                 >
                     <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
-                    <Menu v-model={[this.defaultValue, "value"]} options={this.defaultMenus} />
+                    <Menu v-model={[this.defaultValue, "value"]} options={this.menuOptions} />
                 </n-layout-sider>
                 <n-layout class="n-layout-main">
                     {this.isKeepHeader ? HeaderLayout : null}

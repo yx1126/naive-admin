@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, watch } from "vue";
 import type { Lang } from "@/locales";
 import type { SelectOption } from "naive-ui";
 
@@ -66,6 +66,20 @@ const useSetStore = defineStore(
         const togglCollapse = (value?: boolean | MouseEvent) => {
             state.collapsed = typeof value === "boolean" ? value : !state.collapsed;
         };
+
+        watch(
+            () => state.isKeepTags,
+            value => {
+                value && setState("isKeepHeader", value);
+            },
+        );
+
+        watch(
+            () => state.isKeepHeader,
+            value => {
+                !value && setState("isKeepTags", value);
+            },
+        );
 
         const setState = <T extends keyof SetState>(key: T, value: SetState[T]) => {
             state[key] = value;

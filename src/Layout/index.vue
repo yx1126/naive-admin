@@ -1,19 +1,45 @@
 <template>
-    <component :is="mode" :native-scrollbar="false">
+    <component
+        :is="mode"
+        v-model:collapsed="collapsed"
+        :menu-options="defaultMenus"
+        :native-scrollbar="false"
+        :header-fixed="isKeepHeader"
+        :tags-fixed="isKeepTags"
+    >
         <div class="layout-container" :style="layoutConStyle">
             <slot></slot>
         </div>
         <n-back-top />
     </component>
     <Setting />
+    <n-watermark
+        :content="watermark"
+        cross
+        fullscreen
+        :font-size="16"
+        :line-height="16"
+        :width="384"
+        :height="384"
+        :x-offset="12"
+        :y-offset="60"
+        :rotate="-15"
+        :z-index="100000"
+    />
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, defineComponent, h } from "vue";
+import { defineAsyncComponent, defineComponent, h } from "vue";
 import Setting from "./components/Setting.vue";
-import { useSetStore } from "@/stores";
+import { useSetStore, useUserStore } from "@/stores";
 
 const set = useSetStore();
+const user = useUserStore();
+const watermark = import.meta.env.VITE_APP_TITLE;
+
+const defaultMenus = $computed(() => user.menus);
+const isKeepHeader = $computed(() => set.isKeepHeader);
+const isKeepTags = $computed(() => set.isKeepTags);
 
 const layputMap = {
     aside: loadComponent("./layout/AsideLayout.vue"),
@@ -22,8 +48,13 @@ const layputMap = {
     asideMixin: loadComponent("./layout/AsideMixinLayout.vue"),
 };
 
-const mode = computed(() => {
+const mode = $computed(() => {
     return layputMap[set.layoutMode];
+});
+
+const collapsed = $computed({
+    get: () => set.collapsed,
+    set: value => set.setState("collapsed", value),
 });
 
 const layoutConStyle = $computed(() => {

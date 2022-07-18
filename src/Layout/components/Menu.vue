@@ -20,7 +20,7 @@ import useSetStore from "@/stores/setting";
 const set = useSetStore();
 const route = useRoute();
 
-const defaultInverted = $computed(() => ["dark"].includes(set.navMode) && ["aside"].includes(set.layoutMode));
+const defaultInverted = $computed(() => ["dark"].includes(set.navMode) && !["mixin"].includes(set.layoutMode));
 
 let defaultExpendMenu = $ref<string[]>(route.matched.filter(item => item.path !== "").map(item => item.path));
 

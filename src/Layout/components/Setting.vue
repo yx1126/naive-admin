@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, computed } from "vue";
+import { computed } from "vue";
 import useSetStore, { navTheme, layoutMode, routerTransOptions } from "@/stores/setting";
 import Drawer from "@/components/Drawer";
 import { useI18n, lang } from "@/locales";
@@ -97,20 +97,6 @@ import NavMode from "./NavMode.vue";
 const { locale } = useI18n();
 
 const set = useSetStore();
-
-watch(
-    () => set.isKeepTags,
-    value => {
-        if (value) set.setState("isKeepHeader", value);
-    },
-);
-
-watch(
-    () => set.isKeepHeader,
-    value => {
-        if (!value) set.setState("isKeepTags", value);
-    },
-);
 
 const defaultThemeList = ["#409EFF", "#18a058", "#67C23A", "#E6A23C", "#F56C6C", "#909399"];
 

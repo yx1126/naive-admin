@@ -37,6 +37,7 @@ declare module 'vue' {
     NTag: typeof import('naive-ui')['NTag']
     NTags: typeof import('naive-ui')['NTags']
     NTooltip: typeof import('naive-ui')['NTooltip']
+    NWatermark: typeof import('naive-ui')['NWatermark']
     SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
     TransRouterView: typeof import('./src/components/TransRouterView/TransRouterView.vue')['default']
     Vue: typeof import('./src/components/Vue/Vue.vue')['default']

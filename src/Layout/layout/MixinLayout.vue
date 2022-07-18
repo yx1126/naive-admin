@@ -1,12 +1,14 @@
 <script lang="tsx">
 import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useSetStore, useUserStore } from "@/stores";
+import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
+import type { PropType } from "vue";
+import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "MixinLayout",
@@ -16,39 +18,47 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        menuOptions: {
+            type: Array as PropType<MenuOption[]>,
+            default: () => [],
+        },
+        headerFixed: {
+            type: Boolean,
+            default: true,
+        },
+        tagsFixed: {
+            type: Boolean,
+            default: true,
+        },
+        collapsed: {
+            type: Boolean,
+            default: true,
+        },
     },
-    setup() {
+    emits: ["update:collapsed"],
+    setup(props, { emit }) {
         const route = useRoute();
         const router = useRouter();
         const set = useSetStore();
-        const user = useUserStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
-        const defaultMenus = computed(() => user.menus);
         const defaultValue = computed({
             get: () => route?.meta?.activeMenu || route.path,
             set: value => router.push(value),
         });
-        const collapsed = computed({
-            get: () => set.collapsed,
-            set: value => {
-                set.setState("collapsed", value);
-            },
+        const defaultCollapsed = computed<boolean>({
+            get: () => props.collapsed,
+            set: value => emit("update:collapsed", value),
         });
-        const isKeepHeader = computed(() => set.isKeepHeader);
-        const isKeepTags = computed(() => set.isKeepTags);
         const contentTop = computed(() => {
-            return isKeepTags.value ? 35 : 0;
+            return props.tagsFixed ? 35 : 0;
         });
         const inverted = computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
         return {
             defaultInverted,
-            defaultMenus,
             defaultValue,
-            collapsed,
-            isKeepHeader,
-            isKeepTags,
+            defaultCollapsed,
             contentTop,
             inverted,
         };
@@ -71,7 +81,7 @@ export default defineComponent({
                     <div class="layout-sider-wrapper">
                         <n-layout-sider
                             class="layout-sider"
-                            v-model={[this.collapsed, "collapsed"]}
+                            v-model={[this.defaultCollapsed, "collapsed"]}
                             collapse-mode="width"
                             collapsed-width={64}
                             width={240}
@@ -81,12 +91,12 @@ export default defineComponent({
                             content-style="height: 100%;"
                             native-scrollbar={false}
                         >
-                            <Menu v-model={[this.defaultValue, "value"]} inverted={this.inverted} options={this.defaultMenus} />
+                            <Menu v-model={[this.defaultValue, "value"]} inverted={this.inverted} options={this.menuOptions} />
                         </n-layout-sider>
                         <Collapse
                             class="mixin-collapse"
-                            collapsed={this.collapsed}
-                            size={this.collapsed ? 24 : 22}
+                            collapsed={this.defaultCollapsed}
+                            size={this.defaultCollapsed ? 24 : 22}
                             width={240}
                             border={this.inverted ? "top" : "top,right"}
                             inverted={this.inverted}
@@ -94,14 +104,14 @@ export default defineComponent({
                         />
                     </div>
                     <n-layout class="n-layout-main">
-                        {this.isKeepTags ? TagsLayout : null}
+                        {this.tagsFixed ? TagsLayout : null}
                         <n-layout-content
                             class="layout-content"
                             position="absolute"
                             style={`top: ${this.contentTop}px; bottom: 0`}
                             native-scrollbar={this.nativeScrollbar}
                         >
-                            {this.isKeepTags ? null : TagsLayout}
+                            {this.tagsFixed ? null : TagsLayout}
                             {renderSlot(this.$slots, "default")}
                         </n-layout-content>
                     </n-layout>
