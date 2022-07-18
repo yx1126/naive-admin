@@ -9,17 +9,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from "vue";
+import { computed, defineAsyncComponent, defineComponent, h } from "vue";
 import Setting from "./components/Setting.vue";
 import { useSetStore } from "@/stores";
 
 const set = useSetStore();
 
 const layputMap = {
-    aside: defineAsyncComponent(() => import("./layout/AsideLayout.vue")),
-    top: defineAsyncComponent(() => import("./layout/TopLayout.vue")),
-    mixin: defineAsyncComponent(() => import("./layout/MixinLayout.vue")),
-    asideMixin: defineAsyncComponent(() => import("./layout/AsideMixinLayout.vue")),
+    aside: loadComponent("./layout/AsideLayout.vue"),
+    top: loadComponent("./layout/TopLayout.vue"),
+    mixin: loadComponent("./layout/MixinLayout.vue"),
+    asideMixin: loadComponent("./layout/AsideMixinLayout.vue"),
 };
 
 const mode = computed(() => {
@@ -31,6 +31,28 @@ const layoutConStyle = $computed(() => {
         "--diablo-color": set.navMode === "diablo" ? "transparent" : "#f5f7f9",
     };
 });
+
+function loadComponent(value: string): ReturnType<typeof defineAsyncComponent> {
+    return defineAsyncComponent({
+        loader: () => import(value),
+        delay: 200,
+        loadingComponent: defineComponent({
+            render() {
+                return h(
+                    "div",
+                    { class: "page-loading" },
+                    h(
+                        "div",
+                        {
+                            class: "icon-wrapper",
+                        },
+                        Array.from({ length: 4 }).map(() => h("i")),
+                    ),
+                );
+            },
+        }),
+    });
+}
 </script>
 
 <style lang="scss">

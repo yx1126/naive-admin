@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
     Icon: typeof import('./src/components/Icon/Icon.vue')['default']
+    Loading: typeof import('./src/components/Loading/Loading.vue')['default']
     Message: typeof import('./src/components/Message/Message.vue')['default']
     NBackTop: typeof import('naive-ui')['NBackTop']
     NButton: typeof import('naive-ui')['NButton']
@@ -31,6 +32,7 @@ declare module 'vue' {
     NPopconfirm: typeof import('naive-ui')['NPopconfirm']
     NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']
+    NSpin: typeof import('naive-ui')['NSpin']
     NSwitch: typeof import('naive-ui')['NSwitch']
     NTag: typeof import('naive-ui')['NTag']
     NTags: typeof import('naive-ui')['NTags']

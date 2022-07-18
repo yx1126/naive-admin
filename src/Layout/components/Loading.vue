@@ -1,41 +1,15 @@
-@charset "UTF-8";
-
-@import "./global.scss";
-@import "./transition.scss";
-
-* {
-    box-sizing: border-box;
-}
-:root {
-    --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04), 0px 8px 20px rgba(0, 0, 0, 0.08);
-    --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
-    --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.12);
-    --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08), 0px 12px 32px rgba(0, 0, 0, 0.12),
-        0px 8px 16px -8px rgba(0, 0, 0, 0.16);
-}
-
-html,
-body,
-#app {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-a:focus,
-a:active {
-    outline: none;
-}
-
-a,
-a:focus,
-a:hover {
-    cursor: pointer;
-    color: inherit;
-    text-decoration: none;
-}
-
-.page-loading {
+<template>
+    <div class="layout-loading">
+        <div class="icon-wrapper">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+    </div>
+</template>
+<style lang="scss">
+.layout-loading {
     width: 100vw;
     height: 100vh;
     @extend .flex-center;
@@ -77,3 +51,4 @@ a:hover {
         }
     }
 }
+</style>

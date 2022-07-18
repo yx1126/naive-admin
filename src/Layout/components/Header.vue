@@ -14,12 +14,12 @@
 .header {
     width: 100%;
     height: 100%;
-    @extend .flex-center;
+    @extend .flex-between-center;
     .header-left {
-        @extend .flex-center;
+        @extend .flex-align-center;
     }
     .header-right {
-        @extend .flex-center;
+        @extend .flex-align-center;
     }
 }
 </style>

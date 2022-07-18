@@ -2,7 +2,7 @@
     <div v-if="set.isShowLogo" class="logo" :style="logoStyle">
         <div class="logo-icon">
             <slot name="icon">
-                <Icon :size="32"><Vue /></Icon>
+                <Icon :size="32" icon="vue" />
             </slot>
         </div>
         <div class="logo-text">
@@ -14,7 +14,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useSetStore } from "@/stores";
-import Vue from "@/components/Vue";
 
 interface Logo {
     collapsed?: boolean;
