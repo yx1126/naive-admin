@@ -7,6 +7,7 @@
         :header-fixed="isKeepHeader"
         :tags-fixed="isKeepTags"
         :inverted="inverted"
+        show-trigger="bar"
     >
         <div class="layout-container" :style="layoutConStyle">
             <slot></slot>

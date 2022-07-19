@@ -7,6 +7,7 @@ import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
+import { useThemeVars } from "naive-ui";
 import type { PropType } from "vue";
 import type { MenuOption } from "naive-ui";
 
@@ -38,11 +39,17 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        showTrigger: {
+            type: [Boolean, String],
+            default: false,
+        },
     },
-    setup(props) {
+    emits: ["update:collapsed"],
+    setup(props, { emit }) {
         const route = useRoute();
         const router = useRouter();
         const set = useSetStore();
+        const themeVars = useThemeVars();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["asideMixin"].includes(set.layoutMode));
         const contentTop = computed(() => {
@@ -61,10 +68,13 @@ export default defineComponent({
                 "--theme-color": set.themeColor,
             };
         });
-
         const isCollapsed = computed(() => {
             return menuChildrensOptions.value.length <= 0;
         });
+
+        function onUpdateCollapsed() {
+            emit("update:collapsed", !props.collapsed);
+        }
 
         return {
             defaultInverted,
@@ -74,9 +84,20 @@ export default defineComponent({
             menuChildrensOptions,
             layoutWrapperStyle,
             isCollapsed,
+            onUpdateCollapsed,
+            themeVars,
         };
     },
     render() {
+        const arrowCircleTriggerStyle = `transition: transform 0.3s ${
+            this.themeVars.cubicBezierEaseInOut
+        }; transform: translateX(50%) translateY(-50%) rotate(${this.collapsed ? 180 : 0}deg)`;
+        const triggerStyle = this.isCollapsed
+            ? ""
+            : `transition: right 0.3s ${this.themeVars.cubicBezierEaseInOut}; right: -${this.isCollapsed ? 28 : 188}px`;
+        const isShowTrigger =
+            this.showTrigger === "bar" ? "bar" : this.showTrigger === "arrow-circle" ? (this.isCollapsed ? "arrow-circle" : false) : false;
+
         const TagsLayout = (
             <n-layout-header class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"}>
                 <Tags />
@@ -93,6 +114,10 @@ export default defineComponent({
                         inverted={this.defaultInverted}
                         bordered
                         native-scrollbar={false}
+                        collapsed-trigger-style={triggerStyle}
+                        trigger-style={triggerStyle}
+                        show-trigger={isShowTrigger}
+                        onUpdate:collapsed={this.onUpdateCollapsed}
                     >
                         <Logo collapsed={this.collapsed} width={140} indent={10} />
                         <Menu
@@ -127,6 +152,9 @@ export default defineComponent({
                                 collapsed-width={0}
                                 bordered
                                 native-scrollbar={false}
+                                trigger-style={this.showTrigger === "arrow-circle" ? arrowCircleTriggerStyle : ""}
+                                show-trigger={this.showTrigger === "arrow-circle" ? (this.isCollapsed ? false : "arrow-circle") : false}
+                                onUpdate:collapsed={this.onUpdateCollapsed}
                             >
                                 <Menu
                                     v-model={[this.defaultChildValue, "value"]}

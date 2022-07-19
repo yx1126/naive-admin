@@ -1,7 +1,6 @@
 <template>
     <n-menu
         v-model:value="defaultValue"
-        :collapsed="set.collapsed"
         :inverted="defaultInverted"
         key-field="path"
         label-field="name"

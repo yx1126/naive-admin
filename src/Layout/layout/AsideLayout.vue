@@ -37,8 +37,13 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        showTrigger: {
+            type: [Boolean, String],
+            default: false,
+        },
     },
-    setup(props) {
+    emits: ["update:collapsed"],
+    setup(props, { emit }) {
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["aside"].includes(set.layoutMode));
@@ -46,9 +51,14 @@ export default defineComponent({
             return (props.headerFixed ? 60 : 0) + (props.tagsFixed ? 35 : 0);
         });
 
+        function onUpdateCollapsed(collapsed: boolean) {
+            emit("update:collapsed", collapsed);
+        }
+
         return {
             defaultInverted,
             contentTop,
+            onUpdateCollapsed,
         };
     },
     render() {
@@ -72,6 +82,8 @@ export default defineComponent({
                     inverted={this.defaultInverted}
                     bordered
                     native-scrollbar={false}
+                    show-trigger={this.showTrigger}
+                    onUpdate:collapsed={this.onUpdateCollapsed}
                 >
                     <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
                     <Menu options={this.menuOptions} />

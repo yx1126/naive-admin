@@ -34,8 +34,13 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        showTrigger: {
+            type: [Boolean, String],
+            default: false,
+        },
     },
-    setup(props) {
+    emits: ["update:collapsed"],
+    setup(props, { emit }) {
         const route = useRoute();
         const set = useSetStore();
 
@@ -61,6 +66,10 @@ export default defineComponent({
             return isCutMenu.value ? (isShowSilder.value ? hasChild : noChild) : hasChild;
         });
 
+        function onUpdateCollapsed(collapsed: boolean) {
+            emit("update:collapsed", collapsed);
+        }
+
         return {
             defaultInverted,
             isCutMenu,
@@ -68,6 +77,7 @@ export default defineComponent({
             menuChildrensOptions,
             isShowSilder,
             state,
+            onUpdateCollapsed,
         };
     },
     render() {
@@ -104,6 +114,8 @@ export default defineComponent({
                             inverted={this.inverted}
                             content-style="height: 100%;"
                             native-scrollbar={this.nativeScrollbar}
+                            show-trigger={this.isShowSilder ? this.showTrigger : false}
+                            onUpdate:collapsed={this.onUpdateCollapsed}
                         >
                             <Menu inverted={this.inverted} options={this.menuChildrensOptions} />
                         </n-layout-sider>
