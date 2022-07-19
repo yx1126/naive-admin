@@ -22,9 +22,25 @@ export default defineComponent({
             type: Array as PropType<MenuOption[]>,
             default: () => [],
         },
+        headerFixed: {
+            type: Boolean,
+            default: true,
+        },
+        tagsFixed: {
+            type: Boolean,
+            default: true,
+        },
+        collapsed: {
+            type: Boolean,
+            default: true,
+        },
+        inverted: {
+            type: Boolean,
+            default: true,
+        },
     },
     emits: ["update:collapsed"],
-    setup() {
+    setup(props, { emit }) {
         const route = useRoute();
         const router = useRouter();
         const set = useSetStore();
@@ -34,33 +50,29 @@ export default defineComponent({
             get: () => route?.meta?.activeMenu || route.path,
             set: value => router.push(value),
         });
-        const collapsed = computed({
-            get: () => set.collapsed,
-            set: value => {
-                set.setState("collapsed", value);
-            },
+        const defaultCollapsed = computed({
+            get: () => props.collapsed,
+            set: value => emit("update:collapsed", value),
         });
         const isKeepHeader = computed(() => set.isKeepHeader);
         const isKeepTags = computed(() => set.isKeepTags);
         const contentTop = computed(() => {
             return (isKeepHeader.value ? 60 : 0) + (isKeepTags.value ? 35 : 0);
         });
-        const inverted = computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
         return {
             defaultInverted,
             defaultValue,
-            collapsed,
+            defaultCollapsed,
             isKeepHeader,
             isKeepTags,
             contentTop,
-            inverted,
         };
     },
     render() {
         const HeaderLayout = (
             <n-layout-header class="layout-header" bordered inverted={this.inverted} position={this.isKeepHeader ? "absolute" : "static"}>
-                <Header>{{ left: () => <Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} /> }}</Header>
+                <Header>{{ left: () => <Collapse collapsed={this.defaultCollapsed} width={59} collapsed-width={59} height={59} /> }}</Header>
             </n-layout-header>
         );
         const TagsLayout = (
@@ -71,7 +83,7 @@ export default defineComponent({
         return (
             <n-layout class="layout-wrapper" has-sider position="a  bsolute">
                 <n-layout-sider
-                    v-model={[this.collapsed, "collapsed"]}
+                    v-model={[this.defaultCollapsed, "collapsed"]}
                     collapse-mode="width"
                     collapsed-width={64}
                     width={240}
@@ -80,8 +92,8 @@ export default defineComponent({
                     show-trigger="bar"
                     native-scrollbar={false}
                 >
-                    <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
-                    <Menu v-model={[this.defaultValue, "value"]} options={this.menuOptions} />
+                    <Logo collapsed={this.defaultCollapsed} collapsed-width={64} width={240} />
+                    <Menu options={this.menuOptions} />
                 </n-layout-sider>
                 <n-layout class="n-layout-main">
                     {this.isKeepHeader ? HeaderLayout : null}

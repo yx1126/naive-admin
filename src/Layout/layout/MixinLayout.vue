@@ -1,6 +1,5 @@
 <script lang="tsx">
 import { defineComponent, computed, renderSlot } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -34,33 +33,25 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        inverted: {
+            type: Boolean,
+            default: true,
+        },
     },
     emits: ["update:collapsed"],
     setup(props, { emit }) {
-        const route = useRoute();
-        const router = useRouter();
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
-        const defaultValue = computed({
-            get: () => route?.meta?.activeMenu || route.path,
-            set: value => router.push(value),
-        });
-        const defaultCollapsed = computed<boolean>({
+
+        const defaultCollapsed = computed({
             get: () => props.collapsed,
             set: value => emit("update:collapsed", value),
         });
-        const contentTop = computed(() => {
-            return props.tagsFixed ? 35 : 0;
-        });
-        const inverted = computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
         return {
             defaultInverted,
-            defaultValue,
             defaultCollapsed,
-            contentTop,
-            inverted,
         };
     },
     render() {
@@ -72,9 +63,7 @@ export default defineComponent({
         return (
             <n-layout class="layout-wrapper">
                 <n-layout-header class="layout-header layout-header-mixin" inverted={this.defaultInverted} bordered>
-                    <Logo height={60} width={240}>
-                        <span>VueAdmin</span>
-                    </Logo>
+                    <Logo height={60} width={240} />
                     <Header />
                 </n-layout-header>
                 <n-layout has-sider position="absolute" style="top: 60px">
@@ -91,7 +80,7 @@ export default defineComponent({
                             content-style="height: 100%;"
                             native-scrollbar={false}
                         >
-                            <Menu v-model={[this.defaultValue, "value"]} inverted={this.inverted} options={this.menuOptions} />
+                            <Menu inverted={this.inverted} options={this.menuOptions} />
                         </n-layout-sider>
                         <Collapse
                             class="mixin-collapse"
@@ -108,7 +97,7 @@ export default defineComponent({
                         <n-layout-content
                             class="layout-content"
                             position="absolute"
-                            style={`top: ${this.contentTop}px; bottom: 0`}
+                            style={`top: ${this.tagsFixed ? 35 : 0}px; bottom: 0`}
                             native-scrollbar={this.nativeScrollbar}
                         >
                             {this.tagsFixed ? null : TagsLayout}

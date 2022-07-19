@@ -6,6 +6,7 @@
         :native-scrollbar="false"
         :header-fixed="isKeepHeader"
         :tags-fixed="isKeepTags"
+        :inverted="inverted"
     >
         <div class="layout-container" :style="layoutConStyle">
             <slot></slot>
@@ -29,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, defineComponent, h } from "vue";
+import { defineAsyncComponent, defineComponent, h, type AsyncComponentLoader } from "vue";
 import Setting from "./components/Setting.vue";
 import { useSetStore, useUserStore } from "@/stores";
 
@@ -42,10 +43,10 @@ const isKeepHeader = $computed(() => set.isKeepHeader);
 const isKeepTags = $computed(() => set.isKeepTags);
 
 const layputMap = {
-    aside: loadComponent("./layout/AsideLayout.vue"),
-    top: loadComponent("./layout/TopLayout.vue"),
-    mixin: loadComponent("./layout/MixinLayout.vue"),
-    asideMixin: loadComponent("./layout/AsideMixinLayout.vue"),
+    aside: loadComponent(() => import("./layout/AsideLayout.vue")),
+    top: loadComponent(() => import("./layout/TopLayout.vue")),
+    mixin: loadComponent(() => import("./layout/MixinLayout.vue")),
+    asideMixin: loadComponent(() => import("./layout/AsideMixinLayout.vue")),
 };
 
 const mode = $computed(() => {
@@ -62,10 +63,11 @@ const layoutConStyle = $computed(() => {
         "--diablo-color": set.navMode === "diablo" ? "transparent" : "#f5f7f9",
     };
 });
+const inverted = $computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
-function loadComponent(value: string): ReturnType<typeof defineAsyncComponent> {
+function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAsyncComponent> {
     return defineAsyncComponent({
-        loader: () => import(value),
+        loader,
         delay: 200,
         loadingComponent: defineComponent({
             render() {

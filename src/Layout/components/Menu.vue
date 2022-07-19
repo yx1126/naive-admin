@@ -1,5 +1,6 @@
 <template>
     <n-menu
+        v-model:value="defaultValue"
         :collapsed="set.collapsed"
         :inverted="defaultInverted"
         key-field="path"
@@ -14,14 +15,18 @@
 
 <script setup lang="ts">
 import { watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import useSetStore from "@/stores/setting";
 
 const set = useSetStore();
 const route = useRoute();
+const router = useRouter();
 
 const defaultInverted = $computed(() => ["dark"].includes(set.navMode) && !["mixin"].includes(set.layoutMode));
-
+const defaultValue = $computed({
+    get: () => route?.meta?.activeMenu || route.path,
+    set: value => router.push(value),
+});
 let defaultExpendMenu = $ref<string[]>(route.matched.filter(item => item.path !== "").map(item => item.path));
 
 const onExpandedKeys = (keys: string[]) => {
