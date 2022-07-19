@@ -271,7 +271,7 @@ async function moveToCurrentTag() {
     const beyondRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.scrollLeft + tagsRef.clientWidth;
     if (beyondLeft || beyondRight) {
         tagsRef.scrollTo({
-            left: beyondLeft ? tagsItemRefEl.offsetLeft - 5 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth,
+            left: beyondLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth + 100,
             behavior: "smooth",
         });
     }

@@ -33,7 +33,6 @@ export default defineComponent({
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
-
         const contentTop = computed(() => {
             return (props.headerFixed ? 60 : 0) + (props.tagsFixed ? 35 : 0);
         });

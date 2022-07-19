@@ -24,6 +24,7 @@ export interface SetState {
     lang: Lang;
     collapsed: boolean;
     inverted: boolean;
+    asideMixinCollapsed: boolean;
 }
 
 export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
@@ -52,6 +53,7 @@ export const defaultSetting: SetState = {
     lang: "zh-CN",
     collapsed: false,
     inverted: false,
+    asideMixinCollapsed: false,
 };
 
 const useSetStore = defineStore(

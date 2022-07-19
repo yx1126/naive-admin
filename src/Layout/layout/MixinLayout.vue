@@ -21,10 +21,6 @@ export default defineComponent({
             type: Array as PropType<MenuOption[]>,
             default: () => [],
         },
-        headerFixed: {
-            type: Boolean,
-            default: true,
-        },
         tagsFixed: {
             type: Boolean,
             default: true,

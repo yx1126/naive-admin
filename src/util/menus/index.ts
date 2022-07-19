@@ -23,7 +23,7 @@ export function formatKey(menus: MenuOption[], path?: string | number): MenuOpti
             ...menu,
             path: path ? path + "/" + menu.path : menu.path,
         };
-        if (menu.children?.length) back.children = formatKey(menu.children, menu.path as string);
+        if (menu.children?.length) back.children = formatKey(menu.children, back.path as string);
         return back;
     });
 }

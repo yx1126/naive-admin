@@ -22,6 +22,7 @@ interface Logo {
     height?: number;
     collapsedWidth?: number;
     text?: string;
+    indent?: number;
 }
 
 const set = useSetStore();
@@ -31,6 +32,7 @@ const props = withDefaults(defineProps<Logo>(), {
     height: 50,
     collapsedWidth: 48,
     text: "VueAdmin",
+    indent: 20,
 });
 
 const logoStyle = computed(() => {
@@ -38,7 +40,7 @@ const logoStyle = computed(() => {
         "--logo-width": (props.collapsed ? props.collapsedWidth : props.width) + "px",
         "--logo-min-width": typeof props.minWidth === "string" ? props.minWidth : props.minWidth + "px",
         "--logo-height": props.height + "px",
-        "--logo-padding": props.collapsed ? `0 ${(props.collapsedWidth - 32) / 2}px` : "0 18px 0 20px",
+        "--logo-padding": props.collapsed ? `0 ${(props.collapsedWidth - 32) / 2}px` : `0 18px 0 ${props.indent}px`,
         "--logo-icon-margin-right": props.collapsed ? 0 : "8px",
         "--logo-text-width": props.collapsed ? 0 : "auto",
         "--logo-opacity": props.collapsed ? 0 : 1,

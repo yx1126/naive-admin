@@ -8,6 +8,7 @@ import {
     SafetyCertificateOutlined,
     SettingOutlined,
     ReadOutlined,
+    AppstoreAddOutlined,
 } from "@vicons/antd";
 import type { MenuOption } from "naive-ui";
 
@@ -76,6 +77,37 @@ const menus: MenuOption[] = [
             {
                 name: "404",
                 path: "404",
+            },
+        ],
+    },
+    {
+        name: "路由嵌套",
+        path: "/router-nested",
+        icon: renderIcon(AppstoreAddOutlined),
+        children: [
+            {
+                name: "菜单-1",
+                path: "menu-1",
+                children: [
+                    {
+                        name: "菜单-1-1",
+                        path: "menu-1-1",
+                        children: [
+                            {
+                                name: "菜单-1-1-1",
+                                path: "menu-1-1-1",
+                            },
+                        ],
+                    },
+                    {
+                        name: "菜单-1-2",
+                        path: "menu-1-2",
+                    },
+                ],
+            },
+            {
+                name: "菜单-2",
+                path: "menu-2",
             },
         ],
     },

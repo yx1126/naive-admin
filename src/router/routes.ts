@@ -147,6 +147,67 @@ const routes: RouteRecordRaw[] = [
         ],
     },
     {
+        path: "/router-nested",
+        name: "RouterNested",
+        meta: {
+            title: "路由嵌套",
+            icon: "",
+        },
+        redirect: "/router-nested/menu-1/menu-1-1/menu-1-1-1",
+        component: Layout,
+        children: [
+            {
+                path: "menu-1",
+                name: "Menu1",
+                meta: {
+                    title: "菜单-1",
+                    icon: "",
+                },
+                component: Layout,
+                children: [
+                    {
+                        path: "menu-1-1",
+                        name: "Menu11",
+                        meta: {
+                            title: "菜单1-1",
+                            icon: "",
+                        },
+                        component: Layout,
+                        children: [
+                            {
+                                path: "menu-1-1-1",
+                                name: "Menu111",
+                                meta: {
+                                    title: "菜单1-1-1",
+                                    icon: "",
+                                },
+                                component: () => import("@/views/router-nested/menu-1/menu-1-1/menu-1-1-1/menu-1-1-1.vue"),
+                            },
+                        ],
+                    },
+                    {
+                        path: "menu-1-2",
+                        name: "Menu12",
+                        meta: {
+                            title: "菜单1-2",
+                            icon: "",
+                        },
+                        component: () => import("@/views/router-nested/menu-1/menu-1-1/menu-1-2.vue"),
+                    },
+                ],
+            },
+            {
+                path: "menu-2",
+                name: "Menu2",
+                meta: {
+                    title: "菜单-2",
+                    icon: "",
+                },
+                component: () => import("@/views/router-nested/menu-2.vue"),
+            },
+        ],
+    },
+    {
         path: "/permission",
         name: "Permission",
         meta: {
