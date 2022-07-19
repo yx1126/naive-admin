@@ -35,35 +35,39 @@ export default defineComponent({
             default: true,
         },
     },
-    emits: ["update:collapsed"],
-    setup(props, { emit }) {
+    setup(props) {
         const route = useRoute();
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const isCutMenu = computed(() => set.isCutMenu);
-        const defaultCollapsed = computed({
-            get: () => props.collapsed,
-            set: value => emit("update:collapsed", value),
-        });
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
         const menuChildrensOptions = computed(() => {
-            const currentMenuChild = props.menuOptions.find(m => m.path === defaultValue.value);
-            const cutMenuList = (currentMenuChild?.children || []).map(m => {
+            const currentMenu = props.menuOptions.find(m => m.path === defaultValue.value);
+            const cutMenuList = (currentMenu?.children || []).map(m => {
                 return {
                     ...m,
-                    icon: m.icon || currentMenuChild?.icon,
+                    icon: m.icon || currentMenu?.icon,
                 };
             });
             return isCutMenu.value ? cutMenuList : props.menuOptions;
         });
+        const isShowSilder = computed(() => {
+            return menuChildrensOptions.value.length > 0;
+        });
+        const state = computed(() => {
+            const hasChild = { collapsed: props.collapsed, width: 64 };
+            const noChild = { collapsed: true, width: 0 };
+            return isCutMenu.value ? (isShowSilder.value ? hasChild : noChild) : hasChild;
+        });
 
         return {
             defaultInverted,
-            defaultCollapsed,
             isCutMenu,
             defaultValue,
             menuChildrensOptions,
+            isShowSilder,
+            state,
         };
     },
     render() {
@@ -73,7 +77,14 @@ export default defineComponent({
             </n-layout-header>
         );
         const CutMenuNode = (
-            <Menu mode="horizontal" value={this.defaultValue} inverted={this.defaultInverted} options={this.menuOptions} children-field="noChild" />
+            <Menu
+                mode="horizontal"
+                value={this.defaultValue}
+                collapsed={false}
+                inverted={this.defaultInverted}
+                options={this.menuOptions}
+                children-field="noChild"
+            />
         );
         return (
             <n-layout class="layout-wrapper">
@@ -82,29 +93,28 @@ export default defineComponent({
                     <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : null) }}</Header>
                 </n-layout-header>
                 <n-layout has-sider position="absolute" style="top: 60px">
-                    <div class="layout-sider-wrapper" v-show={this.menuChildrensOptions.length > 0}>
+                    <div class="layout-sider-wrapper">
                         <n-layout-sider
                             class="layout-sider"
-                            v-model={[this.defaultCollapsed, "collapsed"]}
+                            collapsed={this.state.collapsed}
                             collapse-mode="width"
-                            collapsed-width={64}
+                            collapsed-width={this.state.width}
                             width={240}
                             bordered
                             inverted={this.inverted}
-                            show-trigger="bar"
                             content-style="height: 100%;"
-                            native-scrollbar={false}
+                            native-scrollbar={this.nativeScrollbar}
                         >
                             <Menu inverted={this.inverted} options={this.menuChildrensOptions} />
                         </n-layout-sider>
                         <Collapse
                             class="mixin-collapse"
-                            collapsed={this.defaultCollapsed}
-                            size={this.defaultCollapsed ? 24 : 22}
+                            collapsed={this.state.collapsed}
+                            size={this.state.collapsed ? 24 : 22}
                             width={240}
                             border={this.inverted ? "top" : "top,right"}
                             inverted={this.inverted}
-                            collapsed-width={64}
+                            collapsed-width={this.state.width}
                         />
                     </div>
                     <n-layout class="n-layout-main">

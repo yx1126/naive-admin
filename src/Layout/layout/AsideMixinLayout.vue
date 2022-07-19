@@ -39,17 +39,12 @@ export default defineComponent({
             default: true,
         },
     },
-    emits: ["update:collapsed"],
-    setup(props, { emit }) {
+    setup(props) {
         const route = useRoute();
         const router = useRouter();
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["asideMixin"].includes(set.layoutMode));
-        const defaultCollapsed = computed({
-            get: () => props.collapsed,
-            set: value => emit("update:collapsed", value),
-        });
         const contentTop = computed(() => {
             return props.tagsFixed ? 35 : 0;
         });
@@ -67,14 +62,18 @@ export default defineComponent({
             };
         });
 
+        const isCollapsed = computed(() => {
+            return menuChildrensOptions.value.length <= 0;
+        });
+
         return {
             defaultInverted,
             defaultValue,
-            defaultCollapsed,
             contentTop,
             defaultChildValue,
             menuChildrensOptions,
             layoutWrapperStyle,
+            isCollapsed,
         };
     },
     render() {
@@ -88,14 +87,14 @@ export default defineComponent({
                 <div class="layout-sider-wrapper">
                     <n-layout-sider
                         class="layout-sider"
-                        v-model={[this.defaultCollapsed, "collapsed"]}
+                        collapsed={this.collapsed}
                         collapse-mode="width"
                         width={140}
                         inverted={this.defaultInverted}
                         bordered
                         native-scrollbar={false}
                     >
-                        <Logo collapsed={this.defaultCollapsed} width={140} indent={10} />
+                        <Logo collapsed={this.collapsed} width={140} indent={10} />
                         <Menu
                             options={this.menuOptions}
                             value={this.defaultValue}
@@ -106,8 +105,8 @@ export default defineComponent({
                     </n-layout-sider>
                     <Collapse
                         class="mixin-collapse"
-                        collapsed={this.defaultCollapsed}
-                        size={this.defaultCollapsed ? 24 : 22}
+                        collapsed={this.collapsed}
+                        size={this.collapsed ? 24 : 22}
                         width={140}
                         border={this.inverted ? "top" : "top"}
                         inverted={this.defaultInverted}
@@ -122,7 +121,7 @@ export default defineComponent({
                         <n-layout has-sider style="height: 100%;">
                             <n-layout-sider
                                 class="layout-sider-child"
-                                collapsed={this.menuChildrensOptions.length <= 0}
+                                collapsed={this.isCollapsed}
                                 collapse-mode="transform"
                                 width={160}
                                 collapsed-width={0}

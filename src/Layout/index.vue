@@ -14,29 +14,17 @@
         <n-back-top />
     </component>
     <Setting />
-    <n-watermark
-        :content="watermark"
-        cross
-        fullscreen
-        :font-size="16"
-        :line-height="16"
-        :width="384"
-        :height="384"
-        :x-offset="12"
-        :y-offset="60"
-        :rotate="-15"
-        :z-index="100000"
-    />
+    <Watermark />
 </template>
 
 <script setup lang="ts">
 import { defineAsyncComponent, defineComponent, h, type AsyncComponentLoader } from "vue";
 import Setting from "./components/Setting.vue";
+import Watermark from "./components/Watermark.vue";
 import { useSetStore, useUserStore } from "@/stores";
 
 const set = useSetStore();
 const user = useUserStore();
-const watermark = import.meta.env.VITE_APP_TITLE;
 
 const defaultMenus = $computed(() => user.menus);
 const isKeepHeader = $computed(() => set.isKeepTags || set.isKeepHeader);

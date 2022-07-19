@@ -285,6 +285,15 @@ const routes: RouteRecordRaw[] = [
         },
         component: () => import("@/views/other-pages/about.vue"),
     },
+    {
+        path: "/redirect/:path(.*)",
+        name: "Redirect",
+        meta: {
+            title: "redirect",
+            icon: "",
+        },
+        component: () => import("@/views/redirect/redirect.vue"),
+    },
     { path: "/:pathMatch(.*)", redirect: "/error/404" },
 ];
 

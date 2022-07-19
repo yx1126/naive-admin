@@ -126,6 +126,7 @@ const dropDownOptions = $computed(() => {
 watch(
     () => route.fullPath,
     path => {
+        if (route.fullPath.startsWith("/redirect")) return;
         tags.insert("activeTags", {
             title: route.meta.title,
             name: route.name as string,
@@ -187,6 +188,7 @@ async function onDropdownSelect(key: string | number) {
     if (!chooseTags || chooseTagsIndex === -1) return;
     const activeTagsLength = activeTags.length - 1;
     const keepTagsLength = keepTags.length - 1;
+    const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
     switch (key) {
         case "remove":
             if (activeTagsLength < 1) {
@@ -196,30 +198,20 @@ async function onDropdownSelect(key: string | number) {
             }
             tags.remove(chooseTags.path);
             break;
-        case "removeLeft": {
-            const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
-            if (currentPageIndex !== -1 && chooseTagsIndex > currentPageIndex) {
-                router.push(chooseTags.path);
-            }
+        case "removeLeft":
+            if (currentPageIndex !== -1 && chooseTagsIndex > currentPageIndex) router.push(chooseTags.path);
             tags.removeLeft(chooseTags.path);
             break;
-        }
-        case "removeRight": {
-            const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
-            if (currentPageIndex !== -1 && chooseTagsIndex < currentPageIndex) {
-                router.push(chooseTags.path);
-            }
+        case "removeRight":
+            if (currentPageIndex !== -1 && chooseTagsIndex < currentPageIndex) router.push(chooseTags.path);
             tags.removeRight(chooseTags.path);
             break;
-        }
         case "removeOther":
-            if (chooseTags.path !== currentPath && activeTags.findIndex(t => t.path === currentPath) !== -1) {
-                router.push(chooseTags.path);
-            }
+            if (currentPageIndex !== -1 && chooseTags.path !== currentPath) router.push(chooseTags.path);
             tags.removeOther(chooseTags.path);
             break;
         case "removeAll":
-            router.push(keepTags[keepTagsLength].path);
+            if (currentPageIndex !== -1) router.push(keepTags[keepTagsLength].path);
             tags.removeAll(chooseTags.path);
             break;
         case "removeFixed":
@@ -248,7 +240,7 @@ function onClickoutside() {
 }
 
 function onRefresh() {
-    console.log("onRefresh");
+    router.replace(`/redirect${route.fullPath}`);
 }
 
 function onFullScreen() {

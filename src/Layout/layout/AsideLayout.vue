@@ -38,29 +38,23 @@ export default defineComponent({
             default: true,
         },
     },
-    emits: ["update:collapsed"],
-    setup(props, { emit }) {
+    setup(props) {
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["aside"].includes(set.layoutMode));
-        const defaultCollapsed = computed({
-            get: () => props.collapsed,
-            set: value => emit("update:collapsed", value),
-        });
         const contentTop = computed(() => {
             return (props.headerFixed ? 60 : 0) + (props.tagsFixed ? 35 : 0);
         });
 
         return {
             defaultInverted,
-            defaultCollapsed,
             contentTop,
         };
     },
     render() {
         const HeaderLayout = (
             <n-layout-header class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
-                <Header>{{ left: () => <Collapse collapsed={this.defaultCollapsed} width={59} collapsed-width={59} height={59} /> }}</Header>
+                <Header>{{ left: () => <Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} /> }}</Header>
             </n-layout-header>
         );
         const TagsLayout = (
@@ -71,16 +65,15 @@ export default defineComponent({
         return (
             <n-layout class="layout-wrapper" has-sider position="absolute">
                 <n-layout-sider
-                    v-model={[this.defaultCollapsed, "collapsed"]}
+                    collapsed={this.collapsed}
                     collapse-mode="width"
                     collapsed-width={64}
                     width={240}
                     inverted={this.defaultInverted}
                     bordered
-                    show-trigger="bar"
                     native-scrollbar={false}
                 >
-                    <Logo collapsed={this.defaultCollapsed} collapsed-width={64} width={240} />
+                    <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
                     <Menu options={this.menuOptions} />
                 </n-layout-sider>
                 <n-layout class="n-layout-main">
