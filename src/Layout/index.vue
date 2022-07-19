@@ -39,7 +39,7 @@ const user = useUserStore();
 const watermark = import.meta.env.VITE_APP_TITLE;
 
 const defaultMenus = $computed(() => user.menus);
-const isKeepHeader = $computed(() => set.isKeepHeader);
+const isKeepHeader = $computed(() => set.isKeepTags || set.isKeepHeader);
 const isKeepTags = $computed(() => set.isKeepTags);
 
 const layputMap = {

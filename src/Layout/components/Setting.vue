@@ -33,7 +33,7 @@
             <div class="divider-content">
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.isKeepHeader") }}</n-ellipsis>
-                    <n-switch v-model:value="set.isKeepHeader" size="medium" />
+                    <n-switch v-model:value="set.isKeepHeader" :disabled="['mixin', 'asideMixin'].includes(set.layoutMode)" size="medium" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.isKeepTags") }}</n-ellipsis>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.isCutMenu") }}</n-ellipsis>
-                    <n-switch v-model:value="set.isCutMenu" :disabled="!['asideMixin'].includes(set.layoutMode)" size="medium" />
+                    <n-switch v-model:value="set.isCutMenu" :disabled="!['mixin'].includes(set.layoutMode)" size="medium" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.uniqueMenuOpened") }}</n-ellipsis>

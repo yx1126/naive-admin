@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot, ref, onMounted, nextTick } from "vue";
+import { defineComponent, computed, renderSlot } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
@@ -8,7 +8,7 @@ import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
 import type { PropType } from "vue";
-import type { MenuOption, NMenu } from "naive-ui";
+import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "AsideMixinLayout",
@@ -45,8 +45,6 @@ export default defineComponent({
         const router = useRouter();
         const set = useSetStore();
 
-        const menuRef = ref<InstanceType<typeof NMenu> | undefined | any>();
-
         const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["asideMixin"].includes(set.layoutMode));
         const defaultCollapsed = computed({
             get: () => props.collapsed,
@@ -69,11 +67,6 @@ export default defineComponent({
             };
         });
 
-        onMounted(async () => {
-            await nextTick();
-            console.log(menuRef.value);
-        });
-
         return {
             defaultInverted,
             defaultValue,
@@ -82,7 +75,6 @@ export default defineComponent({
             defaultChildValue,
             menuChildrensOptions,
             layoutWrapperStyle,
-            menuRef,
         };
     },
     render() {
@@ -105,7 +97,6 @@ export default defineComponent({
                     >
                         <Logo collapsed={this.defaultCollapsed} width={140} indent={10} />
                         <Menu
-                            ref={this.menuRef}
                             options={this.menuOptions}
                             value={this.defaultValue}
                             root-indent={10}
