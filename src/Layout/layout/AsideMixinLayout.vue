@@ -137,7 +137,7 @@ export default defineComponent({
                         collapsed={this.collapsed}
                         size={this.collapsed ? 24 : 22}
                         width={140}
-                        border={this.inverted ? "top" : "top"}
+                        border={this.defaultInverted ? "top" : "top,right"}
                         inverted={this.defaultInverted}
                         collapsed-width={48}
                     />
