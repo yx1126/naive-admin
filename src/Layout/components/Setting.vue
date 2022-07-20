@@ -120,7 +120,7 @@ function changeLang(e: Lang) {
             margin-bottom: 15px;
         }
         .divider-content-item__input {
-            width: 100px;
+            width: 120px;
         }
     }
 }

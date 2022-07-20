@@ -111,7 +111,7 @@ export default defineComponent({
         return (
             <n-layout class="layout-wrapper">
                 <n-layout-header class="layout-header layout-header-mixin" inverted={this.defaultInverted} bordered>
-                    <Logo height={60} width={240} />
+                    <Logo height={60} width={200} />
                     <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
                 </n-layout-header>
                 <n-layout has-sider position="absolute" style="top: 60px">
@@ -121,7 +121,7 @@ export default defineComponent({
                             collapsed={this.state.collapsed}
                             collapse-mode="width"
                             collapsed-width={this.state.width}
-                            width={240}
+                            width={200}
                             bordered
                             inverted={this.inverted}
                             content-style="height: 100%;"
@@ -135,7 +135,7 @@ export default defineComponent({
                             class="mixin-collapse"
                             collapsed={this.state.collapsed}
                             size={this.state.collapsed ? 24 : 22}
-                            width={240}
+                            width={200}
                             border={this.inverted ? "top" : "top,right"}
                             inverted={this.inverted}
                             collapsed-width={this.state.width}

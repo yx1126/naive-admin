@@ -2,15 +2,44 @@
 // We suggest you to commit this file into source control
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
-declare module "vue" {
-    export interface GlobalComponents {
-        Drawer: typeof import("./src/components/Drawer/Drawer.vue")["default"];
-        Icon: typeof import("./src/components/Icon/Icon.vue")["default"];
-        Message: typeof import("./src/components/Message/Message.vue")["default"];
-        SvgIcon: typeof import("./src/components/Icon/SvgIcon.vue")["default"];
-        TransRouterView: typeof import("./src/components/TransRouterView/TransRouterView.vue")["default"];
-        WangEditor: typeof import("./src/components/WangEditor/WangEditor.vue")["default"];
-    }
+declare module 'vue' {
+  export interface GlobalComponents {
+    Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
+    Icon: typeof import('./src/components/Icon/Icon.vue')['default']
+    Message: typeof import('./src/components/Message/Message.vue')['default']
+    NAvatar: typeof import('naive-ui')['NAvatar']
+    NBackTop: typeof import('naive-ui')['NBackTop']
+    NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
+    NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
+    NButton: typeof import('naive-ui')['NButton']
+    NColorPicker: typeof import('naive-ui')['NColorPicker']
+    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NDialogProvider: typeof import('naive-ui')['NDialogProvider']
+    NDivider: typeof import('naive-ui')['NDivider']
+    NDrawer: typeof import('naive-ui')['NDrawer']
+    NDrawerContent: typeof import('naive-ui')['NDrawerContent']
+    NDropdown: typeof import('naive-ui')['NDropdown']
+    NEllipsis: typeof import('naive-ui')['NEllipsis']
+    NGlobalStyle: typeof import('naive-ui')['NGlobalStyle']
+    NLayout: typeof import('naive-ui')['NLayout']
+    NLayoutContent: typeof import('naive-ui')['NLayoutContent']
+    NLayoutHeader: typeof import('naive-ui')['NLayoutHeader']
+    NLayoutSider: typeof import('naive-ui')['NLayoutSider']
+    NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
+    NMenu: typeof import('naive-ui')['NMenu']
+    NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+    NPopconfirm: typeof import('naive-ui')['NPopconfirm']
+    NSelect: typeof import('naive-ui')['NSelect']
+    NSpace: typeof import('naive-ui')['NSpace']
+    NSwitch: typeof import('naive-ui')['NSwitch']
+    NTag: typeof import('naive-ui')['NTag']
+    NTooltip: typeof import('naive-ui')['NTooltip']
+    NWatermark: typeof import('naive-ui')['NWatermark']
+    SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
+    TransRouterView: typeof import('./src/components/TransRouterView/TransRouterView.vue')['default']
+    WangEditor: typeof import('./src/components/WangEditor/WangEditor.vue')['default']
+  }
 }
 
-export {};
+export { }

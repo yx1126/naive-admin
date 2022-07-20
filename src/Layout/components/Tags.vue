@@ -32,9 +32,7 @@
             <Icon class="tags-btn-item" size="18" @click="onRefresh">
                 <ReloadOutline />
             </Icon>
-            <Icon class="tags-btn-item" size="20" @click="onFullScreen">
-                <FullScreenMaximize24Filled />
-            </Icon>
+            <n-divider vertical />
             <Icon class="tags-btn-item" size="22" @click="onShowDropdown($event)">
                 <MoreVertical24Regular />
             </Icon>
@@ -241,10 +239,6 @@ function onRefresh() {
     router.replace(`/redirect${route.fullPath}`);
 }
 
-function onFullScreen() {
-    console.log("onFullScreen");
-}
-
 async function moveToCurrentTag() {
     await nextTick();
     // v-for ref 数组不能保证与源数组相同的顺序
@@ -293,7 +287,7 @@ async function moveToCurrentTag() {
 }
 .tags-btn {
     height: 80%;
-    box-shadow: -2px 1px 5px #d6d3d3;
+    box-shadow: -5px 1px 5px #d6d3d3;
     position: relative;
     top: -1px;
     z-index: 100;
@@ -304,8 +298,5 @@ async function moveToCurrentTag() {
 }
 .tags-btn-item {
     cursor: pointer;
-    &:not(:first-child) {
-        margin-left: 10px;
-    }
 }
 </style>

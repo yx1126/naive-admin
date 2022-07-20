@@ -80,14 +80,14 @@ export default defineComponent({
                     collapsed={this.collapsed}
                     collapse-mode="width"
                     collapsed-width={64}
-                    width={240}
+                    width={200}
                     inverted={this.defaultInverted}
                     bordered
                     native-scrollbar={false}
                     show-trigger={this.showTrigger}
                     onUpdate:collapsed={this.onUpdateCollapsed}
                 >
-                    <Logo collapsed={this.collapsed} collapsed-width={64} width={240} />
+                    <Logo collapsed={this.collapsed} collapsed-width={64} width={200} />
                     <Menu options={this.menuOptions} />
                 </n-layout-sider>
                 <n-layout class="n-layout-main">

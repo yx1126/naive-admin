@@ -6,7 +6,7 @@
         </div>
         <div class="header-right">
             <div class="header-trigger" @click="toggle">
-                <Icon :size="22"><component :is="fullScreen ? FullscreenExitOutlined : FullscreenOutlined" /></Icon>
+                <Icon :size="18"><component :is="fullScreen ? FullscreenExitOutlined : FullscreenOutlined" /></Icon>
             </div>
             <n-dropdown trigger="hover" :options="dropdownOptions" @select="handleSelect">
                 <div class="header-trigger">
@@ -60,7 +60,7 @@ onMounted(async () => {
         padding-right: 20px;
         @extend .flex-align-center;
     }
-    .header-trigger {
+    &-trigger {
         height: 60px;
         padding: 0 12px;
         cursor: pointer;
