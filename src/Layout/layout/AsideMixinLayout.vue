@@ -7,6 +7,7 @@ import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
+import Breadcrumb from "../components/Breadcrumb.vue";
 import { useThemeVars } from "naive-ui";
 import type { PropType } from "vue";
 import type { MenuOption } from "naive-ui";
@@ -144,7 +145,7 @@ export default defineComponent({
                 </div>
                 <n-layout class="n-layout-main">
                     <n-layout-header class="layout-header" bordered inverted={this.inverted} position="absolute">
-                        <Header>{{ left: () => <div>123</div> }}</Header>
+                        <Header>{{ left: () => <Breadcrumb class="breadcrumb" /> }}</Header>
                     </n-layout-header>
                     <n-layout-content position="absolute" style="top: 60px;">
                         <n-layout has-sider style="height: 100%;">
@@ -185,6 +186,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .layout-wrapper-asidemixin {
+    .breadcrumb {
+        margin-left: 10px;
+    }
     :deep(.layout-sider) {
         .n-menu-item-content {
             &::before {

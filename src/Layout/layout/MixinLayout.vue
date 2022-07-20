@@ -6,6 +6,7 @@ import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
+import Breadcrumb from "../components/Breadcrumb.vue";
 import { useRoute } from "vue-router";
 import type { PropType } from "vue";
 import type { MenuOption } from "naive-ui";
@@ -92,11 +93,6 @@ export default defineComponent({
         };
     },
     render() {
-        const TagsLayout = (
-            <n-layout-header class="layout-tags" bordered>
-                <Tags />
-            </n-layout-header>
-        );
         const CutMenuNode = (
             <Menu
                 mode="horizontal"
@@ -107,11 +103,16 @@ export default defineComponent({
                 children-field="noChild"
             />
         );
+        const TagsLayout = (
+            <n-layout-header class="layout-tags" bordered>
+                <Tags />
+            </n-layout-header>
+        );
         return (
             <n-layout class="layout-wrapper">
                 <n-layout-header class="layout-header layout-header-mixin" inverted={this.defaultInverted} bordered>
                     <Logo height={60} width={240} />
-                    <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : null) }}</Header>
+                    <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
                 </n-layout-header>
                 <n-layout has-sider position="absolute" style="top: 60px">
                     <div class="layout-sider-wrapper">

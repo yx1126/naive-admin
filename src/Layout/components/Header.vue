@@ -15,10 +15,10 @@
     width: 100%;
     height: 100%;
     @extend .flex-between-center;
-    .header-left {
+    &-left {
         @extend .flex-align-center;
     }
-    .header-right {
+    &-right {
         @extend .flex-align-center;
     }
 }

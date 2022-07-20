@@ -6,6 +6,7 @@ import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
+import Breadcrumb from "../components/Breadcrumb.vue";
 import type { PropType } from "vue";
 import type { MenuOption } from "naive-ui";
 
@@ -62,9 +63,10 @@ export default defineComponent({
         };
     },
     render() {
+        const headerLeft = [<Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} />, <Breadcrumb />];
         const HeaderLayout = (
             <n-layout-header class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
-                <Header>{{ left: () => <Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} /> }}</Header>
+                <Header>{{ left: () => headerLeft }}</Header>
             </n-layout-header>
         );
         const TagsLayout = (

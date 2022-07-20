@@ -1,6 +1,8 @@
 import { defineComponent, h } from "vue";
 import { RouterView } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
+import { renderIcon } from "@/naive";
+import { DashboardOutlined } from "@vicons/antd";
 
 export const Layout = defineComponent({
     name: "DefaultLayout",
@@ -19,7 +21,7 @@ const routes: RouteRecordRaw[] = [
         name: "Dashboard",
         meta: {
             title: "Dashboard",
-            icon: "",
+            icon: renderIcon(DashboardOutlined),
         },
         redirect: "/dashboard/console",
         component: Layout,
@@ -29,7 +31,7 @@ const routes: RouteRecordRaw[] = [
                 name: "Console",
                 meta: {
                     title: "主控台",
-                    icon: "",
+                    icon: "404",
                 },
                 component: () => import("@/views/dashboard/console.vue"),
             },
@@ -38,7 +40,7 @@ const routes: RouteRecordRaw[] = [
                 name: "Workspace",
                 meta: {
                     title: "工作台",
-                    icon: "",
+                    icon: DashboardOutlined,
                 },
                 component: () => import("@/views/dashboard/workspace.vue"),
             },

@@ -45,7 +45,7 @@ export const defaultSetting: SetState = {
     isShowLogo: true, // 显示 logo
     isShowTabs: true, // 显示 标签页
     uniqueMenuOpened: false, // 菜单单选
-    isShowBreadcrumb: false, // 显示 面包屑
+    isShowBreadcrumb: true, // 显示 面包屑
     isKeepHeader: true, // 固定 顶栏
     isKeepTags: true, // 固定 标签页
     isCutMenu: false, // 切割菜单
