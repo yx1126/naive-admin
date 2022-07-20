@@ -41,7 +41,7 @@ const useTagsStore = defineStore(
         }
         // 添加
         function insert(type: TagsType, value: Tags) {
-            if (!value.path) return;
+            if (!value.path || !value.title || !value.name) return;
             const tag = [...state.keepTags, ...state.activeTags].find(t => t.path === value.path);
             if (tag) return;
             state[type].push(value);
@@ -50,7 +50,7 @@ const useTagsStore = defineStore(
         // base 移除
         function baseRemove(type: TagsType, path: string, direction: "this" | "left" | "right" | "other" | "all" = "this") {
             const index = state[type].findIndex(t => t.path === path);
-            if (index === -1) return;
+            if (index === -1 && ["this", "left", "right"].includes(direction)) return;
             switch (direction) {
                 case "this":
                     state[type].splice(index, 1);

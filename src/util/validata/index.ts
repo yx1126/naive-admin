@@ -46,7 +46,7 @@ export function isObject<T extends object>(value: any): value is T {
     return typeOf(value) === "object";
 }
 
-export function isString(value: any, flag?: boolean): value is string {
+export function isString<T extends string>(value: any, flag?: boolean): value is T {
     if (flag && value === "") return false;
     return typeOf(value) === "string";
 }

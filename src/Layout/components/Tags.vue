@@ -102,11 +102,9 @@ const dropDownOptions = $computed(() => {
     if (chooseTagsIndex < activeTags.length - 1 && isInActive) {
         result.push({ label: "关闭右侧", key: "removeRight", icon: renderIcon(ArrowRightOutlined) });
     }
-    if (isInActive) {
-        result.push({ type: "divider", key: "d0" });
-        activeTags.length > 1 && result.push({ label: "关闭其他", key: "removeOther", icon: renderIcon(ColumnWidthOutlined) });
-        result.push({ label: "关闭全部", key: "removeAll", icon: renderIcon(MinusOutlined) });
-    }
+    result.length && result.push({ type: "divider", key: "d0" });
+    result.push({ label: "关闭其他", key: "removeOther", icon: renderIcon(ColumnWidthOutlined) });
+    result.push({ label: "关闭全部", key: "removeAll", icon: renderIcon(MinusOutlined) });
     if ((isInKeep && !isIndexPage && result.length) || isInActive) {
         result.push({ type: "divider", key: "d1" });
     }

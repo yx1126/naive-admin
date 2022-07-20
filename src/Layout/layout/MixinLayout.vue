@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot } from "vue";
+import { defineComponent, computed, renderSlot, ref, watch } from "vue";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -44,6 +44,8 @@ export default defineComponent({
         const route = useRoute();
         const set = useSetStore();
 
+        const isShowSilder = ref(true);
+
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const isCutMenu = computed(() => set.isCutMenu);
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
@@ -57,9 +59,18 @@ export default defineComponent({
             });
             return isCutMenu.value ? cutMenuList : props.menuOptions;
         });
-        const isShowSilder = computed(() => {
-            return menuChildrensOptions.value.length > 0;
-        });
+
+        watch(
+            () => route.fullPath,
+            () => {
+                if (route.fullPath.startsWith("/redirect")) return;
+                isShowSilder.value = menuChildrensOptions.value.length > 0;
+            },
+            {
+                immediate: true,
+            },
+        );
+
         const state = computed(() => {
             const hasChild = { collapsed: props.collapsed, width: 64 };
             const noChild = { collapsed: true, width: 0 };

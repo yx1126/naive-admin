@@ -1,6 +1,6 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { defineComponent, computed, renderSlot, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -47,30 +47,35 @@ export default defineComponent({
     emits: ["update:collapsed"],
     setup(props, { emit }) {
         const route = useRoute();
-        const router = useRouter();
         const set = useSetStore();
         const themeVars = useThemeVars();
 
-        const defaultInverted = computed(() => ["dark"].includes(set.navMode) && ["asideMixin"].includes(set.layoutMode));
+        const isCollapsed = ref(false);
+
+        const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const contentTop = computed(() => {
             return props.tagsFixed ? 35 : 0;
         });
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
-        const menuChildrensOptions = computed(() => {
+        const menuChildrensOptions = computed<MenuOption[]>(() => {
             return props.menuOptions.find(m => m.path === defaultValue.value)?.children || [];
-        });
-        const defaultChildValue = computed({
-            get: () => route?.meta?.activeMenu || route.path,
-            set: value => router.push(value),
         });
         const layoutWrapperStyle = computed(() => {
             return {
                 "--theme-color": set.themeColor,
             };
         });
-        const isCollapsed = computed(() => {
-            return menuChildrensOptions.value.length <= 0;
-        });
+
+        watch(
+            () => route.fullPath,
+            () => {
+                if (route.fullPath.startsWith("/redirect")) return;
+                isCollapsed.value = menuChildrensOptions.value.length <= 0;
+            },
+            {
+                immediate: true,
+            },
+        );
 
         function onUpdateCollapsed() {
             emit("update:collapsed", !props.collapsed);
@@ -80,7 +85,6 @@ export default defineComponent({
             defaultInverted,
             defaultValue,
             contentTop,
-            defaultChildValue,
             menuChildrensOptions,
             layoutWrapperStyle,
             isCollapsed,
@@ -156,13 +160,7 @@ export default defineComponent({
                                 show-trigger={this.showTrigger === "arrow-circle" ? (this.isCollapsed ? false : "arrow-circle") : false}
                                 onUpdate:collapsed={this.onUpdateCollapsed}
                             >
-                                <Menu
-                                    v-model={[this.defaultChildValue, "value"]}
-                                    collapsed={false}
-                                    inverted={false}
-                                    options={this.menuChildrensOptions}
-                                    indent={15}
-                                />
+                                <Menu collapsed={false} inverted={false} options={this.menuChildrensOptions} indent={15} />
                             </n-layout-sider>
                             <n-layout>
                                 {this.tagsFixed ? TagsLayout : null}
