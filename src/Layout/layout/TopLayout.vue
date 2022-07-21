@@ -47,7 +47,7 @@ export default defineComponent({
             <n-layout-header class="layout-header" inverted={this.defaultInverted} bordered position={this.headerFixed ? "absolute" : "static"}>
                 <Header>
                     {{
-                        logo: () => <Logo width={240} height={59} />,
+                        logo: () => <Logo width={200} height={59} />,
                         left: () => <Menu mode="horizontal" options={this.menuOptions} />,
                     }}
                 </Header>

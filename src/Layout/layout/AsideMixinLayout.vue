@@ -118,13 +118,13 @@ export default defineComponent({
                         width={140}
                         inverted={this.defaultInverted}
                         bordered
-                        native-scrollbar={false}
+                        native-scrollbar={this.nativeScrollbar}
                         collapsed-trigger-style={triggerStyle}
                         trigger-style={triggerStyle}
                         show-trigger={isShowTrigger}
                         onUpdate:collapsed={this.onUpdateCollapsed}
                     >
-                        <Logo collapsed={this.collapsed} width={140} indent={10} />
+                        <Logo collapsed={this.collapsed} width="auto" indent={10} />
                         <Menu
                             options={this.menuOptions}
                             value={this.defaultValue}
@@ -156,7 +156,7 @@ export default defineComponent({
                                 width={160}
                                 collapsed-width={0}
                                 bordered
-                                native-scrollbar={false}
+                                native-scrollbar={this.nativeScrollbar}
                                 trigger-style={this.showTrigger === "arrow-circle" ? arrowCircleTriggerStyle : ""}
                                 show-trigger={this.showTrigger === "arrow-circle" ? (this.isCollapsed ? false : "arrow-circle") : false}
                                 onUpdate:collapsed={this.onUpdateCollapsed}

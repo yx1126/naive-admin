@@ -14,10 +14,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useSetStore } from "@/stores";
+import { isString } from "@/util/validata";
 
 interface Logo {
     collapsed?: boolean;
-    width?: number;
+    width?: number | string;
     minWidth?: number | string;
     height?: number;
     collapsedWidth?: number;
@@ -37,7 +38,7 @@ const props = withDefaults(defineProps<Logo>(), {
 
 const logoStyle = computed(() => {
     return {
-        "--logo-width": (props.collapsed ? props.collapsedWidth : props.width) + "px",
+        "--logo-width": props.collapsed ? props.collapsedWidth + "px" : isString(props.width) ? props.width : props.width + "px",
         "--logo-min-width": typeof props.minWidth === "string" ? props.minWidth : props.minWidth + "px",
         "--logo-height": props.height + "px",
         "--logo-padding": props.collapsed ? `0 ${(props.collapsedWidth - 32) / 2}px` : `0 18px 0 ${props.indent}px`,

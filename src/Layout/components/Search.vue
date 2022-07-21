@@ -22,7 +22,6 @@
 
 <script lang="ts" setup>
 import MdSearch from "@vicons/ionicons4/MdSearch";
-import { onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores";
 import { NSelect, useThemeVars, type SelectOption } from "naive-ui";
@@ -51,8 +50,6 @@ const searchStyle = $computed(() => {
 async function onClick() {
     selectOptions = [];
     isShowSearch = true;
-    await nextTick();
-    // searchRef.focus();
     document.addEventListener("click", onBodyClick);
 }
 
@@ -62,10 +59,10 @@ function onBodyClick() {
     document.removeEventListener("click", onBodyClick);
 }
 
-function onSearch(query: string) {
+async function onSearch(query: string) {
     if (!query.length) {
-        selectOptions = [];
         isShowResult = false;
+        selectOptions = [];
         return;
     }
     loading = true;
@@ -87,10 +84,6 @@ function onUpdateValue() {
     router.push(chooseValue);
     chooseValue = "";
 }
-
-onMounted(async () => {
-    await nextTick();
-});
 </script>
 
 <style lang="scss" scoped>
@@ -102,7 +95,7 @@ onMounted(async () => {
     }
     .input {
         width: var(--search-width);
-        transition: width 0.3s var(--trans-width);
+        transition: width 0.2s var(--trans-width);
     }
     :deep(.n-base-selection) {
         .n-base-selection-label {
