@@ -1,8 +1,9 @@
 import { defineComponent, h } from "vue";
 import { RouterView } from "vue-router";
-import type { MenuOption } from "naive-ui";
+import type { MenuOptions } from "@/naive";
 import type { RouteRecordRaw } from "vue-router";
 import type { Menu } from "@/types/menus";
+import type { ResolveArray } from "@/types/util";
 
 export const Layout = defineComponent({
     name: "DefaultLayout",
@@ -17,20 +18,20 @@ export function dynamicImport(menu: Menu): any {
     return modules[path as string];
 }
 
-export function formatKey(menus: MenuOption[], path?: string | number): MenuOption[] {
+export function formatMenuPath(menus: MenuOptions, path?: string) {
     return menus.map(menu => {
-        const back: MenuOption = {
+        const back: typeof menu = {
             ...menu,
             path: path ? path + "/" + menu.path : menu.path,
         };
-        if (menu.children?.length) back.children = formatKey(menu.children, back.path as string);
+        if (menu.children) back.children = formatMenuPath(menu.children as MenuOptions, back.path as string);
         return back;
     });
 }
 
-export function getMenusList(menus: Menu[], path?: string): MenuOption[] {
-    return menus.map<MenuOption>(menu => {
-        const back: MenuOption = {
+export function getMenusList(menus: Menu[], path?: string): MenuOptions {
+    return menus.map(menu => {
+        const back: ResolveArray<MenuOptions> = {
             label: menu.label,
             key: path ? path + "/" + menu.path : menu.path,
             name: menu.name,
@@ -72,24 +73,20 @@ export function getRouteByPath(path: string, routes: RouteRecordRaw[]): RouteRec
     return route;
 }
 
-type Unpack<T> = T extends { item: infer U } ? Unpack<U> : T;
-
-export function getSearchMenuList(menus: MenuOption[], parentList: MenuOption[] = [], split = " -> "): Unpack<MenuOption[]> {
-    let list: MenuOption[] = [];
-    for (let i = 0; i < menus.length; i++) {
-        const item = menus[i];
-        if (item.children && item.children.length > 0) {
-            const childList = getSearchMenuList(item.children || [], [...parentList, item]);
-            list = [...list, ...childList];
-        } else {
-            if (parent) {
-                list.push({ ...item, name: [...parentList, item].map(item => item.name).join(split) });
-            } else {
-                list.push(item);
+export function getSearchMenuList(menus: MenuOptions, split = " -> ") {
+    const result: MenuOptions = [];
+    function start(list: MenuOptions, parentList: MenuOptions = []) {
+        for (let i = 0; i < list.length; i++) {
+            const item = list[i];
+            if (!item.children || (item.children as MenuOptions)?.length <= 0) {
+                result.push({ ...item, name: [...parentList, item].map(item => item.name).join(split) });
+                continue;
             }
+            start((item.children as MenuOptions) || [], [...parentList, item]);
         }
     }
-    return list;
+    start(menus);
+    return result;
 }
 
 export {};

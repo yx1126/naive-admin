@@ -25,9 +25,9 @@ import MdSearch from "@vicons/ionicons4/MdSearch";
 import { onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores";
-import { NSelect, useThemeVars } from "naive-ui";
+import { NSelect, useThemeVars, type SelectOption } from "naive-ui";
 import { getSearchMenuList } from "@/util/menus";
-import type { SelectOption } from "naive-ui";
+import type { MenuOptions } from "@/naive";
 
 const user = useUserStore();
 const router = useRouter();
@@ -40,7 +40,7 @@ let loading = $ref(false);
 let selectOptions = $ref<SelectOption[]>([]);
 let chooseValue = $ref("");
 
-const menuOptions = $computed(() => getSearchMenuList(user.menus));
+const menuOptions = $computed(() => getSearchMenuList(user.menus as MenuOptions));
 const searchStyle = $computed(() => {
     return {
         "--search-width": isShowSearch ? "210px" : "0px",
@@ -51,7 +51,6 @@ const searchStyle = $computed(() => {
 async function onClick() {
     selectOptions = [];
     isShowSearch = true;
-    isShowResult = true;
     await nextTick();
     // searchRef.focus();
     document.addEventListener("click", onBodyClick);
@@ -66,9 +65,11 @@ function onBodyClick() {
 function onSearch(query: string) {
     if (!query.length) {
         selectOptions = [];
+        isShowResult = false;
         return;
     }
     loading = true;
+    // 模拟 后台接口
     window.setTimeout(() => {
         selectOptions = menuOptions
             .filter(item => {
@@ -78,7 +79,8 @@ function onSearch(query: string) {
                 return { label: item.name as string, value: item.path as string };
             });
         loading = false;
-    }, 1000);
+        isShowResult = true;
+    }, 500);
 }
 
 function onUpdateValue() {

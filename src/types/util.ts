@@ -13,3 +13,5 @@ export type Placement = Direction | LRTBDirection;
 export type BaseTypeOfKeys = "Boolean" | "Number" | "String" | "Function" | "Array" | "Date" | "RegExp" | "Undefined" | "Null" | "Object";
 export type TypeOfKey = `[object ${BaseTypeOfKeys}]`;
 export type TypeOfValues = "boolean" | "number" | "string" | "function" | "array" | "date" | "regExp" | "undefined" | "null" | "object";
+
+export type ResolveArray<T> = T extends Array<infer A> ? A : never;

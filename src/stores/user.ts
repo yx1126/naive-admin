@@ -1,7 +1,7 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { reactive, toRefs } from "vue";
 import menus from "@/assets/menu";
-import { formatKey } from "@/util/menus";
+import { formatMenuPath } from "@/util/menus";
 import type { MenuOption } from "naive-ui";
 
 export interface UserInfo {
@@ -28,11 +28,11 @@ const useUserStore = defineStore(
         };
 
         const setState = <T extends keyof UserState>(key: T, value: UserState[T]) => {
-            state[key] = value;
+            state[key] = value as UserState[T];
         };
 
         const initMenu = async () => {
-            state.menus = formatKey(menus);
+            state.menus = formatMenuPath(menus);
         };
 
         return {

@@ -7,6 +7,9 @@ import type {
     useDialog as useDialogType,
     useMessage as useMessageType,
     useNotification as useNotificationType,
+    MenuOption,
+    MenuDividerOption,
+    MenuGroupOption,
 } from "naive-ui";
 
 export type LoadingBarApiInjection = ReturnType<typeof useLoadingBarType>;
@@ -20,6 +23,8 @@ export function renderIcon(icon: string | Component) {
     }
     return () => h(Icon, null, { default: () => h(icon) });
 }
+
+export type MenuOptions = Array<MenuOption | MenuDividerOption | MenuGroupOption>;
 
 export { NConfig };
 export default {};
