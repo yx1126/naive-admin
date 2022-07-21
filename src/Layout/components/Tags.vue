@@ -54,7 +54,6 @@
 
 <script lang="ts" setup>
 import MoreVertical24Regular from "@vicons/fluent/MoreVertical24Regular";
-import FullScreenMaximize24Filled from "@vicons/fluent/FullScreenMaximize24Filled";
 import ReloadOutline from "@vicons/ionicons5/ReloadOutline";
 import { GpsFixedRound, GpsNotFixedRound } from "@vicons/material";
 import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
