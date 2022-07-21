@@ -64,10 +64,10 @@ const mixinStyle = $computed(() => {
     background-color: var(--collapse-background);
     transition: padding 0.3s var(--collaspe-trans), width 0.3s var(--collaspe-trans), background-color 0.3s var(--collaspe-trans),
         border-color 0.3s var(--collaspe-trans);
-    .collapse-icon {
+    &-icon {
         color: var(--collapse-color);
     }
-    &:hover .collapse-icon {
+    &:hover &-icon {
         color: var(--collapse-hover-color);
     }
 }

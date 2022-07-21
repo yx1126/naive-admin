@@ -72,6 +72,26 @@ export function getRouteByPath(path: string, routes: RouteRecordRaw[]): RouteRec
     return route;
 }
 
+type Unpack<T> = T extends { item: infer U } ? Unpack<U> : T;
+
+export function getSearchMenuList(menus: MenuOption[], parentList: MenuOption[] = [], split = " -> "): Unpack<MenuOption[]> {
+    let list: MenuOption[] = [];
+    for (let i = 0; i < menus.length; i++) {
+        const item = menus[i];
+        if (item.children && item.children.length > 0) {
+            const childList = getSearchMenuList(item.children || [], [...parentList, item]);
+            list = [...list, ...childList];
+        } else {
+            if (parent) {
+                list.push({ ...item, name: [...parentList, item].map(item => item.name).join(split) });
+            } else {
+                list.push(item);
+            }
+        }
+    }
+    return list;
+}
+
 export {};
 
 export default {};

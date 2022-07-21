@@ -5,6 +5,9 @@
             <slot name="left"></slot>
         </div>
         <div class="header-right">
+            <div class="header-trigger">
+                <Search />
+            </div>
             <div class="header-trigger" @click="toggle">
                 <Icon :size="18"><component :is="fullScreen ? FullscreenExitOutlined : FullscreenOutlined" /></Icon>
             </div>
@@ -21,6 +24,7 @@
 <script setup lang="ts">
 import { onMounted, nextTick, ref } from "vue";
 import { useFullscreen } from "@/hooks";
+import Search from "./Search.vue";
 import { FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 

@@ -112,14 +112,14 @@ function changeLang(e: Lang) {
 
 <style lang="scss" scoped>
 .divider-content {
-    .divider-content-item {
+    &-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
         &:not(:last-child) {
             margin-bottom: 15px;
         }
-        .divider-content-item__input {
+        &__input {
             width: 120px;
         }
     }
