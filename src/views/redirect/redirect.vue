@@ -12,11 +12,11 @@ export default defineComponent({
                 router.replace("");
                 return;
             }
-            router.replace({ path: route.params.path as string, query: route.query });
+            router.replace({ path: `/${(route.params.path as string[]).join("/")}`, query: route.query });
         });
     },
     render() {
-        return h("span", 123);
+        return h("span");
     },
 });
 </script>

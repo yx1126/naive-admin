@@ -121,7 +121,6 @@ const dropDownOptions = $computed(() => {
 watch(
     () => route.fullPath,
     () => {
-        console.log(route);
         if (route.fullPath.startsWith("/redirect")) return;
         tags.insert("activeTags", {
             title: route.meta.title,
@@ -138,7 +137,7 @@ watch(
 );
 
 function onTagsClick(tags: Tags) {
-    router.push({ path: tags.path + `/${route.fullPath.replaceAll("/", "-")}`, query: tags.query });
+    router.push({ path: tags.path, query: tags.query });
 }
 
 function onTagsClose(tags: Tags, index: number) {
@@ -238,7 +237,7 @@ function onClickoutside() {
 }
 
 function onRefresh() {
-    router.replace(`/redirect?path=${route.fullPath}`);
+    router.replace(`/redirect${route.fullPath}`);
 }
 
 async function moveToCurrentTag() {
