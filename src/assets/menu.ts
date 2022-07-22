@@ -9,10 +9,12 @@ import {
     SettingOutlined,
     ReadOutlined,
     AppstoreAddOutlined,
+    LinkOutlined,
 } from "@vicons/antd";
-import type { MenuOption } from "naive-ui";
+import type { MenuOptions } from "@/naive";
+import type { RouteMeta } from "vue-router";
 
-const menus: MenuOption[] = [
+const menus: MenuOptions & RouteMeta[] = [
     {
         name: "Dashboard",
         path: "/dashboard",
@@ -144,6 +146,12 @@ const menus: MenuOption[] = [
                 path: "user-set",
             },
         ],
+    },
+    {
+        name: "外链接",
+        path: "https://gitee.com/yangxin11010/vue-admin",
+        icon: renderIcon(LinkOutlined),
+        isLink: true,
     },
     {
         name: "关于",

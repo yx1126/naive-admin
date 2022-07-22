@@ -1,5 +1,5 @@
 import { defineComponent, h } from "vue";
-import { RouterView } from "vue-router";
+import { RouterView, type RouteMeta } from "vue-router";
 import type { MenuOptions } from "@/naive";
 import type { RouteRecordRaw } from "vue-router";
 import type { Menu } from "@/types/menus";
@@ -18,13 +18,15 @@ export function dynamicImport(menu: Menu): any {
     return modules[path as string];
 }
 
-export function formatMenuPath(menus: MenuOptions, path?: string) {
+export function formatMenuPath(menus: MenuOptions & RouteMeta[], path?: string) {
     return menus.map(menu => {
         const back: typeof menu = {
             ...menu,
-            path: path ? path + "/" + menu.path : menu.path,
+            path: menu.isLink ? menu.path : path ? path + "/" + menu.path : menu.path,
         };
-        if (menu.children) back.children = formatMenuPath(menu.children as MenuOptions, back.path as string);
+        if ((menu.children as MenuOptions)?.length > 0)
+            back.children = formatMenuPath(menu.children as MenuOptions & RouteMeta[], back.path as string);
+        else delete back.children;
         return back;
     });
 }

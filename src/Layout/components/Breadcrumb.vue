@@ -16,12 +16,12 @@ const route = useRoute();
 const set = useSetStore();
 
 const breadcrumbList = $computed(() => {
-    return route.matched.filter(r => r.path);
+    return route.matched.filter(r => r.path && r.meta.title);
 });
 
 const breadcrumbStyle = $computed(() => {
     return {
-        "--inverted-color": set.inverted ? "#BBB" : "",
+        "--inverted-color": set.navMode === "diablo" ? "rgba(255, 255, 255, 0.82)" : set.inverted ? "#BBB" : "rgb(118, 124, 130)",
     };
 });
 </script>

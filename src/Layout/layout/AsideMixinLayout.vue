@@ -145,7 +145,11 @@ export default defineComponent({
                 </div>
                 <n-layout class="n-layout-main">
                     <n-layout-header class="layout-header" bordered inverted={this.inverted} position="absolute">
-                        <Header>{{ left: () => <Breadcrumb class="breadcrumb" /> }}</Header>
+                        <Header>
+                            {{
+                                left: () => <Breadcrumb class="breadcrumb" />,
+                            }}
+                        </Header>
                     </n-layout-header>
                     <n-layout-content position="absolute" style="top: 60px;">
                         <n-layout has-sider style="height: 100%;">

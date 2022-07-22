@@ -3,7 +3,7 @@ import type { Component } from "vue";
 
 declare module "vue-router" {
     interface RouteMeta {
-        title: string;
+        title?: string;
         requiredAuth?: boolean;
         icon?: string | Component | (() => VNode);
         keepAlive?: boolean;

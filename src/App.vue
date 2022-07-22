@@ -24,7 +24,7 @@ watch(
     () => {
         if (route.path.startsWith("/redirect")) return;
         title.value = route.matched
-            .filter(v => v)
+            .filter(v => v.meta.title)
             .reverse()
             .map(r => r.meta.title)
             .join("-");
