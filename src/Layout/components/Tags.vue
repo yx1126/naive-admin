@@ -83,7 +83,7 @@ let chooseTagsIndex = $ref(-1);
 
 const keepTags = $computed(() => tags.keepTags);
 const activeTags = $computed(() => tags.activeTags);
-const currentPath = $computed(() => route.fullPath);
+const currentPath = $computed(() => route.path);
 
 const dropDownOptions = $computed(() => {
     const result: Array<DropdownOption | DropdownDividerOption> = [];
@@ -120,13 +120,15 @@ const dropDownOptions = $computed(() => {
 
 watch(
     () => route.fullPath,
-    path => {
+    () => {
+        console.log(route);
         if (route.fullPath.startsWith("/redirect")) return;
         tags.insert("activeTags", {
             title: route.meta.title,
             name: route.name as string,
-            path: path,
+            path: route.path,
             meta: route.meta,
+            query: { ...(route.query as object) },
         });
         moveToCurrentTag();
     },
@@ -136,7 +138,7 @@ watch(
 );
 
 function onTagsClick(tags: Tags) {
-    router.push(tags.path);
+    router.push({ path: tags.path + `/${route.fullPath.replaceAll("/", "-")}`, query: tags.query });
 }
 
 function onTagsClose(tags: Tags, index: number) {
@@ -151,8 +153,9 @@ async function onTagsContextmenu(e: MouseEvent, tags: Tags, index: number) {
     chooseTags = tags;
     chooseTagsIndex = index;
     const currentTarget = e.currentTarget as HTMLDivElement;
-    dropdownX = e.clientX;
-    dropdownY = currentTarget.getBoundingClientRect().top + currentTarget.clientHeight;
+    const targetOffset = currentTarget.getBoundingClientRect();
+    dropdownX = e.clientX - 13;
+    dropdownY = targetOffset.top + currentTarget.clientHeight;
     showDropdownRef = true;
 }
 
@@ -235,7 +238,7 @@ function onClickoutside() {
 }
 
 function onRefresh() {
-    router.replace(`/redirect${route.fullPath}`);
+    router.replace(`/redirect?path=${route.fullPath}`);
 }
 
 async function moveToCurrentTag() {

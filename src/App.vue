@@ -1,6 +1,7 @@
 <template>
     <n-config>
         <Layout>
+            <!-- <router-view /> -->
             <TransRouterView />
         </Layout>
     </n-config>

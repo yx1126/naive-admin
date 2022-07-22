@@ -122,7 +122,7 @@ function onModalChange() {
             top: "50%",
             marginLeft: `-${width / 2}px`,
             marginTop: `-${height / 2}px`,
-            zIndex: 10002,
+            zIndex: 3002,
         });
 
         // show mask
@@ -158,7 +158,7 @@ defineExpose({
     overflow-y: hidden;
 }
 .w-e-full-screen-container {
-    z-index: 10000 !important;
+    z-index: 3000 !important;
 }
 .wang-editor-mask {
     position: fixed;
@@ -166,10 +166,10 @@ defineExpose({
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10005;
+    z-index: 3001;
     background-color: #00000073;
 }
 .w-e-select-list {
-    z-index: 10001;
+    z-index: 3001;
 }
 </style>

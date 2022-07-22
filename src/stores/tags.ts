@@ -6,6 +6,7 @@ export interface Tags {
     title: string;
     name: string;
     path: string;
+    query: Record<string, string>;
     meta?: Partial<RouteMeta>;
 }
 
@@ -16,7 +17,7 @@ export interface TagsState {
 
 export type TagsType = "keepTags" | "activeTags";
 
-const defaultTags: Tags[] = [{ title: "主控台", name: "Console", path: "/dashboard/console" }];
+const defaultTags: Tags[] = [{ title: "主控台", name: "Console", query: {}, path: "/dashboard/console" }];
 
 const useTagsStore = defineStore(
     "tags",
@@ -41,7 +42,7 @@ const useTagsStore = defineStore(
         }
         // 添加
         function insert(type: TagsType, value: Tags) {
-            if (!value.path || !value.title || !value.name) return;
+            if (!value.path || !value.title || !value.name || value.path.startsWith("/dashboard/console")) return;
             const tag = [...state.keepTags, ...state.activeTags].find(t => t.path === value.path);
             if (tag) return;
             state[type].push(value);

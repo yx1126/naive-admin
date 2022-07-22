@@ -8,6 +8,10 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({
+    name: "Workspace",
+});
+
 const inputValue = $ref("copy");
 
 function onCopySuccess(e: any) {

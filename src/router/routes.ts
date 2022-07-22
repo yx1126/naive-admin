@@ -1,13 +1,13 @@
 import { defineComponent, h } from "vue";
-import { RouterView } from "vue-router";
-import type { RouteRecordRaw } from "vue-router";
 import { renderIcon } from "@/naive";
 import { DashboardOutlined } from "@vicons/antd";
+import TransRouterView from "@/components/TransRouterView";
+import type { RouteRecordRaw } from "vue-router";
 
 export const Layout = defineComponent({
     name: "DefaultLayout",
     render() {
-        return h(RouterView);
+        return h(TransRouterView);
     },
 });
 
@@ -41,6 +41,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: "工作台",
                     icon: DashboardOutlined,
+                    keepAlive: true,
                 },
                 component: () => import("@/views/dashboard/workspace.vue"),
             },

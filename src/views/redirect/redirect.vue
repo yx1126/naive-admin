@@ -8,11 +8,15 @@ export default defineComponent({
         const route = useRoute();
         const router = useRouter();
         onBeforeMount(() => {
-            router.replace({ path: "/" + route.params.path, query: route.query });
+            if (!route.params.path) {
+                router.replace("");
+                return;
+            }
+            router.replace({ path: route.params.path as string, query: route.query });
         });
     },
     render() {
-        return h("span");
+        return h("span", 123);
     },
 });
 </script>

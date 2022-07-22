@@ -1,5 +1,5 @@
 <template>
-    <router-view v-slot="{ Component, route }">
+    <router-view #default="{ Component, route }">
         <transition :name="set.routerTrans" :mode="transitionMode">
             <keep-alive :include="keepAliveList">
                 <component :is="Component" :key="route.fullPath" />

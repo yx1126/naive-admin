@@ -15,6 +15,9 @@
 
 <script setup lang="ts">
 import WangEditor from "@/components/WangEditor";
+defineOptions({
+    name: "WandEditor",
+});
 let value = $ref("");
 </script>
 
