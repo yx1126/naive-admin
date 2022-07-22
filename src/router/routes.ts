@@ -4,12 +4,14 @@ import { DashboardOutlined } from "@vicons/antd";
 import TransRouterView from "@/components/TransRouterView";
 import type { RouteRecordRaw } from "vue-router";
 
-export const Layout = defineComponent({
-    name: "DefaultLayout",
-    render() {
-        return h(TransRouterView);
-    },
-});
+export function Layout(name: string) {
+    return defineComponent({
+        name,
+        render() {
+            return h(TransRouterView);
+        },
+    });
+}
 
 const routes: RouteRecordRaw[] = [
     {
@@ -24,7 +26,7 @@ const routes: RouteRecordRaw[] = [
             icon: renderIcon(DashboardOutlined),
         },
         redirect: "/dashboard/console",
-        component: Layout,
+        component: Layout("Dashboard"),
         children: [
             {
                 path: "console",
@@ -41,7 +43,6 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                     title: "工作台",
                     icon: DashboardOutlined,
-                    keepAlive: true,
                 },
                 component: () => import("@/views/dashboard/workspace.vue"),
             },
@@ -55,7 +56,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/list-page/base-list",
-        component: Layout,
+        component: Layout("ListPage"),
         children: [
             {
                 path: "base-list",
@@ -76,7 +77,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/form-page/base-form",
-        component: Layout,
+        component: Layout("FormPage"),
         children: [
             {
                 path: "base-form",
@@ -97,7 +98,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/components/base-table",
-        component: Layout,
+        component: Layout("Components"),
         children: [
             {
                 path: "base-table",
@@ -127,7 +128,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/error/401",
-        component: Layout,
+        component: Layout("Error"),
         children: [
             {
                 path: "401",
@@ -157,7 +158,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/router-nested/menu-1/menu-1-1/menu-1-1-1",
-        component: Layout,
+        component: Layout("RouterNested"),
         children: [
             {
                 path: "menu-1",
@@ -218,7 +219,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/permission/user-manage",
-        component: Layout,
+        component: Layout("Permission"),
         children: [
             {
                 path: "user-manage",
@@ -257,7 +258,7 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         redirect: "/set/system-set",
-        component: Layout,
+        component: Layout("Set"),
         children: [
             {
                 path: "system-set",
@@ -292,7 +293,7 @@ const routes: RouteRecordRaw[] = [
         path: "/redirect/:path*",
         name: "Redirect",
         meta: {
-            title: "redirect",
+            title: "",
             icon: "",
         },
         component: () => import("@/views/redirect/redirect.vue"),

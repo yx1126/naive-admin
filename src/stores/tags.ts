@@ -6,6 +6,7 @@ export interface Tags {
     title: string;
     name: string;
     path: string;
+    matchedName?: string[];
     query: Record<string, string>;
     meta?: Partial<RouteMeta>;
 }
@@ -17,7 +18,7 @@ export interface TagsState {
 
 export type TagsType = "keepTags" | "activeTags";
 
-const defaultTags: Tags[] = [{ title: "主控台", name: "Console", query: {}, path: "/dashboard/console" }];
+const defaultTags: Tags[] = [{ title: "主控台", name: "Console", path: "/dashboard/console", query: {} }];
 
 const useTagsStore = defineStore(
     "tags",
@@ -29,7 +30,10 @@ const useTagsStore = defineStore(
 
         // 缓存 组件 names
         const keepAliveList = computed(() => {
-            return [...state.keepTags, ...state.activeTags].filter(t => t.meta?.keepAlive).map(t => t.name);
+            return [...state.keepTags, ...state.activeTags]
+                .filter(t => t.meta?.keepAlive)
+                .map(t => t.matchedName || [])
+                .flat();
         });
 
         function setState<T extends keyof TagsState>(key: T, value: TagsState[T]) {

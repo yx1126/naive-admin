@@ -1,7 +1,6 @@
 <template>
     <n-config>
         <Layout>
-            <!-- <router-view /> -->
             <TransRouterView />
         </Layout>
     </n-config>
@@ -23,6 +22,7 @@ const title = useTitle(null, `%s-${import.meta.env.VITE_APP_TITLE}`);
 watch(
     () => route.path,
     () => {
+        if (route.path.startsWith("/redirect")) return;
         title.value = route.matched
             .filter(v => v)
             .reverse()

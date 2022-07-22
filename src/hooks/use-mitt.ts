@@ -10,6 +10,8 @@ type Events = {
     message: MessageOption;
     // notification
     notification: NotificationOption;
+    // remove keepalive
+    keepAlive: string;
 };
 
 const emitter = mitt<Events>();

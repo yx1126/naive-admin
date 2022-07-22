@@ -57,19 +57,18 @@ import MoreVertical24Regular from "@vicons/fluent/MoreVertical24Regular";
 import ReloadOutline from "@vicons/ionicons5/ReloadOutline";
 import { GpsFixedRound, GpsNotFixedRound } from "@vicons/material";
 import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
+import { NTag, type DropdownOption, type DropdownDividerOption } from "naive-ui";
 import { watch, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useTagsStore } from "@/stores";
-import { useFreeBack } from "@/hooks";
+import { useTagsStore, type Tags } from "@/stores";
+import { useFreeBack, useMitt } from "@/hooks";
 import { renderIcon } from "@/naive";
-import { NTag } from "naive-ui";
-import type { Tags } from "@/stores";
-import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
 const route = useRoute();
 const router = useRouter();
 const tags = useTagsStore();
 const dialog = useFreeBack("dialog");
+const mitter = useMitt();
 
 const tagsRef = $ref<HTMLDivElement>();
 let tagsItemRefs = $ref<InstanceType<typeof NTag>[]>([]);
@@ -128,6 +127,7 @@ watch(
             path: route.path,
             meta: route.meta,
             query: { ...(route.query as object) },
+            matchedName: [...route.matched.map(item => item.name as string)],
         });
         moveToCurrentTag();
     },
@@ -237,6 +237,7 @@ function onClickoutside() {
 }
 
 function onRefresh() {
+    mitter.emit("keepAlive", route.name as string);
     router.replace(`/redirect${route.fullPath}`);
 }
 
