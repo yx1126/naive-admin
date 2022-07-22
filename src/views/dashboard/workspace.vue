@@ -4,6 +4,9 @@
         <input v-model="inputValue" />
         <p>{{ inputValue }}</p>
         <n-button v-copy="inputValue" v-copy:success="onCopySuccess">点击复制</n-button>
+        <div class="flex-just-center">
+            <Pagination v-model:page="page" v-model:size="size" :total="total" @change="onChange" />
+        </div>
     </div>
 </template>
 
@@ -13,9 +16,16 @@ defineOptions({
 });
 
 const inputValue = $ref("copy");
+const page = $ref(0);
+const size = $ref(10);
+const total = $ref(1000);
 
 function onCopySuccess(e: any) {
     console.log(e);
+}
+
+function onChange() {
+    console.log("change");
 }
 </script>
 
