@@ -167,7 +167,7 @@ const routes: RouteRecordRaw[] = [
                     title: "菜单-1",
                     icon: "",
                 },
-                component: Layout,
+                component: Layout("Menu1"),
                 children: [
                     {
                         path: "menu-1-1",
@@ -176,7 +176,7 @@ const routes: RouteRecordRaw[] = [
                             title: "菜单1-1",
                             icon: "",
                         },
-                        component: Layout,
+                        component: Layout("Menu11"),
                         children: [
                             {
                                 path: "menu-1-1-1",

@@ -38,7 +38,7 @@ const clipboard: Directive = {
             return;
         }
         el._v_clipboard.text = function () {
-            return binding.value;
+            return String(binding.value);
         };
         el._v_clipboard.action = function () {
             return "copy";

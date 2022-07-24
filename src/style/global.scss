@@ -12,6 +12,12 @@
     align-items: center;
 }
 
+.flex-around-center {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .flex-just-center {
     display: flex;
     justify-content: center;

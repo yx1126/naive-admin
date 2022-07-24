@@ -42,7 +42,7 @@ a:hover {
     left: 0;
     top: 0;
     @extend .flex-center;
-    .icon-wrapper {
+    & > div {
         display: grid;
         grid-template-columns: 15px 15px;
         grid-template-rows: 15px 15px;

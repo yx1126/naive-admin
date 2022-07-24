@@ -1,5 +1,5 @@
 <template>
-    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" @click="onUpdateShow(!show)">
+    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" v-if="showTrigger" @click="onUpdateShow(!show)">
         <Icon :size="show ? 34 : 26" color="#fff">
             <component :is="show ? CloseOutline : SettingOutlined" />
         </Icon>
@@ -25,9 +25,15 @@ const attrs = useAttrs();
 const set = useSetStore();
 const themeVars = $(useThemeVars());
 
-defineProps<{
-    show?: boolean;
-}>();
+const props = withDefaults(
+    defineProps<{
+        show?: boolean;
+        showTrigger?: boolean;
+    }>(),
+    {
+        showTrigger: true,
+    },
+);
 
 const emit = defineEmits<{
     (e: "update:show", value: boolean): void;
@@ -38,6 +44,7 @@ const drawerStyles = computed(() => {
         "--drawer-set-color": set.themeColor,
         "--drawer-tans-leave": themeVars.cubicBezierEaseIn,
         "--drawer-tans-enter": themeVars.cubicBezierEaseOut,
+        "--drawer-opacity": props.show ? 1 : 0.4,
     };
 });
 
@@ -61,6 +68,10 @@ function onUpdateShow(show: boolean) {
     top: 50%;
     right: 1px;
     z-index: 2001;
+    opacity: var(--drawer-opacity);
+    &:hover {
+        opacity: 1;
+    }
     &.drawer-tans-enter {
         transform: translate(-280px, -50%);
         transition: transform 0.3s var(--drawer-tans-enter);

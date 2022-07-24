@@ -4,6 +4,8 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BasicTable: typeof import('./src/components/BasicTable/BasicTable.vue')['default']
+    BasicTableColumn: typeof import('./src/components/BasicTable/BasicTableColumn.vue')['default']
     Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
     Icon: typeof import('./src/components/Icon/Icon.vue')['default']
     Message: typeof import('./src/components/Message/Message.vue')['default']
@@ -12,6 +14,8 @@ declare module 'vue' {
     NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
     NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
     NButton: typeof import('naive-ui')['NButton']
+    NCard: typeof import('naive-ui')['NCard']
+    NCheckbox: typeof import('naive-ui')['NCheckbox']
     NColorPicker: typeof import('naive-ui')['NColorPicker']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
@@ -30,6 +34,7 @@ declare module 'vue' {
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NPopconfirm: typeof import('naive-ui')['NPopconfirm']
+    NPopover: typeof import('naive-ui')['NPopover']
     NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']
     NSwitch: typeof import('naive-ui')['NSwitch']
@@ -38,6 +43,7 @@ declare module 'vue' {
     NWatermark: typeof import('naive-ui')['NWatermark']
     Pagination: typeof import('./src/components/Pagination/Pagination.vue')['default']
     SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
+    TableSet: typeof import('./src/components/BasicTable/components/TableSet.vue')['default']
     TransRouterView: typeof import('./src/components/TransRouterView/TransRouterView.vue')['default']
     WangEditor: typeof import('./src/components/WangEditor/WangEditor.vue')['default']
   }

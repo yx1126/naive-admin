@@ -73,7 +73,7 @@ async function onSearch(query: string) {
                 return (item.name as string).includes(query) || (item.path as string).includes(query);
             })
             .map(item => {
-                return { label: item.name as string, value: item.path as string };
+                return { label: item.name as string, value: JSON.stringify(item) };
             });
         loading = false;
         isShowResult = true;
@@ -81,8 +81,15 @@ async function onSearch(query: string) {
 }
 
 function onUpdateValue() {
-    router.push(chooseValue);
+    const menu = JSON.parse(chooseValue);
+    if (menu.isLink) {
+        window.open(menu.path);
+    } else {
+        router.push(menu.path);
+    }
     chooseValue = "";
+    isShowResult = false;
+    selectOptions = [];
 }
 </script>
 

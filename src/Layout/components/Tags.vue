@@ -122,7 +122,7 @@ watch(
     () => {
         if (route.fullPath.startsWith("/redirect")) return;
         tags.insert("activeTags", {
-            title: route.meta.title,
+            title: route.meta.title as string,
             name: route.name as string,
             path: route.path,
             meta: route.meta,
@@ -147,7 +147,6 @@ function onTagsClose(tags: Tags, index: number) {
 }
 
 async function onTagsContextmenu(e: MouseEvent, tags: Tags, index: number) {
-    if (tags.path === "/dashboard/console") return;
     isShowCloseAll = false;
     chooseTags = tags;
     chooseTagsIndex = index;
