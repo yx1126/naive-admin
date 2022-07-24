@@ -11,10 +11,20 @@
                 <n-button type="primary" text @click="onReset">重置</n-button>
             </div>
         </template>
+        <!-- <Draggable class="table-set__list" :style="tableSetStyle" :list="columnsList" item-key="key" handle=".drag">
+            <template #item="{ element, index }">
+                <div class="table-set__list-item">
+                    <Icon class="drag" :size="20"><DragOutlined /></Icon>
+                    <n-checkbox class="checkbox" :checked="!element.hidden" @update:checked="onUpdateChecked($event, index)">
+                        <span class="text">{{ element.title }}</span>
+                    </n-checkbox>
+                </div>
+            </template>
+        </Draggable> -->
         <div class="table-set__list" :style="tableSetStyle">
             <template v-for="(column, i) in columns" :key="i">
                 <div class="table-set__list-item">
-                    <Icon class="drag icon" :size="20"><DragOutlined /></Icon>
+                    <Icon class="drag" :size="20"><DragOutlined /></Icon>
                     <n-checkbox class="checkbox" :checked="!column.hidden" @update:checked="onUpdateChecked($event, i)">
                         <span class="text">{{ column.title }}</span>
                     </n-checkbox>
@@ -25,9 +35,10 @@
 </template>
 
 <script lang="ts">
+// import Draggable from "vuedraggable";
 import Icon from "@/components/Icon";
 import { DragOutlined } from "@vicons/antd";
-import { defineComponent, computed, type PropType } from "vue";
+import { defineComponent, computed, ref, watch, type PropType } from "vue";
 import { NCheckbox, NButton, type DataTableColumns } from "naive-ui";
 import { useSetStore } from "@/stores";
 import type { Column } from "../index";
@@ -57,6 +68,8 @@ export default defineComponent({
     setup(props, { emit }) {
         const set = useSetStore();
 
+        const columnsList = ref<typeof props.columns>([]);
+
         const tableSetStyle = computed(() => {
             return {
                 "--icon-hover-color": set.themeColor,
@@ -75,6 +88,14 @@ export default defineComponent({
             set: value => emit("update:checkBox", value),
         });
 
+        watch(
+            props.columns,
+            value => {
+                columnsList.value = value as typeof props.columns;
+            },
+            { immediate: true, deep: true },
+        );
+
         function onReset() {
             emit("reset");
         }
@@ -82,7 +103,9 @@ export default defineComponent({
         function onUpdateChecked(value: boolean, index: number) {
             emit("update:checked", { checked: !value, index });
         }
+
         return {
+            columnsList,
             tableSetStyle,
             isCheckAll,
             isCheckIndex,
@@ -95,6 +118,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$hover-color: var(--icon-hover-color);
 .table-set__header {
     width: 250px;
     @extend .flex-around-center;
@@ -104,18 +128,21 @@ export default defineComponent({
         width: 100%;
         height: 34px;
         @extend .flex-align-center;
+        &:hover {
+            .text {
+                color: $hover-color;
+            }
+        }
         .drag {
             margin-right: 10px;
+            cursor: move;
         }
         .icon {
             cursor: pointer;
             &:hover,
             &.active {
-                color: var(--icon-hover-color);
+                color: $hover-color;
             }
-        }
-        .text:hover {
-            color: var(--icon-hover-color);
         }
         .checkbox {
             flex: 1;
