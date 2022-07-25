@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import type { VNodeChild } from "vue";
-import type { DataTableSortState, DataTableFilterState, DataTableColumn, EllipsisProps } from "naive-ui";
+import type { DataTableColumn, EllipsisProps } from "naive-ui";
 
 interface BasicTableColumn {
     align?: "left" | "right" | "center";
