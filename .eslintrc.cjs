@@ -9,7 +9,7 @@ module.exports = {
     },
     rules: {
         indent: "off",
-        // "@typescript-eslint/indent": ["warn", 4],
+        "@typescript-eslint/indent": ["warn", 4],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "vue/multi-word-component-names": "off",
