@@ -16,7 +16,7 @@ const route = useRoute();
 const set = useSetStore();
 
 const breadcrumbList = $computed(() => {
-    return route.matched.filter(r => r.path && r.meta.title);
+    return route.matched.filter((r) => r.path && r.meta.title);
 });
 
 const breadcrumbStyle = $computed(() => {
