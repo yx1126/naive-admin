@@ -1,7 +1,7 @@
 <template>
     <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" v-if="showTrigger" @click="onUpdateShow(!show)">
-        <Icon :size="show ? 34 : 26" color="#fff">
-            <component :is="show ? CloseOutline : SettingOutlined" />
+        <Icon :size="26" color="#fff">
+            <component :is="show ? CloseOutlined : SettingOutlined" />
         </Icon>
     </div>
     <n-drawer class="drawer" placement="right" v-bind="attrs" :width="280" :z-index="2000" :show="show" @update:show="onUpdateShow">
@@ -11,8 +11,7 @@
 
 <script setup lang="ts">
 import { useAttrs, computed } from "vue";
-import { SettingOutlined } from "@vicons/antd";
-import { CloseOutline } from "@vicons/ionicons5";
+import { SettingOutlined, CloseOutlined } from "@vicons/antd";
 import useSetStore from "@/stores/setting";
 import { useThemeVars } from "naive-ui";
 

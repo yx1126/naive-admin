@@ -30,11 +30,11 @@
         </div>
         <div class="tags-btn">
             <Icon class="tags-btn-item" size="18" @click="onRefresh">
-                <ReloadOutline />
+                <ReloadOutlined />
             </Icon>
             <n-divider vertical />
             <Icon class="tags-btn-item" size="22" @click="onShowDropdown($event)">
-                <MoreVertical24Regular />
+                <MoreOutlined />
             </Icon>
         </div>
         <n-dropdown
@@ -53,9 +53,8 @@
 </template>
 
 <script lang="ts" setup>
-import MoreVertical24Regular from "@vicons/fluent/MoreVertical24Regular";
-import ReloadOutline from "@vicons/ionicons5/ReloadOutline";
-import { GpsFixedRound, GpsNotFixedRound } from "@vicons/material";
+import { MoreOutlined, ReloadOutlined } from "@vicons/antd";
+import { PushpinFilled, PushpinOutlined } from "@vicons/antd";
 import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
 import { NTag, type DropdownOption, type DropdownDividerOption } from "naive-ui";
 import { watch, nextTick } from "vue";
@@ -105,10 +104,10 @@ const dropDownOptions = $computed(() => {
         result.push({ type: "divider", key: "d1" });
     }
     if (isInKeep && !isIndexPage) {
-        result.push({ label: "移除固定", key: "removeFixed", icon: renderIcon(GpsNotFixedRound) });
+        result.push({ label: "移除固定", key: "removeFixed", icon: renderIcon(PushpinOutlined) });
     }
     if (isInActive) {
-        result.push({ label: "保持固定", key: "keepFixed", icon: renderIcon(GpsFixedRound) });
+        result.push({ label: "保持固定", key: "keepFixed", icon: renderIcon(PushpinFilled) });
     }
     if (isShowCloseAll) {
         result.length && result.push({ type: "divider", key: "d2" });

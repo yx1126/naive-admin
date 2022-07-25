@@ -30,11 +30,13 @@ defineOptions({
 
 const emit = defineEmits<{
     (event: "change"): void;
+    (event: "update:page", value: number): void;
     (event: "update:size", value: number): void;
 }>();
 
-function onPageChange() {
+function onPageChange(value: number) {
     emit("change");
+    emit("update:page", value);
 }
 function onSizeChange(value: number) {
     emit("change");

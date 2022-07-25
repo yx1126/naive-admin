@@ -1,5 +1,5 @@
 <template>
-    <n-popover trigger="click" placement="bottom-end">
+    <n-popover trigger="manual" placement="bottom-end" :show="true">
         <template #trigger>
             <slot></slot>
         </template>
@@ -23,8 +23,15 @@
         </Draggable> -->
         <div class="table-set__list" :style="tableSetStyle">
             <template v-for="(column, i) in columns" :key="i">
-                <div class="table-set__list-item">
-                    <Icon class="drag" :size="20"><DragOutlined /></Icon>
+                <div
+                    class="table-set__list-item"
+                    :draggable="isDrag"
+                    @drop.prevent="onDrop"
+                    @ondragstart="onDropStart"
+                    @ondragend="onDropEnd"
+                    @ondragover="onDragOver"
+                >
+                    <Icon class="drag" :size="20" @mousedown="isDrag = true" @mouseup="isDrag = false"><DragOutlined /></Icon>
                     <n-checkbox class="checkbox" :checked="!column.hidden" @update:checked="onUpdateChecked($event, i)">
                         <span class="text">{{ column.title }}</span>
                     </n-checkbox>
@@ -70,6 +77,8 @@ export default defineComponent({
 
         const columnsList = ref<typeof props.columns>([]);
 
+        const isDrag = ref(false);
+
         const tableSetStyle = computed(() => {
             return {
                 "--icon-hover-color": set.themeColor,
@@ -104,14 +113,35 @@ export default defineComponent({
             emit("update:checked", { checked: !value, index });
         }
 
+        function onDrop(e: MouseEvent) {
+            console.log(e);
+        }
+
+        function onDropStart(e: MouseEvent) {
+            console.log(e);
+        }
+
+        function onDropEnd(e: MouseEvent) {
+            console.log(e);
+        }
+
+        function onDragOver(e: MouseEvent) {
+            console.log(e);
+        }
+
         return {
             columnsList,
             tableSetStyle,
             isCheckAll,
             isCheckIndex,
             isCheckBox,
+            isDrag,
             onReset,
             onUpdateChecked,
+            onDrop,
+            onDropStart,
+            onDropEnd,
+            onDragOver,
         };
     },
 });

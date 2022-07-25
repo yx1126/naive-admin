@@ -36,7 +36,7 @@ export default defineComponent({
         columns: { type: Array as PropType<DataTableColumns<any>>, default: void 0 },
         showIndex: { type: Boolean, default: false },
         pagination: { type: Boolean, default: true },
-        page: { type: Number, default: 0 },
+        page: { type: Number, default: 1 },
         size: { type: Number, default: 10 },
         total: { type: Number, default: 0 },
     },
@@ -66,6 +66,7 @@ export default defineComponent({
         const columnsList = computed(() => {
             const data = (columns.value || []).filter(c => !c.hidden);
             const fixed = (props.columns || []).some(c => c.fixed === "left") ? "left" : false;
+            const columnIndex = props.pagination && props.page > 0 ? (props.page - 1) * props.size : 0;
             if (isShowCheck.value) {
                 data.unshift({
                     type: "selection",
@@ -80,7 +81,7 @@ export default defineComponent({
                     fixed,
                     width: 80,
                     render: (_: any, rowIndex: number) => {
-                        return h("span", rowIndex + 1);
+                        return h("span", columnIndex + rowIndex + 1);
                     },
                 } as TableColumn);
             }

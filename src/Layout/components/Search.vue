@@ -1,6 +1,6 @@
 <template>
     <div class="search" :style="searchStyle" @click.stop="onClick">
-        <Icon class="icon" size="20"><md-search /></Icon>
+        <Icon class="icon" size="20"><SearchOutlined /></Icon>
         <n-select
             class="input"
             ref="searchRef"
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import MdSearch from "@vicons/ionicons4/MdSearch";
+import { SearchOutlined } from "@vicons/antd";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores";
 import { NSelect, useThemeVars, type SelectOption } from "naive-ui";

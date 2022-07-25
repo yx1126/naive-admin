@@ -6,7 +6,7 @@
                 <div class="nav-icon-box">
                     <slot v-if="chose" name="icon">
                         <Icon class="nav-choose" :color="color" size="20">
-                            <CheckFilled />
+                            <CheckOutlined />
                         </Icon>
                     </slot>
                 </div>
@@ -26,7 +26,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { useAttrs } from "vue";
-import { CheckFilled } from "@vicons/material";
+import { CheckOutlined } from "@vicons/antd";
 import type { NavTheme, LayoutMode } from "@/stores/setting";
 
 const attrs = useAttrs();

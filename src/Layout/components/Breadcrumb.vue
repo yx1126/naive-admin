@@ -21,7 +21,14 @@ const breadcrumbList = $computed(() => {
 
 const breadcrumbStyle = $computed(() => {
     return {
-        "--inverted-color": set.navMode === "diablo" ? "rgba(255, 255, 255, 0.82)" : set.inverted ? "#BBB" : "rgb(118, 124, 130)",
+        "--inverted-color":
+            set.navMode === "diablo"
+                ? "rgba(255, 255, 255, 0.82)"
+                : ["mixin"].includes(set.layoutMode)
+                    ? "#BBB"
+                    : set.inverted
+                        ? "#BBB"
+                        : "rgb(118, 124, 130)",
     };
 });
 </script>

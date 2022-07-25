@@ -3,7 +3,7 @@
         <n-button type="primary" @click="back">
             <span>返 回</span>
             <template #icon>
-                <Icon><IosArrowBack /></Icon>
+                <Icon><LeftOutlined /></Icon>
             </template>
         </n-button>
         <n-grid :cols="2">
@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import ErrGif from "@/assets/image/401.gif";
 import { isString } from "@/util/validata";
-import IosArrowBack from "@vicons/ionicons4/IosArrowBack";
+import { LeftOutlined } from "@vicons/antd";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
