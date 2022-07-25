@@ -1,5 +1,5 @@
 <template>
-    <n-popover trigger="manual" placement="bottom-end" :show="true">
+    <n-popover trigger="click" placement="bottom-end">
         <template #trigger>
             <slot></slot>
         </template>
