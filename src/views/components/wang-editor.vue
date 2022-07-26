@@ -1,15 +1,17 @@
 <template>
     <div class="wang-editor">
         <h1>wang-editor</h1>
-        <n-grid :x-gap="12" :cols="2">
+        <n-grid :x-gap="12" :y-gap="12" :cols="2">
             <n-gi>
-                <WangEditor v-model:value="value" />
+                <n-card><WangEditor v-model:value="value" /></n-card>
             </n-gi>
             <n-gi>
-                <div class="html" v-html="value" />
+                <n-card><div>{{ value }}</div></n-card>
+            </n-gi>
+            <n-gi :span="2">
+                <n-card><div class="html" v-html="value" /></n-card>
             </n-gi>
         </n-grid>
-        <div>{{ value }}</div>
     </div>
 </template>
 

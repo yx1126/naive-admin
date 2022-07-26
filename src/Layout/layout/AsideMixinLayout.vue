@@ -1,5 +1,6 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot, ref, watch } from "vue";
+import { defineComponent, computed, renderSlot, ref, watch, type PropType } from "vue";
+import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useRoute } from "vue-router";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
@@ -9,12 +10,10 @@ import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
 import Breadcrumb from "../components/Breadcrumb.vue";
 import { useThemeVars } from "naive-ui";
-import type { PropType } from "vue";
-import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "AsideMixinLayout",
-    components: { Header, Tags, Menu, Logo },
+    components: { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,Header, Tags, Menu, Logo },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -104,14 +103,14 @@ export default defineComponent({
             this.showTrigger === "bar" ? "bar" : this.showTrigger === "arrow-circle" ? (this.isCollapsed ? "arrow-circle" : false) : false;
 
         const TagsLayout = (
-            <n-layout-header class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"}>
+            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"}>
                 <Tags />
-            </n-layout-header>
+            </NLayoutHeader>
         );
         return (
-            <n-layout class="layout-wrapper layout-wrapper-asidemixin" has-sider position="absolute" style={this.layoutWrapperStyle}>
+            <NLayout class="layout-wrapper layout-wrapper-asidemixin" has-sider position="absolute" style={this.layoutWrapperStyle}>
                 <div class="layout-sider-wrapper">
-                    <n-layout-sider
+                    <NLayoutSider
                         class="layout-sider"
                         collapsed={this.collapsed}
                         collapse-mode="width"
@@ -132,7 +131,7 @@ export default defineComponent({
                             collapsed-icon-size={20}
                             children-field="noChild"
                         />
-                    </n-layout-sider>
+                    </NLayoutSider>
                     <Collapse
                         class="mixin-collapse"
                         collapsed={this.collapsed}
@@ -143,17 +142,17 @@ export default defineComponent({
                         collapsed-width={48}
                     />
                 </div>
-                <n-layout class="n-layout-main">
-                    <n-layout-header class="layout-header" bordered inverted={this.inverted} position="absolute">
+                <NLayout class="n-layout-main">
+                    <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position="absolute">
                         <Header>
                             {{
                                 left: () => <Breadcrumb class="breadcrumb" />,
                             }}
                         </Header>
-                    </n-layout-header>
-                    <n-layout-content position="absolute" style="top: 60px;">
-                        <n-layout has-sider style="height: 100%;">
-                            <n-layout-sider
+                    </NLayoutHeader>
+                    <NLayoutContent position="absolute" style="top: 60px;">
+                        <NLayout has-sider style="height: 100%;">
+                            <NLayoutSider
                                 class="layout-sider-child"
                                 collapsed={this.isCollapsed}
                                 collapse-mode="transform"
@@ -166,10 +165,10 @@ export default defineComponent({
                                 onUpdate:collapsed={this.onUpdateCollapsed}
                             >
                                 <Menu collapsed={false} inverted={false} options={this.menuChildrensOptions} indent={15} />
-                            </n-layout-sider>
+                            </NLayoutSider>
                             <n-layout>
                                 {this.tagsFixed ? TagsLayout : null}
-                                <n-layout-content
+                                <NLayoutContent
                                     class="layout-content"
                                     position="absolute"
                                     style={`top: ${this.contentTop}px; bottom: 0`}
@@ -177,52 +176,13 @@ export default defineComponent({
                                 >
                                     {this.tagsFixed ? null : TagsLayout}
                                     {renderSlot(this.$slots, "default")}
-                                </n-layout-content>
+                                </NLayoutContent>
                             </n-layout>
-                        </n-layout>
-                    </n-layout-content>
-                </n-layout>
-            </n-layout>
+                        </NLayout>
+                    </NLayoutContent>
+                </NLayout>
+            </NLayout>
         );
     },
 });
 </script>
-
-<style lang="scss" scoped>
-.layout-wrapper-asidemixin {
-    .breadcrumb {
-        margin-left: 10px;
-    }
-    :deep(.layout-sider) {
-        .n-menu-item-content {
-            &::before {
-                left: 6px !important;
-                right: 6px !important;
-            }
-        }
-        .n-menu-item-content {
-            padding-left: 14px !important;
-            padding-right: 12px !important;
-        }
-    }
-    :deep(.layout-sider-child) {
-        .n-menu-item-content {
-            &::before {
-                left: 0px !important;
-                right: 0px !important;
-            }
-            &.n-menu-item-content--selected::after {
-                content: "";
-                width: 3px;
-                height: 100%;
-                position: absolute;
-                right: 2px;
-                background-color: var(--theme-color);
-            }
-        }
-    }
-    .layout-sider {
-        height: calc(100% - 42px);
-    }
-}
-</style>

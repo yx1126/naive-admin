@@ -1,5 +1,6 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot, ref, watch } from "vue";
+import { defineComponent, computed, renderSlot, ref, watch, type PropType } from "vue";
+import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -8,12 +9,10 @@ import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
 import Breadcrumb from "../components/Breadcrumb.vue";
 import { useRoute } from "vue-router";
-import type { PropType } from "vue";
-import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "MixinLayout",
-    components: { Header, Tags, Menu, Logo, Collapse },
+    components: { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,Header, Tags, Menu, Logo, Collapse },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -104,19 +103,19 @@ export default defineComponent({
             />
         );
         const TagsLayout = (
-            <n-layout-header class="layout-tags" bordered>
+            <NLayoutHeader class="layout-tags" bordered>
                 <Tags />
-            </n-layout-header>
+            </NLayoutHeader>
         );
         return (
-            <n-layout class="layout-wrapper">
-                <n-layout-header class="layout-header layout-header-mixin" inverted={this.defaultInverted} bordered>
+            <NLayout class="layout-wrapper layout-wrapper-mixin">
+                <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered>
                     <Logo height={60} width={200} />
                     <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
-                </n-layout-header>
-                <n-layout has-sider position="absolute" style="top: 60px">
+                </NLayoutHeader>
+                <NLayout has-sider position="absolute" style="top: 60px">
                     <div class="layout-sider-wrapper">
-                        <n-layout-sider
+                        <NLayoutSider
                             class="layout-sider"
                             collapsed={this.state.collapsed}
                             collapse-mode="width"
@@ -130,7 +129,7 @@ export default defineComponent({
                             onUpdate:collapsed={this.onUpdateCollapsed}
                         >
                             <Menu inverted={this.inverted} options={this.menuChildrensOptions} />
-                        </n-layout-sider>
+                        </NLayoutSider>
                         <Collapse
                             class="mixin-collapse"
                             collapsed={this.state.collapsed}
@@ -141,9 +140,9 @@ export default defineComponent({
                             collapsed-width={this.state.width}
                         />
                     </div>
-                    <n-layout class="n-layout-main">
+                    <NLayout class="n-layout-main">
                         {this.tagsFixed ? TagsLayout : null}
-                        <n-layout-content
+                        <NLayoutContent
                             class="layout-content"
                             position="absolute"
                             style={`top: ${this.tagsFixed ? 35 : 0}px; bottom: 0`}
@@ -151,25 +150,11 @@ export default defineComponent({
                         >
                             {this.tagsFixed ? null : TagsLayout}
                             {renderSlot(this.$slots, "default")}
-                        </n-layout-content>
-                    </n-layout>
-                </n-layout>
-            </n-layout>
+                        </NLayoutContent>
+                    </NLayout>
+                </NLayout>
+            </NLayout>
         );
     },
 });
 </script>
-
-<style lang="scss">
-.layout-wrapper {
-    .layout-header-mixin {
-        display: flex;
-        .logo {
-            flex: 0 0 auto;
-        }
-    }
-    .layout-sider {
-        height: calc(100% - 42px);
-    }
-}
-</style>

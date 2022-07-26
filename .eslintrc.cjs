@@ -23,19 +23,6 @@ module.exports = {
     },
     plugins: ["vue", "@typescript-eslint"],
     rules: {
-        // 将重载的成员分组在一起可以提高代码的可读性
-        "@typescript-eslint/adjacent-overload-signatures": "error",
-        "indent": "off",
-        "@typescript-eslint/indent": ["error", 4, {
-            "ignoredNodes": ["ConditionalExpression"],
-            "SwitchCase": 1,
-            "VariableDeclarator": "first",
-            "ArrayExpression": 1,
-            "ObjectExpression": 1,
-            "ImportDeclaration": 1,
-            "flatTernaryExpressions": false,
-            "offsetTernaryExpressions": true,
-        }],
         "vue/html-indent": ["error", 4],
         "vue/script-indent": ["error", 4, {
             baseIndent: 0,
@@ -73,6 +60,7 @@ module.exports = {
         }],
         "vue/no-v-html": "off",
         "vue/singleline-html-element-content-newline": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^no_" }],
     },
     globals: {
         $: "readonly",

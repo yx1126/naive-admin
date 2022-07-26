@@ -6,7 +6,7 @@ import {
     DeleteOutlined,
     DownloadOutlined,
     ColumnHeightOutlined,
-    ReloadOutlined
+    ReloadOutlined,
 } from "@vicons/antd";
 import TableSet from "./components/TableSet.vue";
 import Pagination from "../Pagination";
@@ -21,7 +21,6 @@ type TableSize = "small" | "medium" | "large";
 
 export default defineComponent({
     name: "BasicTable",
-    inheritAttrs: false,
     components: {
         NDataTable,
         NButton,
@@ -38,6 +37,7 @@ export default defineComponent({
         ReloadOutlined,
         Pagination,
     },
+    inheritAttrs: false,
     props: {
         showToolbar: { type: Boolean, default: true },
         behavior: { type: Boolean, default: true },

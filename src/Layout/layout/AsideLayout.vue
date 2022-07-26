@@ -1,5 +1,6 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot } from "vue";
+import { defineComponent, computed, renderSlot, type PropType } from "vue";
+import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -7,12 +8,10 @@ import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
 import Breadcrumb from "../components/Breadcrumb.vue";
-import type { PropType } from "vue";
-import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "AsideLayout",
-    components: { Header, Tags, Menu, Logo, Collapse },
+    components: { NLayout, NLayoutSider, NLayoutHeader, NLayoutContent, Header, Tags, Menu, Logo, Collapse },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -65,18 +64,18 @@ export default defineComponent({
     render() {
         const headerLeft = [<Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} />, <Breadcrumb />];
         const HeaderLayout = (
-            <n-layout-header class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
+            <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
                 <Header>{{ left: () => headerLeft }}</Header>
-            </n-layout-header>
+            </NLayoutHeader>
         );
         const TagsLayout = (
-            <n-layout-header class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 60px">
+            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 60px">
                 <Tags />
-            </n-layout-header>
+            </NLayoutHeader>
         );
         return (
-            <n-layout class="layout-wrapper" has-sider position="absolute">
-                <n-layout-sider
+            <NLayout class="layout-wrapper" has-sider position="absolute">
+                <NLayoutSider
                     collapsed={this.collapsed}
                     collapse-mode="width"
                     collapsed-width={64}
@@ -89,11 +88,11 @@ export default defineComponent({
                 >
                     <Logo collapsed={this.collapsed} collapsed-width={64} width="auto" />
                     <Menu options={this.menuOptions} />
-                </n-layout-sider>
-                <n-layout class="n-layout-main">
+                </NLayoutSider>
+                <NLayout class="n-layout-main">
                     {this.headerFixed ? HeaderLayout : null}
                     {this.tagsFixed ? TagsLayout : null}
-                    <n-layout-content
+                    <NLayoutContent
                         class="layout-content"
                         position="absolute"
                         style={`top: ${this.contentTop}px; bottom: 0`}
@@ -102,9 +101,9 @@ export default defineComponent({
                         {this.headerFixed ? null : HeaderLayout}
                         {this.tagsFixed ? null : TagsLayout}
                         {renderSlot(this.$slots, "default")}
-                    </n-layout-content>
-                </n-layout>
-            </n-layout>
+                    </NLayoutContent>
+                </NLayout>
+            </NLayout>
         );
     },
 });

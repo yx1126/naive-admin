@@ -85,9 +85,59 @@ function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAs
     }
     .layout-container {
         width: 100%;
+        padding: 10px;
         background-color: var(--diablo-color);
         min-height: calc(100vh - 60px - 36px);
         border: 1px solid var(--diablo-color);
+    }
+    // mixin
+    &.layout-wrapper-mixin {
+        .layout-header {
+            display: flex;
+            .logo {
+                flex: 0 0 auto;
+            }
+        }
+        .layout-sider {
+            height: calc(100% - 42px);
+        }
+    }
+    // asidemixin
+    &.layout-wrapper-asidemixin {
+        .breadcrumb {
+            margin-left: 10px;
+        }
+        .layout-sider {
+            .n-menu-item-content {
+                &::before {
+                    left: 6px !important;
+                    right: 6px !important;
+                }
+            }
+            .n-menu-item-content {
+                padding-left: 14px !important;
+                padding-right: 12px !important;
+            }
+        }
+        .layout-sider-child {
+            .n-menu-item-content {
+                &::before {
+                    left: 0px !important;
+                    right: 0px !important;
+                }
+                &.n-menu-item-content--selected::after {
+                    content: "";
+                    width: 3px;
+                    height: 100%;
+                    position: absolute;
+                    right: 2px;
+                    background-color: var(--theme-color);
+                }
+            }
+        }
+        .layout-sider {
+            height: calc(100% - 42px);
+        }
     }
 }
 </style>
