@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot, useSlots } from "vue";
+import { defineComponent, computed, renderSlot } from "vue";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -12,7 +12,7 @@ import type { MenuOption } from "naive-ui";
 
 export default defineComponent({
     name: "AsideLayout",
-    components: { Header, Tags, Menu, Logo },
+    components: { Header, Tags, Menu, Logo, Collapse },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -46,7 +46,6 @@ export default defineComponent({
     emits: ["update:collapsed"],
     setup(props, { emit }) {
         const set = useSetStore();
-        const slots = useSlots();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const contentTop = computed(() => {

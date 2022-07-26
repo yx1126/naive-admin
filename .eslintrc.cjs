@@ -1,15 +1,15 @@
-/* eslint-env node */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = {
     root: true,
-    extends: ["plugin:vue/vue3-essential", "eslint:recommended", "@vue/eslint-config-typescript/recommended", "plugin:vue/vue3-recommended"],
+    extends: ["plugin:vue/vue3-essential", "eslint:recommended", "plugin:vue/vue3-recommended", "@vue/eslint-config-typescript/recommended"],
     env: {
         browser: true,
         node: true,
         es6: true,
     },
-    plugins: ["vue", "@typescript-eslint"],
     parser: "vue-eslint-parser",
     parserOptions: {
         parser: "@typescript-eslint/parser",
@@ -18,10 +18,12 @@ module.exports = {
         jsxPragma: "React",
         ecmaFeatures: {
             jsx: true,
+            tsx: true,
         },
     },
+    plugins: ["vue", "@typescript-eslint"],
     rules: {
-    // 将重载的成员分组在一起可以提高代码的可读性
+        // 将重载的成员分组在一起可以提高代码的可读性
         "@typescript-eslint/adjacent-overload-signatures": "error",
         "indent": "off",
         "@typescript-eslint/indent": ["error", 4, {

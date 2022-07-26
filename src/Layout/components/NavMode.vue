@@ -2,7 +2,7 @@
     <n-tooltip placement="top">
         <template #trigger>
             <div class="nav-mode" :class="'nav-mode-' + mode" v-bind="attrs">
-                <div v-if="mode === 'asideMixin'" class="nav-mode-asideMixin-item"></div>
+                <div v-if="mode === 'asideMixin'" class="nav-mode-asideMixin-item" />
                 <div class="nav-icon-box">
                     <slot v-if="chose" name="icon">
                         <Icon class="nav-choose" :color="color" size="20">

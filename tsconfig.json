@@ -1,6 +1,14 @@
 {
     "extends": "@vue/tsconfig/tsconfig.web.json",
-    "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+    "include": [
+        "env.d.ts",
+        "src/**/*",
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        ".eslintrc.cjs"
+    ],
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
@@ -14,11 +22,21 @@
         "experimentalDecorators": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-        "lib": ["esnext", "dom"],
+        "lib": [
+            "esnext",
+            "dom"
+        ],
         "baseUrl": ".",
-        "types": ["vite/client", "naive-ui/volar", "unplugin-vue-define-options", "vite-plugin-svg-icons/client"],
+        "types": [
+            "vite/client",
+            "naive-ui/volar",
+            "unplugin-vue-define-options",
+            "vite-plugin-svg-icons/client"
+        ],
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": [
+                "./src/*"
+            ]
         }
     },
     "references": [
