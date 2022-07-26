@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, computed, renderSlot } from "vue";
+import { defineComponent, computed, renderSlot, useSlots } from "vue";
 import { useSetStore } from "@/stores";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -46,6 +46,7 @@ export default defineComponent({
     emits: ["update:collapsed"],
     setup(props, { emit }) {
         const set = useSetStore();
+        const slots = useSlots();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const contentTop = computed(() => {

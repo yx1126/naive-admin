@@ -32,7 +32,7 @@ watch(
     () => {
         const keys = route.matched.filter((item) => item.path !== "").map((item) => item.path);
         onExpandedKeys(set.uniqueMenuOpened ? keys : [...new Set([...defaultExpendMenu, ...keys])]);
-    }
+    },
 );
 
 function onUpdateValue(key: string, item: MenuOption) {

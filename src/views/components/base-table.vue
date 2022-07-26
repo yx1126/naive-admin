@@ -9,10 +9,10 @@
                 :single-line="false"
                 :columns="columns"
                 :data="data"
-                @page-change="onPageChange"
-                @behavior="onBehavior"
                 :max-height="200"
                 :scroll-x="1800"
+                @page-change="onPageChange"
+                @behavior="onBehavior"
             />
         </n-card>
     </div>

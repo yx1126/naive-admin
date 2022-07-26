@@ -1,10 +1,10 @@
 <template>
     <div class="tags-wrapper" @contextmenu.prevent>
-        <div class="tags" ref="tagsRef" @wheel="onMouseWheel">
+        <div ref="tagsRef" class="tags" @wheel="onMouseWheel">
             <template v-for="(t, i) in keepTags" :key="t.path">
                 <n-tag
-                    class="tags-item"
                     ref="tagsItemRefs"
+                    class="tags-item"
                     :data-path="t.path"
                     :type="currentPath === t.path ? 'primary' : 'default'"
                     @click="onTagsClick(t)"
@@ -15,8 +15,8 @@
             </template>
             <template v-for="(t, i) in activeTags" :key="t.path">
                 <n-tag
-                    class="tags-item"
                     ref="tagsItemRefs"
+                    class="tags-item"
                     :data-path="t.path"
                     :type="currentPath === t.path ? 'primary' : 'default'"
                     closable

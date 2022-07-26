@@ -1,14 +1,22 @@
 <template>
     <n-popover trigger="click" placement="bottom-end">
         <template #trigger>
-            <slot></slot>
+            <slot />
         </template>
         <template #header>
             <div class="table-set__header">
-                <n-checkbox v-model:checked="isCheckAll">列展示</n-checkbox>
-                <n-checkbox v-model:checked="isCheckIndex">序号列</n-checkbox>
-                <n-checkbox v-model:checked="isCheckBox">勾选列</n-checkbox>
-                <n-button type="primary" text @click="onReset">重置</n-button>
+                <n-checkbox v-model:checked="isCheckAll">
+                    列展示
+                </n-checkbox>
+                <n-checkbox v-model:checked="isCheckIndex">
+                    序号列
+                </n-checkbox>
+                <n-checkbox v-model:checked="isCheckBox">
+                    勾选列
+                </n-checkbox>
+                <n-button type="primary" text @click="onReset">
+                    重置
+                </n-button>
             </div>
         </template>
         <!-- <Draggable class="table-set__list" :style="tableSetStyle" :list="columnsList" item-key="key" handle=".drag">
@@ -31,7 +39,9 @@
                     @ondragend="onDropEnd"
                     @ondragover="onDragOver"
                 >
-                    <Icon class="drag" :size="20" @mousedown="isDrag = true" @mouseup="isDrag = false"><DragOutlined /></Icon>
+                    <Icon class="drag" :size="20" @mousedown="isDrag = true" @mouseup="isDrag = false">
+                        <DragOutlined />
+                    </Icon>
                     <n-checkbox class="checkbox" :checked="!column.hidden" @update:checked="onUpdateChecked($event, i)">
                         <span class="text">{{ column.title }}</span>
                     </n-checkbox>

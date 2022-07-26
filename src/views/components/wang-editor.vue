@@ -6,7 +6,7 @@
                 <WangEditor v-model:value="value" />
             </n-gi>
             <n-gi>
-                <div class="html" v-html="value"></div>
+                <div class="html" v-html="value" />
             </n-gi>
         </n-grid>
         <div>{{ value }}</div>

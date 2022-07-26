@@ -1,5 +1,5 @@
 <template>
-    <div class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" v-if="showTrigger" @click="onUpdateShow(!show)">
+    <div v-if="showTrigger" class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" @click="onUpdateShow(!show)">
         <Icon :size="26" color="#fff">
             <component :is="show ? CloseOutlined : SettingOutlined" />
         </Icon>

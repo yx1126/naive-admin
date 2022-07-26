@@ -1,7 +1,7 @@
 <template>
     <div class="workspace" :style="{}">
         <h1>workspace</h1>
-        <input v-model="inputValue" />
+        <input v-model="inputValue">
         <p>{{ inputValue }}</p>
         <n-button v-copy="inputValue" v-copy:success="onCopySuccess">点击复制</n-button>
         <div class="flex-just-center">

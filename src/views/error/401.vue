@@ -18,7 +18,7 @@
                 </ul>
             </n-gi>
             <n-gi>
-                <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream." />
+                <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
             </n-gi>
         </n-grid>
     </div>

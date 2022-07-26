@@ -1,18 +1,19 @@
 <template>
-    <n-config>
+    <NConfig>
         <Layout>
             <TransRouterView />
         </Layout>
-    </n-config>
+    </NConfig>
 </template>
+
 <script setup lang="ts">
-import TransRouterView from "@/components/TransRouterView";
 import { onBeforeMount, watch } from "vue";
+import { useRoute } from "vue-router";
+import TransRouterView from "@/components/TransRouterView";
 import { useApp, useTitle } from "@/hooks";
 import Layout from "@/Layout/index.vue";
 import { NConfig } from "@/naive";
 import useUserStore from "@/stores/user";
-import { useRoute } from "vue-router";
 
 const route = useRoute();
 const user = useUserStore();
@@ -22,13 +23,13 @@ const title = useTitle(null, `%s-${import.meta.env.VITE_APP_TITLE}`);
 watch(
     () => route.path,
     () => {
-        if (route.path.startsWith("/redirect")) return;
+        if (route.path.startsWith("/redirect"))return;
         title.value = route.matched
-            .filter((v) => v.meta.title)
+            .filter(v => v.meta.title)
             .reverse()
-            .map((r) => r.meta.title)
+            .map(r => r.meta.title)
             .join("-");
-    }
+    },
 );
 
 onBeforeMount(() => {
@@ -37,4 +38,7 @@ onBeforeMount(() => {
 });
 </script>
 
-<style lang="scss"></style>
+
+
+<style lang="scss">
+</style>

@@ -1,7 +1,9 @@
 <template>
     <Drawer v-model:show="toggleDrawer" :mask-closable="true">
         <n-drawer-content :native-scrollbar="false" body-content-style="padding: 0 15px 15px 15px;">
-            <template #header>{{ $t("set.title") }}</template>
+            <template #header>
+                {{ $t("set.title") }}
+            </template>
             <n-divider> {{ $t("set.navTheme") }} </n-divider>
             <n-space justify="center">
                 <template v-for="n in navTheme" :key="n">
@@ -17,7 +19,9 @@
             <n-divider> {{ $t("set.pageDisplay") }} </n-divider>
             <div class="divider-content">
                 <div class="divider-content-item">
-                    <n-ellipsis class="">{{ $t("set.isShowLogo") }}</n-ellipsis>
+                    <n-ellipsis class="">
+                        {{ $t("set.isShowLogo") }}
+                    </n-ellipsis>
                     <n-switch v-model:value="set.isShowLogo" size="medium" />
                 </div>
                 <div class="divider-content-item">
@@ -56,13 +60,13 @@
             <div class="divider-content">
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.routerTrans") }}</n-ellipsis>
-                    <n-select class="divider-content-item__input" v-model:value="set.routerTrans" :options="routerTransOptions" size="small" />
+                    <n-select v-model:value="set.routerTrans" class="divider-content-item__input" :options="routerTransOptions" size="small" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.themeColor") }}</n-ellipsis>
                     <n-color-picker
-                        class="divider-content-item__input custom-picker-set"
                         v-model:value="set.themeColor"
+                        class="divider-content-item__input custom-picker-set"
                         :swatches="defaultThemeList"
                         :actions="['confirm']"
                         :to="false"
@@ -71,7 +75,7 @@
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.lang") }}</n-ellipsis>
-                    <n-select class="divider-content-item__input" v-model:value="set.lang" @update:value="changeLang" :options="lang" size="small" />
+                    <n-select v-model:value="set.lang" class="divider-content-item__input" :options="lang" size="small" @update:value="changeLang" />
                 </div>
             </div>
             <template #footer>

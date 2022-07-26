@@ -10,7 +10,7 @@
         show-trigger="bar"
     >
         <div class="layout-container" :style="layoutConStyle">
-            <slot></slot>
+            <slot />
         </div>
         <n-back-top />
     </component>

@@ -45,7 +45,7 @@ const mixinStyle = $computed(() => {
         "--collaspe-trans": themeVars.cubicBezierEaseInOut,
     };
     const borderKeys = typeof props.border === "string" ? props.border.split(",").map(item => `border-${item}`) : ["border"],
-        borderValue = `${props.border ? 1 : 0}px solid ${themeVars.dividerColor}`;
+          borderValue = `${props.border ? 1 : 0}px solid ${themeVars.dividerColor}`;
     borderKeys.forEach(item => {
         defaultValue[item] = borderValue;
     });

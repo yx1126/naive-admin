@@ -9,7 +9,9 @@
         @update:page="onPageChange"
         @update:page-size="onSizeChange"
     >
-        <template #prefix="{ itemCount }"> 共 {{ itemCount }} 条 </template>
+        <template #prefix="{ itemCount }">
+            共 {{ itemCount }} 条
+        </template>
     </n-pagination>
 </template>
 

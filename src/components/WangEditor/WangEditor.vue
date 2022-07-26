@@ -1,8 +1,8 @@
 <template>
     <div class="wang-editor-wrapper">
-        <Toolbar class="wang-editor-toolbar" :defaultConfig="toolbarConfig" :editor="editor" />
-        <Editor class="wang-editor" v-bind="attrs" :style="editorStyle" v-model="valueHtml" :defaultConfig="editorConfig" @onCreated="onCreated" />
-        <div class="wang-editor-mask" v-show="isShowMask" @click="onCloseModal"></div>
+        <Toolbar class="wang-editor-toolbar" :default-config="toolbarConfig" :editor="editor" />
+        <Editor v-bind="attrs" v-model="valueHtml" class="wang-editor" :style="editorStyle" :default-config="editorConfig" @on-created="onCreated" />
+        <div v-show="isShowMask" class="wang-editor-mask" @click="onCloseModal" />
     </div>
 </template>
 

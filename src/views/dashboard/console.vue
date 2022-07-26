@@ -8,7 +8,9 @@
         <n-dropdown trigger="hover" :options="options" :inverted="false">
             <n-button>悬浮！</n-button>
         </n-dropdown>
-        <n-tag type="primary" closable>不该</n-tag>
+        <n-tag type="primary" closable>
+            不该
+        </n-tag>
         <template v-for="i in 100" :key="i">
             <p>{{ i }}</p>
         </template>

@@ -1,20 +1,24 @@
 <template>
-    <div class="header" ref="headerRef">
+    <div ref="headerRef" class="header">
         <div class="header-left">
-            <slot name="logo"></slot>
-            <slot name="left"></slot>
+            <slot name="logo" />
+            <slot name="left" />
         </div>
         <div class="header-right">
             <div class="header-trigger">
                 <Search />
             </div>
             <div class="header-trigger" @click="toggle">
-                <Icon :size="18"><component :is="fullScreen ? FullscreenExitOutlined : FullscreenOutlined" /></Icon>
+                <Icon :size="18">
+                    <component :is="fullScreen ? FullscreenExitOutlined : FullscreenOutlined" />
+                </Icon>
             </div>
             <n-dropdown trigger="hover" :options="dropdownOptions" @select="handleSelect">
                 <div class="header-trigger">
                     <n-avatar round :size="34" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
-                    <div class="username">admin</div>
+                    <div class="username">
+                        admin
+                    </div>
                 </div>
             </n-dropdown>
         </div>

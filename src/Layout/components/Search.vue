@@ -1,10 +1,12 @@
 <template>
     <div class="search" :style="searchStyle" @click.stop="onClick">
-        <Icon class="icon" size="20"><SearchOutlined /></Icon>
+        <Icon class="icon" size="20">
+            <SearchOutlined />
+        </Icon>
         <n-select
-            class="input"
             ref="searchRef"
             v-model:value="chooseValue"
+            class="input"
             :show="isShowResult"
             :loading="loading"
             :options="selectOptions"
