@@ -1,10 +1,10 @@
 import { onMounted, ref, unref, onBeforeUnmount, nextTick } from "vue";
 import Screenfull from "screenfull";
-import { isString } from "@/util/validata";
+import { isString, isUndefined } from "@/util/validata";
 import { useMessage } from "./use-free-back";
 import type { MayBeRef } from "@/types/util";
 
-export default (selectors: MayBeRef<HTMLElement> | string = "body", options?: FullscreenOptions) => {
+export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?: FullscreenOptions) => {
     const target = ref<HTMLElement | null>();
     const isEnabled = Screenfull.isEnabled;
     const fullScreen = ref(Screenfull.isFullscreen);
@@ -37,7 +37,13 @@ export default (selectors: MayBeRef<HTMLElement> | string = "body", options?: Fu
     onMounted(async () => {
         if (!isEnabled) return;
         await nextTick();
-        target.value = isString(selectors) ? (document.querySelector(selectors) as HTMLElement) : unref(selectors);
+        if(isUndefined(selectors)) {
+            target.value = document.querySelector("body");
+        } else if(isString(selectors)) {
+            target.value = document.querySelector<HTMLElement>(unref<string>(selectors));
+        } else {
+            target.value = unref(selectors) as HTMLElement;
+        }
         Screenfull.on("change", onFullScreenChange);
         Screenfull.on("error", event => {
             console.log(event);

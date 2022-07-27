@@ -32,10 +32,10 @@ const isKeepHeader = $computed(() => set.isKeepTags || set.isKeepHeader);
 const isKeepTags = $computed(() => set.isKeepTags);
 
 const layputMap = {
-    aside: loadComponent(() => import("./layout/AsideLayout.vue")),
-    top: loadComponent(() => import("./layout/TopLayout.vue")),
-    mixin: loadComponent(() => import("./layout/MixinLayout.vue")),
-    asideMixin: loadComponent(() => import("./layout/AsideMixinLayout.vue")),
+    aside: loadComponent(() => import("./layout/AsideLayout")),
+    top: loadComponent(() => import("./layout/TopLayout")),
+    mixin: loadComponent(() => import("./layout/MixinLayout")),
+    asideMixin: loadComponent(() => import("./layout/AsideMixinLayout")),
 };
 
 const mode = $computed(() => {

@@ -1,4 +1,3 @@
-<script lang="tsx">
 import { defineComponent, computed, renderSlot, type PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
@@ -11,7 +10,6 @@ import Breadcrumb from "../components/Breadcrumb.vue";
 
 export default defineComponent({
     name: "AsideLayout",
-    components: { NLayout, NLayoutSider, NLayoutHeader, NLayoutContent, Header, Tags, Menu, Logo, Collapse },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -107,4 +105,3 @@ export default defineComponent({
         );
     },
 });
-</script>

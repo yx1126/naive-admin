@@ -1,4 +1,3 @@
-<script lang="tsx">
 import { defineComponent, computed, renderSlot, ref, watch, type PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
@@ -12,7 +11,6 @@ import { useRoute } from "vue-router";
 
 export default defineComponent({
     name: "MixinLayout",
-    components: { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,Header, Tags, Menu, Logo, Collapse },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -157,4 +155,3 @@ export default defineComponent({
         );
     },
 });
-</script>

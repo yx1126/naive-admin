@@ -1,13 +1,4 @@
-<script lang="tsx">
-import {
-    SettingOutlined,
-    PlusOutlined,
-    EditOutlined,
-    DeleteOutlined,
-    DownloadOutlined,
-    ColumnHeightOutlined,
-    ReloadOutlined,
-} from "@vicons/antd";
+import { SettingOutlined, PlusOutlined, EditOutlined, DeleteOutlined, DownloadOutlined, ColumnHeightOutlined, ReloadOutlined, FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
 import TableSet from "./components/TableSet.vue";
 import Pagination from "../Pagination";
 import Icon from "../Icon";
@@ -15,28 +6,12 @@ import { defineComponent, computed, h, ref, useAttrs, renderSlot, mergeProps, ty
 import { NButton, NDataTable, NTooltip, NDropdown, type DataTableColumns, type DropdownOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import useTableColumns from "./hooks/useTableColumns";
-import type { TableColumn, Behavior } from "./index";
-
-type TableSize = "small" | "medium" | "large";
+import { useFullscreen } from "@/hooks";
+import type { TableColumn, Behavior, TableSize } from "./index";
+import "./BasicTable.scss";
 
 export default defineComponent({
     name: "BasicTable",
-    components: {
-        NDataTable,
-        NButton,
-        TableSet,
-        NTooltip,
-        NDropdown,
-        Icon,
-        SettingOutlined,
-        PlusOutlined,
-        EditOutlined,
-        DeleteOutlined,
-        DownloadOutlined,
-        ColumnHeightOutlined,
-        ReloadOutlined,
-        Pagination,
-    },
     inheritAttrs: false,
     props: {
         showToolbar: { type: Boolean, default: true },
@@ -53,7 +28,10 @@ export default defineComponent({
         const attrs = useAttrs();
         const { columns, reset } = useTableColumns(props.columns);
         const set = useSetStore();
-
+        const basicTableWrapperRef = ref<HTMLDivElement | undefined>();
+        const { fullScreen, toggle } = useFullscreen(basicTableWrapperRef);
+        const a = {a:1};
+        console.log(a);
         const tableSize = ref<TableSize>("medium");
         const isShowIndex = ref(props.showIndex);
         const isShowCheck = ref(false);
@@ -62,6 +40,7 @@ export default defineComponent({
         const basicTableStyle = computed(() => {
             return {
                 "--icon-hover-color": set.themeColor,
+                "--table-wrapper-back": set.navMode === "diablo" ? "" : "#fff",
             };
         });
         const densityOptions = computed<DropdownOption[]>(() => {
@@ -149,6 +128,9 @@ export default defineComponent({
             onUpdatePage,
             onUpdateSize,
             onBehavior,
+            basicTableWrapperRef,
+            fullScreen,
+            toggleScreen: toggle,
         };
     },
     render() {
@@ -178,31 +160,24 @@ export default defineComponent({
                 />
             </div>
         );
+        const Tootip = (name: string, component: JSX.Element, fn?: () => void) => {
+            return (
+                <NTooltip>
+                    {{
+                        default: () => name,
+                        trigger: () => <Icon class="icon" size={20} onClick={fn}>{component}</Icon>,
+                    }}
+                </NTooltip>
+            );
+        };
         const ToolBar = (
             <div class="basic-table-toolbar">
                 <div class="behavior">{this.$slots.behavior ? renderSlot(this.$slots, "behavior") : behaviorList}</div>
                 <div class="set">
-                    <NTooltip>
-                        {{
-                            default: () => "刷新",
-                            trigger: () => (
-                                <Icon class="icon" size={20} onClick={this.onPageChange}>
-                                    <ReloadOutlined />
-                                </Icon>
-                            ),
-                        }}
-                    </NTooltip>
+                    {Tootip("表格全屏", this.fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
+                    {Tootip("刷新", <ReloadOutlined />, this.onPageChange)}
                     <NDropdown trigger="click" options={this.densityOptions} onSelect={this.onDensitySelect}>
-                        <NTooltip>
-                            {{
-                                default: () => "密度",
-                                trigger: () => (
-                                    <Icon class="icon" size={20}>
-                                        <ColumnHeightOutlined />
-                                    </Icon>
-                                ),
-                            }}
-                        </NTooltip>
+                        {Tootip("密度", <ColumnHeightOutlined />)}
                     </NDropdown>
                     <TableSet
                         checkAll={this.isCheckAll}
@@ -230,7 +205,7 @@ export default defineComponent({
             </div>
         );
         return (
-            <div class="basic-table-wrapper" style={this.basicTableStyle}>
+            <div class="basic-table-wrapper" ref="basicTableWrapperRef" style={this.basicTableStyle}>
                 {this.showToolbar ? ToolBar : null}
                 <div class="basic-table">
                     <NDataTable {...mergeProps(this.attrs)} columns={this.columnsList as any} size={this.tableSize}>
@@ -242,43 +217,3 @@ export default defineComponent({
         );
     },
 });
-</script>
-
-<style lang="scss" scoped>
-.basic-table-wrapper {
-    width: 100%;
-    .basic-table-toolbar {
-        width: 100%;
-        height: 34px;
-        margin-bottom: 15px;
-        @extend .flex-between-center;
-        .behavior {
-            height: 100%;
-            & > *:not(:first-child) {
-                margin-left: 8px;
-            }
-        }
-        .set {
-            height: 100%;
-            @extend .flex-align-center;
-            & > *:not(:first-child) {
-                margin-left: 15px;
-            }
-        }
-        .icon {
-            cursor: pointer;
-            &:hover {
-                color: var(--icon-hover-color);
-            }
-        }
-    }
-    .basic-table {
-        width: 100%;
-    }
-    .basic-table-pagination {
-        margin-top: 12px;
-        display: flex;
-        justify-content: flex-end;
-    }
-}
-</style>

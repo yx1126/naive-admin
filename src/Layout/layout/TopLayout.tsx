@@ -1,4 +1,3 @@
-<script lang="tsx">
 import { defineComponent, computed, renderSlot, type PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutContent, type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
@@ -9,7 +8,6 @@ import Logo from "../components/Logo.vue";
 
 export default defineComponent({
     name: "TopLayout",
-    components: { NLayout, NLayoutHeader, NLayoutContent ,Header, Tags, Menu, Logo },
     props: {
         nativeScrollbar: {
             type: Boolean,
@@ -75,4 +73,3 @@ export default defineComponent({
         );
     },
 });
-</script>

@@ -4,7 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BasicTable: typeof import('./src/components/BasicTable/BasicTable.vue')['default']
     BasicTableColumn: typeof import('./src/components/BasicTable/BasicTableColumn.vue')['default']
     Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
     Icon: typeof import('./src/components/Icon/Icon.vue')['default']
@@ -24,13 +23,10 @@ declare module 'vue' {
     NDrawerContent: typeof import('naive-ui')['NDrawerContent']
     NDropdown: typeof import('naive-ui')['NDropdown']
     NEllipsis: typeof import('naive-ui')['NEllipsis']
-    NGi: typeof import('naive-ui')['NGi']
     NGlobalStyle: typeof import('naive-ui')['NGlobalStyle']
-    NGrid: typeof import('naive-ui')['NGrid']
     NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
     NMenu: typeof import('naive-ui')['NMenu']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
-    NModal: typeof import('naive-ui')['NModal']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NPopconfirm: typeof import('naive-ui')['NPopconfirm']
     NPopover: typeof import('naive-ui')['NPopover']
