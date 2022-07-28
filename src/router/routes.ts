@@ -121,6 +121,38 @@ const routes: RouteRecordRaw[] = [
         ],
     },
     {
+        path: "/directive",
+        name: "Directive",
+        meta: {
+            title: "自定义指令",
+            icon: "",
+        },
+        redirect: "/directive/copy",
+        component: Layout("Directive"),
+        children: [
+            {
+                path: "copy",
+                name: "Copy",
+                meta: {
+                    title: "复制",
+                    icon: "",
+                },
+                component: () => import("@/views/directive/copy.vue"),
+                children: [],
+            },
+            {
+                path: "fullscreen",
+                name: "Fullscreen",
+                meta: {
+                    title: "全屏",
+                    icon: "",
+                },
+                component: () => import("@/views/directive/fullscreen.vue"),
+                children: [],
+            },
+        ],
+    },
+    {
         path: "/error",
         name: "Error",
         meta: {

@@ -68,6 +68,21 @@ const menus: MenuOptions & RouteMeta[] = [
         ],
     },
     {
+        name: "自定义指令",
+        path: "/directive",
+        icon: renderIcon(WalletOutlined),
+        children: [
+            {
+                name: "复制",
+                path: "copy",
+            },
+            {
+                name: "全屏",
+                path: "fullscreen",
+            },
+        ],
+    },
+    {
         name: "异常页面",
         path: "/error",
         icon: renderIcon(ExclamationCircleOutlined),

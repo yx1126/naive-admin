@@ -5,4 +5,4 @@ import useTitle from "./use-title";
 import useVModel from "./use-vmodel";
 import useFullscreen from "./use-fullscreen";
 
-export { useApp, useMitt, useFreeBack, useTitle, useVModel, useFullscreen };
+export { useApp, useMitt, useFreeBack, useTitle, useVModel, useFullscreen  };

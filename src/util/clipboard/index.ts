@@ -6,21 +6,21 @@ export default function copy(text: string, action: "cut" | "copy" = "copy", el?:
         const node = el || document.createElement("button");
         node.style.display = "none";
         const clipboard = new Clipboard(node, {
-            text: function () {
+            text: function() {
                 return text;
             },
-            action: function () {
+            action: function() {
                 return action;
             },
         });
 
-        clipboard.on("success", function (e) {
+        clipboard.on("success", function(e) {
             destroy && clipboard.destroy();
             e.clearSelection();
             resolve(e);
         });
 
-        clipboard.on("error", function (e) {
+        clipboard.on("error", function(e) {
             destroy && clipboard.destroy();
             reject(e);
         });

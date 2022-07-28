@@ -1,5 +1,5 @@
 <template>
-    <n-config-provider :locale="locale" :date-locale="dateLocale" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
+    <n-config-provider :hljs="hljs" :locale="locale" :date-locale="dateLocale" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
         <n-loading-bar-provider>
             <n-dialog-provider>
                 <n-message-provider>
@@ -21,7 +21,13 @@ import { localeMap, dateLocaleMap } from "@/locales";
 import { useSetStore } from "@/stores";
 import { createHoverColor, createPressedColor } from "@/util/color";
 import NFreeback from "./NFreeback.vue";
+import hljs from "highlight.js/lib/core";
+import javascript from "highlight.js/lib/languages/javascript";
+import xml from "highlight.js/lib/languages/xml";
 import type { GlobalThemeOverrides } from "naive-ui";
+
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("html", xml);
 
 const set = useSetStore();
 

@@ -1,5 +1,6 @@
 import fullscreen from "./fullscreen";
-import clipboard from "./clipboard";
+import copy from "./copy";
+import focus from "./focus";
 import type { App } from "vue";
 
 export default {
@@ -16,6 +17,7 @@ export default {
          * @param value string
          * @param args success/error callback
          */
-        app.directive("copy", clipboard);
+        app.directive("copy", copy);
+        app.directive("focus", focus);
     },
 };

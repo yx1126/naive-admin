@@ -67,6 +67,7 @@ module.exports = {
             "named": "never",
             "asyncArrow": "always",
         }],
+        "no-useless-escape": "off",
     },
     globals: {
         $: "readonly",

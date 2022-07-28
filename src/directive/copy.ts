@@ -37,10 +37,10 @@ const clipboard: Directive = {
             el._v_clipboard_error = binding.value;
             return;
         }
-        el._v_clipboard.text = function () {
+        el._v_clipboard.text = function() {
             return String(binding.value);
         };
-        el._v_clipboard.action = function () {
+        el._v_clipboard.action = function() {
             return "copy";
         };
     },

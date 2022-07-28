@@ -37,8 +37,3 @@ onBeforeMount(() => {
     user.initMenu();
 });
 </script>
-
-
-
-<style lang="scss">
-</style>

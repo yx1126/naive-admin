@@ -1,5 +1,6 @@
 import Screenfull from "screenfull";
-import { getParentNode } from "@/util/dom";
+import { getParentNode, $select } from "@/util/dom";
+import { isString } from "@/util/validata";
 import type { Directive } from "vue";
 
 const screenfull: Directive = {
@@ -9,25 +10,22 @@ const screenfull: Directive = {
         const {
             modifiers: { body, parent },
             value,
-            arg = 0,
+            arg = 1,
         } = binding;
-        el._v_listenEvent = function () {
-            const fullTarget = document.querySelector(body ? "body" : typeof value === "string" ? value : "body");
+        el._v_listenEvent = function() {
+            const fullTarget = body ? $select("body") : isString(value) ? $select(value) : target;
             Screenfull.toggle(fullTarget!);
         };
-        const level = isNaN(parseInt(arg as string, 10)) ? 0 : parseInt(arg as string, 10);
-        console.log(parent ? getParentNode(target, level) : target);
-        (parent ? getParentNode(target, level) : target)?.addEventListener("click", el._v_listenEvent);
+        el._v_level = isNaN(parseInt(arg as string, 10)) ? 1 : parseInt(arg as string, 10);
+        (parent ? getParentNode(target, el._v_level) : target)?.addEventListener("click", el._v_listenEvent);
     },
     unmounted(el, binding) {
         const target = el as HTMLElement;
         const {
             modifiers: { parent },
-            arg = 0,
         } = binding;
-        const level = isNaN(parseInt(arg as string, 10)) ? 0 : parseInt(arg as string, 10);
-        if (el._v_listenEvent) {
-            (parent ? getParentNode(target, level) : target)?.removeEventListener("click", el._v_listenEvent);
+        if (el._v_listenEvent && el._v_level) {
+            (parent ? getParentNode(target, el._v_level) : target)?.removeEventListener("click", el._v_listenEvent);
         }
     },
 };

@@ -1,5 +1,4 @@
 import BasicTable from "./BasicTable";
-import BasicTableColumn from "./BasicTableColumn.vue";
 
 import type { DataTableColumns } from "naive-ui";
 import type { ResolveArray } from "@/types/util";
@@ -15,7 +14,5 @@ export interface Column {
     fixed: false | "left" | "right";
     hidden?: boolean;
 }
-
-export { BasicTableColumn };
 
 export default BasicTable;
