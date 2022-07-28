@@ -3,7 +3,7 @@ import TableSet from "./components/TableSet.vue";
 import Pagination from "../Pagination";
 import Icon from "../Icon";
 import { defineComponent, computed, h, ref, useAttrs, renderSlot, mergeProps, type PropType } from "vue";
-import { NButton, NDataTable, NTooltip, NDropdown, type DataTableColumns, type DropdownOption } from "naive-ui";
+import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, type DataTableColumns, type DropdownOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import useTableColumns from "./hooks/useTableColumns";
 import { useFullscreen } from "@/hooks";
@@ -30,11 +30,10 @@ export default defineComponent({
         const set = useSetStore();
         const basicTableWrapperRef = ref<HTMLDivElement | undefined>();
         const { fullScreen, toggle } = useFullscreen(basicTableWrapperRef);
-        const a = {a:1};
-        console.log(a);
         const tableSize = ref<TableSize>("medium");
         const isShowIndex = ref(props.showIndex);
         const isShowCheck = ref(false);
+        const isShowStriped = ref(false);
 
         const isCheckAll = computed(() => (columns.value ? columns.value?.every(column => !(column as any).hidden) : false));
         const basicTableStyle = computed(() => {
@@ -120,6 +119,7 @@ export default defineComponent({
             isCheckAll,
             isShowIndex,
             isShowCheck,
+            isShowStriped,
             onDensitySelect,
             onUpdateCheckAll,
             onResetSet,
@@ -160,24 +160,21 @@ export default defineComponent({
                 />
             </div>
         );
-        const Tootip = (name: string, component: JSX.Element, fn?: () => void) => {
-            return (
-                <NTooltip>
-                    {{
-                        default: () => name,
-                        trigger: () => <Icon class="icon" size={20} onClick={fn}>{component}</Icon>,
-                    }}
-                </NTooltip>
-            );
+        const Tootip = (name: string, component: JSX.Element) => {
+            return  <NTooltip>{{ default: () => name, trigger: () => component }}</NTooltip>;
+        };
+        const IconTootip = (name: string, component: JSX.Element, fn?: () => void) => {
+            return Tootip(name, <Icon class="icon" size={20} onClick={fn}>{component}</Icon>);
         };
         const ToolBar = (
             <div class="basic-table-toolbar">
                 <div class="behavior">{this.$slots.behavior ? renderSlot(this.$slots, "behavior") : behaviorList}</div>
                 <div class="set">
-                    {Tootip("表格全屏", this.fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
-                    {Tootip("刷新", <ReloadOutlined />, this.onPageChange)}
+                    {Tootip("斑马纹", <NSwitch v-model:value={this.isShowStriped} />)}
+                    {IconTootip("表格全屏", this.fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
+                    {IconTootip("刷新", <ReloadOutlined />, this.onPageChange)}
                     <NDropdown trigger="click" options={this.densityOptions} onSelect={this.onDensitySelect}>
-                        {Tootip("密度", <ColumnHeightOutlined />)}
+                        {IconTootip("密度", <ColumnHeightOutlined />)}
                     </NDropdown>
                     <TableSet
                         checkAll={this.isCheckAll}
@@ -190,16 +187,7 @@ export default defineComponent({
                         onUpdate:checked={this.onUpdateChecked}
                         onReset={this.onResetSet}
                     >
-                        <NTooltip>
-                            {{
-                                default: () => "列设置",
-                                trigger: () => (
-                                    <Icon class="icon" size={20}>
-                                        {{ default: () => <SettingOutlined /> }}
-                                    </Icon>
-                                ),
-                            }}
-                        </NTooltip>
+                        {IconTootip("列设置", <SettingOutlined />)}
                     </TableSet>
                 </div>
             </div>
@@ -208,7 +196,7 @@ export default defineComponent({
             <div class="basic-table-wrapper" ref="basicTableWrapperRef" style={this.basicTableStyle}>
                 {this.showToolbar ? ToolBar : null}
                 <div class="basic-table">
-                    <NDataTable {...mergeProps(this.attrs)} columns={this.columnsList as any} size={this.tableSize}>
+                    <NDataTable {...mergeProps(this.attrs)} columns={this.columnsList as any} size={this.tableSize} striped={this.isShowStriped}>
                         {{ empty: () => renderSlot(this.$slots, "empty") }}
                     </NDataTable>
                 </div>

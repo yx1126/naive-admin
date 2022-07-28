@@ -1,6 +1,5 @@
 <template>
     <div class="wang-editor">
-        <h1>wang-editor</h1>
         <n-grid :x-gap="12" :y-gap="12" :cols="2">
             <n-gi>
                 <n-card><WangEditor v-model:value="value" /></n-card>

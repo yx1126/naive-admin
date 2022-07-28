@@ -122,13 +122,7 @@ export default defineComponent({
                         onUpdate:collapsed={this.onUpdateCollapsed}
                     >
                         <Logo collapsed={this.collapsed} width="auto" indent={10} />
-                        <Menu
-                            options={this.menuOptions}
-                            value={this.defaultValue}
-                            root-indent={10}
-                            collapsed-icon-size={20}
-                            children-field="noChild"
-                        />
+                        <Menu options={this.menuOptions} value={this.defaultValue} root-indent={10} collapsed-icon-size={20} children-field="noChild" />
                     </NLayoutSider>
                     <Collapse
                         class="mixin-collapse"
@@ -142,11 +136,7 @@ export default defineComponent({
                 </div>
                 <NLayout class="n-layout-main">
                     <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position="absolute">
-                        <Header>
-                            {{
-                                left: () => <Breadcrumb class="breadcrumb" />,
-                            }}
-                        </Header>
+                        <Header> {{ left: () => <Breadcrumb class="breadcrumb" /> }}</Header>
                     </NLayoutHeader>
                     <NLayoutContent position="absolute" style="top: 60px;">
                         <NLayout has-sider style="height: 100%;">
@@ -164,7 +154,7 @@ export default defineComponent({
                             >
                                 <Menu collapsed={false} inverted={false} options={this.menuChildrensOptions} indent={15} />
                             </NLayoutSider>
-                            <n-layout>
+                            <NLayout>
                                 {this.tagsFixed ? TagsLayout : null}
                                 <NLayoutContent
                                     class="layout-content"
@@ -175,7 +165,7 @@ export default defineComponent({
                                     {this.tagsFixed ? null : TagsLayout}
                                     {renderSlot(this.$slots, "default")}
                                 </NLayoutContent>
-                            </n-layout>
+                            </NLayout>
                         </NLayout>
                     </NLayoutContent>
                 </NLayout>

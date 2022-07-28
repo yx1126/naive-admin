@@ -7,7 +7,6 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        ".eslintrc.cjs"
     ],
     "compilerOptions": {
         "target": "esnext",

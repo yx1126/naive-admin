@@ -61,6 +61,12 @@ module.exports = {
         "vue/no-v-html": "off",
         "vue/singleline-html-element-content-newline": "off",
         "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^no_" }],
+        "space-before-function-paren": "off",
+        "@typescript-eslint/space-before-function-paren": ["error", {
+            "anonymous": "never",
+            "named": "never",
+            "asyncArrow": "always",
+        }],
     },
     globals: {
         $: "readonly",

@@ -41,12 +41,10 @@ const layputMap = {
 const mode = $computed(() => {
     return layputMap[set.layoutMode];
 });
-
 const collapsed = $computed({
     get: () => set.collapsed,
     set: value => set.setState("collapsed", value),
 });
-
 const layoutConStyle = $computed(() => {
     return {
         "--diablo-color": set.navMode === "diablo" ? "transparent" : "#f5f7f9",
@@ -63,13 +61,7 @@ function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAs
                 return h(
                     "div",
                     { class: "page-loading" },
-                    h(
-                        "div",
-                        {
-                            class: "icon-wrapper",
-                        },
-                        Array.from({ length: 4 }).map(() => h("i")),
-                    ),
+                    h("div", Array.from({ length: 4 }).map(() => h("i"))),
                 );
             },
         }),

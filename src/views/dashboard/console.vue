@@ -1,19 +1,21 @@
 <template>
     <div class="console">
-        <h1>console</h1>
-        <!-- <svg-icon icon="bug" /> -->
-        <!-- <svg-icon icon="404" /> -->
-        <Icon icon="bug" size="26" color="red" />
-        <Icon icon="404" size="26" color="red" />
-        <n-dropdown trigger="hover" :options="options" :inverted="false">
-            <n-button>悬浮！</n-button>
-        </n-dropdown>
-        <n-tag type="primary" closable>
-            不该
-        </n-tag>
-        <template v-for="i in 100" :key="i">
-            <p>{{ i }}</p>
-        </template>
+        <n-card>
+            <h1>console</h1>
+            <!-- <svg-icon icon="bug" /> -->
+            <!-- <svg-icon icon="404" /> -->
+            <Icon icon="bug" size="26" color="red" />
+            <Icon icon="404" size="26" color="red" />
+            <n-dropdown trigger="hover" :options="options" :inverted="false">
+                <n-button>悬浮！</n-button>
+            </n-dropdown>
+            <n-tag type="primary" closable>
+                不该
+            </n-tag>
+            <template v-for="i in 100" :key="i">
+                <p>{{ i }}</p>
+            </template>
+        </n-card>
     </div>
 </template>
 

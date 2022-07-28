@@ -1,6 +1,6 @@
 <template>
     <n-breadcrumb v-if="set.isShowBreadcrumb" class="breadcrumb" :style="breadcrumbStyle">
-        <template v-for="(b, i) in breadcrumbList" :key="i">
+        <template v-for="b in breadcrumbList" :key="b.path">
             <n-breadcrumb-item :clickable="false">
                 <span>{{ b?.meta?.title }}</span>
             </n-breadcrumb-item>
