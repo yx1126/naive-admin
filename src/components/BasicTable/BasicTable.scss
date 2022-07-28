@@ -7,13 +7,13 @@
     }
     .basic-table-toolbar {
         width: 100%;
-        height: 34px;
+        min-height: 34px;
         margin-bottom: 15px;
         @extend .flex-between-center;
         .behavior {
             height: 100%;
-            & > *:not(:first-child) {
-                margin-left: 8px;
+            & > *:not(:last-child) {
+                margin-right: 8px;
             }
         }
         .set {
@@ -32,6 +32,10 @@
     }
     .basic-table {
         width: 100%;
+    }
+    .basic-table-empty {
+        width: 100%;
+        padding: 48px 0;
     }
     .basic-table-pagination {
         margin-top: 12px;

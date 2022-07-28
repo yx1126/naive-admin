@@ -3,7 +3,7 @@ import TableSet from "./components/TableSet.vue";
 import Pagination from "../Pagination";
 import Icon from "../Icon";
 import { defineComponent, computed, h, ref, useAttrs, renderSlot, mergeProps, type PropType } from "vue";
-import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, type DataTableColumns, type DropdownOption } from "naive-ui";
+import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, NEmpty, type DataTableColumns, type DropdownOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import useTableColumns from "./hooks/useTableColumns";
 import { useFullscreen } from "@/hooks";
@@ -200,6 +200,7 @@ export default defineComponent({
                         {{ empty: () => renderSlot(this.$slots, "empty") }}
                     </NDataTable>
                 </div>
+                {this.columnsList && this.columnsList?.length <= 0 ? <div class="basic-table-empty"><NEmpty description="暂无列数据" /></div> : null}
                 {this.pagination ? PaginationCom : null}
             </div>
         );

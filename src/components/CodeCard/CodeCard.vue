@@ -17,7 +17,7 @@
             </n-space>
         </template>
         <template v-if="showFooter" #footer>
-            <n-code :code="code" language="html" />
+            <n-code :code="code" word-wrap language="html" />
         </template>
         <slot />
     </n-card>

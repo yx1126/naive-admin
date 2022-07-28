@@ -22,6 +22,8 @@
 import BasicTable, { type Behavior } from "@/components/BasicTable";
 import { h } from "vue";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
+import { useFreeBack } from "@/hooks";
+
 type RowData = {
     key: number;
     name: string;
@@ -32,6 +34,8 @@ type RowData = {
     address3: string;
     tags: string[];
 };
+
+const message = useFreeBack("message");
 
 const page = $ref(0);
 const size = $ref(10);
@@ -175,10 +179,23 @@ const data = $ref<RowData[]>([
 ]);
 
 function onPageChange() {
-    console.log("onPageChange");
+    message.info("change");
 }
 function onBehavior(type: Behavior) {
-    console.log(type);
+    switch (type) {
+        case "insert":
+            message.info(type);
+            break;
+        case "update":
+            message.success(type);
+            break;
+        case "delete":
+            message.error(type);
+            break;
+        case "export":
+            message.warning(type);
+            break;
+    }
 }
 </script>
 

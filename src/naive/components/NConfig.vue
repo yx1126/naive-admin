@@ -37,6 +37,10 @@ const dateLocale = $computed(() => dateLocaleMap[set.lang]);
 
 const theme = $computed<typeof darkTheme | null>(() => (set.navMode === "diablo" ? darkTheme : lightTheme));
 
+const PRIMARYCOLOR = "#409EFF";
+const SUCCESSCOLOR = "#67C23A";
+const WARNINGCOLOR = "#E6A23C";
+const ERRORCOLOR = "#F56C6C";
 const INFOCOLOR = "#909399";
 
 const themeOverrides = $computed<GlobalThemeOverrides>(() => {
@@ -45,6 +49,15 @@ const themeOverrides = $computed<GlobalThemeOverrides>(() => {
             primaryColor: set.themeColor,
             primaryColorHover: createHoverColor(set.themeColor),
             primaryColorPressed: createPressedColor(set.themeColor),
+            successColor: SUCCESSCOLOR,
+            successColorHover: createHoverColor(SUCCESSCOLOR),
+            successColorPressed: createPressedColor(SUCCESSCOLOR),
+            warningColor: WARNINGCOLOR,
+            warningColorHover: createHoverColor(WARNINGCOLOR),
+            warningColorPressed: createPressedColor(WARNINGCOLOR),
+            errorColor: ERRORCOLOR,
+            errorColorHover: createHoverColor(ERRORCOLOR),
+            errorColorPressed: createPressedColor(ERRORCOLOR),
             infoColor: INFOCOLOR,
             infoColorHover: createHoverColor(INFOCOLOR),
             infoColorPressed: createPressedColor(INFOCOLOR),
@@ -65,6 +78,9 @@ const themeOverrides = $computed<GlobalThemeOverrides>(() => {
             // 反转主题色配置
             optionColorHoverInverted: set.themeColor,
             optionColorActiveInverted: set.themeColor,
+        },
+        Message: {
+            iconColorInfo: PRIMARYCOLOR,
         },
     };
 });
