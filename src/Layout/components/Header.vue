@@ -33,7 +33,6 @@ import { FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
 const headerRef = ref();
-
 const { fullScreen, toggle } = useFullscreen();
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
