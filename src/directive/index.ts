@@ -1,6 +1,5 @@
 import fullscreen from "./fullscreen";
 import copy from "./copy";
-import focus from "./focus";
 import type { App } from "vue";
 
 export default {
@@ -18,6 +17,5 @@ export default {
          * @param args success/error callback
          */
         app.directive("copy", copy);
-        app.directive("focus", focus);
     },
 };

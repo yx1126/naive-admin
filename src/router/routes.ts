@@ -134,7 +134,7 @@ const routes: RouteRecordRaw[] = [
                 path: "copy",
                 name: "Copy",
                 meta: {
-                    title: "复制",
+                    title: "复制: v-copy",
                     icon: "",
                 },
                 component: () => import("@/views/directive/copy.vue"),
@@ -144,7 +144,7 @@ const routes: RouteRecordRaw[] = [
                 path: "fullscreen",
                 name: "Fullscreen",
                 meta: {
-                    title: "全屏",
+                    title: "全屏: v-fullscreen",
                     icon: "",
                 },
                 component: () => import("@/views/directive/fullscreen.vue"),

@@ -12,7 +12,7 @@
                     <template #trigger>
                         <n-button text @click="showFooter = !showFooter"><Icon :size="16" icon="code" /></n-button>
                     </template>
-                    显示代码
+                    {{ showFooter ? "隐藏代码" : "显示代码" }}
                 </n-tooltip>
             </n-space>
         </template>

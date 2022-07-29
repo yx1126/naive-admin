@@ -8,12 +8,13 @@ const screenfull: Directive = {
         if (!Screenfull.isEnabled) return;
         const target = el as HTMLElement;
         const {
-            modifiers: { body, parent },
+            modifiers: { body, parent, stop },
             value,
             arg = 1,
         } = binding;
-        el._v_listenEvent = function() {
-            const fullTarget = body ? $select("body") : isString(value) ? $select(value) : target;
+        el._v_listenEvent = function(e: MouseEvent) {
+            if(stop) e.stopPropagation();
+            const fullTarget = body ? $select("body") : isString(value, true) ? $select(value) : target;
             Screenfull.toggle(fullTarget!);
         };
         el._v_level = isNaN(parseInt(arg as string, 10)) ? 1 : parseInt(arg as string, 10);

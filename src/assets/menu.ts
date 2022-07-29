@@ -73,11 +73,11 @@ const menus: MenuOptions & RouteMeta[] = [
         icon: renderIcon(WalletOutlined),
         children: [
             {
-                name: "复制",
+                name: "复制: v-copy",
                 path: "copy",
             },
             {
-                name: "全屏",
+                name: "全屏: v-fullscreen",
                 path: "fullscreen",
             },
         ],

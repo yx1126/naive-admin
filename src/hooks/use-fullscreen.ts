@@ -55,7 +55,6 @@ export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?
     });
 
     return {
-        target,
         isEnabled,
         fullScreen,
         full,
