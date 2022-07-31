@@ -119,14 +119,6 @@ const modifiersCode = `
             按钮全屏
         </n-button>
 
-        // value 接收一个选择器值
-        <n-button v-fullscreen="'.full-card'" type="primary">
-            <template #icon>
-                <Icon><FullscreenOutlined /></Icon>
-            </template>
-            card 全屏
-        </n-button>
-
         // 阻止事件冒泡
         <n-button v-fullscreen.stop type="primary">
             <template #icon>
