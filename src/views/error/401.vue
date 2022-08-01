@@ -1,27 +1,29 @@
 <template>
-    <div class="four-zero-three">
-        <n-button type="primary" @click="back">
-            <span>返 回</span>
-            <template #icon>
-                <Icon><LeftOutlined /></Icon>
-            </template>
-        </n-button>
-        <n-grid :cols="2">
-            <n-gi>
-                <h1 class="text-jumbo text-ginormous">401错误!</h1>
-                <h2>您没有访问权限！</h2>
-                <h6>对不起，您没有访问权限，请不要进行非法操作！您可以返回主页面</h6>
-                <ul class="list-unstyled">
-                    <li class="link-type">
-                        <n-button text type="primary" @click="back('/')">回首页</n-button>
-                    </li>
-                </ul>
-            </n-gi>
-            <n-gi>
-                <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
-            </n-gi>
-        </n-grid>
-    </div>
+    <n-card>
+        <div class="four-zero-three">
+            <n-button type="primary" @click="back">
+                <span>返 回</span>
+                <template #icon>
+                    <Icon><LeftOutlined /></Icon>
+                </template>
+            </n-button>
+            <n-grid :cols="2">
+                <n-gi>
+                    <h1 class="text-jumbo text-ginormous">401错误!</h1>
+                    <h2>您没有访问权限！</h2>
+                    <h6>对不起，您没有访问权限，请不要进行非法操作！您可以返回主页面</h6>
+                    <ul class="list-unstyled">
+                        <li class="link-type">
+                            <n-button text type="primary" @click="back('/')">回首页</n-button>
+                        </li>
+                    </ul>
+                </n-gi>
+                <n-gi>
+                    <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
+                </n-gi>
+            </n-grid>
+        </div>
+    </n-card>
 </template>
 
 <script setup lang="ts">

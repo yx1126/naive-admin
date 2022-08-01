@@ -8,13 +8,10 @@ type Store = PiniaPluginContext["store"];
 
 type PartialState = Partial<Store["$state"]>;
 
-type WatchOptions = Parameters<Store["$subscribe"]>[1];
+type Subscriptions = Parameters<Store["$subscribe"]>[1];
 
 type BaseStorage = Pick<Storage, "getItem" | "setItem">;
 
-/**
- * Stored keys
- */
 type Paths<S> = (keyof S)[] | ((s: (keyof S)[]) => (keyof S)[]);
 
 type StorageOptions<S> = {
@@ -32,29 +29,19 @@ type StoreOption<S> = {
     storage?: StorageOption<S>;
 };
 
-/**
- * Turns tree structure data into optional nodes
- */
-export type DeepPartial<T> = {
-    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
-};
-
 export type PiniaStateOptions = {
     prefix?: string;
     suffix?: string;
     storage?: BaseStorage;
-    watchOptions?: WatchOptions;
+    subscriptions?: Subscriptions;
     callback?: (app: PiniaPluginContext, state: PartialState) => void;
 };
 
-/**
- * Creates a Pinia plugin to be used by keep data
- */
 function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
     const prefix = options?.prefix ?? "vue-pinia-";
     const suffix = options?.suffix ?? "";
     const storage = options?.storage || window.localStorage;
-    const watchOptions = options?.watchOptions || {};
+    const subscriptions = options?.subscriptions || {};
 
     const createDefaultKey = (key: string) => prefix + key + suffix;
 
@@ -87,14 +74,14 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
                 }, {} as PartialState);
                 setItem(s.key || persistedstate?.key || mutation.storeId, value, s.storage);
             });
-        }, assign({ detached: true }, watchOptions));
+        }, assign({ detached: true }, subscriptions));
 
         const storeState = createStateList(store.$state).reduce((state, s) => {
             const value = getItem(s.key || persistedstate?.key || store.$id, s.storage);
             if (value) state = assign(state, value);
             return state;
         }, {} as PartialState);
-        options?.callback?.(context, storeState);
+        options?.callback?.(context, assign({}, storeState));
         return storeState;
     };
 }

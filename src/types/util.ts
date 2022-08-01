@@ -15,3 +15,7 @@ export type TypeOfKey = `[object ${BaseTypeOfKeys}]`;
 export type TypeOfValues = "boolean" | "number" | "string" | "function" | "array" | "date" | "regExp" | "undefined" | "null" | "object";
 
 export type ResolveArray<T> = T extends Array<infer A> ? A : never;
+
+export type DeepPartial<T> = {
+    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
