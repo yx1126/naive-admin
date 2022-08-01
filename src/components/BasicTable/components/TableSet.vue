@@ -1,5 +1,5 @@
 <template>
-    <n-popover trigger="click" placement="bottom-end">
+    <n-popover trigger="click" placement="bottom-end" :show="true">
         <template #trigger>
             <slot />
         </template>
@@ -19,32 +19,17 @@
                 </n-button>
             </div>
         </template>
-        <!-- <Draggable class="table-set__list" :style="tableSetStyle" :list="columnsList" item-key="key" handle=".drag">
-            <template #item="{ element, index }">
-                <div class="table-set__list-item">
-                    <Icon class="drag" :size="20"><DragOutlined /></Icon>
-                    <n-checkbox class="checkbox" :checked="!element.hidden" @update:checked="onUpdateChecked($event, index)">
-                        <span class="text">{{ element.title }}</span>
-                    </n-checkbox>
-                </div>
-            </template>
-        </Draggable> -->
         <div class="table-set__list" :style="tableSetStyle">
             <template v-for="(column, i) in columns" :key="i">
-                <div
-                    class="table-set__list-item"
-                    :draggable="isDrag"
-                    @drop.prevent="onDrop"
-                    @ondragstart="onDropStart"
-                    @ondragend="onDropEnd"
-                    @ondragover="onDragOver"
-                >
-                    <Icon class="drag" :size="20" @mousedown="isDrag = true" @mouseup="isDrag = false">
-                        <DragOutlined />
-                    </Icon>
+                <div class="table-set__list-item">
+                    <span class="index">{{ i + 1 }}</span>
                     <n-checkbox class="checkbox" :checked="!column.hidden" @update:checked="onUpdateChecked($event, i)">
                         <span class="text">{{ column.title }}</span>
                     </n-checkbox>
+                    <div class="move">
+                        <Icon class="arrow" :size="18" @click="onMove('up', i)"><ArrowUpOutlined /></Icon>
+                        <Icon class="arrow" :size="18" @click="onMove('down', i)"><ArrowDownOutlined /></Icon>
+                    </div>
                 </div>
             </template>
         </div>
@@ -52,9 +37,8 @@
 </template>
 
 <script lang="ts">
-// import Draggable from "vuedraggable";
 import Icon from "@/components/Icon";
-import { DragOutlined } from "@vicons/antd";
+import { ArrowDownOutlined, ArrowUpOutlined } from "@vicons/antd";
 import { defineComponent, computed, ref, watch, type PropType } from "vue";
 import { NCheckbox, NButton, type DataTableColumns } from "naive-ui";
 import { useSetStore } from "@/stores";
@@ -62,7 +46,7 @@ import type { Column } from "../index";
 
 export default defineComponent({
     name: "TableSet",
-    components: { NCheckbox, NButton, Icon, DragOutlined },
+    components: { NCheckbox, NButton, Icon, ArrowDownOutlined, ArrowUpOutlined },
     props: {
         checkAll: {
             type: Boolean,
@@ -81,7 +65,7 @@ export default defineComponent({
             default: () => [],
         },
     },
-    emits: ["update:checkAll", "update:checkIndex", "update:checkBox", "reset", "update:checked"],
+    emits: ["update:checkAll", "update:checkIndex", "update:checkBox", "reset", "update:checked", "update:move"],
     setup(props, { emit }) {
         const set = useSetStore();
 
@@ -123,20 +107,8 @@ export default defineComponent({
             emit("update:checked", { checked: !value, index });
         }
 
-        function onDrop(e: MouseEvent) {
-            console.log(e);
-        }
-
-        function onDropStart(e: MouseEvent) {
-            console.log(e);
-        }
-
-        function onDropEnd(e: MouseEvent) {
-            console.log(e);
-        }
-
-        function onDragOver(e: MouseEvent) {
-            console.log(e);
+        function onMove(type: "up" | "down", index: number){
+            emit("update:move", { type, index });
         }
 
         return {
@@ -148,10 +120,7 @@ export default defineComponent({
             isDrag,
             onReset,
             onUpdateChecked,
-            onDrop,
-            onDropStart,
-            onDropEnd,
-            onDragOver,
+            onMove,
         };
     },
 });
@@ -173,9 +142,9 @@ $hover-color: var(--icon-hover-color);
                 color: $hover-color;
             }
         }
-        .drag {
-            margin-right: 10px;
-            cursor: move;
+        .index {
+            display: inline-block;
+            width: 20px;
         }
         .icon {
             cursor: pointer;
@@ -186,6 +155,16 @@ $hover-color: var(--icon-hover-color);
         }
         .checkbox {
             flex: 1;
+        }
+        .move {
+            @extend .flex-align-center;
+            .arrow {
+                cursor: pointer;
+                margin: 0 5px;
+                &:hover {
+                    color: $hover-color;
+                }
+            }
         }
         &-fixed {
             width: 60px;

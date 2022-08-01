@@ -10,6 +10,7 @@ import {
     ReadOutlined,
     AppstoreAddOutlined,
     LinkOutlined,
+    MacCommandOutlined,
 } from "@vicons/antd";
 import type { MenuOptions } from "@/naive";
 import type { RouteMeta } from "vue-router";
@@ -70,7 +71,7 @@ const menus: MenuOptions & RouteMeta[] = [
     {
         name: "自定义指令",
         path: "/directive",
-        icon: renderIcon(WalletOutlined),
+        icon: renderIcon(MacCommandOutlined),
         children: [
             {
                 name: "复制: v-copy",

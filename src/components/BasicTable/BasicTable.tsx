@@ -109,6 +109,15 @@ export default defineComponent({
             emit("behavior", type);
         }
 
+        function onUpdateMove({ type, index }: { type: "up" | "down", index: number }){
+            if(!columns.value) return;
+            const moveIndex = type === "up" ? (index <= 0 ? columns.value.length - 1 : index - 1) : (index >= columns.value.length - 1 ? 0 : index + 1);
+            const current = columns.value[index];
+            const move = columns.value[moveIndex];
+            columns.value[index] =  move;
+            columns.value[moveIndex] = current;
+        }
+
         return {
             resourceColumus: columns,
             columnsList,
@@ -127,6 +136,7 @@ export default defineComponent({
             onPageChange,
             onUpdatePage,
             onUpdateSize,
+            onUpdateMove,
             onBehavior,
             basicTableWrapperRef,
             fullScreen,
@@ -186,6 +196,7 @@ export default defineComponent({
                         onUpdate:checkBox={$event => (this.isShowCheck = $event)}
                         onUpdate:checked={this.onUpdateChecked}
                         onReset={this.onResetSet}
+                        onUpdate:move={this.onUpdateMove}
                     >
                         {IconTootip("列设置", <SettingOutlined />)}
                     </TableSet>
