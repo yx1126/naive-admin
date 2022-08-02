@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+import { useEventListener } from "@/hooks";
+
 defineOptions({
     name: "Workspace",
 });
@@ -19,6 +21,10 @@ const inputValue = $ref("copy");
 const page = $ref(0);
 const size = $ref(10);
 const total = $ref(1000);
+
+useEventListener(window, "resize", (e?: Event) => {
+    console.log(e);
+});
 
 function onCopySuccess(e: any) {
     console.log(e);
