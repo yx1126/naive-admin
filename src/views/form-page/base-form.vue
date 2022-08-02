@@ -1,9 +1,14 @@
 <template>
     <div class="base-form">
         <h1>base-form</h1>
+        <n-card>
+            <BasicForm />
+        </n-card>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BasicForm from "@/components/BasicForm";
+</script>
 
 <style lang="scss" scoped></style>

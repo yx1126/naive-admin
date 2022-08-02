@@ -9,23 +9,19 @@ export interface UserInfo {
 }
 
 export interface UserState {
-    count: number;
     info: UserInfo | null;
     menus: MenuOption[];
+    permission: string[]
 }
 
 const useUserStore = defineStore(
     "user",
     () => {
         const state: UserState = reactive({
-            count: 0,
             info: null,
             menus: [],
+            permission: [],
         });
-
-        const increment = () => {
-            state.count++;
-        };
 
         const setState = <T extends keyof UserState>(key: T, value: UserState[T]) => {
             state[key] = value as UserState[T];
@@ -37,7 +33,6 @@ const useUserStore = defineStore(
 
         return {
             ...toRefs(state),
-            increment,
             initMenu,
             setState,
         };
@@ -45,7 +40,8 @@ const useUserStore = defineStore(
     {
         persistedstate: {
             enabled: true,
-            paths: ["info"],
+            storage: window.sessionStorage,
+            paths: ["info", "permission"],
         },
     },
 );

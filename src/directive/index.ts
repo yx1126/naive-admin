@@ -1,5 +1,6 @@
 import fullscreen from "./fullscreen";
 import copy from "./copy";
+import permission from "./permission";
 import type { App } from "vue";
 
 export default {
@@ -17,5 +18,9 @@ export default {
          * @param args success/error callback
          */
         app.directive("copy", copy);
+        /**
+         * 权限控制
+         */
+        app.directive("permission", permission);
     },
 };

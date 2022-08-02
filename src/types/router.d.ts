@@ -10,5 +10,6 @@ declare module "vue-router" {
         activeMenu?: string;
         isLink?: boolean;
         isIFrame?: boolean;
+        permissions?: string[];
     }
 }

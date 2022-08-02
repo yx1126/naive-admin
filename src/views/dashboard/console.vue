@@ -6,9 +6,12 @@
             <!-- <svg-icon icon="404" /> -->
             <Icon icon="bug" size="26" color="red" />
             <Icon icon="404" size="26" color="red" />
+            <br>
             <n-dropdown trigger="hover" :options="options" :inverted="false">
                 <n-button>悬浮！</n-button>
             </n-dropdown>
+            <br>
+            <n-button v-permission="['test']" type="primary">测试</n-button>
             <template v-for="i in 100" :key="i">
                 <p>{{ i }}</p>
             </template>
