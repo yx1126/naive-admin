@@ -29,33 +29,48 @@
 import { onMounted, nextTick } from "vue";
 import { useFullscreen } from "@/hooks";
 import Search from "./Search.vue";
-import { FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
-import type { DropdownOption, DropdownDividerOption } from "naive-ui";
+import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined } from "@vicons/antd";
+import { renderIcon } from "@/naive";
 import { useRouter } from "vue-router";
+import { useFreeBack } from "@/hooks";
+import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
 const { fullScreen, toggle } = useFullscreen();
 const router = useRouter();
+const dialog = useFreeBack("dialog");
+const message = useFreeBack("message");
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
-    {
-        label: "个人设置",
-        key: "set",
-    },
-    {
-        label: "退出登录",
-        key: "logout",
-    },
+    { label: "个人设置", key: "set", icon: renderIcon(UserOutlined) },
+    { type: "divider" },
+    { label: "Vue", key: "https://staging-cn.vuejs.org/", icon: renderIcon("vue") },
+    { label: "Vite", key: "https://cn.vitejs.dev/", icon: renderIcon("vite") },
+    { label: "NaiveUi", key: "https://www.naiveui.com/zh-CN/light", icon: renderIcon("naive-ui") },
+    { label: "Sass", key: "https://www.sass.hk/", icon: renderIcon("sass") },
+    { label: "Typescript", key: "https://www.tslang.cn/index.html", icon: renderIcon("typescript") },
+    { type: "divider" },
+    { label: "退出登录", key: "logout", icon: renderIcon(LogoutOutlined) },
 ];
 
-async function handleSelect(key: "set" | "logout", option: DropdownOption) {
+async function handleSelect(key: string, option: DropdownOption) {
     console.log(key, option);
     switch (key) {
         case "set":
             router.push("/person");
             break;
         case "logout":
+            dialog.warning({
+                title: "提示",
+                content: "确认退出登陆吗？",
+                positiveText: "确定",
+                negativeText: "取消",
+                onPositiveClick: () => {
+                    message.info("退出登陆成功！");
+                },
+            });
             break;
         default:
+            window.open(key);
             break;
     }
 }
