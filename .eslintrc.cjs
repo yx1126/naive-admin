@@ -68,6 +68,9 @@ module.exports = {
             "asyncArrow": "always",
         }],
         "no-useless-escape": "off",
+        "max-len": ["error", {
+            code: 200,
+        }],
     },
     globals: {
         $: "readonly",

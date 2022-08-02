@@ -122,7 +122,13 @@ export default defineComponent({
                         onUpdate:collapsed={this.onUpdateCollapsed}
                     >
                         <Logo collapsed={this.collapsed} width="auto" indent={10} />
-                        <Menu options={this.menuOptions} value={this.defaultValue} root-indent={10} collapsed-icon-size={20} children-field="noChild" />
+                        <Menu
+                            options={this.menuOptions}
+                            value={this.defaultValue}
+                            root-indent={10}
+                            collapsed-icon-size={20}
+                            children-field="noChild"
+                        />
                     </NLayoutSider>
                     <Collapse
                         class="mixin-collapse"

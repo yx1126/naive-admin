@@ -30,7 +30,6 @@
         "vuedraggable": "^4.1.0"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^0.25.2",
         "@rushstack/eslint-patch": "^1.1.4",
         "@types/node": "^16.11.45",
         "@typescript-eslint/eslint-plugin": "^5.31.0",

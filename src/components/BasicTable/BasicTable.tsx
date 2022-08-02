@@ -1,4 +1,14 @@
-import { SettingOutlined, PlusOutlined, EditOutlined, DeleteOutlined, DownloadOutlined, ColumnHeightOutlined, ReloadOutlined, FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
+import {
+    SettingOutlined,
+    PlusOutlined,
+    EditOutlined,
+    DeleteOutlined,
+    DownloadOutlined,
+    ColumnHeightOutlined,
+    ReloadOutlined,
+    FullscreenOutlined,
+    FullscreenExitOutlined,
+} from "@vicons/antd";
 import TableSet from "./components/TableSet.vue";
 import Pagination from "../Pagination";
 import Icon from "../Icon";

@@ -322,6 +322,15 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/other-pages/about.vue"),
     },
     {
+        path: "/person",
+        name: "Person",
+        meta: {
+            title: "个人设置",
+            icon: "",
+        },
+        component: () => import("@/views/other-pages/person.vue"),
+    },
+    {
         path: "/redirect/:path*",
         name: "Redirect",
         meta: {

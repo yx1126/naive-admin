@@ -1,5 +1,5 @@
 <template>
-    <div ref="headerRef" class="header">
+    <div class="header">
         <div class="header-left">
             <slot name="logo" />
             <slot name="left" />
@@ -26,14 +26,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, nextTick, ref } from "vue";
+import { onMounted, nextTick } from "vue";
 import { useFullscreen } from "@/hooks";
 import Search from "./Search.vue";
 import { FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
+import { useRouter } from "vue-router";
 
-const headerRef = ref();
 const { fullScreen, toggle } = useFullscreen();
+const router = useRouter();
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
     {
@@ -46,8 +47,17 @@ const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
     },
 ];
 
-async function handleSelect(key: string | number, option: DropdownOption) {
+async function handleSelect(key: "set" | "logout", option: DropdownOption) {
     console.log(key, option);
+    switch (key) {
+        case "set":
+            router.push("/person");
+            break;
+        case "logout":
+            break;
+        default:
+            break;
+    }
 }
 
 onMounted(async () => {
