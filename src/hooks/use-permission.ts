@@ -8,6 +8,6 @@ export default function(role: string | string[]){
     const roles = isArray(role) ? role : isString(role, true) ? role.split(",") : [];
     return {
         permission,
-        hasPermission: permission.value.some(item => roles.includes(item)),
+        hasPermission: computed(() => permission.value.some(item => roles.includes(item))),
     };
 }

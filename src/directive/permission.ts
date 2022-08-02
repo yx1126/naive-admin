@@ -7,7 +7,7 @@ const permission: Directive = {
             throw new Error("binding.value 不能为空！");
         }
         const { hasPermission } = usePermission(binding.value);
-        if(!hasPermission) {
+        if(!hasPermission.value) {
             (el as HTMLElement).remove();
         }
     },
