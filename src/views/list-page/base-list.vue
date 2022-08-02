@@ -40,38 +40,12 @@ const size = $ref(20);
 const total = $ref(1000);
 
 const columns: DataTableColumns<RowData> = [
-    {
-        title: "Name",
-        key: "name",
-        fixed: "left",
-        width: 200,
-    },
-    {
-        title: "Age",
-        key: "age",
-        // minWidth: 100,
-        width: "10%",
-    },
-    {
-        title: "Address",
-        key: "address",
-        minWidth: 300,
-    },
-    {
-        title: "Address1",
-        key: "address1",
-        minWidth: 300,
-    },
-    {
-        title: "Address2",
-        key: "address2",
-        minWidth: 300,
-    },
-    {
-        title: "Address3",
-        key: "address3",
-        minWidth: 300,
-    },
+    { title: "Name", key: "name", fixed: "left", width: 200 },
+    { title: "Age", key: "age", width: "10%" },
+    { title: "Address", key: "address", minWidth: 300 },
+    { title: "Address1", key: "address1", minWidth: 300 },
+    { title: "Address2", key: "address2", minWidth: 300 },
+    { title: "Address3", key: "address3", minWidth: 300 },
     {
         title: "Tags",
         key: "tags",
@@ -81,16 +55,8 @@ const columns: DataTableColumns<RowData> = [
             const tags = row.tags.map(tagKey => {
                 return h(
                     NTag,
-                    {
-                        style: {
-                            marginRight: "6px",
-                        },
-                        type: "primary",
-                        bordered: false,
-                    },
-                    {
-                        default: () => tagKey,
-                    },
+                    { style: { marginRight: "6px"  }, type: "primary", bordered: false },
+                    { default: () => tagKey },
                 );
             });
             return tags;
@@ -102,13 +68,7 @@ const columns: DataTableColumns<RowData> = [
         fixed: "right",
         width: 200,
         render() {
-            return h(
-                NButton,
-                {
-                    size: "small",
-                },
-                { default: () => "Send Email" },
-            );
+            return h(NButton, { size: "small" }, { default: () => "Send Email" } );
         },
     },
 ];

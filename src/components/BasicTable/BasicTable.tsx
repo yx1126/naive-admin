@@ -23,7 +23,7 @@ export default defineComponent({
         size: { type: Number, default: 10 },
         total: { type: Number, default: 0 },
     },
-    emits: ["update:page", "update:size", "page-change", "behavior"],
+    emits: ["update:page", "update:size", "page-change", "behavior", "refresh"],
     setup(props, { emit }) {
         const attrs = useAttrs();
         const { columns, reset } = useTableColumns(props.columns);
@@ -108,7 +108,9 @@ export default defineComponent({
         function onBehavior(type: Behavior) {
             emit("behavior", type);
         }
-
+        function onRefresh(){
+            emit("refresh");
+        }
         function onUpdateMove({ type, index }: { type: "up" | "down", index: number }){
             if(!columns.value) return;
             const moveIndex = type === "up" ? (index <= 0 ? columns.value.length - 1 : index - 1) : (index >= columns.value.length - 1 ? 0 : index + 1);
@@ -138,6 +140,7 @@ export default defineComponent({
             onUpdateSize,
             onUpdateMove,
             onBehavior,
+            onRefresh,
             basicTableWrapperRef,
             fullScreen,
             toggleScreen: toggle,
@@ -182,7 +185,7 @@ export default defineComponent({
                 <div class="set">
                     {Tootip("斑马纹", <NSwitch v-model:value={this.isShowStriped} />)}
                     {IconTootip("表格全屏", this.fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
-                    {IconTootip("刷新", <ReloadOutlined />, this.onPageChange)}
+                    {IconTootip("刷新", <ReloadOutlined />, this.onRefresh)}
                     <NDropdown trigger="click" options={this.densityOptions} onSelect={this.onDensitySelect}>
                         {IconTootip("密度", <ColumnHeightOutlined />)}
                     </NDropdown>

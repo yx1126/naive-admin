@@ -1,5 +1,5 @@
 <template>
-    <n-popover trigger="click" placement="bottom-end" :show="true">
+    <n-popover trigger="click" placement="bottom-end">
         <template #trigger>
             <slot />
         </template>
@@ -71,8 +71,6 @@ export default defineComponent({
 
         const columnsList = ref<typeof props.columns>([]);
 
-        const isDrag = ref(false);
-
         const tableSetStyle = computed(() => {
             return {
                 "--icon-hover-color": set.themeColor,
@@ -117,7 +115,6 @@ export default defineComponent({
             isCheckAll,
             isCheckIndex,
             isCheckBox,
-            isDrag,
             onReset,
             onUpdateChecked,
             onMove,
