@@ -31,7 +31,7 @@ export default defineComponent({
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const contentTop = computed(() => {
-            return (props.headerFixed ? 60 : 0) + (props.tagsFixed ? 35 : 0);
+            return (props.headerFixed ? 50 : 0) + (props.tagsFixed ? 35 : 0);
         });
 
         return {
@@ -44,14 +44,14 @@ export default defineComponent({
             <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered position={this.headerFixed ? "absolute" : "static"}>
                 <Header>
                     {{
-                        logo: () => <Logo width={200} height={59} />,
+                        logo: () => <Logo width={200} height={49} />,
                         left: () => <Menu mode="horizontal" options={this.menuOptions} />,
                     }}
                 </Header>
             </NLayoutHeader>
         );
         const TagsLayout = (
-            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 60px">
+            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 50px">
                 <Tags />
             </NLayoutHeader>
         );

@@ -108,10 +108,10 @@ export default defineComponent({
         return (
             <NLayout class="layout-wrapper layout-wrapper-mixin">
                 <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered>
-                    <Logo height={60} width={200} />
+                    <Logo height={50} width={200} />
                     <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
                 </NLayoutHeader>
-                <NLayout has-sider position="absolute" style="top: 60px">
+                <NLayout has-sider position="absolute" style="top: 50px">
                     <div class="layout-sider-wrapper">
                         <NLayoutSider
                             class="layout-sider"

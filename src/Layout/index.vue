@@ -73,13 +73,13 @@ function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAs
 .layout-wrapper {
     height: 100%;
     .layout-header {
-        height: 60px;
+        height: 50px;
     }
     .layout-container {
         width: 100%;
         padding: 10px;
         background-color: var(--diablo-color);
-        min-height: calc(100vh - 60px - 36px);
+        min-height: calc(100vh - 50px - 36px);
         border: 1px solid var(--diablo-color);
     }
     // mixin

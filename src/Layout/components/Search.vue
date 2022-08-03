@@ -109,8 +109,12 @@ function onUpdateValue() {
     :deep(.n-base-selection) {
         .n-base-selection-label {
             box-shadow: none !important;
+            background-color: transparent !important;
             & > * {
                 padding: 0;
+            }
+            & > input {
+                color: inherit;
             }
         }
         .n-base-selection__border,

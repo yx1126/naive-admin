@@ -144,7 +144,7 @@ export default defineComponent({
                     <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position="absolute">
                         <Header>{{ left: () => <Breadcrumb class="breadcrumb" /> }}</Header>
                     </NLayoutHeader>
-                    <NLayoutContent position="absolute" style="top: 60px;">
+                    <NLayoutContent position="absolute" style="top: 50px;">
                         <NLayout has-sider style="height: 100%;">
                             <NLayoutSider
                                 class="layout-sider-child"

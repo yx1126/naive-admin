@@ -46,7 +46,7 @@ export default defineComponent({
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const contentTop = computed(() => {
-            return (props.headerFixed ? 60 : 0) + (props.tagsFixed ? 35 : 0);
+            return (props.headerFixed ? 50 : 0) + (props.tagsFixed ? 35 : 0);
         });
 
         function onUpdateCollapsed(collapsed: boolean) {
@@ -60,14 +60,14 @@ export default defineComponent({
         };
     },
     render() {
-        const headerLeft = [<Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={59} />, <Breadcrumb />];
+        const headerLeft = [<Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={49} />, <Breadcrumb />];
         const HeaderLayout = (
             <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
                 <Header>{{ left: () => headerLeft }}</Header>
             </NLayoutHeader>
         );
         const TagsLayout = (
-            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 60px">
+            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 50px">
                 <Tags />
             </NLayoutHeader>
         );

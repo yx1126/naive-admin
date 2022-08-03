@@ -93,7 +93,7 @@ onMounted(async () => {
         @extend .flex-align-center;
     }
     &-trigger {
-        height: 60px;
+        height: 50px;
         padding: 0 12px;
         cursor: pointer;
         @extend .flex-align-center;
