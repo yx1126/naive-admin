@@ -20,7 +20,7 @@
             </div>
         </template>
         <transition-group class="table-set__list" tag="div" name="list-fade">
-            <template v-for="(column, i) in columns" :key="column.title">
+            <template v-for="(column, i) in columns" :key="column.title + column.key">
                 <div class="table-set__list-item">
                     <span class="index">{{ i + 1 }}</span>
                     <n-checkbox class="checkbox" :checked="!column.hidden" @update:checked="onUpdateChecked($event, i)">
