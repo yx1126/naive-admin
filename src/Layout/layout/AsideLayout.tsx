@@ -1,6 +1,7 @@
 import { defineComponent, computed, renderSlot, type PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
+import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
@@ -45,8 +46,9 @@ export default defineComponent({
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
+        const isShowTabs = computed(() => set.isShowTabs);
         const contentTop = computed(() => {
-            return (props.headerFixed ? 50 : 0) + (props.tagsFixed ? 35 : 0);
+            return (props.headerFixed ? LayoutConfig.headerHeight : 0) + (props.tagsFixed && isShowTabs.value ? LayoutConfig.tagsHeight : 0);
         });
 
         function onUpdateCollapsed(collapsed: boolean) {
@@ -55,21 +57,27 @@ export default defineComponent({
 
         return {
             defaultInverted,
+            isShowTabs,
             contentTop,
             onUpdateCollapsed,
         };
     },
     render() {
-        const headerLeft = [<Collapse collapsed={this.collapsed} width={59} collapsed-width={59} height={49} />, <Breadcrumb />];
+        const headerLeft = [
+            <Collapse collapsed={this.collapsed} width={LayoutConfig.headerHeight} collapsed-width={59} height={LayoutConfig.headerHeight} />,
+            <Breadcrumb />,
+        ];
         const HeaderLayout = (
             <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
                 <Header>{{ left: () => headerLeft }}</Header>
             </NLayoutHeader>
         );
         const TagsLayout = (
-            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 50px">
-                <Tags />
-            </NLayoutHeader>
+            this.isShowTabs ? (
+                <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style={`top: ${LayoutConfig.headerHeight}px`}>
+                    <Tags />
+                </NLayoutHeader>
+            ) : null
         );
         return (
             <NLayout class="layout-wrapper" has-sider position="absolute">
@@ -84,7 +92,7 @@ export default defineComponent({
                     show-trigger={this.showTrigger}
                     onUpdate:collapsed={this.onUpdateCollapsed}
                 >
-                    <Logo collapsed={this.collapsed} collapsed-width={64} width="auto" />
+                    <Logo collapsed={this.collapsed} collapsed-width={64} width="auto" height={LayoutConfig.headerHeight} />
                     <Menu options={this.menuOptions} />
                 </NLayoutSider>
                 <NLayout class="n-layout-main">

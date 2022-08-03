@@ -18,6 +18,7 @@
         "uniqueMenuOpened": "Keep a submenu open",
         "lang": "Change language",
         "confirmSet": "Are you sure to restore the default Settings?",
-        "inverted": "Reverse background color"
+        "inverted": "Reverse background color",
+        "menuTrigger": "menu trigger"
     }
 }

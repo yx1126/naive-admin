@@ -2,6 +2,7 @@ import { defineComponent, computed, renderSlot, ref, watch, type PropType } from
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useRoute } from "vue-router";
 import { useSetStore } from "@/stores";
+import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
@@ -51,8 +52,9 @@ export default defineComponent({
         const isCollapsed = ref(false);
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
+        const isShowTabs = computed(() => set.isShowTabs);
         const contentTop = computed(() => {
-            return props.tagsFixed ? 35 : 0;
+            return props.tagsFixed && isShowTabs.value ? LayoutConfig.tagsHeight : 0;
         });
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
         const menuChildrensOptions = computed<MenuOption[]>(() => {
@@ -82,6 +84,7 @@ export default defineComponent({
         return {
             defaultInverted,
             defaultValue,
+            isShowTabs,
             contentTop,
             menuChildrensOptions,
             layoutWrapperStyle,
@@ -97,13 +100,15 @@ export default defineComponent({
         const triggerStyle = this.isCollapsed
             ? ""
             : `transition: right 0.3s ${this.themeVars.cubicBezierEaseInOut}; right: -${this.isCollapsed ? 28 : 188}px`;
+        const isArrowCircle = ["arrow-circle", true].includes(this.showTrigger);
         const isShowTrigger =
-            this.showTrigger === "bar" ? "bar" : this.showTrigger === "arrow-circle" ? (this.isCollapsed ? "arrow-circle" : false) : false;
-
+            this.showTrigger === "bar" ? "bar" : isArrowCircle ? (this.isCollapsed ? "arrow-circle" : false) : false;
         const TagsLayout = (
-            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"}>
-                <Tags />
-            </NLayoutHeader>
+            this.isShowTabs ? (
+                <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"}>
+                    <Tags />
+                </NLayoutHeader>
+            ) : null
         );
         return (
             <NLayout class="layout-wrapper layout-wrapper-asidemixin" has-sider position="absolute" style={this.layoutWrapperStyle}>
@@ -121,7 +126,7 @@ export default defineComponent({
                         show-trigger={isShowTrigger}
                         onUpdate:collapsed={this.onUpdateCollapsed}
                     >
-                        <Logo collapsed={this.collapsed} width="auto" indent={10} />
+                        <Logo collapsed={this.collapsed} width="auto" height={LayoutConfig.headerHeight} indent={10} />
                         <Menu
                             options={this.menuOptions}
                             value={this.defaultValue}
@@ -144,7 +149,7 @@ export default defineComponent({
                     <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position="absolute">
                         <Header>{{ left: () => <Breadcrumb class="breadcrumb" /> }}</Header>
                     </NLayoutHeader>
-                    <NLayoutContent position="absolute" style="top: 50px;">
+                    <NLayoutContent position="absolute" style={`top: ${LayoutConfig.headerHeight}px;`}>
                         <NLayout has-sider style="height: 100%;">
                             <NLayoutSider
                                 class="layout-sider-child"
@@ -154,8 +159,8 @@ export default defineComponent({
                                 collapsed-width={0}
                                 bordered
                                 native-scrollbar={this.nativeScrollbar}
-                                trigger-style={this.showTrigger === "arrow-circle" ? arrowCircleTriggerStyle : ""}
-                                show-trigger={this.showTrigger === "arrow-circle" ? (this.isCollapsed ? false : "arrow-circle") : false}
+                                trigger-style={isArrowCircle ? arrowCircleTriggerStyle : ""}
+                                show-trigger={isArrowCircle ? (this.isCollapsed ? false : "arrow-circle") : false}
                                 onUpdate:collapsed={this.onUpdateCollapsed}
                             >
                                 <Menu collapsed={false} inverted={false} options={this.menuChildrensOptions} indent={15} />

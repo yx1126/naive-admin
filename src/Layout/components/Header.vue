@@ -86,14 +86,16 @@ onMounted(async () => {
     height: 100%;
     @extend .flex-between-center;
     &-left {
+        height: 100%;
         @extend .flex-align-center;
     }
     &-right {
+        height: 100%;
         padding-right: 20px;
         @extend .flex-align-center;
     }
     &-trigger {
-        height: 50px;
+        height: 100%;
         padding: 0 12px;
         cursor: pointer;
         @extend .flex-align-center;

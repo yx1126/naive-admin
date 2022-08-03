@@ -18,6 +18,7 @@
         "reset": "还原设置",
         "lang": "语言切换",
         "confirmSet": "确认还原为默认设置吗？",
-        "inverted": "反转背景色"
+        "inverted": "反转背景色",
+        "menuTrigger": "菜单 trigger"
     }
 }

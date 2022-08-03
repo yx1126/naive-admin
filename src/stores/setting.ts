@@ -25,6 +25,7 @@ export interface SetState {
     collapsed: boolean;
     inverted: boolean;
     asideMixinCollapsed: boolean;
+    menuTrigger: "bar" | "arrow-circle" | "false";
 }
 
 export const navTheme: NavTheme[] = ["light", "dark", "diablo"];
@@ -35,6 +36,12 @@ export const routerTransOptions: RouterTransOptions[] = [
     { label: "scale", value: "scale", mode: "out-in" },
     { label: "fade-slide", value: "fade-slide", mode: "out-in" },
     { label: "scale-slide", value: "scale-slide", mode: "out-in" },
+];
+
+export const menuTriggerOptions: SelectOption[] = [
+    { label: "bar", value: "bar" },
+    { label: "arrow-circle", value: "arrow-circle" },
+    { label: "null", value: "false" },
 ];
 
 export const defaultSetting: SetState = {
@@ -50,10 +57,11 @@ export const defaultSetting: SetState = {
     isKeepTags: true, // 固定 标签页
     isCutMenu: false, // 切割菜单
     routerTrans: "fade", // 路由动画
-    lang: "zh-CN",
-    collapsed: false,
-    inverted: false,
-    asideMixinCollapsed: false,
+    lang: "zh-CN", // 语言
+    collapsed: false, // 菜单折叠
+    inverted: false, // 反转颜色
+    asideMixinCollapsed: false, // asideMixin 布局 子菜单折叠
+    menuTrigger: "bar",
 };
 
 const useSetStore = defineStore(

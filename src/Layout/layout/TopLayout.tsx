@@ -1,6 +1,7 @@
 import { defineComponent, computed, renderSlot, type PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutContent, type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
+import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
@@ -30,12 +31,14 @@ export default defineComponent({
         const set = useSetStore();
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
+        const isShowTabs = computed(() => set.isShowTabs);
         const contentTop = computed(() => {
-            return (props.headerFixed ? 50 : 0) + (props.tagsFixed ? 35 : 0);
+            return (props.headerFixed ? LayoutConfig.headerHeight : 0) + (props.tagsFixed && isShowTabs.value ? LayoutConfig.tagsHeight : 0);
         });
 
         return {
             defaultInverted,
+            isShowTabs,
             contentTop,
         };
     },
@@ -44,17 +47,17 @@ export default defineComponent({
             <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered position={this.headerFixed ? "absolute" : "static"}>
                 <Header>
                     {{
-                        logo: () => <Logo width={200} height={49} />,
+                        logo: () => <Logo width={200} height={LayoutConfig.headerHeight} />,
                         left: () => <Menu mode="horizontal" options={this.menuOptions} />,
                     }}
                 </Header>
             </NLayoutHeader>
         );
-        const TagsLayout = (
-            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style="top: 50px">
+        const TagsLayout = this.isShowTabs ? (
+            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style={`top: ${LayoutConfig.headerHeight}px`}>
                 <Tags />
             </NLayoutHeader>
-        );
+        ) : null;
         return (
             <NLayout class="layout-wrapper n-layout-main" position="absolute">
                 {this.headerFixed ? HeaderLayout : null}

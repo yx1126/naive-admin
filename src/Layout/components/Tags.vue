@@ -1,5 +1,5 @@
 <template>
-    <div class="tags-wrapper" @contextmenu.prevent>
+    <div class="tags-wrapper" :style="tagsStyle" @contextmenu.prevent>
         <div ref="tagsRef" class="tags" @wheel="onMouseWheel">
             <template v-for="(t, i) in keepTags" :key="t.path">
                 <n-tag
@@ -7,6 +7,7 @@
                     class="tags-item"
                     :data-path="t.path"
                     :type="currentPath === t.path ? 'primary' : 'default'"
+                    size="large"
                     @click="onTagsClick(t)"
                     @contextmenu="onTagsContextmenu($event, t, i)"
                 >
@@ -19,6 +20,7 @@
                     class="tags-item"
                     :data-path="t.path"
                     :type="currentPath === t.path ? 'primary' : 'default'"
+                    size="large"
                     closable
                     @click="onTagsClick(t)"
                     @contextmenu="onTagsContextmenu($event, t, i)"
@@ -60,8 +62,9 @@ import { NTag, type DropdownOption, type DropdownDividerOption } from "naive-ui"
 import { watch, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useTagsStore, type Tags } from "@/stores";
-import { useFreeBack, useMitt } from "@/hooks";
+import { useFreeBack, useMitt, useEventListener } from "@/hooks";
 import { renderIcon } from "@/naive";
+import { LayoutConfig } from "@/config";
 
 const route = useRoute();
 const router = useRouter();
@@ -82,6 +85,11 @@ let chooseTagsIndex = $ref(-1);
 const keepTags = $computed(() => tags.keepTags);
 const activeTags = $computed(() => tags.activeTags);
 const currentPath = $computed(() => route.path);
+const tagsStyle = $computed(() => {
+    return {
+        "--tags-height": LayoutConfig.tagsHeight + "px",
+    };
+});
 
 const dropDownOptions = $computed(() => {
     const result: Array<DropdownOption | DropdownDividerOption> = [];
@@ -134,6 +142,8 @@ watch(
         immediate: true,
     },
 );
+
+useEventListener(window, "resize", moveToCurrentTag, { lazy: true });
 
 function onTagsClick(tags: Tags) {
     router.push({ path: tags.path, query: tags.query });
@@ -265,7 +275,7 @@ async function moveToCurrentTag() {
 <style lang="scss" scoped>
 .tags-wrapper {
     width: 100%;
-    height: 35px;
+    height: var(--tags-height);
     box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
     @extend .flex-align-center;
     @extend .no-select;

@@ -77,6 +77,10 @@
                     <n-ellipsis>{{ $t("set.lang") }}</n-ellipsis>
                     <n-select v-model:value="set.lang" class="divider-content-item__input" :options="lang" size="small" @update:value="changeLang" />
                 </div>
+                <div class="divider-content-item">
+                    <n-ellipsis>{{ $t("set.menuTrigger") }}</n-ellipsis>
+                    <n-select v-model:value="set.menuTrigger" class="divider-content-item__input" :options="menuTriggerOptions" size="small" />
+                </div>
             </div>
             <template #footer>
                 <n-popconfirm @positive-click="set.reset">
@@ -92,11 +96,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import useSetStore, { navTheme, layoutMode, routerTransOptions } from "@/stores/setting";
+import useSetStore, { navTheme, layoutMode, routerTransOptions, menuTriggerOptions } from "@/stores/setting";
 import Drawer from "@/components/Drawer";
 import { useI18n, lang } from "@/locales";
-import type { Lang } from "@/locales";
 import NavMode from "./NavMode.vue";
+import type { Lang } from "@/locales";
 
 const { locale } = useI18n();
 

@@ -7,7 +7,8 @@
         :header-fixed="isKeepHeader"
         :tags-fixed="isKeepTags"
         :inverted="inverted"
-        show-trigger="bar"
+        :show-trigger="showTrigger"
+        :style="comStyle"
     >
         <div class="layout-container" :style="layoutConStyle">
             <slot />
@@ -23,6 +24,7 @@ import { defineAsyncComponent, defineComponent, h, type AsyncComponentLoader } f
 import Setting from "./components/Setting.vue";
 import Watermark from "./components/Watermark.vue";
 import { useSetStore, useUserStore } from "@/stores";
+import { LayoutConfig } from "@/config";
 
 const set = useSetStore();
 const user = useUserStore();
@@ -30,6 +32,15 @@ const user = useUserStore();
 const defaultMenus = $computed(() => user.menus);
 const isKeepHeader = $computed(() => set.isKeepTags || set.isKeepHeader);
 const isKeepTags = $computed(() => set.isKeepTags);
+const showTrigger = $computed(() => {
+    return set.menuTrigger === "false" ? false : set.menuTrigger;
+});
+const comStyle = $computed(() => {
+    return {
+        "--layoyt-header-height": LayoutConfig.headerHeight + "px",
+        "--layoyt-tags-height": (set.isShowTabs ? LayoutConfig.tagsHeight : 0) + "px",
+    };
+});
 
 const layputMap = {
     aside: loadComponent(() => import("./layout/AsideLayout")),
@@ -73,13 +84,13 @@ function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAs
 .layout-wrapper {
     height: 100%;
     .layout-header {
-        height: 50px;
+        height: var(--layoyt-header-height);
     }
     .layout-container {
         width: 100%;
         padding: 10px;
         background-color: var(--diablo-color);
-        min-height: calc(100vh - 50px - 36px);
+        min-height: calc(100vh - var(--layoyt-header-height) - var(--layoyt-tags-height));
         border: 1px solid var(--diablo-color);
     }
     // mixin

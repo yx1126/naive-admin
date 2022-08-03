@@ -1,6 +1,7 @@
 import { defineComponent, computed, renderSlot, ref, watch, type PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
+import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
 import Menu from "../components/Menu.vue";
@@ -47,6 +48,10 @@ export default defineComponent({
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const isCutMenu = computed(() => set.isCutMenu);
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
+        const isShowTabs = computed(() => set.isShowTabs);
+        const contentTop = computed(() => {
+            return props.tagsFixed && isShowTabs.value ? LayoutConfig.tagsHeight : 0;
+        });
         const menuChildrensOptions = computed(() => {
             const currentMenu = props.menuOptions.find(m => m.path === defaultValue.value);
             const cutMenuList = (currentMenu?.children || []).map(m => {
@@ -87,6 +92,8 @@ export default defineComponent({
             isShowSilder,
             state,
             onUpdateCollapsed,
+            isShowTabs,
+            contentTop,
         };
     },
     render() {
@@ -100,18 +107,14 @@ export default defineComponent({
                 children-field="noChild"
             />
         );
-        const TagsLayout = (
-            <NLayoutHeader class="layout-tags" bordered>
-                <Tags />
-            </NLayoutHeader>
-        );
+        const TagsLayout = this.isShowTabs ? <NLayoutHeader class="layout-tags" bordered><Tags /></NLayoutHeader> : null;
         return (
             <NLayout class="layout-wrapper layout-wrapper-mixin">
                 <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered>
-                    <Logo height={50} width={200} />
+                    <Logo width={200} height={LayoutConfig.headerHeight} />
                     <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
                 </NLayoutHeader>
-                <NLayout has-sider position="absolute" style="top: 50px">
+                <NLayout has-sider position="absolute" style={`top: ${LayoutConfig.headerHeight}px`}>
                     <div class="layout-sider-wrapper">
                         <NLayoutSider
                             class="layout-sider"
@@ -143,7 +146,7 @@ export default defineComponent({
                         <NLayoutContent
                             class="layout-content"
                             position="absolute"
-                            style={`top: ${this.tagsFixed ? 35 : 0}px; bottom: 0`}
+                            style={`top: ${this.contentTop}px; bottom: 0`}
                             native-scrollbar={this.nativeScrollbar}
                         >
                             {this.tagsFixed ? null : TagsLayout}
