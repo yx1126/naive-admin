@@ -37,6 +37,10 @@ type RowData = {
     tags: string[];
 };
 
+defineOptions({
+    name: "BaseTable",
+});
+
 const message = useFreeBack("message");
 
 const page = $ref(0);

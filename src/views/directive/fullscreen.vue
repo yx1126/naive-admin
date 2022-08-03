@@ -50,7 +50,7 @@
                 <code-card class="full-card" title="函数调用" :code="fnCode">
                     <n-space>
                         <n-tag :type="isEnabled ? 'primary' : 'error'" size="large">{{ isEnabled ? "支持全屏" : "不支持全屏" }}</n-tag>
-                        <n-tag :type="fullScreen ? 'primary' : 'error'" size="large">{{ fullScreen ? "全屏" : "非全屏" }}</n-tag>
+                        <n-tag :type="isFullScreen ? 'primary' : 'error'" size="large">{{ isFullScreen ? "全屏" : "非全屏" }}</n-tag>
                         <n-button type="primary" @click="full">
                             <template #icon>
                                 <Icon><FullscreenOutlined /></Icon>
@@ -85,7 +85,7 @@ defineOptions({
     name: "Fullscreen",
 });
 
-const { isEnabled, fullScreen, full, exit, toggle } = useFullscreen();
+const { isEnabled, isFullScreen, full, exit, toggle } = useFullscreen();
 
 const baseCode = `
 <template>
@@ -147,7 +147,7 @@ const fnCode = `
 <template>
     <n-space>
         <n-tag :type="isEnabled ? 'primary' : 'error'" size="large">{{ isEnabled ? "支持全屏" : "不支持全屏" }}</n-tag>
-        <n-tag :type="fullScreen ? 'primary' : 'error'" size="large">{{ fullScreen ? "全屏" : "非全屏" }}</n-tag>
+        <n-tag :type="isFullScreen ? 'primary' : 'error'" size="large">{{ isFullScreen ? "全屏" : "非全屏" }}</n-tag>
         <n-button type="primary" @click="full">
             <template #icon>
                 <Icon><FullscreenOutlined /></Icon>
@@ -174,7 +174,7 @@ import { FullscreenOutlined } from "@vicons/antd";
 import { useFullscreen } from "@/hooks";
 
 // useFullscreen 接受一个 节点元素 或者一个选择器
-const { isEnabled, fullScreen, full, exit, toggle } = useFullscreen();
+const { isEnabled, isFullScreen, full, exit, toggle } = useFullscreen();
 <\/script>
 `;
 </script>

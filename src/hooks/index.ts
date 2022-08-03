@@ -7,5 +7,19 @@ import useFullscreen from "./use-fullscreen";
 import usePermission from "./use-permission";
 import useEventListener from "./use-event-listener";
 import useDeounce from "./use-deounce";
+import useThrottle from "./use-throttle";
+import useResize from "./use-resize";
 
-export { useApp, useMitt, useFreeBack, useTitle, useVModel, useFullscreen, usePermission, useEventListener, useDeounce };
+export {
+    useApp,
+    useMitt,
+    useFreeBack,
+    useTitle,
+    useVModel,
+    useFullscreen,
+    usePermission,
+    useEventListener,
+    useDeounce,
+    useThrottle,
+    useResize,
+};

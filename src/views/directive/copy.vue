@@ -40,7 +40,7 @@ import copy from "@/util/clipboard";
 import type { Event } from "clipboard";
 
 defineOptions({
-    name: "Directive",
+    name: "Copy",
 });
 
 const message = useFreeBack("message");

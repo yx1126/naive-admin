@@ -8,9 +8,9 @@
             <div class="header-trigger">
                 <Search />
             </div>
-            <div class="header-trigger" @click="toggle">
-                <Icon :size="18">
-                    <component :is="fullScreen ? FullscreenExitOutlined : FullscreenOutlined" />
+            <div class="header-trigger">
+                <Icon :size="18" @click="toggle">
+                    <component :is="isFullScreen ? FullscreenExitOutlined : FullscreenOutlined" />
                 </Icon>
             </div>
             <n-dropdown trigger="hover" :options="dropdownOptions" @select="handleSelect">
@@ -35,7 +35,7 @@ import { useRouter } from "vue-router";
 import { useFreeBack } from "@/hooks";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
-const { fullScreen, toggle } = useFullscreen();
+const { isFullScreen, toggle } = useFullscreen();
 const router = useRouter();
 const dialog = useFreeBack("dialog");
 const message = useFreeBack("message");

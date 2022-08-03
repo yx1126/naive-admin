@@ -1,5 +1,7 @@
 import type { Ref } from "vue";
+
 export type MayBeRef<T = any> = Ref<T> | T;
+
 export type LRDirection = "left" | "right";
 
 export type TBDirection = "top" | "bottom";
@@ -18,4 +20,8 @@ export type ResolveArray<T> = T extends Array<infer A> ? A : never;
 
 export type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+export type DeepReadonly<T> = {
+    readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
 };

@@ -9,6 +9,11 @@
 
 <script setup lang="ts">
 import BasicForm from "@/components/BasicForm";
+
+defineOptions({
+    name: "BaseForm",
+});
+
 </script>
 
 <style lang="scss" scoped></style>

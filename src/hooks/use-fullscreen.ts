@@ -7,11 +7,11 @@ import type { MayBeRef } from "@/types/util";
 export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?: FullscreenOptions) => {
     const target = ref<HTMLElement | null>();
     const isEnabled = Screenfull.isEnabled;
-    const fullScreen = ref(Screenfull.isFullscreen);
+    const isFullScreen = ref(Screenfull.isFullscreen);
     const message = useMessage();
 
     function onFullScreenChange() {
-        fullScreen.value = Screenfull.isFullscreen;
+        isFullScreen.value = Screenfull.isFullscreen;
     }
 
     function isSupport() {
@@ -56,7 +56,7 @@ export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?
 
     return {
         isEnabled,
-        fullScreen,
+        isFullScreen,
         full,
         exit,
         toggle,

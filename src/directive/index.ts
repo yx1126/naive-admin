@@ -3,6 +3,12 @@ import copy from "./copy";
 import permission from "./permission";
 import type { App } from "vue";
 
+export {
+    fullscreen,
+    copy,
+    permission,
+};
+
 export default {
     install: (app: App) => {
         /**

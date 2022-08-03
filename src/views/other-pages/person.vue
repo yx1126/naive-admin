@@ -50,6 +50,10 @@
 import { NForm, type FormRules } from "naive-ui";
 import { useFreeBack } from "@/hooks";
 
+defineOptions({
+    name: "Person",
+});
+
 const message = useFreeBack("message");
 
 const formRef = $ref<InstanceType<typeof NForm> | null>(null);

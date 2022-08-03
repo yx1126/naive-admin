@@ -22,6 +22,10 @@ import { h } from "vue";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 import { useFreeBack } from "@/hooks";
 
+defineOptions({
+    name: "BaseList",
+});
+
 type RowData = {
     key: number;
     name: string;
