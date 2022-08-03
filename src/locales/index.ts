@@ -9,6 +9,7 @@ import type { SelectOption } from "naive-ui";
 
 const i18n = createI18n({
     // locale: set?.lang || "zh-CN",
+    legacy: false,
     fallbackLocale: "enUS",
     messages: {
         "zh-CN": zhCNJson,

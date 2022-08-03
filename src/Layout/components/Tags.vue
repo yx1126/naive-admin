@@ -7,7 +7,7 @@
                     class="tags-item"
                     :data-path="t.path"
                     :type="currentPath === t.path ? 'primary' : 'default'"
-                    size="large"
+                    size="medium"
                     @click="onTagsClick(t)"
                     @contextmenu="onTagsContextmenu($event, t, i)"
                 >
@@ -20,7 +20,7 @@
                     class="tags-item"
                     :data-path="t.path"
                     :type="currentPath === t.path ? 'primary' : 'default'"
-                    size="large"
+                    size="medium"
                     closable
                     @click="onTagsClick(t)"
                     @contextmenu="onTagsContextmenu($event, t, i)"
