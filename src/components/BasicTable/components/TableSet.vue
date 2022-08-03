@@ -19,8 +19,8 @@
                 </n-button>
             </div>
         </template>
-        <div class="table-set__list" :style="tableSetStyle">
-            <template v-for="(column, i) in columns" :key="i">
+        <transition-group class="table-set__list" tag="div" name="list-fade">
+            <template v-for="(column, i) in columns" :key="column.title">
                 <div class="table-set__list-item">
                     <span class="index">{{ i + 1 }}</span>
                     <n-checkbox class="checkbox" :checked="!column.hidden" @update:checked="onUpdateChecked($event, i)">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </template>
-        </div>
+        </transition-group>
     </n-popover>
 </template>
 
@@ -130,6 +130,7 @@ $hover-color: var(--icon-hover-color);
     @extend .flex-around-center;
 }
 .table-set__list {
+    position: relative;
     &-item {
         width: 100%;
         height: 34px;

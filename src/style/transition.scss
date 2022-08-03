@@ -50,3 +50,18 @@
     opacity: 0;
     transform: scale(0.8);
 }
+
+// 列表动画
+.list-fade-move,
+.list-fade-enter-active,
+.list-fade-leave-active {
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.list-fade-leave-active {
+    position: absolute;
+}
+.list-fade-enter-from,
+.list-fade-leave-to {
+    opacity: 0;
+    transform: scaleY(0.01) translate(30px, 0);
+}
