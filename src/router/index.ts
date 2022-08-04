@@ -1,21 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useLoadingBar } from "@/hooks/use-free-back";
+import { useFreeBack, useTitle } from "@/hooks";
 import routes from "./routes";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: routes,
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+    scrollBehavior() {
+        return {
+            top: 0,
+            left: 0,
+        };
+    },
 });
 
 router.beforeEach((to, from, next) => {
-    const loadingbar = useLoadingBar();
+    const loadingbar = useFreeBack("loadingbar");
+    const title = useTitle(null, `%s-${import.meta.env.VITE_APP_TITLE}`);
+    title.value = to.matched.map(r => r.meta.title).filter(v => v).reverse().join("-");
     loadingbar.start();
     next();
 });
 
 router.afterEach(() => {
-    const loadingbar = useLoadingBar();
+    const loadingbar = useFreeBack("loadingbar");
     loadingbar.finish();
 });
 
