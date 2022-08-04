@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { useAttrs, computed } from "vue";
 import { SettingOutlined, CloseOutlined } from "@vicons/antd";
 import useSetStore from "@/stores/setting";
 import { useThemeVars } from "naive-ui";

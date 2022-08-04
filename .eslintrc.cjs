@@ -23,6 +23,7 @@ module.exports = {
     },
     plugins: ["vue", "@typescript-eslint"],
     rules: {
+        "no-undef": "off",
         "vue/html-indent": ["error", 4],
         "vue/script-indent": ["error", 4, {
             baseIndent: 0,

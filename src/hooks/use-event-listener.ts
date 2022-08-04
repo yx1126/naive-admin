@@ -1,4 +1,3 @@
-import { onMounted, onBeforeUnmount } from "vue";
 import useDeounce from "./use-deounce";
 
 export interface EventOptions extends AddEventListenerOptions{

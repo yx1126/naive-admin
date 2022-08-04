@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
 import { useTagsStore, useSetStore } from "@/stores";
 import { routerTransOptions } from "@/stores/setting";
 import { useMitt } from "@/hooks";

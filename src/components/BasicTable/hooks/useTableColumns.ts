@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import type { TableColumn } from "../index";
 

@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
 import { NIcon } from "naive-ui";
 import SvgIcon from "./SvgIcon.vue";
 const props = withDefaults(

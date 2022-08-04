@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, defineComponent, h, type AsyncComponentLoader } from "vue";
+import type { AsyncComponentLoader } from "vue";
 import Setting from "./components/Setting.vue";
 import Watermark from "./components/Watermark.vue";
 import { useSetStore, useUserStore } from "@/stores";

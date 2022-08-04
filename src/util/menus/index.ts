@@ -1,4 +1,3 @@
-import { defineComponent, h } from "vue";
 import { RouterView, type RouteMeta } from "vue-router";
 import type { MenuOptions } from "@/naive";
 import type { RouteRecordRaw } from "vue-router";

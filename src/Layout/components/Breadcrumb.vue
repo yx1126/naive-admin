@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from "vue-router";
 import { useSetStore } from "@/stores";
 
 const route = useRoute();

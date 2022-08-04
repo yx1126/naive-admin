@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from "vue";
 import { useMitt } from "@/hooks";
 import { useLoadingBar, useDialog, useMessage, useNotification } from "naive-ui";
 

@@ -1,4 +1,4 @@
-import { defineComponent, computed, renderSlot, ref, watch, type PropType } from "vue";
+import type { PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import { LayoutConfig } from "@/config";
@@ -8,7 +8,6 @@ import Menu from "../components/Menu.vue";
 import Logo from "../components/Logo.vue";
 import Collapse from "../components/Collapse.vue";
 import Breadcrumb from "../components/Breadcrumb.vue";
-import { useRoute } from "vue-router";
 
 export default defineComponent({
     name: "MixinLayout",

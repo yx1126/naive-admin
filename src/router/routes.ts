@@ -1,4 +1,3 @@
-import { defineComponent, h } from "vue";
 import { renderIcon } from "@/naive";
 import { DashboardOutlined } from "@vicons/antd";
 import TransRouterView from "@/components/TransRouterView";

@@ -30,7 +30,6 @@
 import ErrGif from "@/assets/image/401.gif";
 import { isString } from "@/util/validata";
 import { LeftOutlined } from "@vicons/antd";
-import { useRouter } from "vue-router";
 
 const router = useRouter();
 const errGif = $ref(ErrGif + "?" + +new Date());

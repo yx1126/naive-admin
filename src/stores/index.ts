@@ -1,5 +1,4 @@
 import { createPinia } from "pinia";
-import { useI18n } from "@/locales";
 import createVuePinia from "./plugins/vue-pinia-store/vue-pinia-store";
 
 const pinia = createPinia();

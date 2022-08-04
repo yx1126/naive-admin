@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount  } from "vue";
 import TransRouterView from "@/components/TransRouterView";
 import { useApp  } from "@/hooks";
 import Layout from "@/Layout/index.vue";

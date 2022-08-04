@@ -1,5 +1,4 @@
 import Message from "./Message.vue";
-import { createVNode, render } from "vue";
 
 const instance = createVNode(Message, { value: 10 });
 

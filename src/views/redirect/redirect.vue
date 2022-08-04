@@ -1,6 +1,4 @@
 <script lang="ts">
-import { defineComponent, h, onBeforeMount, onBeforeUnmount } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import { useMitt } from "@/hooks";
 
 export default defineComponent({

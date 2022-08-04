@@ -1,4 +1,4 @@
-import { defineComponent, computed, renderSlot, type PropType } from "vue";
+import type { PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import { LayoutConfig } from "@/config";

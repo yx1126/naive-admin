@@ -1,5 +1,5 @@
 import { zhCN, enUS, dateZhCN, dateEnUS } from "naive-ui";
-import { createI18n, useI18n } from "vue-i18n";
+import { createI18n } from "vue-i18n";
 // import { location } from "@/util/storage";
 import zhCNJson from "./langs/zh-CN.json";
 import enUSJson from "./langs/enUS.json";
@@ -33,6 +33,6 @@ const localeMap = { "zh-CN": zhCN, enUS: enUS };
 // n-config-provider dateLocal 配置
 const dateLocaleMap = { "zh-CN": dateZhCN, enUS: dateEnUS };
 
-export { useI18n, lang, localeMap, dateLocaleMap };
+export { lang, localeMap, dateLocaleMap };
 
 export default i18n;

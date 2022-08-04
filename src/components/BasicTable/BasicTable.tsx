@@ -12,7 +12,7 @@ import {
 import TableSet from "./components/TableSet.vue";
 import Pagination from "../Pagination";
 import Icon from "../Icon";
-import { defineComponent, computed, h, ref, useAttrs, renderSlot, mergeProps, type PropType } from "vue";
+import type { PropType } from "vue";
 import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, NEmpty, type DataTableColumns, type DropdownOption } from "naive-ui";
 import { useSetStore } from "@/stores";
 import useTableColumns from "./hooks/useTableColumns";

@@ -14,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import useSetStore from "@/stores/setting";
 import type { MenuOption } from "naive-ui";
 

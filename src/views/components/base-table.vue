@@ -22,7 +22,6 @@
 <script setup lang="ts">
 import CodeCard from "@/components/CodeCard";
 import BasicTable, { type Behavior } from "@/components/BasicTable";
-import { h } from "vue";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 import { useFreeBack } from "@/hooks";
 

@@ -26,12 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, nextTick } from "vue";
 import { useFullscreen } from "@/hooks";
 import Search from "./Search.vue";
 import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined } from "@vicons/antd";
 import { renderIcon } from "@/naive";
-import { useRouter } from "vue-router";
 import { useFreeBack } from "@/hooks";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 

@@ -10,3 +10,4 @@ dist
 node_modules
 Dockerfile
 components.d.ts
+auto-imports.d.ts

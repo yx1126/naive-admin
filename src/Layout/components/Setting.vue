@@ -95,12 +95,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import useSetStore, { navTheme, layoutMode, routerTransOptions, menuTriggerOptions } from "@/stores/setting";
 import Drawer from "@/components/Drawer";
-import { useI18n, lang } from "@/locales";
+import { lang, type Lang } from "@/locales";
 import NavMode from "./NavMode.vue";
-import type { Lang } from "@/locales";
 
 const { locale } = useI18n();
 

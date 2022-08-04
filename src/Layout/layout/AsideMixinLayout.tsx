@@ -1,6 +1,5 @@
-import { defineComponent, computed, renderSlot, ref, watch, type PropType } from "vue";
+import type { PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
-import { useRoute } from "vue-router";
 import { useSetStore } from "@/stores";
 import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";

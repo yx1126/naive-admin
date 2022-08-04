@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 export default defineComponent({
     name: "NavMode",
     inheritAttrs: false,
@@ -25,7 +24,6 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { useAttrs } from "vue";
 import { CheckOutlined } from "@vicons/antd";
 import type { NavTheme, LayoutMode } from "@/stores/setting";
 

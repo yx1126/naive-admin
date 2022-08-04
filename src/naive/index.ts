@@ -1,6 +1,5 @@
 import NConfig from "./components/NConfig.vue";
 import Icon from "@/components/Icon";
-import { h } from "vue";
 import type { Component } from "vue";
 import type {
     useLoadingBar as useLoadingBarType,

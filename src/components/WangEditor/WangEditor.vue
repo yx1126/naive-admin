@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { onBeforeUnmount, nextTick, shallowRef, ref,computed, defineComponent, type PropType } from "vue";
+import type { PropType } from "vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { DomEditor, Boot } from "@wangeditor/editor";
 import { snToCssVars, saToArray } from "@/util";
