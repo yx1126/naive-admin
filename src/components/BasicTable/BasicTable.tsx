@@ -39,7 +39,7 @@ export default defineComponent({
         const { columns, reset } = useTableColumns(props.columns);
         const set = useSetStore();
         const basicTableWrapperRef = ref<HTMLDivElement | undefined>();
-        const { fullScreen, toggle } = useFullscreen(basicTableWrapperRef);
+        const { isFullScreen, toggle } = useFullscreen(basicTableWrapperRef);
         const tableSize = ref<TableSize>("medium");
         const isShowIndex = ref(props.showIndex);
         const isShowCheck = ref(false);
@@ -152,7 +152,7 @@ export default defineComponent({
             onBehavior,
             onRefresh,
             basicTableWrapperRef,
-            fullScreen,
+            isFullScreen,
             toggleScreen: toggle,
         };
     },
@@ -194,7 +194,7 @@ export default defineComponent({
                 <div class="behavior">{this.$slots.behavior ? renderSlot(this.$slots, "behavior") : behaviorList}</div>
                 <div class="set">
                     {Tootip("斑马纹", <NSwitch v-model:value={this.isShowStriped} />)}
-                    {IconTootip("表格全屏", this.fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
+                    {IconTootip("表格全屏", this.isFullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
                     {IconTootip("刷新", <ReloadOutlined />, this.onRefresh)}
                     <NDropdown trigger="click" options={this.densityOptions} onSelect={this.onDensitySelect}>
                         {IconTootip("密度", <ColumnHeightOutlined />)}
