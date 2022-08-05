@@ -1,5 +1,5 @@
 import type { PropType } from "vue";
-import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent ,type MenuOption } from "naive-ui";
+import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption } from "naive-ui";
 import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -67,7 +67,7 @@ export default defineComponent({
         watch(
             () => route.fullPath,
             () => {
-                if (route.fullPath.startsWith("/redirect")) return;
+                if(route.fullPath.startsWith("/redirect")) return;
                 isCollapsed.value = menuChildrensOptions.value.length <= 0;
             },
             {

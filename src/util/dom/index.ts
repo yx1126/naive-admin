@@ -1,7 +1,7 @@
 export function getParentNode(node: HTMLElement, level = 1) {
     let index = 0,
         parentNode: HTMLElement | null = node.parentNode as HTMLElement;
-    while (index < level - 1) {
+    while(index < level - 1) {
         parentNode = parentNode?.parentNode as HTMLElement;
         index++;
     }

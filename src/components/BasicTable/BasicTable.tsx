@@ -61,13 +61,13 @@ export default defineComponent({
             const data = (columns.value || []).filter(c => !c.hidden);
             const fixed = (props.columns || []).some(c => c.fixed === "left") ? "left" : false;
             const columnIndex = props.pagination && props.page > 0 ? (props.page - 1) * props.size : 0;
-            if (isShowCheck.value) {
+            if(isShowCheck.value) {
                 data.unshift({
                     type: "selection",
                     fixed,
                 } as TableColumn);
             }
-            if (isShowIndex.value) {
+            if(isShowIndex.value) {
                 data.splice(isShowCheck.value ? 1 : 0, 0, {
                     title: "序号",
                     key: "index",
@@ -89,7 +89,7 @@ export default defineComponent({
             tableSize.value = key;
         }
         function onUpdateCheckAll() {
-            if (columns.value) {
+            if(columns.value) {
                 const value = isCheckAll.value;
                 columns.value.forEach(column => {
                     column.hidden = value;
@@ -102,7 +102,7 @@ export default defineComponent({
             reset();
         }
         function onUpdateChecked({ checked, index }: { checked: boolean; index: number }) {
-            if (columns.value) columns.value[index].hidden = checked;
+            if(columns.value) columns.value[index].hidden = checked;
         }
         function onPageChange() {
             emit("page-change");

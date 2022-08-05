@@ -44,7 +44,7 @@ module.exports = {
         "@typescript-eslint/space-infix-ops": ["error"],
         "comma-dangle": "off",
         "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
-        "vue/html-quotes": [ "error", "double", { "avoidEscape": true } ],
+        "vue/html-quotes": ["error", "double", { "avoidEscape": true }],
         "vue/max-attributes-per-line": ["error", {
             "singleline": {
                 "max": 12,
@@ -55,8 +55,8 @@ module.exports = {
         }],
         "vue/require-default-prop": "off",
         "vue/v-slot-style": ["error", {
-            "atComponent": "shorthand" ,
-            "default": "shorthand" ,
+            "atComponent": "shorthand",
+            "default": "shorthand",
             "named": "shorthand",
         }],
         "vue/no-v-html": "off",
@@ -71,6 +71,24 @@ module.exports = {
         "no-useless-escape": "off",
         "max-len": ["error", {
             code: 200,
+        }],
+        "array-bracket-spacing": "error",
+        "block-spacing": "error",
+        "brace-style": "off",
+        "@typescript-eslint/brace-style": ["error"],
+        "comma-spacing": "off",
+        "@typescript-eslint/comma-spacing": ["error"],
+        "comma-style": "error",
+        "computed-property-spacing": "error",
+        "key-spacing": ["error", {
+            "mode": "strict",
+        }],
+        "keyword-spacing": ["error", {
+            overrides: {
+                "if": { "after": false },
+                "for": { "after": false },
+                "while": { "after": false },
+            },
         }],
     },
     globals: {

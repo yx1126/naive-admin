@@ -45,16 +45,16 @@ const useTagsStore = defineStore(
         }
         // 添加
         function insert(type: TagsType, value: Tags) {
-            if (!value.path || !value.title || !value.name || value.path.startsWith("/dashboard/console")) return;
+            if(!value.path || !value.title || !value.name || value.path.startsWith("/dashboard/console")) return;
             const tag = [...state.keepTags, ...state.activeTags].find(t => t.path === value.path);
-            if (tag) return;
+            if(tag) return;
             state[type].push(value);
         }
 
         // base 移除
         function baseRemove(type: TagsType, path: string, direction: "this" | "left" | "right" | "other" | "all" = "this") {
             const index = state[type].findIndex(t => t.path === path);
-            if (index === -1 && ["this", "left", "right"].includes(direction)) return;
+            if(index === -1 && ["this", "left", "right"].includes(direction)) return;
             switch (direction) {
                 case "this":
                     state[type].splice(index, 1);
@@ -82,8 +82,8 @@ const useTagsStore = defineStore(
         function remove(path: string) {
             const kTags = state.keepTags.find(t => t.path === path);
             const aTags = state.activeTags.find(t => t.path === path);
-            if (kTags) baseRemove("keepTags", path);
-            else if (aTags) baseRemove("activeTags", path);
+            if(kTags) baseRemove("keepTags", path);
+            else if(aTags) baseRemove("activeTags", path);
         }
         // 移除左边
         function removeLeft(path: string) {
@@ -104,14 +104,14 @@ const useTagsStore = defineStore(
         // 保持固定
         function keepFixed(path: string) {
             const tag = state.activeTags.find(t => t.path === path);
-            if (!tag) return;
+            if(!tag) return;
             remove(path);
             insert("keepTags", tag);
         }
         // 解除固定
         function removeFixed(path: string) {
             const tag = state.keepTags.find(t => t.path === path);
-            if (!tag) return;
+            if(!tag) return;
             remove(path);
             insert("activeTags", tag);
         }
@@ -139,7 +139,7 @@ const useTagsStore = defineStore(
     },
 );
 
-if (import.meta.hot) {
+if(import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(useTagsStore, import.meta.hot));
 }
 

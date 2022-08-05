@@ -5,7 +5,7 @@ function useResize(fn?: ((e: Event, value: { width: number, height: number }) =>
     let width = $ref(document.documentElement.clientWidth);
     let height = $ref(document.documentElement.clientHeight);
 
-    const stop = useEventListener(window, "resize",(e: Event) => {
+    const stop = useEventListener(window, "resize", (e: Event) => {
         width = document.documentElement.clientWidth;
         height = document.documentElement.clientHeight;
         fn?.(e, { width, height });

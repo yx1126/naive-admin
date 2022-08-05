@@ -23,7 +23,7 @@ export function formatMenuPath(menus: MenuOptions & RouteMeta[], path?: string) 
             ...menu,
             path: menu.isLink ? menu.path : path ? path + "/" + menu.path : menu.path,
         };
-        if ((menu.children as MenuOptions)?.length > 0)
+        if((menu.children as MenuOptions)?.length > 0)
             back.children = formatMenuPath(menu.children as MenuOptions & RouteMeta[], back.path as string);
         else delete back.children;
         return back;
@@ -37,7 +37,7 @@ export function getMenusList(menus: Menu[], path?: string): MenuOptions {
             key: path ? path + "/" + menu.path : menu.path,
             name: menu.name,
         };
-        if (menu.children?.length) back.children = getMenusList(menu.children, menu.path);
+        if(menu.children?.length) back.children = getMenusList(menu.children, menu.path);
         return back;
     });
 }
@@ -61,9 +61,9 @@ export function getRoutesByMenu(menus: Menu[]): RouteRecordRaw[] {
 export function getRouteByPath(path: string, routes: RouteRecordRaw[]): RouteRecordRaw | undefined {
     let route: RouteRecordRaw | undefined = undefined;
     function start(routesList: RouteRecordRaw[]) {
-        for (let i = 0; i < routesList.length; i++) {
+        for(let i = 0; i < routesList.length; i++) {
             const item = routesList[i];
-            if (item.path === path) {
+            if(item.path === path) {
                 route = item;
                 break;
             }
@@ -77,9 +77,9 @@ export function getRouteByPath(path: string, routes: RouteRecordRaw[]): RouteRec
 export function getSearchMenuList(menus: MenuOptions, split = " -> ") {
     const result: MenuOptions = [];
     function start(list: MenuOptions, parentList: MenuOptions = []) {
-        for (let i = 0; i < list.length; i++) {
+        for(let i = 0; i < list.length; i++) {
             const item = list[i];
-            if (!item.children || (item.children as MenuOptions)?.length <= 0) {
+            if(!item.children || (item.children as MenuOptions)?.length <= 0) {
                 result.push({ ...item, name: [...parentList, item].map(item => item.name).join(split) });
                 continue;
             }

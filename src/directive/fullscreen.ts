@@ -5,7 +5,7 @@ import type { Directive } from "vue";
 
 const screenfull: Directive = {
     mounted(el, binding) {
-        if (!Screenfull.isEnabled) return;
+        if(!Screenfull.isEnabled) return;
         const target = el as HTMLElement;
         const {
             modifiers: { body, parent, stop },
@@ -25,7 +25,7 @@ const screenfull: Directive = {
         const {
             modifiers: { parent },
         } = binding;
-        if (el._v_listenEvent && el._v_level) {
+        if(el._v_listenEvent && el._v_level) {
             (parent ? getParentNode(target, el._v_level) : target)?.removeEventListener("click", el._v_listenEvent);
         }
     },

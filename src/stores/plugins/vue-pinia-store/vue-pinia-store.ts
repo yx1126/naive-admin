@@ -56,7 +56,7 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
     return (context: PiniaPluginContext) => {
         const store = context.store;
         const persistedstate = context.options.persistedstate;
-        if (!persistedstate?.enabled) return;
+        if(!persistedstate?.enabled) return;
         function createStateList(state: Store["$state"]) {
             const stateKeys = Object.keys(state);
             const pathsList = typeof persistedstate?.paths === "function" ? persistedstate?.paths(stateKeys) : persistedstate?.paths;
@@ -78,7 +78,7 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
 
         const storeState = createStateList(store.$state).reduce((state, s) => {
             const value = getItem(s.key || persistedstate?.key || store.$id, s.storage);
-            if (value) state = assign(state, value);
+            if(value) state = assign(state, value);
             return state;
         }, {} as PartialState);
         options?.callback?.(context, assign({}, storeState));

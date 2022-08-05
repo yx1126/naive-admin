@@ -5,7 +5,7 @@ const pinia = createPinia();
 pinia.use(
     createVuePinia({
         callback: (app, state) => {
-            if (app.store.$id === "set") {
+            if(app.store.$id === "set") {
                 const { locale } = useI18n();
                 locale.value = state?.lang || "zh-CN";
             }

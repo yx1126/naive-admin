@@ -6,7 +6,7 @@ export default (title: MayBeRef<string | null | undefined> = null, template = "%
     watch(
         $$(value),
         (v, ov) => {
-            if (isString(v) && v !== ov && document) {
+            if(isString(v) && v !== ov && document) {
                 document.title = template.replaceAll("%s", v);
             }
         },

@@ -35,7 +35,7 @@ const router = useRouter();
 const errGif = $ref(ErrGif + "?" + +new Date());
 
 function back(path?: string | MouseEvent) {
-    if (isString(path) && path) router.push(path);
+    if(isString(path) && path) router.push(path);
     else router.go(-1);
 }
 </script>

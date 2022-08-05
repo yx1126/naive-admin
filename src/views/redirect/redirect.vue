@@ -7,7 +7,7 @@ export default defineComponent({
         const mitter = useMitt();
 
         onBeforeMount(() => {
-            if (!route.params.path) {
+            if(!route.params.path) {
                 router.replace("");
                 return;
             }

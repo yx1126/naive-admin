@@ -34,7 +34,7 @@ export default defineComponent({
     inheritAttrs: false,
     props: {
         value: {
-            type:String,
+            type: String,
             default: "",
         },
         mode: {
@@ -42,7 +42,7 @@ export default defineComponent({
             default: "default",
         },
         placeholder: {
-            type:String,
+            type: String,
             default: "请输入内容...",
         },
         readonly: {
@@ -72,7 +72,7 @@ export default defineComponent({
         },
     },
     emits: ["update:value"],
-    setup(props, {attrs,emit, expose}){
+    setup(props, {attrs, emit, expose}){
 
 
         let editor = shallowRef<IDomEditor>();
@@ -99,7 +99,7 @@ export default defineComponent({
                     keys: ["preview"],
                 },
             };
-            if (props.toolbar) {
+            if(props.toolbar) {
                 defaultValue["toolbarKeys"] = [...(saToArray<IMenuGroup>(props.toolbar) || [])];
             }
             return defaultValue;
@@ -127,14 +127,14 @@ export default defineComponent({
         }
 
         function onCloseModal() {
-            if (!props.onMaskClose) return;
+            if(!props.onMaskClose) return;
             editor.value?.hidePanelOrModal();
         }
 
         function onModalChange() {
-            if (!props.modalAppendToBody) return;
+            if(!props.modalAppendToBody) return;
             editor.value?.on("modalOrPanelShow", modalOrPanel => {
-                if (modalOrPanel.type !== "modal") return;
+                if(modalOrPanel.type !== "modal") return;
 
                 const { $elem } = modalOrPanel; // modal element
                 const width = $elem.width();
@@ -166,7 +166,7 @@ export default defineComponent({
 
         // 组件销毁时，也及时销毁编辑器
         onBeforeUnmount(() => {
-            if (editor.value == null) return;
+            if(editor.value == null) return;
             editor.value.destroy();
         });
 

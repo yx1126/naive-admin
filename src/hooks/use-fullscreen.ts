@@ -14,27 +14,27 @@ export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?
     }
 
     function isSupport() {
-        if (!Screenfull.isEnabled) {
+        if(!Screenfull.isEnabled) {
             message.warning("您的浏览器不支持全屏！");
         }
         return isEnabled;
     }
 
     function full() {
-        if (!isSupport()) return;
+        if(!isSupport()) return;
         Screenfull.request(target.value ? target.value : void 0, options);
     }
     function exit() {
-        if (!isSupport()) return;
+        if(!isSupport()) return;
         Screenfull.exit();
     }
     function toggle() {
-        if (!isSupport()) return;
+        if(!isSupport()) return;
         Screenfull.toggle(target.value ? target.value : void 0, options);
     }
 
     onMounted(async () => {
-        if (!isEnabled) return;
+        if(!isEnabled) return;
         await nextTick();
         if(isUndefined(selectors)) {
             target.value = document.querySelector("body");

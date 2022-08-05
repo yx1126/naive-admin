@@ -47,7 +47,7 @@ export function isObject<T extends object>(value: any): value is T {
 }
 
 export function isString<T extends string>(value: any, flag?: boolean): value is T {
-    if (flag && value === "") return false;
+    if(flag && value === "") return false;
     return typeOf(value) === "string";
 }
 
@@ -60,12 +60,12 @@ export function isBoolean(value: any): value is boolean {
 }
 
 export function isNumber(value: any, flag?: boolean): value is number {
-    if (flag && value === 0) return false;
+    if(flag && value === 0) return false;
     return typeOf(value) === "number";
 }
 
 export function isArray<T = any>(value: any, flag?: boolean): value is Array<T> {
-    if (flag && value?.length === 0) return false;
+    if(flag && value?.length === 0) return false;
     return typeOf(value) === "array";
 }
 

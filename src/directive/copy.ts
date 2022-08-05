@@ -4,11 +4,11 @@ import type { Directive } from "vue";
 
 const clipboard: Directive = {
     mounted(el, binding) {
-        if (binding.arg === "success" && isFunction(binding.value)) {
+        if(binding.arg === "success" && isFunction(binding.value)) {
             el._v_clipboard_success = binding.value;
             return;
         }
-        if (binding.arg === "error" && isFunction(binding.value)) {
+        if(binding.arg === "error" && isFunction(binding.value)) {
             el._v_clipboard_error = binding.value;
             return;
         }
@@ -29,11 +29,11 @@ const clipboard: Directive = {
         el._v_clipboard = clipboard;
     },
     updated(el, binding) {
-        if (binding.arg === "success") {
+        if(binding.arg === "success") {
             el._v_clipboard_success = binding.value;
             return;
         }
-        if (binding.arg === "error") {
+        if(binding.arg === "error") {
             el._v_clipboard_error = binding.value;
             return;
         }
@@ -45,11 +45,11 @@ const clipboard: Directive = {
         };
     },
     unmounted(el, binding) {
-        if (binding.arg === "success") {
+        if(binding.arg === "success") {
             delete el._v_clipboard_success;
             return;
         }
-        if (binding.arg === "error") {
+        if(binding.arg === "error") {
             delete el._v_clipboard_error;
             return;
         }

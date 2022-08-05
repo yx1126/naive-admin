@@ -103,7 +103,7 @@ const useSetStore = defineStore(
     },
 );
 
-if (import.meta.hot) {
+if(import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(useSetStore, import.meta.hot));
 }
 

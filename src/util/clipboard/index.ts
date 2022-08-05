@@ -25,7 +25,7 @@ export default function copy(text: string, action: "cut" | "copy" = "copy", el?:
             reject(e);
         });
 
-        if (node) {
+        if(node) {
             document.body.appendChild(node);
             node?.click?.();
             document.body.removeChild(node);

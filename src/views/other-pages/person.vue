@@ -82,7 +82,7 @@ const userInfoList = $computed(() => [
 function submit(e: MouseEvent){
     e.preventDefault();
     formRef?.validate((errors) => {
-        if (!errors) {
+        if(!errors) {
             isLoading = true;
             const timer = setTimeout(() => {
                 isLoading = false;

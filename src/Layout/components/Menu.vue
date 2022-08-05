@@ -34,7 +34,7 @@ watch(
 );
 
 function onUpdateValue(key: string, item: MenuOption) {
-    if (item.isLink) {
+    if(item.isLink) {
         window.open(key);
         return;
     }

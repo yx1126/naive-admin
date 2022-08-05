@@ -93,28 +93,28 @@ const dropDownOptions = $computed(() => {
     const isInKeep = keepTags.find(t => t.path === chooseTags?.path);
     const isInActive = activeTags.find(t => t.path === chooseTags?.path);
     const isIndexPage = "/dashboard/console" === chooseTags?.path;
-    if (isInActive) {
+    if(isInActive) {
         result.push({ label: "关闭当前", key: "remove", icon: renderIcon(CloseOutlined) });
     }
-    if (chooseTagsIndex > 0 && isInActive) {
+    if(chooseTagsIndex > 0 && isInActive) {
         result.push({ label: "关闭左侧", key: "removeLeft", icon: renderIcon(ArrowLeftOutlined) });
     }
-    if (chooseTagsIndex < activeTags.length - 1 && isInActive) {
+    if(chooseTagsIndex < activeTags.length - 1 && isInActive) {
         result.push({ label: "关闭右侧", key: "removeRight", icon: renderIcon(ArrowRightOutlined) });
     }
     result.length && result.push({ type: "divider", key: "d0" });
     result.push({ label: "关闭其他", key: "removeOther", icon: renderIcon(ColumnWidthOutlined) });
     result.push({ label: "关闭全部", key: "removeAll", icon: renderIcon(MinusOutlined) });
-    if ((isInKeep && !isIndexPage && result.length) || isInActive) {
+    if((isInKeep && !isIndexPage && result.length) || isInActive) {
         result.push({ type: "divider", key: "d1" });
     }
-    if (isInKeep && !isIndexPage) {
+    if(isInKeep && !isIndexPage) {
         result.push({ label: "移除固定", key: "removeFixed", icon: renderIcon(PushpinOutlined) });
     }
-    if (isInActive) {
+    if(isInActive) {
         result.push({ label: "保持固定", key: "keepFixed", icon: renderIcon(PushpinFilled) });
     }
-    if (isShowCloseAll) {
+    if(isShowCloseAll) {
         result.length && result.push({ type: "divider", key: "d2" });
         result.push({ label: "一键清除", key: "init", icon: renderIcon(CloseCircleOutlined) });
     }
@@ -124,7 +124,7 @@ const dropDownOptions = $computed(() => {
 watch(
     () => route.fullPath,
     () => {
-        if (route.fullPath.startsWith("/redirect")) return;
+        if(route.fullPath.startsWith("/redirect")) return;
         tags.insert("activeTags", {
             title: route.meta.title as string,
             name: route.name as string,
@@ -187,33 +187,33 @@ function onMouseWheel(e: WheelEvent) {
 
 async function onDropdownSelect(key: string | number) {
     onClickoutside();
-    if (!chooseTags || chooseTagsIndex === -1) return;
+    if(!chooseTags || chooseTagsIndex === -1) return;
     const activeTagsLength = activeTags.length - 1;
     const keepTagsLength = keepTags.length - 1;
     const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
     switch (key) {
         case "remove":
-            if (activeTagsLength < 1) {
+            if(activeTagsLength < 1) {
                 router.push(keepTags[keepTagsLength].path);
             } else {
-                if (currentPath === chooseTags.path) router.push(activeTags[chooseTagsIndex + (chooseTagsIndex < activeTagsLength ? 1 : -1)].path);
+                if(currentPath === chooseTags.path) router.push(activeTags[chooseTagsIndex + (chooseTagsIndex < activeTagsLength ? 1 : -1)].path);
             }
             tags.remove(chooseTags.path);
             break;
         case "removeLeft":
-            if (currentPageIndex !== -1 && chooseTagsIndex > currentPageIndex) router.push(chooseTags.path);
+            if(currentPageIndex !== -1 && chooseTagsIndex > currentPageIndex) router.push(chooseTags.path);
             tags.removeLeft(chooseTags.path);
             break;
         case "removeRight":
-            if (currentPageIndex !== -1 && chooseTagsIndex < currentPageIndex) router.push(chooseTags.path);
+            if(currentPageIndex !== -1 && chooseTagsIndex < currentPageIndex) router.push(chooseTags.path);
             tags.removeRight(chooseTags.path);
             break;
         case "removeOther":
-            if (currentPageIndex !== -1 && chooseTags.path !== currentPath) router.push(chooseTags.path);
+            if(currentPageIndex !== -1 && chooseTags.path !== currentPath) router.push(chooseTags.path);
             tags.removeOther(chooseTags.path);
             break;
         case "removeAll":
-            if (currentPageIndex !== -1) router.push(keepTags[keepTagsLength].path);
+            if(currentPageIndex !== -1) router.push(keepTags[keepTagsLength].path);
             tags.removeAll(chooseTags.path);
             break;
         case "removeFixed":
@@ -254,13 +254,13 @@ async function moveToCurrentTag() {
         const el = t.$el as HTMLDivElement;
         return el.dataset.path === currentPath;
     });
-    if (!tagsItemRef) return;
+    if(!tagsItemRef) return;
     const tagsItemRefEl = tagsItemRef.$el as HTMLDivElement;
     // 超出 左边 视野
     const beyondLeft = tagsItemRefEl.offsetLeft < tagsRef.scrollLeft;
     // 超出 右边 视野
     const beyondRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.scrollLeft + tagsRef.clientWidth;
-    if (beyondLeft || beyondRight) {
+    if(beyondLeft || beyondRight) {
         tagsRef.scrollTo({
             left: beyondLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth + 100,
             behavior: "smooth",

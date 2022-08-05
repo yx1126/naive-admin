@@ -60,7 +60,7 @@ function onBodyClick() {
 }
 
 async function onSearch(query: string) {
-    if (!query.length) {
+    if(!query.length) {
         isShowResult = false;
         selectOptions = [];
         return;
@@ -82,7 +82,7 @@ async function onSearch(query: string) {
 
 function onUpdateValue() {
     const menu = JSON.parse(chooseValue);
-    if (menu.isLink) {
+    if(menu.isLink) {
         window.open(menu.path);
     } else {
         router.push(menu.path);
