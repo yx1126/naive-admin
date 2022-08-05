@@ -18,7 +18,6 @@
 <script setup lang="ts">
 import { darkTheme, lightTheme } from "naive-ui";
 import { localeMap, dateLocaleMap } from "@/locales";
-import { useSetStore } from "@/stores";
 import { createHoverColor, createPressedColor } from "@/util/color";
 import NFreeback from "./NFreeback.vue";
 import hljs from "highlight.js/lib/core";

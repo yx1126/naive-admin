@@ -41,7 +41,6 @@ import Icon from "@/components/Icon";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@vicons/antd";
 import type { PropType } from "vue";
 import { NCheckbox, NButton, type DataTableColumns } from "naive-ui";
-import { useSetStore } from "@/stores";
 import type { Column } from "../index";
 
 export default defineComponent({

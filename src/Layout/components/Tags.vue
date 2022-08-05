@@ -59,8 +59,7 @@ import { MoreOutlined, ReloadOutlined } from "@vicons/antd";
 import { PushpinFilled, PushpinOutlined } from "@vicons/antd";
 import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
 import { NTag, type DropdownOption, type DropdownDividerOption } from "naive-ui";
-import { useTagsStore, type Tags } from "@/stores";
-import { useFreeBack, useMitt, useEventListener } from "@/hooks";
+import type { Tags } from "@/stores";
 import { renderIcon } from "@/naive";
 import { LayoutConfig } from "@/config";
 

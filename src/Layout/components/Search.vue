@@ -24,7 +24,6 @@
 
 <script lang="ts" setup>
 import { SearchOutlined } from "@vicons/antd";
-import { useUserStore } from "@/stores";
 import { NSelect, useThemeVars, type SelectOption } from "naive-ui";
 import { getSearchMenuList } from "@/util/menus";
 import type { MenuOptions } from "@/naive";

@@ -22,7 +22,8 @@ export default defineConfig({
         DefineOptions(),
         AutoImport({
             dts: true,
-            imports: ["vue", "vue-router", "pinia", "vue-i18n", {
+            dirs: ["./src/hooks", "./src/stores/exports"],
+            imports: ["vue", "vue-router", "vue-i18n", {
                 "vue": ["renderSlot", "mergeProps", "createVNode", "render"],
              }],
         }),

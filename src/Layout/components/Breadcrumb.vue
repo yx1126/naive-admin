@@ -9,8 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useSetStore } from "@/stores";
-
 const route = useRoute();
 const set = useSetStore();
 

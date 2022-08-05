@@ -14,9 +14,7 @@ import Pagination from "../Pagination";
 import Icon from "../Icon";
 import type { PropType } from "vue";
 import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, NEmpty, type DataTableColumns, type DropdownOption } from "naive-ui";
-import { useSetStore } from "@/stores";
 import useTableColumns from "./hooks/useTableColumns";
-import { useFullscreen } from "@/hooks";
 import type { TableColumn, Behavior, TableSize } from "./index";
 import "./BasicTable.scss";
 

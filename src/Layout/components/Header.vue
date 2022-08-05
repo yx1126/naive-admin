@@ -26,11 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import { useFullscreen } from "@/hooks";
 import Search from "./Search.vue";
 import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined } from "@vicons/antd";
 import { renderIcon } from "@/naive";
-import { useFreeBack } from "@/hooks";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
 const { isFullScreen, toggle } = useFullscreen();

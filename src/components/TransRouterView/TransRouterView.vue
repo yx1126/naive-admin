@@ -9,9 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useTagsStore, useSetStore } from "@/stores";
 import { routerTransOptions } from "@/stores/setting";
-import { useMitt } from "@/hooks";
 
 const set = useSetStore();
 const tags = useTagsStore();

@@ -11,7 +11,6 @@
 
 <script setup lang="ts">
 import { SettingOutlined, CloseOutlined } from "@vicons/antd";
-import useSetStore from "@/stores/setting";
 import { useThemeVars } from "naive-ui";
 
 defineOptions({

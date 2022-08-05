@@ -79,7 +79,6 @@
 <script lang="ts" setup>
 import CodeCard from "@/components/CodeCard";
 import { FullscreenOutlined } from "@vicons/antd";
-import { useFullscreen } from "@/hooks";
 
 defineOptions({
     name: "Fullscreen",

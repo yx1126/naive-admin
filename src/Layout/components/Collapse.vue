@@ -9,7 +9,6 @@
 <script lang="ts" setup>
 import MenuFoldOutlined from "@vicons/antd/MenuFoldOutlined";
 import MenuUnfoldOutlined from "@vicons/antd/MenuUnfoldOutlined";
-import { useSetStore } from "@/stores";
 import { useThemeVars } from "naive-ui";
 
 interface Collapse {

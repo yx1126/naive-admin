@@ -48,7 +48,6 @@
 
 <script lang="ts" setup>
 import { NForm, type FormRules } from "naive-ui";
-import { useFreeBack } from "@/hooks";
 
 defineOptions({
     name: "Person",

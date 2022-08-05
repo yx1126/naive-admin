@@ -19,7 +19,6 @@
 <script setup lang="ts">
 import BasicTable from "@/components/BasicTable";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
-import { useFreeBack } from "@/hooks";
 
 defineOptions({
     name: "BaseList",

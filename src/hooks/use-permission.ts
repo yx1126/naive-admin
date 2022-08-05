@@ -1,5 +1,4 @@
 import { isArray, isString } from "@/util/validata";
-import { useUserStore } from "@/stores";
 
 export default function(role: string | string[]){
     const user = useUserStore();

@@ -1,4 +1,3 @@
-import { useApp } from "@/hooks";
 export function useStyle() {
     const app = useApp();
     console.log(app);

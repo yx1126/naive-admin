@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import TransRouterView from "@/components/TransRouterView";
-import { useApp  } from "@/hooks";
 import Layout from "@/Layout/index.vue";
 import { NConfig } from "@/naive";
 import useUserStore from "@/stores/user";

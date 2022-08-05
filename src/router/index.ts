@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useFreeBack, useTitle } from "@/hooks";
 import routes from "./routes";
 
 const router = createRouter({

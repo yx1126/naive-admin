@@ -1,6 +1,5 @@
 import type { PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption } from "naive-ui";
-import { useSetStore } from "@/stores";
 import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";

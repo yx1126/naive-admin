@@ -1,6 +1,4 @@
 <script lang="ts">
-import { useMitt } from "@/hooks";
-
 export default defineComponent({
     name: "Redirect",
     setup() {

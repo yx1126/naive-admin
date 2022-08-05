@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { useSetStore } from "@/stores";
 import { isString } from "@/util/validata";
 
 interface Logo {

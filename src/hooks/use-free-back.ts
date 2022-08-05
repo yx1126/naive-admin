@@ -22,20 +22,4 @@ const useFreeBack = <T extends keyof FreeBackOptions>(type: T): FreeBackOptions[
     return back as FreeBackOptions[T];
 };
 
-export const useLoadingBar = () => {
-    return useFreeBack("loadingbar");
-};
-
-export const useDialog = () => {
-    return useFreeBack("dialog");
-};
-
-export const useMessage = () => {
-    return useFreeBack("message");
-};
-
-export const useNotification = () => {
-    return useFreeBack("notification");
-};
-
 export { useFreeBack as default };
