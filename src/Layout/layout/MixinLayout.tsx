@@ -32,7 +32,7 @@ export default defineComponent({
             default: true,
         },
         showTrigger: {
-            type: [Boolean, String],
+            type: [Boolean, String] as PropType<"bar" | "arrow-circle" | boolean>,
             default: false,
         },
     },
