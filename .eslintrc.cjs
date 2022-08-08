@@ -90,6 +90,8 @@ module.exports = {
                 "while": { "after": false },
             },
         }],
+        "object-curly-spacing": "off",
+        "@typescript-eslint/object-curly-spacing": ["error", "always"],
     },
     globals: {
         $: "readonly",

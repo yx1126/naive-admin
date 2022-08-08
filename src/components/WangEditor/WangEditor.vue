@@ -1,7 +1,7 @@
 <template>
     <div class="wang-editor-wrapper">
-        <Toolbar class="wang-editor-toolbar" :default-config="toolbarConfig" :editor="editor" />
-        <Editor v-bind="attrs" v-model="valueHtml" class="wang-editor" :style="editorStyle" :default-config="editorConfig" @on-created="onCreated" />
+        <Toolbar class="wang-editor-toolbar" :default-config="defaultToolbarConfig" :editor="editor" />
+        <Editor v-bind="attrs" v-model="valueHtml" class="wang-editor" :style="editorStyle" :default-config="defaultEditorConfig" @on-created="onCreated" />
         <div v-show="isShowMask" class="wang-editor-mask" @click="onCloseModal" />
     </div>
     <n-modal v-model:show="showModal" style="width: 800px;" preset="card" title="预览" :z-index="3000">
@@ -30,7 +30,7 @@ interface IMenuGroup {
 
 export default defineComponent({
     name: "WangEditor",
-    components: { Editor, Toolbar},
+    components: { Editor, Toolbar },
     inheritAttrs: false,
     props: {
         value: {
@@ -70,9 +70,17 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        editorConfig: {
+            type: Object as PropType<Partial<IEditorConfig>>,
+            default: () => ({}),
+        },
+        toolbarConfig: {
+            type: Object as PropType<Partial<IToolbarConfig>>,
+            default: () => ({}),
+        },
     },
     emits: ["update:value"],
-    setup(props, {attrs, emit, expose}){
+    setup(props, { attrs, emit, expose }){
 
 
         let editor = shallowRef<IDomEditor>();
@@ -90,7 +98,7 @@ export default defineComponent({
         });
 
 
-        const toolbarConfig = computed<Partial<IToolbarConfig>>(() => {
+        const defaultToolbarConfig = computed<Partial<IToolbarConfig>>(() => {
             const defaultValue: Partial<IToolbarConfig> = {
                 modalAppendToBody: props.modalAppendToBody,
                 excludeKeys: saToArray(props.excludeToolBar),
@@ -98,6 +106,7 @@ export default defineComponent({
                     index: -1,
                     keys: ["preview"],
                 },
+                ...props.toolbarConfig,
             };
             if(props.toolbar) {
                 defaultValue["toolbarKeys"] = [...(saToArray<IMenuGroup>(props.toolbar) || [])];
@@ -105,12 +114,13 @@ export default defineComponent({
             return defaultValue;
         });
 
-        const editorConfig = computed<Partial<IEditorConfig>>(() => {
+        const defaultEditorConfig = computed<Partial<IEditorConfig>>(() => {
             return {
                 placeholder: props.placeholder,
                 readOnly: props.readonly,
                 autoFocus: props.autoFocus,
                 maxLength: props.maxLength,
+                ...props.editorConfig,
             };
         });
 
@@ -181,8 +191,8 @@ export default defineComponent({
             showModal,
             isShowMask,
             valueHtml,
-            toolbarConfig,
-            editorConfig,
+            defaultToolbarConfig,
+            defaultEditorConfig,
             editorStyle,
             onCreated,
             onCloseModal,
