@@ -66,6 +66,10 @@ const menus: MenuOptions & RouteMeta[] = [
                 name: "富文本编辑器",
                 path: "wang-editor",
             },
+            {
+                name: "图标选择器",
+                path: "icon-select",
+            },
         ],
     },
     {

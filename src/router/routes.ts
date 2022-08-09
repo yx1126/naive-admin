@@ -117,6 +117,15 @@ const routes: RouteRecordRaw[] = [
                 },
                 component: () => import("@/views/components/wang-editor.vue"),
             },
+            {
+                path: "icon-select",
+                name: "IconSelectPage",
+                meta: {
+                    title: "图标选择器",
+                    icon: "",
+                },
+                component: () => import("@/views/components/icon-select.vue"),
+            },
         ],
     },
     {
