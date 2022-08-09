@@ -1,7 +1,7 @@
 <template>
     <div class="person">
-        <n-grid :cols="4" x-gap="12">
-            <n-gi :span="1">
+        <n-grid :cols="7" x-gap="12">
+            <n-gi :span="2">
                 <n-card title="个人信息">
                     <div class="space-wrapper">
                         <n-avatar class="avatar" round :size="120" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
@@ -18,7 +18,7 @@
                     </div>
                 </n-card>
             </n-gi>
-            <n-gi :span="3">
+            <n-gi :span="5">
                 <n-card title="基本资料">
                     <n-form ref="formRef" class="userForm" :model="userForm" :rules="rules">
                         <n-form-item label="用户名：" path="username">
@@ -70,14 +70,14 @@ const rules: FormRules = {
     email: { message: "请输入邮箱！", trigger: "blur" },
 };
 
-const userInfoList = $computed(() => [
+const userInfoList = [
     { title: "用户昵称", value: "admin" },
     { title: "登录账号", value: "admin" },
     { title: "手机号码", value: "16624503090" },
     { title: "所属部门", value: "技术部门" },
     { title: "邮箱地址", value: "yx17714503091@163.com" },
     { title: "创建时间", value: "2022-08-12" },
-]);
+];
 
 function submit(e: MouseEvent){
     e.preventDefault();

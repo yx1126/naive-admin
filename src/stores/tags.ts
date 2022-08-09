@@ -80,10 +80,8 @@ const useTagsStore = defineStore(
         }
         // 移除
         function remove(path: string) {
-            const kTags = state.keepTags.find(t => t.path === path);
-            const aTags = state.activeTags.find(t => t.path === path);
-            if(kTags) baseRemove("keepTags", path);
-            else if(aTags) baseRemove("activeTags", path);
+            baseRemove("keepTags", path);
+            baseRemove("activeTags", path);
         }
         // 移除左边
         function removeLeft(path: string) {

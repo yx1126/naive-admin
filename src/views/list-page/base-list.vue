@@ -43,7 +43,7 @@ const total = $ref(1000);
 
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
-    { title: "Age", key: "age", width: "10%" },
+    { title: "Age", key: "age", width: 150 },
     { title: "Address", key: "address", minWidth: 300 },
     { title: "Address1", key: "address1", minWidth: 300 },
     { title: "Address2", key: "address2", minWidth: 300 },
