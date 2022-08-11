@@ -13,7 +13,7 @@ defineOptions({
     name: "IconSelectPage",
 });
 
-const icon = $ref("404");
+const icon = $ref("");
 </script>
 
 <style lang="scss" scoped></style>
