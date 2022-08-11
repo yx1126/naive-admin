@@ -27,6 +27,6 @@ export default {
         /**
          * 权限控制
          */
-        app.directive("permission", permission);
+        app.directive("auth", permission);
     },
 };

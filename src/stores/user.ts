@@ -4,12 +4,9 @@ import menus from "@/assets/menu";
 import { formatMenuPath } from "@/util/menus";
 import type { MenuOption } from "naive-ui";
 
-export interface UserInfo {
-    [key: string]: any;
-}
 
 export interface UserState {
-    info: UserInfo | null;
+    info: Record<string, any> | null;
     menus: MenuOption[];
     permission: string[]
 }
@@ -41,7 +38,7 @@ const useUserStore = defineStore(
         persistedstate: {
             enabled: true,
             storage: window.sessionStorage,
-            paths: ["info", "permission"],
+            paths: ["info"],
         },
     },
 );
