@@ -25,7 +25,7 @@
                 <template v-for="item in svgList" :key="item">
                     <n-button class="button" :class="value === item ? 'icon-active' : ''" @click="onIconClick(item)">
                         <template #icon>
-                            <Icon :icon="item" :size="20" color="#333" />
+                            <Icon :icon="item" :size="20" />
                         </template>
                     </n-button>
                 </template>
@@ -33,7 +33,7 @@
             <div class="paging">
                 <SimplePagination v-model:page="page" v-model:size="size" :total="searchSvgList.length" show-jumper>
                     <template #prefix="data">
-                        <span>{{ data.page }}/{{ data.pageCount }}</span>
+                        <span>{{ data.page }} / {{ data.pageCount }}</span>
                     </template>
                 </SimplePagination>
             </div>
