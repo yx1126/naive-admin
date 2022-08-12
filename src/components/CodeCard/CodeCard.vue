@@ -17,7 +17,9 @@
             </n-space>
         </template>
         <template v-if="showFooter" #footer>
-            <n-code :code="code" word-wrap language="html" />
+            <n-scrollbar x-scrollable>
+                <n-code :code="code" :word-wrap="wordWrap" language="html" />
+            </n-scrollbar>
         </template>
         <slot />
     </n-card>
@@ -26,9 +28,11 @@
 
 <script lang="ts" setup>
 withDefaults(defineProps<{
-    code?: string
+    code?: string;
+    wordWrap?: boolean;
 }>(), {
     code: "",
+    wordWrap: false,
 });
 
 const showFooter = $ref(false);

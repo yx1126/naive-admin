@@ -21,17 +21,23 @@
                     </div>
                 </div>
             </n-dropdown>
+            <div class="header-trigger">
+                <Icon :size="18" @click="set.toggleDrawer">
+                    <SettingOutlined />
+                </Icon>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import Search from "./Search.vue";
-import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined } from "@vicons/antd";
+import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from "@vicons/antd";
 import { renderIcon } from "@/naive";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 
 const { isFullScreen, toggle } = useFullscreen();
+const set = useSetStore();
 const router = useRouter();
 const dialog = useFreeBack("dialog");
 const message = useFreeBack("message");

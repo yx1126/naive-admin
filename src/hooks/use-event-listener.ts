@@ -1,31 +1,34 @@
 import useDeounce from "./use-deounce";
+import { on, off } from "@/util/dom";
+import { isBoolean } from "@/util/validata";
+import type { MayBeRef } from "@/types/util";
 
-export interface EventOptions extends AddEventListenerOptions {
+export interface EventOptions extends EventListenerOptions {
     lazy?: boolean;
     delay?: number;
 }
 
 export default function(
-    target: HTMLElement | Window | Document,
+    target: MayBeRef<Window | Document | HTMLElement | string>,
     key: keyof HTMLElementEventMap,
     fn: (e: Event)=> void,
     options?: boolean | EventOptions,
 ) {
 
-    const defaultOptions = Object.assign({ lazy: false, delay: 500 }, options);
+    const defaultOptions = Object.assign({ lazy: false, delay: 500 }, isBoolean(options) ? { capture: options } : options);
 
     function event(e: Event) {
         fn.call(null, e);
     }
 
     function stop() {
-        target.removeEventListener(key, onListener, defaultOptions);
+        off(target, key, onListener, defaultOptions);
     }
 
     const onListener = defaultOptions.lazy ? useDeounce(event, defaultOptions.delay) : event;
 
     onMounted(() => {
-        target.addEventListener(key, onListener, defaultOptions);
+        on(target, key, onListener, defaultOptions);
     });
 
     onBeforeUnmount(stop);

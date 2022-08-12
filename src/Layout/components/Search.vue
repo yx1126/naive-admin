@@ -26,6 +26,7 @@
 import { SearchOutlined } from "@vicons/antd";
 import { NSelect, useThemeVars, type SelectOption } from "naive-ui";
 import { getSearchMenuList } from "@/util/menus";
+import { on, off } from "@/util/dom";
 import type { MenuOptions } from "@/naive";
 
 const user = useUserStore();
@@ -50,13 +51,13 @@ const searchStyle = $computed(() => {
 async function onClick() {
     selectOptions = [];
     isShowSearch = true;
-    document.addEventListener("click", onBodyClick);
+    on(document, "click", onBodyClick);
 }
 
 function onBodyClick() {
     isShowSearch = false;
     isShowResult = false;
-    document.removeEventListener("click", onBodyClick);
+    off(document, "click", onBodyClick);
 }
 
 async function onSearch(query: string) {
