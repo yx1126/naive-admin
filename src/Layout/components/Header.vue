@@ -76,10 +76,6 @@ async function handleSelect(key: string, option: DropdownOption) {
             break;
     }
 }
-
-onMounted(async () => {
-    await nextTick();
-});
 </script>
 
 <style lang="scss" scoped>
