@@ -92,6 +92,8 @@ module.exports = {
         }],
         "object-curly-spacing": "off",
         "@typescript-eslint/object-curly-spacing": ["error", "always"],
+        "space-before-blocks": "off",
+        "@typescript-eslint/space-before-blocks": ["error"],
     },
     globals: {
         $: "readonly",

@@ -34,7 +34,6 @@
 
 <script lang="ts" setup>
 import { CopyOutlined } from "@vicons/antd";
-import CodeCard from "@/components/CodeCard";
 import copy from "@/util/clipboard";
 import type { Event } from "clipboard";
 

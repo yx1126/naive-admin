@@ -11,7 +11,15 @@
                 <n-input-group-label v-if="iconPlacement === 'left' || iconPlacement !== 'right'">
                     <Icon :icon="defaultIcon" :size="20" />
                 </n-input-group-label>
-                <n-input v-bind="attrs" v-model:value="defaultIcon" :placeholder="placeholder" readonly @click="onClick" @clear.stop />
+                <n-input
+                    v-bind="attrs"
+                    v-model:value="defaultIcon"
+                    :placeholder="placeholder"
+                    :disabled="disabled"
+                    readonly
+                    @click="onClick"
+                    @clear.stop
+                />
                 <n-input-group-label v-if="iconPlacement === 'right'">
                     <Icon :icon="defaultIcon" :size="20" />
                 </n-input-group-label>
@@ -60,10 +68,12 @@ const props = withDefaults(defineProps<{
     placeholder?: string;
     closeable?: boolean;
     iconPlacement?: "left" | "right";
+    disabled?: boolean;
 }>(), {
     placeholder: "请选择图标",
     closeable: true,
     iconPlacement: "left",
+    disabled: false,
 });
 
 const attrs = useAttrs();
@@ -113,6 +123,7 @@ function getPageByChoose(list: string[] = _svgList) {
 }
 
 function onClick() {
+    if(props.disabled) return;
     if(!isShowPopver) {
         isShowPopver = !isShowPopver;
         searchKey = "";
