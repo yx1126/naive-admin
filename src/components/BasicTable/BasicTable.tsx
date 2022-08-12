@@ -116,10 +116,10 @@ export default defineComponent({
         function onBehavior(type: Behavior) {
             emit("behavior", type);
         }
-        function onRefresh(){
+        function onRefresh() {
             emit("refresh");
         }
-        function onUpdateMove({ type, index }: { type: "up" | "down", index: number }){
+        function onUpdateMove({ type, index }: { type: "up" | "down", index: number }) {
             if(!columns.value) return;
             const moveIndex = type === "up" ? (index <= 0 ? columns.value.length - 1 : index - 1) : (index >= columns.value.length - 1 ? 0 : index + 1);
             const current = columns.value[index];

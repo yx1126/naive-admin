@@ -96,7 +96,7 @@ function onPageChange() {
     message.info("page change");
 }
 
-function onRefresh(){
+function onRefresh() {
     message.info("refresh");
 }
 

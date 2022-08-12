@@ -114,16 +114,16 @@ function onCopy(){
 <\/script>
 `;
 
-function onCopySuccess(e: Event){
+function onCopySuccess(e: Event) {
     console.log(e);
     message.success("复制成功!");
 }
-function onCopyError(e: Event){
+function onCopyError(e: Event) {
     console.log(e);
     message.error("复制失败!");
 }
 
-function onCopy(){
+function onCopy() {
     copy(copyTextFn).then((e) => {
         console.log(e);
         message.success("复制成功!");

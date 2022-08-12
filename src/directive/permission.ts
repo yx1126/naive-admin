@@ -1,7 +1,7 @@
 import type { Directive } from "vue";
 
 const permission: Directive = {
-    mounted(el, binding){
+    mounted(el, binding) {
         if(binding.value === void 0) {
             throw new Error("binding.value cannot be empty!");
         }

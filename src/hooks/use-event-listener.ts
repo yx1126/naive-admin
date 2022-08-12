@@ -1,6 +1,6 @@
 import useDeounce from "./use-deounce";
 
-export interface EventOptions extends AddEventListenerOptions{
+export interface EventOptions extends AddEventListenerOptions {
     lazy?: boolean;
     delay?: number;
 }
@@ -10,7 +10,7 @@ export default function(
     key: keyof HTMLElementEventMap,
     fn: (e: Event)=> void,
     options?: boolean | EventOptions,
-){
+) {
 
     const defaultOptions = Object.assign({ lazy: false, delay: 500 }, options);
 

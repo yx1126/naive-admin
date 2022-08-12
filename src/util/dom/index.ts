@@ -8,7 +8,7 @@ export function getParentNode(node: HTMLElement, level = 1) {
     return parentNode;
 }
 
-export function $select(selectors: keyof HTMLElementTagNameMap | string){
+export function $select(selectors: keyof HTMLElementTagNameMap | string) {
     return document.querySelector(selectors);
 }
 

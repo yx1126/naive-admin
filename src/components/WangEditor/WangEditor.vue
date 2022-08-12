@@ -80,7 +80,7 @@ export default defineComponent({
         },
     },
     emits: ["update:value"],
-    setup(props, { attrs, emit, expose }){
+    setup(props, { attrs, emit, expose }) {
 
 
         let editor = shallowRef<IDomEditor>();
@@ -168,7 +168,7 @@ export default defineComponent({
             });
         }
 
-        function onPriview(){
+        function onPriview() {
             editor.value?.on("on-priview", () => {
                 showModal.value = true;
             });

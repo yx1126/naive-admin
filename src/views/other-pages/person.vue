@@ -79,7 +79,7 @@ const userInfoList = [
     { title: "创建时间", value: "2022-08-12" },
 ];
 
-function submit(e: MouseEvent){
+function submit(e: MouseEvent) {
     e.preventDefault();
     formRef?.validate((errors) => {
         if(!errors) {
@@ -95,7 +95,7 @@ function submit(e: MouseEvent){
     });
 }
 
-function reset(){
+function reset() {
     userForm = {
         username: "admin",
         nickName: "admin",

@@ -104,7 +104,7 @@ export default defineComponent({
             emit("update:checked", { checked: !value, index });
         }
 
-        function onMove(type: "up" | "down", index: number){
+        function onMove(type: "up" | "down", index: number) {
             emit("update:move", { type, index });
         }
 

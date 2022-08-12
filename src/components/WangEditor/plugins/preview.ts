@@ -3,12 +3,12 @@ import type { IButtonMenu, IDomEditor } from "@wangeditor/editor";
 class PreviewMenu implements IButtonMenu {
     title: string;
     tag: string;
-    constructor(){
+    constructor() {
         this.title = "预览";
         this.tag = "button";
     }
 
-    getValue(no_editor: IDomEditor): string | boolean{
+    getValue(no_editor: IDomEditor): string | boolean {
         return false;
     }
     isActive(no_editor: IDomEditor): boolean {
