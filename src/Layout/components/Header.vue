@@ -5,9 +5,7 @@
             <slot name="left" />
         </div>
         <div class="header-right">
-            <div class="header-trigger">
-                <Search />
-            </div>
+            <div class="header-trigger"><Search /></div>
             <div class="header-trigger">
                 <Icon :size="18" @click="toggle">
                     <component :is="isFullScreen ? FullscreenExitOutlined : FullscreenOutlined" />
@@ -16,15 +14,11 @@
             <n-dropdown trigger="hover" :options="dropdownOptions" @select="handleSelect">
                 <div class="header-trigger">
                     <n-avatar round :size="34" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
-                    <div class="username">
-                        admin
-                    </div>
+                    <div class="username">admin</div>
                 </div>
             </n-dropdown>
             <div class="header-trigger">
-                <Icon :size="18" @click="set.toggleDrawer">
-                    <SettingOutlined />
-                </Icon>
+                <Icon :size="18" @click="set.toggleDrawer"><SettingOutlined /></Icon>
             </div>
         </div>
     </div>
@@ -89,7 +83,7 @@ async function handleSelect(key: string, option: DropdownOption) {
     }
     &-right {
         height: 100%;
-        padding-right: 20px;
+        // padding-right: 20px;
         @extend .flex-align-center;
     }
     &-trigger {

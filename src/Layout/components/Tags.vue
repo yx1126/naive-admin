@@ -55,9 +55,18 @@
 </template>
 
 <script lang="ts" setup>
-import { MoreOutlined, ReloadOutlined } from "@vicons/antd";
-import { PushpinFilled, PushpinOutlined } from "@vicons/antd";
-import { CloseOutlined, ArrowLeftOutlined, ArrowRightOutlined, ColumnWidthOutlined, MinusOutlined, CloseCircleOutlined } from "@vicons/antd";
+import {
+    MoreOutlined,
+    ReloadOutlined,
+    PushpinFilled,
+    PushpinOutlined,
+    CloseOutlined,
+    ArrowLeftOutlined,
+    ArrowRightOutlined,
+    ColumnWidthOutlined,
+    MinusOutlined,
+    CloseCircleOutlined,
+} from "@vicons/antd";
 import { NTag, type DropdownOption, type DropdownDividerOption } from "naive-ui";
 import type { Tags } from "@/stores";
 import { renderIcon } from "@/naive";
@@ -257,12 +266,12 @@ async function moveToCurrentTag() {
     if(!tagsItemRef) return;
     const tagsItemRefEl = tagsItemRef.$el as HTMLDivElement;
     // 超出 左边 视野
-    const beyondLeft = tagsItemRefEl.offsetLeft < tagsRef.scrollLeft;
+    const overLeft = tagsItemRefEl.offsetLeft < tagsRef.scrollLeft;
     // 超出 右边 视野
-    const beyondRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.scrollLeft + tagsRef.clientWidth;
-    if(beyondLeft || beyondRight) {
+    const overRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.scrollLeft + tagsRef.clientWidth;
+    if(overLeft || overRight) {
         tagsRef.scrollTo({
-            left: beyondLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth + 100,
+            left: overLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth + 100,
             behavior: "smooth",
         });
     }
