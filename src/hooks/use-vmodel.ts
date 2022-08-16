@@ -1,4 +1,3 @@
-import useApp from "./use-app";
 
 export default <P extends object, K extends keyof P>(props: P, key?: K) => {
     const app = useApp();

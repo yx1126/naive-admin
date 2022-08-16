@@ -1,9 +1,7 @@
 <template>
     <Drawer v-model:show="toggleDrawer" :mask-closable="true" :show-trigger="false">
         <n-drawer-content :native-scrollbar="false" body-content-style="padding: 0 15px 15px 15px;">
-            <template #header>
-                {{ $t("set.title") }}
-            </template>
+            <template #header>{{ $t("set.title") }}</template>
             <n-divider> {{ $t("set.navTheme") }} </n-divider>
             <n-space justify="center">
                 <template v-for="n in navTheme" :key="n">
@@ -19,9 +17,7 @@
             <n-divider> {{ $t("set.pageDisplay") }} </n-divider>
             <div class="divider-content">
                 <div class="divider-content-item">
-                    <n-ellipsis class="">
-                        {{ $t("set.isShowLogo") }}
-                    </n-ellipsis>
+                    <n-ellipsis>{{ $t("set.isShowLogo") }}</n-ellipsis>
                     <n-switch v-model:value="set.isShowLogo" size="medium" />
                 </div>
                 <div class="divider-content-item">
@@ -84,9 +80,7 @@
             </div>
             <template #footer>
                 <n-popconfirm @positive-click="set.reset">
-                    <template #trigger>
-                        <n-button>{{ $t("set.reset") }}</n-button>
-                    </template>
+                    <template #trigger><n-button>{{ $t("set.reset") }}</n-button></template>
                     <span>{{ $t("set.confirmSet") }}</span>
                 </n-popconfirm>
             </template>

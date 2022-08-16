@@ -11,6 +11,7 @@
 
 <script lang="ts" setup>
 import { NIcon } from "naive-ui";
+import { isString } from "@/util/validata";
 import SvgIcon from "./SvgIcon.vue";
 const props = withDefaults(
     defineProps<{
@@ -24,6 +25,6 @@ const props = withDefaults(
 const iconPrefixReg = /^[a-z]{1,}-icon-/;
 
 const isIcon = computed(() => {
-    return typeof props.icon === "string" ? iconPrefixReg.test(props.icon) : false;
+    return isString(props.icon) ? iconPrefixReg.test(props.icon) : false;
 });
 </script>

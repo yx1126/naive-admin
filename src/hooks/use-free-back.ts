@@ -1,4 +1,3 @@
-import useMitt from "./use-mitt";
 import type { LoadingBarApiInjection, DialogApiInjection, MessageApiInjection, NotificationApiInjection } from "@/naive";
 
 export type LoadingBarOption = (back: LoadingBarApiInjection) => void;
