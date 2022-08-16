@@ -14,6 +14,10 @@ export function saToArray<T = string>(value: string | string[] | T[] | undefined
     return void 0;
 }
 
+export function simpleCopy<T = unknown>(value: any): T {
+    return JSON.parse(JSON.stringify(value));
+}
+
 export function deepCopy<T = unknown>(data: any): T {
     const t = typeOf(data);
     let o: any;
