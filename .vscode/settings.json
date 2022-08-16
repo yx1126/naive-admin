@@ -41,6 +41,9 @@
     "[html]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+    "i18n-ally.localesPaths": [
+        "src/locales/langs"
+    ],
     "i18n-ally.keystyle": "nested",
     "i18n-ally.namespace": true,
     "i18n-ally.enabledParsers": [

@@ -38,13 +38,6 @@ const message = useFreeBack("message");
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
     { label: "个人设置", key: "set", icon: renderIcon(UserOutlined) },
-    { type: "divider" },
-    { label: "Vue", key: "https://staging-cn.vuejs.org/", icon: renderIcon("vue") },
-    { label: "Vite", key: "https://cn.vitejs.dev/", icon: renderIcon("vite") },
-    { label: "NaiveUi", key: "https://www.naiveui.com/zh-CN/light", icon: renderIcon("naive-ui") },
-    { label: "Sass", key: "https://www.sass.hk/", icon: renderIcon("sass") },
-    { label: "Typescript", key: "https://www.tslang.cn/index.html", icon: renderIcon("typescript") },
-    { type: "divider" },
     { label: "退出登录", key: "logout", icon: renderIcon(LogoutOutlined) },
 ];
 
@@ -64,9 +57,6 @@ async function handleSelect(key: string, option: DropdownOption) {
                     message.info("退出登陆成功！");
                 },
             });
-            break;
-        default:
-            window.open(key);
             break;
     }
 }

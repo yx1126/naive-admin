@@ -8,7 +8,7 @@
                 :single-line="false"
                 :columns="columns"
                 :data="data"
-                max-height="calc(100vh - 50px - 40px - 20px - 40px - 49px - 40px - 55px)"
+                max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px)"
                 :scroll-x="1800"
                 @page-change="onPageChange"
             />

@@ -1,6 +1,9 @@
 {
     "recommendations": [
         "vue.volar",
-        "vue.vscode-typescript-vue-plugin"
+        "vue.vscode-typescript-vue-plugin",
+        "dbaeumer.vscode-eslint",
+        "EditorConfig.EditorConfig",
+        "lokalise.i18n-ally"
     ],
 }
