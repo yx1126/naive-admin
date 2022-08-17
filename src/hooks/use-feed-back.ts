@@ -14,11 +14,11 @@ export interface FreeBackOptions {
     notification: NotificationApiInjection;
 }
 
-const useFreeBack = <T extends keyof FreeBackOptions>(type: T): FreeBackOptions[T] => {
+const useFeedBack = <T extends keyof FreeBackOptions>(type: T): FreeBackOptions[T] => {
     const mitt = useMitt();
     let back: FreeBack | undefined;
     mitt.emit(type, (cbValue: FreeBack) => (back = cbValue));
     return back as FreeBackOptions[T];
 };
 
-export { useFreeBack as default };
+export { useFeedBack as default };

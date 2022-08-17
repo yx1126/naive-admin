@@ -1,13 +1,13 @@
 import Screenfull from "screenfull";
 import { isString, isUndefined } from "@/util/validata";
-import useFreeBack from "./use-free-back";
+import useFeedBack from "./use-feed-back";
 import type { MayBeRef } from "@/types/util";
 
 export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?: FullscreenOptions) => {
     const target = ref<HTMLElement | null>();
     const isEnabled = Screenfull.isEnabled;
     const isFullScreen = ref(Screenfull.isFullscreen);
-    const message = useFreeBack("message");
+    const message = useFeedBack("message");
 
     function onFullScreenChange() {
         isFullScreen.value = Screenfull.isFullscreen;

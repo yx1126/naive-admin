@@ -33,8 +33,8 @@ import type { DropdownOption, DropdownDividerOption } from "naive-ui";
 const { isFullScreen, toggle } = useFullscreen();
 const set = useSetStore();
 const router = useRouter();
-const dialog = useFreeBack("dialog");
-const message = useFreeBack("message");
+const dialog = useFeedBack("dialog");
+const message = useFeedBack("message");
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
     { label: "个人设置", key: "set", icon: renderIcon(UserOutlined) },

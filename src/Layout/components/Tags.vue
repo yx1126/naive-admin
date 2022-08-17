@@ -75,7 +75,7 @@ import { LayoutConfig } from "@/config";
 const route = useRoute();
 const router = useRouter();
 const tags = useTagsStore();
-const dialog = useFreeBack("dialog");
+const dialog = useFeedBack("dialog");
 const mitter = useMitt();
 
 const tagsRef = $ref<HTMLDivElement>();

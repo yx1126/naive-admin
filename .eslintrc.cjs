@@ -94,6 +94,8 @@ module.exports = {
         "@typescript-eslint/object-curly-spacing": ["error", "always"],
         "space-before-blocks": "off",
         "@typescript-eslint/space-before-blocks": ["error"],
+        "@typescript-eslint/type-annotation-spacing": ["error"],
+        "@typescript-eslint/member-delimiter-style": ["error"],
     },
     globals: {
         $: "readonly",

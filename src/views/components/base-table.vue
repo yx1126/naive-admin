@@ -39,7 +39,7 @@ defineOptions({
     name: "BaseTable",
 });
 
-const message = useFreeBack("message");
+const message = useFeedBack("message");
 
 const page = $ref(0);
 const size = $ref(10);
@@ -142,7 +142,7 @@ const code = `
 import BasicTable, { type Behavior } from "@/components/BasicTable";
 import { h } from "vue";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
-import { useFreeBack } from "@/hooks";
+import { useFeedBack } from "@/hooks";
 
 type RowData = {
     key: number;
@@ -155,7 +155,7 @@ type RowData = {
     tags: string[];
 };
 
-const message = useFreeBack("message");
+const message = useFeedBack("message");
 
 const page = $ref(0);
 const size = $ref(10);

@@ -54,7 +54,7 @@ declare global {
   const useCssVars: typeof import('vue')['useCssVars']
   const useDeounce: typeof import('./src/hooks/use-deounce')['default']
   const useEventListener: typeof import('./src/hooks/use-event-listener')['default']
-  const useFreeBack: typeof import('./src/hooks/use-free-back')['default']
+  const useFeedBack: typeof import('./src/hooks/use-feed-back')['default']
   const useFullscreen: typeof import('./src/hooks/use-fullscreen')['default']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useMitt: typeof import('./src/hooks/use-mitt')['default']

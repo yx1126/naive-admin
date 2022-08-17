@@ -1,28 +1,73 @@
 <template>
     <div class="base-list">
-        <n-card>
-            <basic-table
-                v-model:page="page"
-                v-model:size="size"
-                :total="total"
-                :single-line="false"
-                :columns="columns"
-                :data="data"
-                max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px)"
-                :scroll-x="1800"
-                @page-change="onPageChange"
-            />
-        </n-card>
+        <n-space vertical :wrap-item="false">
+            <n-card>
+                <BasicForm
+                    ref="baseFormRef"
+                    :model="model"
+                    :show-feedback="false"
+                    inline
+                    :grid="true"
+                    :cols="4"
+                    x-gap="12"
+                    y-gap="12"
+                >
+                    <n-form-item-gi label="姓名：" path="name">
+                        <n-input v-model:value="model.name" placeholder="请输入名称" />
+                        <template #label>
+                            test
+                        </template>
+                    </n-form-item-gi>
+                    <n-form-item-gi label="年龄：" path="age">
+                        <n-input v-model:value="model.age" placeholder="请输入年龄" />
+                    </n-form-item-gi>
+                    <n-form-item-gi label="地址：" path="address">
+                        <n-input v-model:value="model.address" placeholder="请输入地址" />
+                    </n-form-item-gi>
+                    <n-form-item-gi label=" ">
+                        <n-space>
+                            <n-button type="primary">搜 索</n-button>
+                            <n-button>重 置</n-button>
+                        </n-space>
+                    </n-form-item-gi>
+                </BasicForm>
+            </n-card>
+            <n-card>
+                <basic-table
+                    ref="basicTableRef"
+                    v-model:page="page"
+                    v-model:size="size"
+                    :total="total"
+                    :single-line="false"
+                    :columns="columns"
+                    :data="data"
+                    :scroll-x="1800"
+                    @page-change="onPageChange"
+                />
+            <!-- max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px)" -->
+            </n-card>
+        </n-space>
     </div>
 </template>
 
 <script setup lang="ts">
 import BasicTable from "@/components/BasicTable";
+import BasicForm, { useForm, type BasicFormInstance } from "@/components/BasicForm";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 
 defineOptions({
     name: "BaseList",
 });
+
+const baseFormRef = ref<BasicFormInstance>(null);
+
+const { model } = useForm(baseFormRef, () => ({
+    name: "",
+    age: "",
+    address: "",
+}));
+
+const basicTableRef = $ref();
 
 type RowData = {
     key: number;
@@ -35,10 +80,10 @@ type RowData = {
     tags: string[];
 };
 
-const message = useFreeBack("message");
+const message = useFeedBack("message");
 
 const page = $ref(0);
-const size = $ref(20);
+const size = $ref(4);
 const total = $ref(1000);
 
 const columns: DataTableColumns<RowData> = [
@@ -75,7 +120,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $ref<RowData[]>(Array.from({ length: 20 }).map((_, i) => {
+const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,
@@ -89,6 +134,7 @@ const data = $ref<RowData[]>(Array.from({ length: 20 }).map((_, i) => {
 }));
 function onPageChange() {
     message.info("change");
+    console.log(basicTableRef);
 }
 
 </script>

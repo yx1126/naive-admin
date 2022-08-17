@@ -53,7 +53,7 @@ defineOptions({
     name: "Person",
 });
 
-const message = useFreeBack("message");
+const message = useFeedBack("message");
 
 const formRef = $ref<InstanceType<typeof NForm> | null>(null);
 let isLoading = $ref(false);

@@ -41,7 +41,7 @@ defineOptions({
     name: "Copy",
 });
 
-const message = useFreeBack("message");
+const message = useFeedBack("message");
 
 const copyText = $ref("v-copy");
 const copyTextFn = $ref("copyFn");

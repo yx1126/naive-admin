@@ -13,7 +13,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const loadingbar = useFreeBack("loadingbar");
+    const loadingbar = useFeedBack("loadingbar");
     const title = useTitle(null, `%s-${import.meta.env.VITE_APP_TITLE}`);
     title.value = to.matched.map(r => r.meta.title).filter(v => v).reverse().join("-");
     loadingbar.start();
@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-    const loadingbar = useFreeBack("loadingbar");
+    const loadingbar = useFeedBack("loadingbar");
     loadingbar.finish();
 });
 

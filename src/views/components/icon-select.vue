@@ -41,7 +41,7 @@ defineOptions({
     name: "IconSelectPage",
 });
 
-const message = useFreeBack("message");
+const message = useFeedBack("message");
 
 const iconName = $ref("");
 const icon = $ref("");
