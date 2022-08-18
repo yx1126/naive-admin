@@ -18,7 +18,7 @@ export function $select(selectors: keyof HTMLElementTagNameMap | string) {
 export function on(
     target: MayBeRef<Window | Document | HTMLElement | string>,
     key: keyof HTMLElementEventMap,
-    fn: (e: Event)=> void,
+    fn: (e: Event) => void,
     options?: boolean | EventListenerOptions,
 ) {
     const targetRef = unref(target);
@@ -29,7 +29,7 @@ export function on(
 export function off(
     target: MayBeRef<Window | Document | HTMLElement | string>,
     key: keyof HTMLElementEventMap,
-    fn: (e: Event)=> void,
+    fn: (e: Event) => void,
     options?: boolean | EventListenerOptions,
 ) {
     const targetRef = unref(target);
