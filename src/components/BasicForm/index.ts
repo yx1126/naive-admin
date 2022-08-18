@@ -22,11 +22,11 @@ export function useForm<T extends object>(formInstance: Ref<BasicFormInstance>, 
     }
 
     return {
-        formRef: {
+        formRef: ref({
             validate,
             restoreValidation,
             resetFields,
-        },
+        }),
         model: formData,
     };
 }

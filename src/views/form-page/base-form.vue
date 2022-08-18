@@ -210,7 +210,7 @@ const rules = {
 };
 
 function handleValidateButtonClick() {
-    formRef?.validate((errors) => {
+    formRef.value?.validate((errors) => {
         if(!errors) {
             message.success("验证成功");
         } else {
@@ -219,7 +219,7 @@ function handleValidateButtonClick() {
     });
 }
 function reset() {
-    formRef?.resetFields();
+    formRef.value?.resetFields();
 }
 </script>
 

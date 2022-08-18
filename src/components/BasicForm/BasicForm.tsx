@@ -1,4 +1,4 @@
-import { NForm, NGrid, NFormItem, NFormItemGi } from "naive-ui";
+import { NForm, NGrid } from "naive-ui";
 import type { PropType } from "vue";
 
 export default defineComponent({
@@ -25,15 +25,6 @@ export default defineComponent({
         };
     },
     render() {
-        // const defaultSlots = (this.$slots.default?.() || []).map(item => {
-        //     console.log(item);
-        //     // const childrenVNodes = {
-        //     //     default: () => renderSlot(item.children as any, "default"),
-        //     //     feedback: () => renderSlot(item.children as any, "feedback"),
-        //     //     label: () => renderSlot(item.children as any, "label"),
-        //     // };
-        //     return item.type === NFormItemGi ? <NFormItem {...mergeProps(item.props as any)}>{item.children}</NFormItem> : item;
-        // });
         const NGridVNode = (
             <NGrid
                 cols={this.cols}
