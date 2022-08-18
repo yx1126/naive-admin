@@ -8,11 +8,13 @@ export interface EventOptions extends EventListenerOptions {
 }
 
 export default function(
-    target: MayBeRef<Window | Document | HTMLElement | string>,
+    target: MayBeRef<Window | Document | HTMLElement | SVGElement | string>,
     key: keyof HTMLElementEventMap,
-    fn: (e: Event)=> void,
+    fn: (e: Event) => void,
     options?: boolean | EventOptions,
 ) {
+
+    const route = useRoute();
 
     const defaultOptions = Object.assign({ lazy: false, delay: 500 }, isBoolean(options) ? { capture: options } : options);
 
@@ -26,11 +28,17 @@ export default function(
 
     const onListener = defaultOptions.lazy ? useDeounce(event, defaultOptions.delay) : event;
 
-    onMounted(() => {
-        on(target, key, onListener, defaultOptions);
-    });
-
-    onBeforeUnmount(stop);
+    if(route.meta.keepAlive === true) {
+        onActivated(() => {
+            on(target, key, onListener, defaultOptions);
+        });
+        onDeactivated(stop);
+    } else {
+        onMounted(() => {
+            on(target, key, onListener, defaultOptions);
+        });
+        onBeforeUnmount(stop);
+    }
 
     return stop;
 }

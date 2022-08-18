@@ -8,7 +8,7 @@ import type { MenuOption } from "naive-ui";
 export interface UserState {
     info: Record<string, any> | null;
     menus: MenuOption[];
-    permission: string[]
+    permission: string[];
 }
 
 const useUserStore = defineStore(

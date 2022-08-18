@@ -53,6 +53,7 @@
 import Icon from "../Icon";
 import { svgList as _svgList } from "./index";
 import { SimplePagination } from "../Pagination";
+import { on, off } from "@/util/dom";
 
 defineOptions({
     name: "IconSelect",
@@ -60,7 +61,7 @@ defineOptions({
 });
 
 const emit = defineEmits<{
-    (event: "update:value", value: string): void
+    (event: "update:value", value: string): void;
 }>();
 
 const props = withDefaults(defineProps<{
@@ -114,7 +115,7 @@ function onIconClick(name: string) {
 
 function onClickoutside() {
     isShowPopver = false;
-    document.removeEventListener("click", onClickoutside);
+    off(document, "click", onClickoutside);
 }
 
 function getPageByChoose(list: string[] = _svgList) {
@@ -128,7 +129,7 @@ function onClick() {
         isShowPopver = !isShowPopver;
         searchKey = "";
         page = getPageByChoose();
-        document.addEventListener("click", onClickoutside);
+        on(document, "click", onClickoutside);
         return;
     }
     onClickoutside();

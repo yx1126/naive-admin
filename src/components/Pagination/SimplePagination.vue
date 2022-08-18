@@ -35,8 +35,8 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits<{
-    (event: "update:page", value: number): void
-    (event: "update:size", value: number): void
+    (event: "update:page", value: number): void;
+    (event: "update:size", value: number): void;
 }>();
 
 let jumpNum = $ref("");

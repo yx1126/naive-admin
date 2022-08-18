@@ -1,6 +1,6 @@
 import type { EventOptions } from "./use-event-listener";
 
-function useResize(fn?: ((e: Event, value: { width: number, height: number }) => void) | null, options?: EventOptions) {
+function useResize(fn?: ((e: Event, value: { width: number; height: number }) => void) | null, options?: EventOptions) {
 
     let width = $ref(document.documentElement.clientWidth);
     let height = $ref(document.documentElement.clientHeight);

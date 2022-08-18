@@ -16,7 +16,7 @@ export function $select(selectors: keyof HTMLElementTagNameMap | string) {
 }
 
 export function on(
-    target: MayBeRef<Window | Document | HTMLElement | string>,
+    target: MayBeRef<Window | Document | HTMLElement | SVGElement | string>,
     key: keyof HTMLElementEventMap,
     fn: (e: Event) => void,
     options?: boolean | EventListenerOptions,
@@ -27,7 +27,7 @@ export function on(
 }
 
 export function off(
-    target: MayBeRef<Window | Document | HTMLElement | string>,
+    target: MayBeRef<Window | Document | HTMLElement | SVGElement | string>,
     key: keyof HTMLElementEventMap,
     fn: (e: Event) => void,
     options?: boolean | EventListenerOptions,
