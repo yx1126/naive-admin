@@ -1,6 +1,5 @@
 <template>
     <div class="base-table">
-        <h1>base-table</h1>
         <CodeCard title="base-table" :code="code">
             <basic-table
                 v-model:page="page"
@@ -79,7 +78,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $ref<RowData[]>(Array.from({ length: 5 }).map((_, i) => {
+const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,
@@ -140,7 +139,7 @@ const code = `
 
 <script setup lang="ts">
 import BasicTable, { type Behavior } from "@/components/BasicTable";
-import { h } from "vue";
+import { h, ref } from "vue";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 import { useFeedBack } from "@/hooks";
 
@@ -157,9 +156,9 @@ type RowData = {
 
 const message = useFeedBack("message");
 
-const page = $ref(0);
-const size = $ref(10);
-const total = $ref(1000);
+const page = ref(0);
+const size = ref(10);
+const total = ref(1000);
 
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
@@ -195,7 +194,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $ref<RowData[]>(Array.from({ length: 5 }).map((_, i) => {
+const data = ref<RowData[]>(Array.from({ length: size.value }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,

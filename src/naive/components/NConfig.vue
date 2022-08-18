@@ -4,9 +4,9 @@
             <n-dialog-provider>
                 <n-message-provider>
                     <n-notification-provider>
-                        <n-freeback>
+                        <n-feedback>
                             <slot />
-                        </n-freeback>
+                        </n-feedback>
                     </n-notification-provider>
                 </n-message-provider>
             </n-dialog-provider>
@@ -19,7 +19,7 @@
 import { darkTheme, lightTheme } from "naive-ui";
 import { localeMap, dateLocaleMap } from "@/locales";
 import { createHoverColor, createPressedColor } from "@/util/color";
-import NFreeback from "./NFreeback.vue";
+import NFeedback from "./NFeedback.vue";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import xml from "highlight.js/lib/languages/xml";
