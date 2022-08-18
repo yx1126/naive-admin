@@ -30,6 +30,8 @@
                     :columns="columns"
                     :data="data"
                     :scroll-x="1800"
+                    :default-show-index="false"
+                    :default-show-check="false"
                     max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px - 90px)"
                     @page-change="onPageChange"
                 />

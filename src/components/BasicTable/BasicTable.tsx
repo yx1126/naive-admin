@@ -16,7 +16,7 @@ import type { PropType } from "vue";
 import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, NEmpty, type DataTableColumns, type DropdownOption } from "naive-ui";
 import useTableColumns from "./hooks/useTableColumns";
 import { BasicTableSymbol, type TableColumn, type Behavior, type TableSize } from "./index";
-import { isBoolean, isUndefined } from "@/util/validata";
+import { isBoolean, isString, isUndefined } from "@/util/validata";
 import "./BasicTable.scss";
 
 export default defineComponent({
@@ -26,13 +26,14 @@ export default defineComponent({
         showToolbar: { type: Boolean, default: true },
         behavior: { type: Boolean, default: true },
         columns: { type: Array as PropType<DataTableColumns<any>>, default: void 0 },
-        showIndex: { type: Boolean, default: false },
         pagination: { type: Boolean, default: true },
         page: { type: Number, default: 1 },
         size: { type: Number, default: 10 },
         total: { type: Number, default: 0 },
         loading: { type: Boolean, default: void 0 },
         injectkey: { type: [String, Symbol], default: void 0 },
+        defaultShowCheck: { type: [Boolean, String] as PropType<boolean | "left" | "right">, default: false },
+        defaultShowIndex: { type: [Boolean, String] as PropType<boolean | "left" | "right">, default: false },
     },
     emits: ["update:page", "update:size", "page-change", "behavior", "refresh"],
     setup(props, { emit }) {
@@ -46,8 +47,8 @@ export default defineComponent({
         const paginationRef = ref<InstanceType<typeof Pagination> | null>(null);
         const dataTableRef = ref<InstanceType<typeof NDataTable> | null>(null);
         const tableSize = ref<TableSize>("medium");
-        const isShowIndex = ref(props.showIndex);
-        const isShowCheck = ref(false);
+        const isShowIndex = ref(!!props.defaultShowIndex);
+        const isShowCheck = ref(!!props.defaultShowCheck);
         const isShowStriped = ref(false);
         const loadInject = inject(isUndefined(props.injectkey) ? BasicTableSymbol : props.injectkey, { loading: false });
 
@@ -69,12 +70,12 @@ export default defineComponent({
         });
         const columnsList = computed(() => {
             const data = (columns.value || []).filter(c => !c.hidden);
-            const fixed = (props.columns || []).some(c => c.fixed === "left") ? "left" : false;
+            const hasLeftFixed = (props.columns || []).some(c => c.fixed === "left");
             const columnIndex = props.pagination && props.page > 0 ? (props.page - 1) * props.size : 0;
             if(isShowCheck.value) {
                 data.unshift({
                     type: "selection",
-                    fixed,
+                    fixed: props.defaultShowIndex === "left" ? "left" : hasLeftFixed ? "left" : isString(props.defaultShowCheck) ? props.defaultShowCheck : false,
                 } as TableColumn);
             }
             if(isShowIndex.value) {
@@ -82,7 +83,7 @@ export default defineComponent({
                     title: "序号",
                     key: "index",
                     align: "center",
-                    fixed,
+                    fixed: hasLeftFixed ? "left" : isString(props.defaultShowIndex) ? props.defaultShowIndex : false,
                     width: 80,
                     render: (_: any, rowIndex: number) => {
                         return h("span", columnIndex + rowIndex + 1);
@@ -107,8 +108,8 @@ export default defineComponent({
             }
         }
         function onResetSet() {
-            isShowIndex.value = props.showIndex;
-            isShowCheck.value = false;
+            isShowIndex.value = !!props.defaultShowIndex;
+            isShowCheck.value = !!props.defaultShowCheck;
             reset();
         }
         function onUpdateChecked({ checked, index }: { checked: boolean; index: number }) {

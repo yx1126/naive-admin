@@ -5,7 +5,7 @@ import type { ResolveArray } from "@/types/util";
 import type { InjectionKey } from "vue";
 
 
-export const BasicTableSymbol = Symbol("BasicTable") as InjectionKey<{ loading: boolean }>;
+const BasicTableSymbol = Symbol("BasicTable") as InjectionKey<{ loading: boolean }>;
 
 export type TableColumn = ResolveArray<DataTableColumns<any>> & { hidden?: boolean };
 
@@ -23,6 +23,7 @@ export interface Column {
 
 export {
     useTable,
+    BasicTableSymbol,
 };
 
 export default BasicTable;
