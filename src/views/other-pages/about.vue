@@ -4,6 +4,14 @@
             <n-gi>
                 <n-card title="生产环境依赖">
                     <n-descriptions label-placement="left" :column="3" bordered>
+                        <n-descriptions-item label="@milkdown/core">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/plugin-menu">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/plugin-tooltip">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/preset-commonmark">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/preset-gfm">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/prose">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/theme-nord">^6.3.2</n-descriptions-item>
+                        <n-descriptions-item label="@milkdown/utils">^6.3.2</n-descriptions-item>
                         <n-descriptions-item label="@wangeditor/editor">^5.1.12</n-descriptions-item>
                         <n-descriptions-item label="@wangeditor/editor-for-vue">^5.1.12</n-descriptions-item>
                         <n-descriptions-item label="axios">^0.26.1</n-descriptions-item>
