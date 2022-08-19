@@ -21,11 +21,13 @@
                 <Icon :size="18" @click="set.toggleDrawer"><SettingOutlined /></Icon>
             </div>
         </div>
+        <UpdatePwd v-model:show="showPwdModal" />
     </div>
 </template>
 
 <script setup lang="ts">
 import Search from "./Search.vue";
+import UpdatePwd from "./UpdatePwd.vue";
 import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from "@vicons/antd";
 import { renderIcon } from "@/naive";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
@@ -36,8 +38,12 @@ const router = useRouter();
 const dialog = useFeedBack("dialog");
 const message = useFeedBack("message");
 
+let showPwdModal = $ref(false);
+
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
     { label: "个人设置", key: "set", icon: renderIcon(UserOutlined) },
+    { label: "修改密码", key: "update-pwd", icon: renderIcon("password") },
+    { type: "divider" },
     { label: "退出登录", key: "logout", icon: renderIcon(LogoutOutlined) },
 ];
 
@@ -46,6 +52,9 @@ async function handleSelect(key: string, option: DropdownOption) {
     switch (key) {
         case "set":
             router.push("/person");
+            break;
+        case "update-pwd":
+            showPwdModal = true;
             break;
         case "logout":
             dialog.warning({
