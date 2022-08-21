@@ -1,5 +1,5 @@
 <template>
-    <n-modal style="width: 500px;" title="修改密码" preset="card">
+    <n-modal style="width: 500px;" title="修改密码" preset="card" @after-leave="onReset">
         <basic-form ref="userFormRef" class="update-pwd-form" :model="model" :rules="rules" label-width="auto">
             <n-form-item label="旧密码：" path="password">
                 <n-input v-model:value="model.password" type="password" show-password-on="mousedown" placeholder="请输入旧密码" clearable />
@@ -12,8 +12,8 @@
             </n-form-item>
             <n-form-item label=" ">
                 <n-space>
-                    <n-button type="primary">提 交</n-button>
-                    <n-button @click="formRef.resetFields">重 置</n-button>
+                    <n-button type="primary" @click="submit">提 交</n-button>
+                    <n-button @click="onReset">重 置</n-button>
                 </n-space>
             </n-form-item>
         </basic-form>
@@ -22,11 +22,13 @@
 
 <script setup lang="ts">
 import BasicForm, { useForm, type BasicFormInstance, type FormRules } from "@/components/BasicForm";
+import type { FormItemRule } from "naive-ui";
 
 defineOptions({
     name: "UpdatePwd",
-    // inheritAttrs: false,
 });
+
+const message = useFeedBack("message");
 
 const userFormRef = ref<BasicFormInstance>(null);
 
@@ -41,11 +43,20 @@ const rules: FormRules = {
         trigger: "blur",
         message: "请输入新密码",
     },
-    confirmPwd: {
-        required: true,
-        trigger: "blur",
-        message: "请再次输入新密码",
-    },
+    confirmPwd: [
+        {
+            required: true,
+            trigger: ["input", "blur"],
+            message: "请再次输入新密码",
+        },
+        {
+            trigger: ["input", "blur"],
+            message: "两次密码输入不一致",
+            validator(rule: FormItemRule, value: string) {
+                return value === model.newPwd;
+            },
+        },
+    ],
 };
 
 const { model, formRef } = useForm(userFormRef, () => ({
@@ -53,6 +64,17 @@ const { model, formRef } = useForm(userFormRef, () => ({
     newPwd: "",
     confirmPwd: "",
 }));
+
+function submit() {
+    formRef.value.validate((errors) => {
+        if(errors) return;
+        message.success("验证成功");
+    });
+}
+
+function onReset() {
+    formRef.value.resetFields();
+}
 
 </script>
 

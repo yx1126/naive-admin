@@ -5,7 +5,12 @@ import type { ResolveArray } from "@/types/util";
 import type { InjectionKey } from "vue";
 
 
-const BasicTableSymbol = Symbol("BasicTable") as InjectionKey<{ loading: boolean }>;
+const BasicTableSymbol = Symbol("BasicTable") as InjectionKey<TablePrivide>;
+
+interface TablePrivide {
+    loading: boolean;
+    size: "small" | "medium" | "large";
+}
 
 export type TableColumn = ResolveArray<DataTableColumns<any>> & { hidden?: boolean };
 
@@ -24,6 +29,7 @@ export interface Column {
 export {
     useTable,
     BasicTableSymbol,
+    type TablePrivide,
 };
 
 export default BasicTable;

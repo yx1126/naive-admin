@@ -75,6 +75,6 @@ export function isFunction<T = () => void>(value: any): value is T {
 
 export function isMobile() {
     const userAgentInfo = navigator.userAgent,
-          phoneList = ["Android", "iPhone", "Windows Phone", "SymbianOS", "iPad", "iPod", "BlackBerry", "MeeGo", "HarmonyOS"];
+        phoneList = ["Android", "iPhone", "Windows Phone", "SymbianOS", "iPad", "iPod", "BlackBerry", "MeeGo", "HarmonyOS"];
     return phoneList.some(item => userAgentInfo.includes(item));
 }

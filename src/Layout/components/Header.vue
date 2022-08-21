@@ -41,7 +41,7 @@ const message = useFeedBack("message");
 let showPwdModal = $ref(false);
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
-    { label: "个人设置", key: "set", icon: renderIcon(UserOutlined) },
+    { label: "个人中心", key: "set", icon: renderIcon(UserOutlined) },
     { label: "修改密码", key: "update-pwd", icon: renderIcon("password") },
     { type: "divider" },
     { label: "退出登录", key: "logout", icon: renderIcon(LogoutOutlined) },

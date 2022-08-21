@@ -1,4 +1,4 @@
-import type {  MayBeRef } from "@/types/util";
+import type { MayBeRef } from "@/types/util";
 import { isString } from "../validata";
 
 export function getParentNode(node: HTMLElement, level = 1) {

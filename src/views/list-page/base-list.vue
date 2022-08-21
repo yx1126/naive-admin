@@ -34,6 +34,7 @@
                     :default-show-check="false"
                     max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px - 90px)"
                     @page-change="onPageChange"
+                    @behavior="onBehavior"
                 />
             </n-card>
         </n-space>
@@ -41,9 +42,10 @@
 </template>
 
 <script setup lang="ts">
-import BasicTable, { useTable, type BasicTableInstance } from "@/components/BasicTable";
+import BasicTable, { useTable, type BasicTableInstance, type Behavior } from "@/components/BasicTable";
 import BasicForm, { useForm, type BasicFormInstance } from "@/components/BasicForm";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
+import { exportExcel } from "@/util/export/excel";
 
 defineOptions({
     name: "BaseList",
@@ -58,7 +60,7 @@ const { model, formRef } = useForm(baseFormRef, () => ({
 }));
 
 const basicTableRef = $ref<BasicTableInstance>();
-const { loading } = useTable($$(basicTableRef));
+const { loading } = useTable($$(basicTableRef), { size: "medium" });
 
 
 type RowData = {
@@ -135,6 +137,21 @@ function search() {
 
 function onPageChange() {
     message.info("change");
+}
+
+function onBehavior(type: Behavior) {
+    if(type === "export") {
+        const multiHeader = [["Id", "Main Information", "", "", "Date"]];
+        const header = ["", "Title", "Author", "Readings"];
+        const filterVal = ["key", "name", "age", "address", "tags"];
+        const dataList = formatJson(filterVal, data);
+        const merges = ["A1:A2", "B1:D1", "E1:E2"];
+        exportExcel(header, dataList, "merge-header", multiHeader, merges);
+    }
+}
+
+function formatJson(filterVal: any, jsonData: any) {
+    return jsonData.map((v: any) => filterVal.map((j: any) => v[j]));
 }
 
 </script>

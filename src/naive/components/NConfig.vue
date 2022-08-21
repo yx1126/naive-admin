@@ -4,9 +4,8 @@
             <n-dialog-provider>
                 <n-message-provider>
                     <n-notification-provider>
-                        <n-feedback>
-                            <slot />
-                        </n-feedback>
+                        <slot />
+                        <n-feedback />
                     </n-notification-provider>
                 </n-message-provider>
             </n-dialog-provider>

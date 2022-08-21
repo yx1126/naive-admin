@@ -25,7 +25,7 @@ export default defineConfig({
             dirs: ["./src/hooks", "./src/stores/exports"],
             imports: ["vue", "vue-router", "vue-i18n", {
                 "vue": ["renderSlot", "mergeProps", "createVNode", "render"],
-             }],
+            }],
         }),
         Components({
             dts: true,

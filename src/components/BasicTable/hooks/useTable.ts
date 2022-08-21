@@ -1,15 +1,22 @@
 import type { DataTableFilterState } from "naive-ui";
 import type { Ref, InjectionKey } from "vue";
-import { BasicTableSymbol, type BasicTableInstance } from "../";
+import { BasicTableSymbol, type BasicTableInstance, type TablePrivide } from "../";
 
-export default function useTable(tableInstance: Ref<BasicTableInstance>, inject: InjectionKey<symbol | string> | symbol | string = BasicTableSymbol) {
+interface TableOptions {
+    inject?: InjectionKey<symbol | string | TablePrivide> | symbol | string;
+    size?: TablePrivide["size"];
+}
+
+export default function useTable(tableInstance: Ref<BasicTableInstance>, options?: TableOptions) {
     const tableRef = ref(tableInstance);
+    const { inject, size } = Object.assign({ inject: BasicTableSymbol, size: "medium" }, options || {});
 
-    const basicTableData = reactive({
+    const basicTableData = reactive<TablePrivide>({
         loading: false,
+        size: size,
     });
 
-    provide(inject, basicTableData as any);
+    provide(inject, basicTableData);
 
     function clearFilters() {
         tableRef.value?.dataTableRef?.clearFilters();

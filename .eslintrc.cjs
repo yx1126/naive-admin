@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 require("@rushstack/eslint-patch/modern-module-resolution");
+const { defineConfig } =  require("eslint-define-config");
 
-module.exports = {
+module.exports = defineConfig({
     root: true,
     extends: ["plugin:vue/vue3-essential", "eslint:recommended", "plugin:vue/vue3-recommended", "@vue/eslint-config-typescript/recommended"],
     env: {
@@ -13,7 +13,7 @@ module.exports = {
     parser: "vue-eslint-parser",
     parserOptions: {
         parser: "@typescript-eslint/parser",
-        ecmaVersion: "2020",
+        ecmaVersion: "latest",
         sourceType: "module",
         jsxPragma: "React",
         ecmaFeatures: {
@@ -22,6 +22,15 @@ module.exports = {
         },
     },
     plugins: ["vue", "@typescript-eslint"],
+    overrides: [
+        {
+            files: ["*.ts"],
+            rules: {
+                "indent": "off",
+                "@typescript-eslint/indent": ["error", 4],
+            },
+        },
+    ],
     rules: {
         "no-undef": "off",
         "vue/html-indent": ["error", 4],
@@ -107,4 +116,4 @@ module.exports = {
         $toRef: "readonly",
         defineOptions: "readonly",
     },
-};
+});

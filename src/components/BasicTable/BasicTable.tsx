@@ -15,7 +15,7 @@ import Icon from "../Icon";
 import type { PropType } from "vue";
 import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, NEmpty, type DataTableColumns, type DropdownOption } from "naive-ui";
 import useTableColumns from "./hooks/useTableColumns";
-import { BasicTableSymbol, type TableColumn, type Behavior, type TableSize } from "./index";
+import { BasicTableSymbol, type TablePrivide, type TableColumn, type Behavior, type TableSize } from "./index";
 import { isBoolean, isString, isUndefined } from "@/util/validata";
 import "./BasicTable.scss";
 
@@ -41,18 +41,19 @@ export default defineComponent({
         const { columns, reset } = useTableColumns(props.columns);
         const set = useSetStore();
 
+        const tableInject: TablePrivide = inject(isUndefined(props.injectkey) ? BasicTableSymbol : props.injectkey, { loading: false, size: "medium" });
+
         const basicTableWrapperRef = ref<HTMLDivElement | undefined>();
         const { isFullScreen, toggle } = useFullscreen(basicTableWrapperRef);
 
         const paginationRef = ref<InstanceType<typeof Pagination> | null>(null);
         const dataTableRef = ref<InstanceType<typeof NDataTable> | null>(null);
-        const tableSize = ref<TableSize>("medium");
+        const tableSize = ref<TableSize>(tableInject.size);
         const isShowIndex = ref(!!props.defaultShowIndex);
         const isShowCheck = ref(!!props.defaultShowCheck);
         const isShowStriped = ref(false);
-        const loadInject = inject(isUndefined(props.injectkey) ? BasicTableSymbol : props.injectkey, { loading: false });
 
-        const baseLoading = computed(() => isBoolean(props.loading) ? props.loading : loadInject.loading);
+        const baseLoading = computed(() => isBoolean(props.loading) ? props.loading : tableInject.loading);
 
         const isCheckAll = computed(() => (columns.value ? columns.value?.every(column => !(column as any).hidden) : false));
         const basicTableStyle = computed(() => {
@@ -233,7 +234,14 @@ export default defineComponent({
             <div class="basic-table-wrapper" ref="basicTableWrapperRef" style={this.basicTableStyle}>
                 {this.showToolbar ? ToolBar : null}
                 <div class="basic-table">
-                    <NDataTable ref="dataTableRef" {...mergeProps(this.attrs)} columns={this.columnsList as any} size={this.tableSize} striped={this.isShowStriped} loading={this.baseLoading}>
+                    <NDataTable
+                        ref="dataTableRef"
+                        {...mergeProps(this.attrs)}
+                        columns={this.columnsList as any}
+                        size={this.tableSize}
+                        striped={this.isShowStriped}
+                        loading={this.baseLoading}
+                    >
                         {{ empty: () => renderSlot(this.$slots, "empty") }}
                     </NDataTable>
                 </div>
