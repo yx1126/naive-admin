@@ -71,7 +71,7 @@
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.lang") }}</n-ellipsis>
-                    <n-select v-model:value="set.lang" class="divider-content-item__input" :options="lang" size="small" @update:value="changeLang" />
+                    <n-select v-model:value="set.lang" class="divider-content-item__input" :options="lang" size="small" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ $t("set.menuTrigger") }}</n-ellipsis>
@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import useSetStore, { navTheme, layoutMode, routerTransOptions, menuTriggerOptions } from "@/stores/setting";
 import Drawer from "@/components/Drawer";
-import { lang, type Lang } from "@/locales";
+import { lang } from "@/locales";
 import NavMode from "./NavMode.vue";
 
 const { locale } = useI18n();
@@ -105,9 +105,9 @@ const toggleDrawer = computed({
     set: set.toggleDrawer,
 });
 
-function changeLang(e: Lang) {
-    locale.value = e;
-}
+watch(() => set.lang, (value) => {
+    locale.value = value;
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 {
     "set": {
-        "isCutMenu": "分割菜单",
+        "isCutMenu": "Split the menu",
         "isKeepHeader": "Fixed the top bar",
         "isKeepTags": "Fixed Tabs",
         "isShowBreadcrumb": "Show Breadcrumb",
