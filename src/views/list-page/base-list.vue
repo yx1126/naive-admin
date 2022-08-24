@@ -141,17 +141,22 @@ function onPageChange() {
 
 function onBehavior(type: Behavior) {
     if(type === "export") {
-        const multiHeader = [["Id", "Main Information", "", "", "Date"]];
-        const header = ["", "Title", "Author", "Readings"];
+        const header = [
+            { label: "Id" },
+            {
+                label: "Main Information",
+                children: [
+                    { label: "Title" },
+                    { label: "Author" },
+                    { label: "Readings" },
+                ],
+            },
+            { label: "Date" },
+        ];
         const filterVal = ["key", "name", "age", "address", "tags"];
-        const dataList = formatJson(filterVal, data);
         const merges = ["A1:A2", "B1:D1", "E1:E2"];
-        exportExcel(header, dataList, "merge-header", multiHeader, merges);
+        exportExcel(header, data, filterVal, merges);
     }
-}
-
-function formatJson(filterVal: any, jsonData: any) {
-    return jsonData.map((v: any) => filterVal.map((j: any) => v[j]));
 }
 
 </script>

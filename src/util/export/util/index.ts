@@ -124,3 +124,84 @@ export const s2ab = (s: string) => {
     }
     return buf;
 };
+
+function getTreeLastNodeSum(list: Record<string, any>[], childrenField = "children") {
+    if(!Array.isArray(list)) return 0;
+    const result: number[] = [];
+    function start(data: Record<string, any>[]) {
+        const [hasChilds, noChilds] = data.reduce<Record<string, any>[][]>((pre, cur) => {
+            if(cur[childrenField] && cur[childrenField].length > 0) {
+                pre[0].push(cur);
+            } else {
+                pre[1].push(cur);
+            }
+            return pre;
+        }, [[], []]);
+        result.push(noChilds.length);
+        hasChilds.forEach(item => {
+            start(item.children);
+        });
+    }
+    start(list);
+    return result.reduce((pre, cur) => pre + cur, 0);
+}
+
+function getDeepInsertId(list: Record<string, any>[], childrenField = "children") {
+    let deep = 1;
+    const newList = JSON.parse(JSON.stringify(list));
+    const flatResult: Record<string, any>[] = [];
+    function start(data: Record<string, any>[], level = 1, parentlist: number[] = [], parentId: string | undefined = void 0) {
+        if(level > deep) deep = level;
+        return data.map((d, i) => {
+            const id = [...parentlist, i].join("-");
+            const rootId = parentlist.length > 0 ? parentlist[0] : void 0;
+            const item = {
+                ...d,
+                level,
+                excel_id: id,
+                excel_parentId: parentId,
+                excel_rootId: rootId !== void 0 ? String(rootId) : rootId,
+            };
+            flatResult.push(item);
+            if(Array.isArray(d[childrenField]) && d[childrenField].length > 0) {
+                d[childrenField] = start(d[childrenField], level + 1, [...parentlist, i], id);
+            }
+            return item;
+        });
+    }
+    const result = start(newList);
+    return { deep, result, flatResult };
+}
+
+export function formatHeader(headers: any[], options?: { key: string; children: string }) {
+    const EXCEL_MERGE = "";
+    if(!Array.isArray(headers)) return [];
+    const { key, children } = Object.assign({ key: "label", children: "children" }, options);
+    const childNodes = headers.map(item => getTreeLastNodeSum(item[children], children));
+    const { deep, flatResult, result: deepResult } = getDeepInsertId(headers);
+    const result: string[][] = Array.from({ length: deep }).map(() => []);
+    result.forEach((r, ri) => {
+        const levelList = flatResult.filter(item => item.level === ri + 1);
+        const rootTypeLits = deepResult.map(dr => {
+            if(ri === 0) return [dr];
+            const value = levelList.filter(item => item.excel_rootId === dr.excel_id);
+            return value.length > 0 ? value : [{ [key]: EXCEL_MERGE }];
+        });
+        const labels = rootTypeLits.reduce<string[]>((pre, cur, i) => {
+            const curLabels = cur.map(c => {
+                const length = c[children] && c[children].length > 0 ? c[children].length - 1 : 0;
+                return [c[key], ...Array.from({ length }).map(() => EXCEL_MERGE)];
+            }).flat(Infinity);
+            const poor = childNodes[i] - curLabels.length;
+            const poorList = Array.from({ length: poor > 0 ? poor : 0 }).map(() => EXCEL_MERGE);
+            pre.push(...curLabels, ...poorList);
+            return pre;
+        }, []);
+        r.push(...labels);
+    });
+    return result;
+}
+
+export function formatJson(filterVal: string[], jsonData: any[]) {
+    return jsonData.map((v: any) => filterVal.map((j: any) => v[j]));
+}

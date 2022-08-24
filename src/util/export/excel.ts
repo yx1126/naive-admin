@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import { generateArray, Workbook, sheetFromDataArray, s2ab } from "./util";
+import { generateArray, Workbook, sheetFromDataArray, s2ab, formatHeader, formatJson } from "./util";
 
 
 export const exportTable2Excel = (id: string) => {
@@ -102,12 +102,26 @@ export const exportJson2Excel = (header: string[], data: any, filename = "excel-
     }), `${filename}.${bookType}`);
 };
 
-export const exportExcel = (header: string[], data: any[], filename = "excel-list", multiHeader: string[][] = [], merges: any[] = [], autoWidth = true, bookType = "xlsx") => {
-    data = [...data];
-    data.unshift(header);
-    for(let i = multiHeader.length - 1; i > -1; i--) {
-        data.unshift(multiHeader[i]);
-    }
+
+interface ExportExcelOptions {
+    filename?: string;
+    autoWidth?: boolean;
+    bookType?: string;
+    key?: string;
+    children?: string;
+}
+
+export function exportExcel(header: Record<string, any>[], data: any[], filters: string[], merges: any[] = [], options?: ExportExcelOptions) {
+    const { filename, autoWidth, bookType, key, children  } = Object.assign({
+        filename: String(new Date().getTime()),
+        autoWidth: true,
+        bookType: "xlsx",
+        key: "label",
+        children: "children",
+    }, options || {});
+    const headers = formatHeader(header, { key, children });
+    data = [...formatJson(filters, data)];
+    data.unshift(...headers);
 
     const wsName = "SheetJS";
     const wb = new Workbook();
@@ -166,4 +180,4 @@ export const exportExcel = (header: string[], data: any[], filename = "excel-lis
     saveAs(new Blob([s2ab(wbout)], {
         type: "application/octet-stream",
     }), `${filename}.${bookType}`);
-};
+}

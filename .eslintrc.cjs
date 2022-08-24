@@ -4,7 +4,6 @@ const { defineConfig } =  require("eslint-define-config");
 
 module.exports = defineConfig({
     root: true,
-    extends: ["plugin:vue/vue3-essential", "eslint:recommended", "plugin:vue/vue3-recommended", "@vue/eslint-config-typescript/recommended"],
     env: {
         browser: true,
         node: true,
@@ -21,6 +20,12 @@ module.exports = defineConfig({
             tsx: true,
         },
     },
+    extends: [
+        "plugin:vue/vue3-essential",
+        "eslint:recommended",
+        "plugin:vue/vue3-recommended",
+        "@vue/eslint-config-typescript/recommended",
+    ],
     plugins: ["vue", "@typescript-eslint"],
     overrides: [
         {
