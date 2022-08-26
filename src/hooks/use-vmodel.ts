@@ -1,6 +1,6 @@
 
 export default <P extends object, K extends keyof P>(props: P, key?: K) => {
-    const app = useApp();
+    const instance = useInstance();
     key = key ? key : ("modelValue" as K);
     const event = `update:${key.toString()}`;
 
@@ -9,7 +9,7 @@ export default <P extends object, K extends keyof P>(props: P, key?: K) => {
             return props[key!];
         },
         set(...args) {
-            app.emit(event, ...args);
+            instance.emit(event, ...args);
         },
     });
 };

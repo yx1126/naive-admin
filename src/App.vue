@@ -12,10 +12,10 @@ import Layout from "@/Layout/index.vue";
 import { NConfig } from "@/naive";
 
 const user = useUserStore();
-const app = useApp();
+const instance = useInstance();
 
 onBeforeMount(() => {
-    console.log(app);
+    console.log(instance);
     user.initMenu();
 });
 

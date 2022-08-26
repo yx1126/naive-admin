@@ -1,32 +1,20 @@
 <template>
     <div class="base-table">
-        <n-space vertical>
-            <CodeCard title="base-table" :code="code">
-                <basic-table
-                    v-model:page="page"
-                    v-model:size="size"
-                    :total="total"
-                    :single-line="false"
-                    :columns="columns"
-                    :data="data"
-                    :max-height="200"
-                    :scroll-x="1800"
-                    @page-change="onPageChange"
-                    @behavior="onBehavior"
-                    @refresh="onRefresh"
-                />
-            </CodeCard>
-            <n-card>
-                <n-table-custom>
-                    <div>name</div>
-                    <n-table-column key="name" title="Name">
-                        <div>name</div>
-                    </n-table-column>
-                    <n-table-column key="age" title="Age" />
-                    <n-table-column key="address" title="Address" />
-                </n-table-custom>
-            </n-card>
-        </n-space>
+        <CodeCard title="base-table" :code="code">
+            <basic-table
+                v-model:page="page"
+                v-model:size="size"
+                :total="total"
+                :single-line="false"
+                :columns="columns"
+                :data="data"
+                :max-height="200"
+                :scroll-x="1800"
+                @page-change="onPageChange"
+                @behavior="onBehavior"
+                @refresh="onRefresh"
+            />
+        </CodeCard>
     </div>
 </template>
 
@@ -34,7 +22,6 @@
 import CodeCard from "@/components/CodeCard";
 import BasicTable, { type Behavior } from "@/components/BasicTable";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
-import NTableCustom, { NTableColumn } from "@/components/NTableCustom";
 
 type RowData = {
     key: number;
