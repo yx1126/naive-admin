@@ -68,7 +68,7 @@ declare global {
   const useThrottle: typeof import('./src/hooks/use-throttle')['default']
   const useTitle: typeof import('./src/hooks/use-title')['default']
   const useUserStore: typeof import('./src/stores/exports/index')['useUserStore']
-  const useVModel: typeof import('./src/hooks/use-vModel')['default']
+  const useVmodel: typeof import('./src/hooks/use-vmodel')['default']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']

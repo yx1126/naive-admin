@@ -6,6 +6,7 @@
         </div>
         <div class="header-right">
             <div class="header-trigger"><Search /></div>
+            <div class="header-trigger"><MessageBell /></div>
             <div class="header-trigger">
                 <Icon :size="18" @click="toggle">
                     <component :is="isFullScreen ? FullscreenExitOutlined : FullscreenOutlined" />
@@ -28,6 +29,7 @@
 <script setup lang="ts">
 import Search from "./Search.vue";
 import UpdatePwd from "./UpdatePwd.vue";
+import MessageBell from "./MessageBell.vue";
 import { FullscreenOutlined, FullscreenExitOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from "@vicons/antd";
 import { renderIcon } from "@/naive";
 import type { DropdownOption, DropdownDividerOption } from "naive-ui";
