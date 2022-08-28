@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CodeCard: typeof import('./src/components/CodeCard/CodeCard.vue')['default']
     Drawer: typeof import('./src/components/Drawer/Drawer.vue')['default']
+    Echarts: typeof import('./src/components/Echarts/Echarts.vue')['default']
     Icon: typeof import('./src/components/Icon/Icon.vue')['default']
     IconSelect: typeof import('./src/components/IconSelect/IconSelect.vue')['default']
     Message: typeof import('./src/components/Message/Message.vue')['default']
@@ -59,6 +60,7 @@ declare module 'vue' {
     NWatermark: typeof import('naive-ui')['NWatermark']
     Pagination: typeof import('./src/components/Pagination/Pagination.vue')['default']
     SimplePagination: typeof import('./src/components/Pagination/SimplePagination.vue')['default']
+    SvgEcharts: typeof import('./src/components/Echarts/SvgEcharts.vue')['default']
     SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
     TableSet: typeof import('./src/components/BasicTable/components/TableSet.vue')['default']
     TransRouterView: typeof import('./src/components/TransRouterView/TransRouterView.vue')['default']
