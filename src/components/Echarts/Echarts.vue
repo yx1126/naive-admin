@@ -13,16 +13,25 @@ const props = withDefaults(
     defineProps<{
         options: EChartsCoreOption;
         svgRender?: boolean;
+        dark?: boolean;
     }>(),
     {
         svgRender: false,
+        dark: false,
     },
 );
 
-const echartsRef = $ref<HTMLDivElement | null>(null);
-let echarts = $shallowRef<EchartsInstance>();
-
 const set = useSetStore();
+
+const echartsRef = $ref<HTMLDivElement | null>(null);
+let echarts = $shallowRef<EchartsInstance | null>(null);
+
+const defaultOptions = $computed(() => {
+    return {
+        backgroundColor: props.dark ? void 0 : "transparent",
+        ...props.options,
+    };
+});
 
 watch(() => set.collapsed, () => {
     setTimeout(() => {
@@ -32,17 +41,21 @@ watch(() => set.collapsed, () => {
 
 watch(
     () => props.options,
-    val => {
-        echarts.setOption(val);
+    options => {
+        echarts?.setOption(options);
     },
     {
         deep: true,
     },
 );
 
+watch([() => props.svgRender, () => props.dark, () => set.navMode], () => {
+    if(props.dark) return;
+    init();
+});
+
 onMounted(() => {
-    echarts = Echarts.init(echartsRef!, void 0, { renderer: props.svgRender ? "svg" : "canvas" });
-    echarts.setOption(props.options);
+    init();
     on(window, "resize", resize);
 });
 
@@ -57,18 +70,27 @@ defineExpose({
     instance: $$(echarts),
 });
 
+function init() {
+    if(echarts) echarts.dispose();
+    echarts = Echarts.init(echartsRef!, props.dark ? "dark" : set.navMode === "diablo" ? "dark" : void 0, {
+        renderer: props.svgRender ? "svg" : "canvas",
+    });
+    echarts.setOption(defaultOptions);
+    console.log(echarts);
+}
+
 function refresh() {
     clear();
     resize();
-    echarts.setOption(props.options);
+    echarts?.setOption(defaultOptions);
 }
 
 function resize() {
-    echarts.resize();
+    echarts?.resize();
 }
 
 function clear() {
-    echarts.clear();
+    echarts?.clear();
 }
 
 </script>

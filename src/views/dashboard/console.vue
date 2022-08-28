@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import Echarts from "@/components/Echarts/Echarts.vue";
+import Echarts from "@/components/Echarts";
 import { lineOptions } from "./echarts";
 
 defineOptions({
