@@ -196,7 +196,7 @@ export const pieOptions = {
                 { value: 59, name: "Forecasts" },
             ],
             animationEasing: "cubicInOut",
-            animationDuration: 2600,
+            animationDuration: 1000,
         },
     ],
 };
@@ -234,20 +234,20 @@ export const barOptions = {
         stack: "vistors",
         barWidth: "60%",
         data: [79, 52, 200, 334, 390, 330, 220],
-        animationDuration: 6000,
+        animationDuration: 1000,
     }, {
         name: "pageB",
         type: "bar",
         stack: "vistors",
         barWidth: "60%",
         data: [80, 52, 200, 334, 390, 330, 220],
-        animationDuration: 6000,
+        animationDuration: 1000,
     }, {
         name: "pageC",
         type: "bar",
         stack: "vistors",
         barWidth: "60%",
         data: [30, 52, 200, 334, 390, 330, 220],
-        animationDuration: 6000,
+        animationDuration: 1000,
     }],
 };
