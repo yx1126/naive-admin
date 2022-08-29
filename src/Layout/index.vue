@@ -85,6 +85,9 @@ function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAs
     .layout-header {
         height: var(--layoyt-header-height);
     }
+    .layout-tags {
+        height: var(--layoyt-tags-height);
+    }
     .layout-container {
         width: 100%;
         padding: 10px;
