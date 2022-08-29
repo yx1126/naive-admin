@@ -1,5 +1,5 @@
 import type { PropType } from "vue";
-import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption } from "naive-ui";
+import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption, type MenuGroupOption } from "naive-ui";
 import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";
 import Tags from "../components/Tags.vue";
@@ -48,6 +48,7 @@ export default defineComponent({
         const themeVars = useThemeVars();
 
         const isCollapsed = ref(false);
+        const mouseEnterValue = ref("");
 
         const defaultInverted = computed(() => ["dark"].includes(set.navMode));
         const isShowTabs = computed(() => set.isShowTabs);
@@ -56,7 +57,12 @@ export default defineComponent({
         });
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
         const menuChildrensOptions = computed<MenuOption[]>(() => {
-            return props.menuOptions.find(m => m.path === defaultValue.value)?.children || [];
+            return props.menuOptions.find(m => {
+                if(mouseEnterValue.value) {
+                    return m.path === mouseEnterValue.value;
+                }
+                return m.path === defaultValue.value;
+            })?.children || [];
         });
         const layoutWrapperStyle = computed(() => {
             return {
@@ -68,7 +74,7 @@ export default defineComponent({
             () => route.fullPath,
             () => {
                 if(route.fullPath.startsWith("/redirect")) return;
-                isCollapsed.value = menuChildrensOptions.value.length <= 0;
+                setCollapsed();
             },
             {
                 immediate: true,
@@ -77,6 +83,33 @@ export default defineComponent({
 
         function onUpdateCollapsed() {
             emit("update:collapsed", !props.collapsed);
+        }
+
+        function nodeProps(option: MenuOption | MenuGroupOption) {
+            return {
+                onmouseenter: () => {
+                    if(option.isLink) {
+                        onClearEnterValue();
+                        return;
+                    }
+                    mouseEnterValue.value = option.path as string;
+                    setCollapsed();
+                },
+                onmouseleave: () => {
+                    if(menuChildrensOptions.value.length <= 0) {
+                        onClearEnterValue();
+                    }
+                },
+            };
+        }
+
+        function onClearEnterValue() {
+            mouseEnterValue.value = "";
+            setCollapsed();
+        }
+
+        function setCollapsed() {
+            isCollapsed.value = menuChildrensOptions.value.length <= 0;
         }
 
         return {
@@ -89,6 +122,8 @@ export default defineComponent({
             isCollapsed,
             onUpdateCollapsed,
             themeVars,
+            nodeProps,
+            onClearEnterValue,
         };
     },
     render() {
@@ -124,13 +159,15 @@ export default defineComponent({
                         show-trigger={isShowTrigger}
                         onUpdate:collapsed={this.onUpdateCollapsed}
                     >
-                        <Logo collapsed={this.collapsed} width="auto" height={LayoutConfig.headerHeight} indent={10} />
+                        <Logo collapsed={this.collapsed} width="auto" height={LayoutConfig.headerHeight} indent={10} onmouseenter={this.onClearEnterValue} />
                         <Menu
+                            style="--n-item-height: 36px;"
                             options={this.menuOptions}
                             value={this.defaultValue}
                             root-indent={10}
                             collapsed-icon-size={20}
                             children-field="noChild"
+                            node-props={this.nodeProps}
                         />
                     </NLayoutSider>
                     <Collapse
@@ -160,6 +197,7 @@ export default defineComponent({
                                 trigger-style={isArrowCircle ? arrowCircleTriggerStyle : ""}
                                 show-trigger={isArrowCircle ? (this.isCollapsed ? false : "arrow-circle") : false}
                                 onUpdate:collapsed={this.onUpdateCollapsed}
+                                onmouseleave={this.onClearEnterValue}
                             >
                                 <Menu collapsed={false} inverted={false} options={this.menuChildrensOptions} indent={15} />
                             </NLayoutSider>

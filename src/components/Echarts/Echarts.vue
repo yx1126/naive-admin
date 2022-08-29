@@ -33,7 +33,7 @@ const defaultOptions = $computed(() => {
     };
 });
 
-watch(() => set.collapsed, () => {
+watch([() => set.collapsed, () => set.asideMixinCollapsed], () => {
     setTimeout(() => {
         refresh();
     }, 300);
@@ -55,7 +55,9 @@ watch([() => props.svgRender, () => props.dark, () => set.navMode], () => {
 });
 
 onMounted(() => {
-    init();
+    setTimeout(() => {
+        init();
+    }, 300);
     on(window, "resize", resize);
 });
 
@@ -76,7 +78,6 @@ function init() {
         renderer: props.svgRender ? "svg" : "canvas",
     });
     echarts.setOption(defaultOptions);
-    console.log(echarts);
 }
 
 function refresh() {
