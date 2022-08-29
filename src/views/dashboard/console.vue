@@ -17,7 +17,7 @@
             <n-gi :span="12">
                 <n-card>
                     <div class="echarts">
-                        <Echarts ref="echartsRef" :options="lineOptions" />
+                        <Echarts ref="echartsRef" :options="lineOptions2" />
                     </div>
                 </n-card>
             </n-gi>
@@ -42,13 +42,20 @@
                     </div>
                 </n-card>
             </n-gi>
+            <n-gi :span="12">
+                <n-card>
+                    <div class="echarts">
+                        <Echarts ref="echartsRef" :options="lineOptions" />
+                    </div>
+                </n-card>
+            </n-gi>
         </n-grid>
     </div>
 </template>
 
 <script setup lang="ts">
 import Echarts from "@/components/Echarts";
-import { lineOptions, gaugeOptions, pieOptions, barOptions } from "./echarts";
+import { lineOptions, gaugeOptions, pieOptions, barOptions, lineOptions2 } from "./echarts";
 
 defineOptions({
     name: "Console",
