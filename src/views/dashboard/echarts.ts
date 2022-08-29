@@ -60,3 +60,194 @@ export const lineOptions = {
         },
     ],
 };
+
+export const gaugeOptions = {
+    series: [
+        {
+            type: "gauge",
+            center: ["50%", "60%"],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 60,
+            splitNumber: 12,
+            itemStyle: {
+                color: "#FFAB91",
+            },
+            progress: {
+                show: true,
+                width: 30,
+            },
+            pointer: {
+                show: false,
+            },
+            axisLine: {
+                lineStyle: {
+                    width: 30,
+                },
+            },
+            axisTick: {
+                distance: -45,
+                splitNumber: 5,
+                lineStyle: {
+                    width: 2,
+                    color: "#999",
+                },
+            },
+            splitLine: {
+                distance: -52,
+                length: 14,
+                lineStyle: {
+                    width: 3,
+                    color: "#999",
+                },
+            },
+            axisLabel: {
+                distance: -20,
+                color: "#999",
+                fontSize: 20,
+            },
+            anchor: {
+                show: false,
+            },
+            title: {
+                show: false,
+            },
+            detail: {
+                valueAnimation: true,
+                width: "60%",
+                lineHeight: 40,
+                borderRadius: 8,
+                offsetCenter: [0, "-15%"],
+                fontSize: 60,
+                fontWeight: "bolder",
+                formatter: "{value} °C",
+                color: "inherit",
+            },
+            data: [
+                {
+                    value: 20,
+                },
+            ],
+        },
+        {
+            type: "gauge",
+            center: ["50%", "60%"],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 60,
+            itemStyle: {
+                color: "#FD7347",
+            },
+            progress: {
+                show: true,
+                width: 8,
+            },
+            pointer: {
+                show: false,
+            },
+            axisLine: {
+                show: false,
+            },
+            axisTick: {
+                show: false,
+            },
+            splitLine: {
+                show: false,
+            },
+            axisLabel: {
+                show: false,
+            },
+            detail: {
+                show: false,
+            },
+            data: [
+                {
+                    value: 20,
+                },
+            ],
+        },
+    ],
+};
+
+export const pieOptions = {
+    tooltip: {
+        trigger: "item",
+        formatter: "{a} <br/>{b} : {c} ({d}%)",
+    },
+    legend: {
+        left: "center",
+        bottom: "10",
+        data: ["Industries", "Technology", "Forex", "Gold", "Forecasts"],
+    },
+    series: [
+        {
+            name: "WEEKLY WRITE ARTICLES",
+            type: "pie",
+            roseType: "radius",
+            radius: [15, 95],
+            center: ["50%", "38%"],
+            data: [
+                { value: 320, name: "Industries" },
+                { value: 240, name: "Technology" },
+                { value: 149, name: "Forex" },
+                { value: 100, name: "Gold" },
+                { value: 59, name: "Forecasts" },
+            ],
+            animationEasing: "cubicInOut",
+            animationDuration: 2600,
+        },
+    ],
+};
+
+export const barOptions = {
+    tooltip: {
+        trigger: "axis",
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+        },
+    },
+    grid: {
+        top: 10,
+        left: "2%",
+        right: "2%",
+        bottom: "3%",
+        containLabel: true,
+    },
+    xAxis: [{
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        axisTick: {
+            alignWithLabel: true,
+        },
+    }],
+    yAxis: [{
+        type: "value",
+        axisTick: {
+            show: false,
+        },
+    }],
+    series: [{
+        name: "pageA",
+        type: "bar",
+        stack: "vistors",
+        barWidth: "60%",
+        data: [79, 52, 200, 334, 390, 330, 220],
+        animationDuration: 6000,
+    }, {
+        name: "pageB",
+        type: "bar",
+        stack: "vistors",
+        barWidth: "60%",
+        data: [80, 52, 200, 334, 390, 330, 220],
+        animationDuration: 6000,
+    }, {
+        name: "pageC",
+        type: "bar",
+        stack: "vistors",
+        barWidth: "60%",
+        data: [30, 52, 200, 334, 390, 330, 220],
+        animationDuration: 6000,
+    }],
+};
