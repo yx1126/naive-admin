@@ -6,6 +6,8 @@
         "start": "vite",
         "serve": "vite",
         "build": "vite build",
+        "build:prod": "vite build",
+        "build:dev": "vite build --mode staging",
         "build:strict": "vue-tsc --noEmit && vite build",
         "preview": "vite preview --port 5050",
         "typecheck": "vue-tsc --noEmit",
