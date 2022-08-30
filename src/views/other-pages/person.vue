@@ -41,7 +41,7 @@
                                 <n-form-item label="邮箱：" path="email">
                                     <n-input v-model:value="model.email" clearable placeholder="请输入邮箱" />
                                 </n-form-item>
-                                <n-form-item label="邮箱：" path="description">
+                                <n-form-item label="个人简介：" path="description">
                                     <n-input
                                         v-model:value="model.description"
                                         type="textarea"
