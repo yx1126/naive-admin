@@ -5,6 +5,11 @@
 </template>
 
 <script lang="ts" setup>
+
+defineOptions({
+    name: "SvgIcon",
+});
+
 const props = withDefaults(
     defineProps<{
         prefix?: string;
@@ -14,10 +19,6 @@ const props = withDefaults(
         prefix: "icon",
     },
 );
-
-defineOptions({
-    name: "SvgIcon",
-});
 
 const symbolId = computed(() => `#${props.prefix}-${props.icon}`);
 </script>

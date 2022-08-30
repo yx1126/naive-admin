@@ -11,11 +11,15 @@
 <script lang="ts" setup>
 import { routerTransOptions } from "@/stores/setting";
 
+defineOptions({
+    name: "TransRouterView",
+});
+
 const set = useSetStore();
 const tags = useTagsStore();
 const mitter = useMitt();
 
-let noKeepAliveList = $ref<string>("");
+let noKeepAliveList = $ref("");
 
 const transitionMode = $computed(() => routerTransOptions.find(r => r.value === set.routerTrans)?.mode || "default");
 

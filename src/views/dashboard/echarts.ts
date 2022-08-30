@@ -295,7 +295,7 @@ export const lineOptions2 = {
         smooth: true,
         type: "line",
         data: [100, 120, 161, 134, 105, 160, 165],
-        animationDuration: 2800,
+        animationDuration: 1000,
         animationEasing: "cubicInOut",
     },
     {
@@ -315,7 +315,7 @@ export const lineOptions2 = {
             },
         },
         data: [120, 82, 91, 154, 162, 140, 145],
-        animationDuration: 2800,
+        animationDuration: 1000,
         animationEasing: "quadraticOut",
     }],
 };

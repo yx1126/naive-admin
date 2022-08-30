@@ -13,6 +13,11 @@
 import { NIcon } from "naive-ui";
 import { isString } from "@/util/validata";
 import SvgIcon from "./SvgIcon.vue";
+
+defineOptions({
+    name: "Icon",
+});
+
 const props = withDefaults(
     defineProps<{
         icon?: string;

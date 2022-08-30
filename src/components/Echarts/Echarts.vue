@@ -9,6 +9,10 @@ import * as  Echarts from "echarts";
 import type {  EChartsCoreOption, ECharts as EchartsInstance } from "echarts";
 import { on, off } from "@/util/dom";
 
+defineOptions({
+    name: "Echarts",
+});
+
 const props = withDefaults(
     defineProps<{
         options: EChartsCoreOption;

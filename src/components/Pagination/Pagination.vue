@@ -18,6 +18,11 @@
 <script lang="ts" setup>
 import { NPagination } from "naive-ui";
 
+defineOptions({
+    name: "Pagination",
+    extends: NPagination,
+});
+
 withDefaults(
     defineProps<{
         size?: number;
@@ -25,11 +30,6 @@ withDefaults(
     }>(),
     {},
 );
-defineOptions({
-    name: "Pagination",
-    extends: NPagination,
-});
-
 const emit = defineEmits<{
     (event: "change"): void;
     (event: "update:page", value: number): void;

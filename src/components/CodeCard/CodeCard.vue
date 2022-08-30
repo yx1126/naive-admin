@@ -27,6 +27,11 @@
 
 
 <script lang="ts" setup>
+
+defineOptions({
+    name: "CodeCard",
+});
+
 withDefaults(defineProps<{
     code?: string;
     wordWrap?: boolean;

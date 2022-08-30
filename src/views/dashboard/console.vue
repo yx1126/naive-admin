@@ -8,7 +8,7 @@
                             <div class="icon"><Icon :icon="item.icon" :size="45" /></div>
                             <div>
                                 <div class="text">{{ item.title }}</div>
-                                <div class="number"><n-number-animation :from="0" :to="item.value" show-separator /></div>
+                                <div class="number"><n-number-animation :from="0" :to="item.value" :duration="1500" show-separator /></div>
                             </div>
                         </div>
                     </n-card>

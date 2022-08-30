@@ -22,6 +22,10 @@ import { menu } from "@milkdown/plugin-menu";
 import { switchTheme, insert } from "@milkdown/utils";
 import { isArray } from "@/util/validata";
 
+defineOptions({
+    name: "MilkDown",
+});
+
 const props = withDefaults(defineProps<{
     defaultValue?: DefaultValue;
     readonly?: boolean;
