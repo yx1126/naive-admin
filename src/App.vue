@@ -1,7 +1,7 @@
 <template>
     <NConfig>
         <Layout>
-            <TransRouterView />
+            <trans-router-view />
         </Layout>
     </NConfig>
 </template>

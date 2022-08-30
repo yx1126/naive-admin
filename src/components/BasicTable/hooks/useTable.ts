@@ -43,7 +43,7 @@ export default function useTable(tableInstance: Ref<BasicTableInstance>, options
     }
 
     return {
-        tableRef: ref({
+        tableRef: shallowRef({
             clearFilters,
             clearSorter,
             filters,

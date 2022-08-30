@@ -39,6 +39,7 @@ const set = useSetStore();
 const router = useRouter();
 const dialog = useFeedBack("dialog");
 const message = useFeedBack("message");
+const mitter = useMitt();
 
 let showPwdModal = $ref(false);
 
@@ -71,6 +72,13 @@ async function handleSelect(key: string, option: DropdownOption) {
             break;
     }
 }
+
+onBeforeMount(() => {
+    mitter.on("updatePwd", () => {
+        showPwdModal = true;
+    });
+});
+
 </script>
 
 <style lang="scss" scoped>

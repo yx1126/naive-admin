@@ -1,6 +1,6 @@
 <template>
     <router-view #default="{ Component, route }">
-        <transition :name="set.routerTrans" :mode="transitionMode">
+        <transition :name="transition ? set.routerTrans : void 0" :mode="transitionMode">
             <keep-alive :include="keepAliveList" :exclude="['Redirect']">
                 <component :is="Component" :key="route.fullPath" />
             </keep-alive>
@@ -13,6 +13,12 @@ import { routerTransOptions } from "@/stores/setting";
 
 defineOptions({
     name: "TransRouterView",
+});
+
+withDefaults(defineProps<{
+    transition?: boolean;
+}>(), {
+    transition: true,
 });
 
 const set = useSetStore();

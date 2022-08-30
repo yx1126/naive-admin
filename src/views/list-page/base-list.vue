@@ -15,7 +15,7 @@
                     <n-form-item>
                         <n-space>
                             <n-button type="primary" @click="search">搜 索</n-button>
-                            <n-button @click="formRef.resetFields">重 置</n-button>
+                            <n-button @click="formInstance.resetFields">重 置</n-button>
                         </n-space>
                     </n-form-item>
                 </BasicForm>
@@ -53,7 +53,7 @@ defineOptions({
 
 const baseFormRef = ref<BasicFormInstance>(null);
 
-const { model, formRef } = useForm(baseFormRef, () => ({
+const { model, formInstance } = useForm(baseFormRef, () => ({
     name: "",
     age: "",
     address: "",

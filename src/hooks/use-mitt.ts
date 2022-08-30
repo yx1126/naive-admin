@@ -12,6 +12,8 @@ type Events = {
     notification: NotificationOption;
     // remove keepalive
     keepAlive: string;
+    // show update pwd modal
+    updatePwd: void;
 };
 
 const emitter = mitt<Events>();

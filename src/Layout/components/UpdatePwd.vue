@@ -59,21 +59,21 @@ const rules: FormRules = {
     ],
 };
 
-const { model, formRef } = useForm(userFormRef, () => ({
+const { model, formInstance } = useForm(userFormRef, () => ({
     password: "",
     newPwd: "",
     confirmPwd: "",
 }));
 
 function submit() {
-    formRef.value.validate((errors) => {
+    formInstance.value.validate((errors) => {
         if(errors) return;
         message.success("验证成功");
     });
 }
 
 function onReset() {
-    formRef.value.resetFields();
+    formInstance.value.resetFields();
 }
 
 </script>

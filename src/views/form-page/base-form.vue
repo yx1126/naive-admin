@@ -104,7 +104,7 @@ const message = useFeedBack("message");
 
 const baseFormRef = ref<BasicFormInstance>(null);
 
-const { model, formRef } = useForm(baseFormRef, () => ({
+const { model, formInstance } = useForm(baseFormRef, () => ({
     inputValue: null,
     textareaValue: null,
     selectValue: null,
@@ -210,7 +210,7 @@ const rules = {
 };
 
 function handleValidateButtonClick() {
-    formRef.value?.validate((errors) => {
+    formInstance.value.validate((errors) => {
         if(!errors) {
             message.success("验证成功");
         } else {
@@ -219,7 +219,7 @@ function handleValidateButtonClick() {
     });
 }
 function reset() {
-    formRef.value?.resetFields();
+    formInstance.value.resetFields();
 }
 </script>
 
