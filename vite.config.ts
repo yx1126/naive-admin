@@ -14,6 +14,34 @@ const resolve = (path: string) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    resolve: {
+        alias: {
+            "@": resolve("src"),
+            "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
+        },
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@import "@/style/global.scss";`,
+            },
+        },
+    },
+    server: {
+        host: "0.0.0.0",
+        port: 9527,
+        // open: true,
+        https: false,
+        proxy: {},
+    },
+    build: {
+        outDir: "web",
+    },
+    define: {
+        __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
+        __VUE_I18N_LEGACY_API__: JSON.stringify(false),
+        __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
+    },
     plugins: [
         vue({
             reactivityTransform: true,
@@ -48,39 +76,4 @@ export default defineConfig({
             customDomId: "__svg__icons__dom__",
         }),
     ],
-    resolve: {
-        alias: {
-            "@": resolve("src"),
-            "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
-        },
-    },
-    css: {
-        preprocessorOptions: {
-            scss: {
-                additionalData: `@import "@/style/global.scss";`,
-            },
-        },
-    },
-    server: {
-        host: "0.0.0.0",
-        port: 9527,
-        // open: true,
-        https: false,
-        proxy: {},
-    },
-    build: {
-        // minify: "terser", // use terser will prod clear console debugger
-        // terserOptions: {
-        //     // prod clear console debugger
-        //     compress: {
-        //         drop_console: true,
-        //         drop_debugger: true,
-        //     },
-        // },
-    },
-    define: {
-        __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
-        __VUE_I18N_LEGACY_API__: JSON.stringify(false),
-        __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
-    },
 });
