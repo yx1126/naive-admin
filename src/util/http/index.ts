@@ -16,6 +16,9 @@ http.request(
 http.response(
     response => {
         const { data } = response;
+        if(["arraybuffer", "blob"].includes(response.config.responseType!)) {
+            return response;
+        }
         return data;
     },
     error => {
