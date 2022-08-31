@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 import routes from "./routes";
 
-const history = import.meta.env.MODE === "production" ? createWebHistory(import.meta.env.BASE_URL) : createWebHashHistory(import.meta.env.BASE_URL);
+const baseUrl = import.meta.env.BASE_URL;
+const history = import.meta.env.MODE === "production" ? createWebHistory(baseUrl) : createWebHashHistory(baseUrl);
 
 const router = createRouter({
     history,
