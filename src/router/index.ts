@@ -23,12 +23,16 @@ router.beforeEach((to, from, next) => {
     next();
 });
 
-router.afterEach(() => {
+router.afterEach((to) => {
     const loadingbar = useFeedBack("loadingbar");
-    loadingbar.finish();
+    if(!to.path.startsWith("/redirect")) {
+        loadingbar.finish();
+    }
 });
 
 router.onError(error => {
+    const loadingbar = useFeedBack("loadingbar");
+    loadingbar.error();
     console.error("路由错误", error);
 });
 

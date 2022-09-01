@@ -59,13 +59,12 @@ watch([() => props.svgRender, () => props.dark, () => set.navMode], () => {
 });
 
 onMounted(() => {
-    setTimeout(() => {
-        init();
-    }, 300);
+    init();
     on(window, "resize", resize);
 });
 
 onUnmounted(() => {
+    if(echarts) echarts.dispose();
     off(window, "resize", resize);
 });
 
@@ -82,6 +81,9 @@ function init() {
         renderer: props.svgRender ? "svg" : "canvas",
     });
     echarts.setOption(defaultOptions);
+    if(set.layoutMode === "asideMixin") {
+        setTimeout(resize, 300);
+    }
 }
 
 function refresh() {
@@ -104,5 +106,6 @@ function clear() {
 .echarts {
 	width: 100%;
 	height: 100%;
+    overflow: hidden;
 }
 </style>

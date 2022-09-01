@@ -1,9 +1,13 @@
 <template>
-    <n-card>
-        <n-space vertical>
-            <h1>workspace</h1>
-        </n-space>
-    </n-card>
+    <div class="workspace">
+        <n-grid :cols="12" :x-gap="12" :y-gap="12">
+            <n-gi :span="12">
+                <n-card title="工作台">
+                    <h1>workspace</h1>
+                </n-card>
+            </n-gi>
+        </n-grid>
+    </div>
 </template>
 
 <script setup lang="ts">
