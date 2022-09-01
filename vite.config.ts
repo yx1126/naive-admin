@@ -7,6 +7,8 @@ import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import DefineOptions from "unplugin-vue-define-options/vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import Unocss from "unocss/vite";
+import { presetUno, presetAttributify } from "unocss";
 
 const resolve = (path: string) => {
     return fileURLToPath(new URL(`./${path}`, import.meta.url));
@@ -47,6 +49,12 @@ export default defineConfig({
             reactivityTransform: true,
         }),
         vueJsx(),
+        Unocss({
+            presets: [
+                presetUno(),
+                presetAttributify(),
+            ],
+        }),
         DefineOptions(),
         AutoImport({
             dts: true,

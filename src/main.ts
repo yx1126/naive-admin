@@ -6,6 +6,7 @@ import Directive from "@/directive";
 import App from "./App.vue";
 import "@/style/index.scss";
 import "virtual:svg-icons-register";
+import "uno.css";
 
 const app = createApp(App);
 
