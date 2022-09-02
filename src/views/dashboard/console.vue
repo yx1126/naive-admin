@@ -7,8 +7,8 @@
                         <div class="card-panel" :style="`--active-color: ${item.active}`">
                             <div class="icon"><Icon :icon="item.icon" :size="45" /></div>
                             <div>
-                                <div class="text">{{ item.title }}</div>
-                                <div class="number"><n-number-animation :from="0" :to="item.value" :duration="1500" show-separator /></div>
+                                <div c-black-450 leading-18px text="16px right" mb-12px>{{ item.title }}</div>
+                                <div text="20px right"><n-number-animation :from="0" :to="item.value" :duration="1500" show-separator /></div>
                             </div>
                         </div>
                     </n-card>
@@ -89,17 +89,6 @@ const cardPanels = [
             border-radius: 6px;
             transition: all .38s ease-out;
             @extend .flex-center;
-        }
-        .text {
-            color: rgba(0,0,0,.45);
-            line-height: 18px;
-            font-size: 16px;
-            margin-bottom: 12px;
-            text-align: right;
-        }
-        .number {
-            font-size: 20px;
-            text-align: right;
         }
     }
     .echarts {
