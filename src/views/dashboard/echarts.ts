@@ -319,3 +319,104 @@ export const lineOptions2 = {
         animationEasing: "quadraticOut",
     }],
 };
+
+
+const data = [76.98, 75.4, 86.1, 75.4, 76.98, 86.1];
+const indicatorname = ["主业营收", "规模增长", "盈利能力", "规模增长", "企业外部资源整合", "专业管理能力"];
+const maxdata = [100, 100, 100, 100, 100, 100];
+
+function contains(arrays: any[], obj: any) {
+    let i = arrays.length;
+    while(i--) {
+        if(arrays[i] === obj) {
+            return i;
+        }
+    }
+    return false;
+}
+
+export const radarOptions = {
+    backgroundColor: "#FFFFFF",
+    tooltip: {
+        show: true,
+        formatter: function() {
+            let html = "";
+            for(let i = 0; i < data.length; i++) {
+                html += indicatorname[i] + " : " + data[i] + "<br>";
+            }
+            return html;
+        },
+        borderWidth: 0,
+    },
+    radar: {
+        radius: "50%", //大小
+        axisNameGap: 40, // 图中工艺等字距离图的距离
+        center: ["50%", "50%"], // 图的位置
+        axisName: {
+            rich: {
+                a: {
+                    fontSize: "12",
+                    color: "#333333",
+                    lineHeight: "20",
+                    fontWeight: "500",
+                },
+                b: {
+                    fontSize: "12",
+                    color: "#666666",
+                },
+            },
+            formatter: function(params: any) {
+                const i = contains(indicatorname, params);
+                const percent = (data[i as number] / 100) * 100;
+                return "{b|" + params + "}\n" + "{a|" + percent + "}";
+            },
+        },
+        indicator: indicatorname.map((item, i) => ({ name: item, max: maxdata[i] })),
+        axisLine: {
+            lineStyle: {
+                color: "#3299FD30",
+            },
+            show: true,
+            symbolSize: [1, 30],
+            symbol: ["none", "rect"],
+            symbolOffset: [0, 25],
+        },
+        splitArea: {
+            show: false,
+            areaStyle: {
+                color: "transparent", // 图表背景的颜色
+            },
+        },
+        splitLine: {
+            show: true,
+            lineStyle: {
+                width: 1,
+                color: "#3299FD30", // 设置网格的颜色
+            },
+        },
+    },
+    series: [
+        {
+            name: "报警类型分析",
+            type: "radar",
+            symbol: "circle",
+            itemStyle: {
+                areaStyle: {
+                    type: "default",
+                },
+            },
+            data: [
+                {
+                    symbol: "none",
+                    symbolSize: 5,
+                    value: data,
+                    areaStyle: { color: "transparent" },
+                    lineStyle: {
+                        color: "#3299FD",
+                        width: 4,
+                    },
+                },
+            ],
+        },
+    ],
+};

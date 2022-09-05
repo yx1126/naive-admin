@@ -89,6 +89,11 @@
                         </n-button>
                     </div>
                 </n-card>
+                <n-card mt-12px>
+                    <div class="echarts">
+                        <Echarts :options="radarOptions" />
+                    </div>
+                </n-card>
             </n-gi>
         </n-grid>
     </div>
@@ -97,6 +102,8 @@
 <script lang="ts" setup>
 import { PlusOutlined } from "@vicons/antd";
 import ToDoList from "./components/ToDoList.vue";
+import Echarts from "@/components/Echarts";
+import { radarOptions } from "./echarts";
 
 defineOptions({
     name: "Workspace",
@@ -129,6 +136,10 @@ const underwayList = $ref([
   width: 100%;
   height: 240px;
   object-fit: cover;
+}
+.echarts {
+    width: 100%;
+    height: 338px;
 }
 </style>
 
