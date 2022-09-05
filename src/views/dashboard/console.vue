@@ -7,7 +7,7 @@
                         <div class="card-panel" :style="`--active-color: ${item.active}`">
                             <div class="icon"><Icon :icon="item.icon" :size="45" /></div>
                             <div>
-                                <div c-black-450 leading-18px text="16px right" mb-12px>{{ item.title }}</div>
+                                <div leading-18px text="16px right" mb-12px>{{ item.title }}</div>
                                 <div text="20px right"><n-number-animation :from="0" :to="item.value" :duration="1500" show-separator /></div>
                             </div>
                         </div>
@@ -17,35 +17,35 @@
             <n-gi :span="12">
                 <n-card>
                     <div class="echarts">
-                        <Echarts ref="echartsRef" :options="lineOptions2" />
+                        <Echarts :options="lineOptions2" />
                     </div>
                 </n-card>
             </n-gi>
             <n-gi :span="4">
                 <n-card>
                     <div class="echarts">
-                        <Echarts ref="echartsRef" :options="gaugeOptions" />
+                        <Echarts :options="gaugeOptions" />
                     </div>
                 </n-card>
             </n-gi>
             <n-gi :span="4">
                 <n-card>
                     <div class="echarts">
-                        <Echarts ref="echartsRef" :options="pieOptions" />
+                        <Echarts :options="pieOptions" />
                     </div>
                 </n-card>
             </n-gi>
             <n-gi :span="4">
                 <n-card>
                     <div class="echarts">
-                        <Echarts ref="echartsRef" :options="barOptions" />
+                        <Echarts :options="barOptions" />
                     </div>
                 </n-card>
             </n-gi>
             <n-gi :span="12">
                 <n-card>
                     <div class="echarts">
-                        <Echarts ref="echartsRef" :options="lineOptions" />
+                        <Echarts :options="lineOptions" />
                     </div>
                 </n-card>
             </n-gi>

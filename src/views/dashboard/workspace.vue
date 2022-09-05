@@ -22,16 +22,49 @@
                 </n-card>
             </n-gi>
             <n-gi :span="7">
-                <n-card title="进行中的项目" :segmented="{ content: true }">
+                <n-card title="进行中的项目" size="small" :segmented="{ content: true }" content-style="padding: 0;">
                     <template #header-extra>
                         <n-button type="primary" text>全部项目</n-button>
                     </template>
-                    <p text="12px">123</p>
+                    <div flex flex-wrap>
+                        <template v-for="c in underwayList" :key="c.title">
+                            <n-card class="project-card" hoverable>
+                                <n-thing>
+                                    <template #avatar>
+                                        <Icon :icon="c.icon" :size="28" />
+                                    </template>
+                                    <template #header>
+                                        {{ c.title }}
+                                    </template>
+                                    <div h-45px>{{ c.desc }}</div>
+                                    <template #footer>
+                                        <div flex justify-between>
+                                            <span hover:c-409eff cursor-pointer>{{ c.group }}</span>
+                                            <span text-gray-400>{{ c.time }}</span>
+                                        </div>
+                                    </template>
+                                </n-thing>
+                            </n-card>
+                        </template>
+                    </div>
                 </n-card>
             </n-gi>
             <n-gi :span="5">
-                <n-card>
-                    <p text="12px">123</p>
+                <n-card size="small" title="便捷操作" :segmented="{ content: true }">
+                    <div class="convenient">
+                        <a>操作一</a>
+                        <a>操作二</a>
+                        <a>操作三</a>
+                        <a>操作四</a>
+                        <a>操作五</a>
+                        <a>操作六</a>
+                        <n-button type="primary" ghost size="small">
+                            <template #icon>
+                                <Icon><PlusOutlined /></Icon>
+                            </template>
+                            添加
+                        </n-button>
+                    </div>
                 </n-card>
             </n-gi>
         </n-grid>
@@ -39,6 +72,8 @@
 </template>
 
 <script lang="ts" setup>
+import { PlusOutlined } from "@vicons/antd";
+
 defineOptions({
     name: "Workspace",
 });
@@ -48,11 +83,23 @@ const underwayList = $ref([
     { title: "Vite", icon: "vite", desc: "Vite 下一代的前端工具链 为开发提供极速响应", group: "Vite", time: "9小时前" },
     { title: "Vue", icon: "vue", desc: "渐进式 JavaScript 框架 易学易用，性能出色，适用场景丰富的 Web 前端框架。", group: "Vue", time: "9小时前" },
     { title: "Typescript", icon: "typescript", desc: "TypeScript是JavaScript类型的超集。", group: "Typescript9", time: "9小时前" },
-    { title: "Scss", icon: "scss", desc: "世界上最成熟、最稳定、最强大的专业级CSS扩展语言！", group: "Scss", time: "9小时前" },
+    { title: "Scss", icon: "sass", desc: "世界上最成熟、最稳定、最强大的专业级CSS扩展语言！", group: "Scss", time: "9小时前" },
     { title: "Milkdown", icon: "milkdown", desc: "插件驱动的所见即所得的Markdown编辑器框架", group: "Milkdown", time: "9小时前" },
 ]);
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.project-card {
+    width: calc(100% / 3);
+    border-radius: 0;
+}
+.convenient {
+    & > a {
+        display: inline-block;
+        width: 25%;
+        margin-bottom: 13px;
+    }
+}
+</style>
 
