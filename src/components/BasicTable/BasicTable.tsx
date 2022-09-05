@@ -25,6 +25,7 @@ export default defineComponent({
     props: {
         showToolbar: { type: Boolean, default: true },
         behavior: { type: Boolean, default: true },
+        toolbar: { type: Boolean, default: true },
         columns: { type: Array as PropType<DataTableColumns<any>>, default: void 0 },
         pagination: { type: Boolean, default: true },
         page: { type: Number, default: 1 },
@@ -205,7 +206,7 @@ export default defineComponent({
         };
         const ToolBar = (
             <div class="basic-table-toolbar">
-                <div class="behavior">{this.$slots.behavior ? renderSlot(this.$slots, "behavior") : behaviorList}</div>
+                <div class="behavior">{this.behavior ? this.$slots.behavior ? renderSlot(this.$slots, "behavior") : behaviorList : null}</div>
                 <div class="set">
                     {Tootip("斑马纹", <NSwitch v-model:value={this.isShowStriped} />)}
                     {IconTootip("表格全屏", this.isFullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />, this.toggleScreen)}
@@ -230,6 +231,7 @@ export default defineComponent({
                 </div>
             </div>
         );
+        console.log(this.attrs);
         return (
             <div class="basic-table-wrapper" ref="basicTableWrapperRef" style={this.basicTableStyle}>
                 {this.showToolbar ? ToolBar : null}

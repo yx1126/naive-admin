@@ -56,6 +56,10 @@ export default defineComponent({
             return props.tagsFixed && isShowTabs.value ? LayoutConfig.tagsHeight : 0;
         });
         const defaultValue = computed(() => route.matched.filter(r => r.path)[0]?.path);
+        const rootMenuOptions = computed(() => {
+            // 折叠是 移除name 不显示TooTip提示
+            return props.collapsed ? props.menuOptions.map(item => ({ ...item, name: void 0 })) : props.menuOptions;
+        });
         const menuChildrensOptions = computed<MenuOption[]>(() => {
             return props.menuOptions.find(m => {
                 if(mouseEnterValue.value) {
@@ -117,6 +121,7 @@ export default defineComponent({
             defaultValue,
             isShowTabs,
             contentTop,
+            rootMenuOptions,
             menuChildrensOptions,
             layoutWrapperStyle,
             isCollapsed,
@@ -162,7 +167,7 @@ export default defineComponent({
                         <Logo collapsed={this.collapsed} width="auto" height={LayoutConfig.headerHeight} indent={10} onmouseenter={this.onClearEnterValue} />
                         <Menu
                             style="--n-item-height: 36px;"
-                            options={this.menuOptions}
+                            options={this.rootMenuOptions}
                             value={this.defaultValue}
                             root-indent={10}
                             collapsed-icon-size={20}

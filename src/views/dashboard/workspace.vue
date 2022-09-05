@@ -1,7 +1,7 @@
 <template>
     <div class="workspace">
-        <n-grid :cols="12" :x-gap="12" :y-gap="12">
-            <n-gi :span="12">
+        <n-grid :cols="24" :x-gap="12" :y-gap="12">
+            <n-gi :span="24">
                 <n-card title="工作台">
                     <div flex justify-between items-center w-100p>
                         <div flex items-center flex-1>
@@ -21,7 +21,7 @@
                     </div>
                 </n-card>
             </n-gi>
-            <n-gi :span="7">
+            <n-gi :span="16">
                 <n-card title="进行中的项目" size="small" :segmented="{ content: true }" content-style="padding: 0;">
                     <template #header-extra>
                         <n-button type="primary" text>全部项目</n-button>
@@ -48,9 +48,32 @@
                         </template>
                     </div>
                 </n-card>
+                <n-card mt-12px title="待办" size="small" :segmented="{ content: true }" content-style="padding: 10px;">
+                    <ToDoList />
+                </n-card>
             </n-gi>
-            <n-gi :span="5">
-                <n-card size="small" title="便捷操作" :segmented="{ content: true }">
+            <n-gi :span="8">
+                <n-card size="small" title="公告" :segmented="{ content: true }" content-style="padding: 0;">
+                    <n-carousel autoplay show-arrow draggable dot-type="line">
+                        <img
+                            class="carousel-img"
+                            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
+                        >
+                        <img
+                            class="carousel-img"
+                            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+                        >
+                        <img
+                            class="carousel-img"
+                            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+                        >
+                        <img
+                            class="carousel-img"
+                            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+                        >
+                    </n-carousel>
+                </n-card>
+                <n-card mt-12px size="small" title="便捷操作" :segmented="{ content: true }">
                     <div class="convenient">
                         <a>操作一</a>
                         <a>操作二</a>
@@ -73,6 +96,7 @@
 
 <script lang="ts" setup>
 import { PlusOutlined } from "@vicons/antd";
+import ToDoList from "./components/ToDoList.vue";
 
 defineOptions({
     name: "Workspace",
@@ -100,6 +124,11 @@ const underwayList = $ref([
         width: 25%;
         margin-bottom: 13px;
     }
+}
+.carousel-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
 }
 </style>
 
