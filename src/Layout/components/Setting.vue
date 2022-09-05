@@ -1,5 +1,5 @@
 <template>
-    <Drawer v-model:show="toggleDrawer" :mask-closable="true" :show-trigger="false">
+    <Drawer v-model:show="toggleDrawer" :mask-closable="true" :show-trigger="true">
         <n-drawer-content :native-scrollbar="false" body-content-style="padding: 0 15px 15px 15px;">
             <template #header>{{ $t("set.title") }}</template>
             <n-divider> {{ $t("set.navTheme") }} </n-divider>

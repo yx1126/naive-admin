@@ -336,7 +336,7 @@ function contains(arrays: any[], obj: any) {
 }
 
 export const radarOptions = {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
     tooltip: {
         show: true,
         formatter: function() {
