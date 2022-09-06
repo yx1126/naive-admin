@@ -57,8 +57,8 @@ class Https {
         });
     }
 
-    download<T = Blob>(url: string, data?: Record<string, any>, headers?: AxiosRequestHeaders) {
-        return this.service.post<T, AxiosResponse<T>>(url, data, {
+    download<T = Blob, R = AxiosResponse<T>>(url: string, data?: Record<string, any>, headers?: AxiosRequestHeaders) {
+        return this.service.post<T, R>(url, data, {
             responseType: "blob",
             ...headers,
         });
