@@ -231,7 +231,6 @@ export default defineComponent({
                 </div>
             </div>
         );
-        console.log(this.attrs);
         return (
             <div class="basic-table-wrapper" ref="basicTableWrapperRef" style={this.basicTableStyle}>
                 {this.showToolbar ? ToolBar : null}

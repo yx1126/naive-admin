@@ -25,3 +25,10 @@ export type DeepPartial<T> = {
 export type DeepReadonly<T> = {
     readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
 };
+
+export type DOMElement = Window | Document | HTMLElement | SVGElement;
+export type DOMEventKeyMap<T = DOMElement> = T extends Window
+    ? WindowEventMap : T extends Document
+        ? DocumentEventMap : T extends HTMLElement
+            ? HTMLElementEventMap : T extends SVGElement
+                ? SVGElementEventMap : ElementEventMap;

@@ -1,6 +1,6 @@
 import { on, off } from "@/util/dom";
 import { isBoolean } from "@/util/validata";
-import type { MayBeRef } from "@/types/util";
+import type { MayBeRef, DOMElement, DOMEventKeyMap } from "@/types/util";
 
 export interface EventOptions extends EventListenerOptions {
     lazy?: boolean;
@@ -8,8 +8,8 @@ export interface EventOptions extends EventListenerOptions {
 }
 
 export default function(
-    target: MayBeRef<Window | Document | HTMLElement | SVGElement | string>,
-    key: keyof HTMLElementEventMap,
+    target: MayBeRef<DOMElement | string>,
+    key: keyof DOMEventKeyMap,
     fn: (e: Event) => void,
     options?: boolean | EventOptions,
 ) {
