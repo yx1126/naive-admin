@@ -44,16 +44,23 @@ class Https {
         return this.service.post<T>(url, data, { headers });
     }
 
-    postForm<T>(url: string, data: Record<string, any>, headers?: AxiosRequestHeaders) {
+    postForm<T>(url: string, data?: Record<string, any>, headers?: AxiosRequestHeaders) {
         const form = new FormData();
-        Object.keys(data).forEach(key => {
-            form.append(key, data[key]);
+        Object.keys(data || {}).forEach(key => {
+            form.append(key, data![key]);
         });
         return this.service.post<T>(url, form, {
             headers: {
                 "content-type": "multipart/form-data",
                 ...headers,
             },
+        });
+    }
+
+    download<T = Blob>(url: string, data?: Record<string, any>, headers?: AxiosRequestHeaders) {
+        return this.service.post<T, AxiosResponse<T>>(url, data, {
+            responseType: "blob",
+            ...headers,
         });
     }
 
