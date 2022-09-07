@@ -37,7 +37,20 @@ export default defineConfig({
         proxy: {},
     },
     build: {
-        outDir: "web",
+        outDir: "dist",
+        rollupOptions: {
+            output: {
+                assetFileNames: (assetInfo) => {
+                    if(assetInfo.name?.endsWith(".css"))
+                        return "css/[name]-[hash][extname]";
+                    else if(assetInfo.name?.endsWith(".svg"))
+                        return "svg/[name]-[hash][extname]";
+                    else
+                        return "assets/[name]-[hash][extname]";
+                },
+                chunkFileNames: "js/[name]-[hash].js",
+            },
+        },
     },
     define: {
         __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),

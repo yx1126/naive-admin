@@ -1,7 +1,6 @@
 import fullscreen from "./fullscreen";
 import copy from "./copy";
 import permission from "./permission";
-import drag from "./drag";
 import type { App } from "vue";
 
 export {
@@ -29,9 +28,5 @@ export default {
          * 权限控制
          */
         app.directive("auth", permission);
-        /**
-         * naive-ui 弹窗拖拽
-         */
-        app.directive("drag", drag);
     },
 };
