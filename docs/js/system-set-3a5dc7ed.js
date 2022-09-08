@@ -1,1 +1,0 @@
-import{d as e,b as s,e as t,i as o}from"../assets/index.b366dfbb.js";const _={class:"system-set"},n=o("h1",null,"system-set",-1),a=[n],c={name:"SystemSet"},l=e({...c,setup(r){return(d,m)=>(s(),t("div",_,a))}});export{l as default};
