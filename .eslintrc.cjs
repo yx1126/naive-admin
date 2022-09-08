@@ -26,7 +26,7 @@ module.exports = defineConfig({
         "plugin:vue/vue3-recommended",
         "@vue/eslint-config-typescript/recommended",
     ],
-    plugins: ["vue", "@typescript-eslint"],
+    plugins: ["vue", "@typescript-eslint", "eslint-plugin-tsdoc"],
     overrides: [
         {
             files: ["*.ts"],
@@ -37,6 +37,7 @@ module.exports = defineConfig({
         },
     ],
     rules: {
+        "tsdoc/syntax": "warn",
         "no-undef": "off",
         "vue/html-indent": ["error", 4],
         "vue/script-indent": ["error", 4, {

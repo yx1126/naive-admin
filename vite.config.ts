@@ -87,12 +87,12 @@ export default defineConfig({
             symbolId: "icon-[dir]-[name]",
             /**
              * 自定义插入位置
-             * @default: body-last | "body-first"
+             * @defaultValue body-last | "body-first"
              */
             inject: "body-last",
             /**
              * custom dom id
-             * @default: __svg__icons__dom__
+             * @defaultValue __svg__icons__dom__
              */
             customDomId: "__svg__icons__dom__",
         }),

@@ -1,7 +1,7 @@
 import "axios";
 
 /**
- *  @description response list data
+ *  @remarks response list data
  */
 export interface ListData<T = any> {
     readonly list: Array<T>;
@@ -10,7 +10,7 @@ export interface ListData<T = any> {
     readonly total: number;
 }
 /**
- * response data
+ * @remarks response data
  */
 export interface ResponseResult<T> {
     readonly code: number;
