@@ -1,0 +1,1 @@
+import{d as a,bl as o,H as s,B as n,ct as u,ci as p,cr as c}from"../assets/index.c2091c65.js";const m=a({name:"Redirect",setup(){const e=u(),t=p(),r=c();o(()=>{if(!e.params.path){t.replace("");return}t.replace({path:`/${e.params.path.join("/")}`,query:e.query})}),s(()=>{r.emit("keepAlive","")})},render(){return n("span")}});export{m as default};
