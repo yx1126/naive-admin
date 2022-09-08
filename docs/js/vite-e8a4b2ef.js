@@ -1,1 +1,1 @@
-var v="/svg/vite-7260467a.svg";export{v as default};
+var a="/naive-admin/svg/vite-7260467a.svg";export{a as default};

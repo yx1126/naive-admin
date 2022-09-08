@@ -1,1 +1,1 @@
-var t="/svg/button-04c839d6.svg";export{t as default};
+var t="/naive-admin/svg/button-04c839d6.svg";export{t as default};

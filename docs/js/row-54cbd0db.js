@@ -1,1 +1,1 @@
-var r="/svg/row-55339924.svg";export{r as default};
+var a="/naive-admin/svg/row-55339924.svg";export{a as default};

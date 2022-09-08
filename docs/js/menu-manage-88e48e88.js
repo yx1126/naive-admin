@@ -1,1 +1,0 @@
-import{d as e,b as n,e as a,i as t}from"../assets/index.c2091c65.js";const s={class:"menu-manage"},o=t("h1",null,"menu-manage",-1),_=[o],c={name:"MenuManage"},i=e({...c,setup(m){return(r,d)=>(n(),a("div",s,_))}});export{i as default};

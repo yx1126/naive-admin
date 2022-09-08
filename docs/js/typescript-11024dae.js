@@ -1,1 +1,1 @@
-var t="/svg/typescript-332bcfdb.svg";export{t as default};
+var t="/naive-admin/svg/typescript-332bcfdb.svg";export{t as default};

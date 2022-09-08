@@ -1,1 +1,1 @@
-var a="/svg/international-cdcfd9eb.svg";export{a as default};
+var a="/naive-admin/svg/international-cdcfd9eb.svg";export{a as default};

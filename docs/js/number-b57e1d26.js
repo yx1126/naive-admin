@@ -1,1 +1,1 @@
-var e="/svg/number-674e5424.svg";export{e as default};
+var e="/naive-admin/svg/number-674e5424.svg";export{e as default};
