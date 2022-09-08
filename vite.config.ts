@@ -16,7 +16,7 @@ const resolve = (path: string) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: "/",
+    base: "/naive-admin/",
     resolve: {
         alias: {
             "@": resolve("src"),
