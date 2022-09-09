@@ -39,11 +39,7 @@
                 </template>
             </div>
             <div class="paging">
-                <SimplePagination v-model:page="page" v-model:size="size" :total="searchSvgList.length" show-jumper>
-                    <template #prefix="data">
-                        <span>{{ data.page }} / {{ data.pageCount }}</span>
-                    </template>
-                </SimplePagination>
+                <n-pagination v-model:page="page" :page-size="size" :item-count="searchSvgList.length" simple />
             </div>
         </div>
     </n-popover>
@@ -52,7 +48,7 @@
 <script setup lang="ts">
 import Icon from "../Icon";
 import { svgList as _svgList } from "./index";
-import { SimplePagination } from "../Pagination";
+import { NPagination } from "naive-ui";
 import { on, off } from "@/util/dom";
 
 defineOptions({

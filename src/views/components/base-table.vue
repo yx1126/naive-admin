@@ -40,7 +40,7 @@ defineOptions({
 
 const message = useFeedBack("message");
 
-const page = $ref(0);
+const page = $ref(1);
 const size = $ref(10);
 const total = $ref(1000);
 
