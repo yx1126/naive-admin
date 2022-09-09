@@ -173,7 +173,7 @@ const menus: MenuOptions & RouteMeta[] = [
     },
     {
         name: "外链接",
-        path: "https://gitee.com/yangxin11010/vue-admin",
+        path: "https://gitee.com/yangxin11010/naive-admin",
         icon: renderIcon(LinkOutlined),
         isLink: true,
     },
