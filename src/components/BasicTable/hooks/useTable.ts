@@ -51,6 +51,6 @@ export default function useTable(tableInstance: Ref<BasicTableInstance>, options
             scrollTo,
             sort,
         }),
-        ...toRefs(basicTableData),
+        loading: toRef(basicTableData, "loading"),
     };
 }
