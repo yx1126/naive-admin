@@ -7,7 +7,7 @@
             <n-form-item label="新密码：" path="newPwd">
                 <n-input v-model:value="model.newPwd" type="password" show-password-on="mousedown" placeholder="请输入新密码" clearable />
             </n-form-item>
-            <n-form-item label="确认密码：" path="confirmPwd">
+            <n-form-item label="确认密码：" first path="confirmPwd">
                 <n-input v-model:value="model.confirmPwd" type="password" show-password-on="mousedown" placeholder="请再次输入新密码" clearable />
             </n-form-item>
             <n-form-item label=" ">
