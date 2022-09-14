@@ -1,6 +1,6 @@
 <template>
     <n-modal style="width: 500px;" title="修改密码" preset="card" @after-leave="onReset">
-        <basic-form ref="userFormRef" class="update-pwd-form" :model="model" :rules="rules" label-width="auto">
+        <basic-form ref="userFormRef" v-drag class="update-pwd-form" :model="model" :rules="rules" label-width="auto">
             <n-form-item label="旧密码：" path="password">
                 <n-input v-model:value="model.password" type="password" show-password-on="mousedown" placeholder="请输入旧密码" clearable />
             </n-form-item>

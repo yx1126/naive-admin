@@ -1,10 +1,15 @@
 import type { MayBeRef, DOMElement, DOMEventKeyMap } from "@/types/util";
-import { isString } from "../validata";
+import { isString, isNumber } from "../validata";
 
-export function getParentNode(node: HTMLElement, level = 1) {
+export function getParentNode(node: HTMLElement, level: number | ((node: ParentNode) => void | ParentNode) = 1): HTMLElement | undefined {
+    const isNum = isNumber(level);
     let index = 0,
         parentNode: HTMLElement | null = node.parentNode as HTMLElement;
-    while(index < level - 1) {
+    while(isNum ? index < level - 1 : parentNode) {
+        if(!isNum) {
+            const flag = level(parentNode);
+            if(flag) return flag as HTMLElement;
+        }
         parentNode = parentNode?.parentNode as HTMLElement;
         index++;
     }

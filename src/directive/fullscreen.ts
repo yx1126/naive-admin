@@ -18,15 +18,19 @@ const screenfull: Directive = {
             Screenfull.toggle(fullTarget!);
         };
         el._v_level = isNaN(parseInt(arg as string, 10)) ? 1 : parseInt(arg as string, 10);
-        on(parent ? getParentNode(target, el._v_level) : target, "click", el._v_listenEvent);
+        const parentNode = getParentNode(target, el._v_level);
+        if(parentNode) {
+            on(parent ? parentNode : target, "click", el._v_listenEvent);
+        }
     },
     unmounted(el, binding) {
         const target = el as HTMLElement;
         const {
             modifiers: { parent },
         } = binding;
-        if(el._v_listenEvent && el._v_level) {
-            off(parent ? getParentNode(target, el._v_level) : target, "click", el._v_listenEvent);
+        const parentNode = getParentNode(target, el._v_level);
+        if(el._v_listenEvent && el._v_level && parentNode) {
+            off(parent ? parentNode : target, "click", el._v_listenEvent);
         }
     },
 };
