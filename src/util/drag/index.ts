@@ -1,7 +1,7 @@
 import { on, off } from "../dom";
 // move = current, father: HTMLElement = document.body
 
-interface DragOptions {
+export interface DragOptions {
     move?: HTMLElement;
     father?: HTMLElement;
     type?: "x" | "y" | "xy";

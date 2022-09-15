@@ -15,14 +15,13 @@
 </template>
 
 <script setup lang="ts">
-import { darkTheme, lightTheme } from "naive-ui";
+import { darkTheme, lightTheme, type GlobalThemeOverrides } from "naive-ui";
 import { localeMap, dateLocaleMap } from "@/locales";
 import { createHoverColor, createPressedColor } from "@/util/color";
 import NFeedback from "./NFeedback.vue";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import xml from "highlight.js/lib/languages/xml";
-import type { GlobalThemeOverrides } from "naive-ui";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("html", xml);
@@ -33,52 +32,37 @@ const locale = $computed(() => localeMap[set.lang]);
 
 const dateLocale = $computed(() => dateLocaleMap[set.lang]);
 
-const theme = $computed<typeof darkTheme | null>(() => (set.navMode === "diablo" ? darkTheme : lightTheme));
+const theme = $computed<typeof darkTheme | typeof lightTheme>(() => (set.navMode === "diablo" ? darkTheme : lightTheme));
 
-const PRIMARYCOLOR = "#409EFF";
-const SUCCESSCOLOR = "#67C23A";
-const WARNINGCOLOR = "#E6A23C";
-const ERRORCOLOR = "#F56C6C";
-const INFOCOLOR = "#909399";
+const PRIMARY_COLOR = "#409EFF";
 
 const themeOverrides = $computed<GlobalThemeOverrides>(() => {
+    const { themeColor } = set;
     return {
         common: {
-            primaryColor: set.themeColor,
-            primaryColorHover: createHoverColor(set.themeColor),
-            primaryColorPressed: createPressedColor(set.themeColor),
-            successColor: SUCCESSCOLOR,
-            successColorHover: createHoverColor(SUCCESSCOLOR),
-            successColorPressed: createPressedColor(SUCCESSCOLOR),
-            warningColor: WARNINGCOLOR,
-            warningColorHover: createHoverColor(WARNINGCOLOR),
-            warningColorPressed: createPressedColor(WARNINGCOLOR),
-            errorColor: ERRORCOLOR,
-            errorColorHover: createHoverColor(ERRORCOLOR),
-            errorColorPressed: createPressedColor(ERRORCOLOR),
-            infoColor: INFOCOLOR,
-            infoColorHover: createHoverColor(INFOCOLOR),
-            infoColorPressed: createPressedColor(INFOCOLOR),
+            primaryColor: themeColor,
+            primaryColorHover: createHoverColor(themeColor),
+            primaryColorPressed: createPressedColor(themeColor),
         },
         LoadingBar: {
-            colorLoading: set.themeColor,
+            colorLoading: themeColor,
         },
         Switch: {
-            railColorActive: set.themeColor,
+            railColorActive: themeColor,
         },
         Menu: {
             // 反转主题色配置
-            itemColorActiveInverted: set.themeColor,
-            itemColorActiveHoverInverted: set.themeColor,
-            itemColorActiveCollapsedInverted: set.themeColor,
+            itemColorActiveInverted: themeColor,
+            itemColorActiveHoverInverted: themeColor,
+            itemColorActiveCollapsedInverted: themeColor,
         },
         Dropdown: {
             // 反转主题色配置
-            optionColorHoverInverted: set.themeColor,
-            optionColorActiveInverted: set.themeColor,
+            optionColorHoverInverted: themeColor,
+            optionColorActiveInverted: themeColor,
         },
         Message: {
-            iconColorInfo: PRIMARYCOLOR,
+            iconColorInfo: PRIMARY_COLOR,
         },
     };
 });

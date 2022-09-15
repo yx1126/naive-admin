@@ -1,23 +1,27 @@
 import type { Directive } from "vue";
 import { getParentNode } from "@/util/dom";
+import { isObject } from "@/util/validata";
 import setDrag from "@/util/drag";
 
 const drag: Directive = {
-    mounted(el: HTMLElement) {
-        const modalNode = getParentNode(el, (parent) => {
-            const node = parent as HTMLElement;
-            const role = node.getAttribute("role");
+    mounted(el: HTMLElement, binding) {
+        const { value = {} } = binding;
+        if(!isObject(value)) {
+            throw new Error("binding.value must be Object");
+        }
+        const modalNode = getParentNode(el, (node: HTMLElement) => {
+            const role = node.getAttribute?.("role");
             if(role === "dialog" && node.className.includes("n-modal")) {
                 return node;
             }
         }) as HTMLElement | undefined;
-        const cardHeader = modalNode?.querySelector(".n-card-header .n-card-header__main");
-        const dialogHeader = modalNode?.querySelector(".n-dialog__title");
+        const cardHeader = modalNode?.querySelector(".n-card-header .n-card-header__main") as HTMLElement;
+        const dialogHeader = modalNode?.querySelector(".n-dialog__title") as HTMLElement;
         if(cardHeader) {
-            (el as any)._v_cardStopEvent = setDrag(cardHeader as HTMLElement, { move: modalNode });
+            (el as any)._v_cardStopEvent = setDrag(cardHeader, { move: modalNode, ...value });
         }
         if(dialogHeader) {
-            (el as any)._v_dialogStopEvent = setDrag(dialogHeader as HTMLElement, { move: modalNode });
+            (el as any)._v_dialogStopEvent = setDrag(dialogHeader, { move: modalNode, ...value });
         }
     },
     unmounted(el) {
@@ -25,7 +29,7 @@ const drag: Directive = {
             el._v_cardStopEvent();
         }
         if(el._v_dialogStopEvent) {
-            el._v_cardStopEvent();
+            el._v_dialogStopEvent();
         }
     },
 };

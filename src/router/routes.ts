@@ -167,6 +167,16 @@ const routes: RouteRecordRaw[] = [
                 component: () => import("@/views/directive/fullscreen.vue"),
                 children: [],
             },
+            {
+                path: "drag",
+                name: "Drag",
+                meta: {
+                    title: "拖拽: v-drag",
+                    icon: "",
+                },
+                component: () => import("@/views/directive/drag.vue"),
+                children: [],
+            },
         ],
     },
     {

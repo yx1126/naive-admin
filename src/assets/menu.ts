@@ -89,6 +89,10 @@ const menus: MenuOptions & RouteMeta[] = [
                 name: "全屏: v-fullscreen",
                 path: "fullscreen",
             },
+            {
+                name: "拖拽: v-drag",
+                path: "drag",
+            },
         ],
     },
     {
