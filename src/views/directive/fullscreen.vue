@@ -1,84 +1,76 @@
 <template>
     <div class="fullscreen">
         <h1>v-fullscreen</h1>
-        <n-grid :cols="2" x-gap="12">
+        <n-grid :cols="1" :y-gap="12">
             <n-gi>
-                <n-grid :cols="1" y-gap="12">
-                    <n-gi>
-                        <code-card title="基础示例" :code="baseCode">
-                            <n-button v-fullscreen type="primary">
-                                <template #icon>
-                                    <Icon><FullscreenOutlined /></Icon>
-                                </template>
-                                按钮全屏
-                            </n-button>
-                        </code-card>
-                    </n-gi>
-                    <n-gi>
-                        <code-card title="修饰符" :code="modifiersCode">
-                            <n-space>
-                                <n-button v-fullscreen.body type="primary">
-                                    <template #icon>
-                                        <Icon><FullscreenOutlined /></Icon>
-                                    </template>
-                                    全屏
-                                </n-button>
-                                <n-button v-fullscreen:1.parent type="primary">
-                                    <template #icon>
-                                        <Icon><FullscreenOutlined /></Icon>
-                                    </template>
-                                    按钮全屏
-                                </n-button>
-                                <n-button v-fullscreen.stop type="primary">
-                                    <template #icon>
-                                        <Icon><FullscreenOutlined /></Icon>
-                                    </template>
-                                    按钮全屏
-                                </n-button>
-                            </n-space>
-                        </code-card>
-                    </n-gi>
-                </n-grid>
+                <code-card title="基础示例" :code="baseCode">
+                    <n-button v-fullscreen type="primary">
+                        <template #icon>
+                            <Icon><FullscreenOutlined /></Icon>
+                        </template>
+                        按钮全屏
+                    </n-button>
+                </code-card>
             </n-gi>
             <n-gi>
-                <n-grid :cols="1" y-gap="12">
-                    <n-gi>
-                        <code-card class="full-card" title="选择器" :code="selectorCode">
-                            <n-button v-fullscreen="'.full-card'" type="primary">
-                                <template #icon>
-                                    <Icon><FullscreenOutlined /></Icon>
-                                </template>
-                                card 全屏
-                            </n-button>
-                        </code-card>
-                    </n-gi>
-                    <n-gi>
-                        <code-card class="full-card" title="函数调用" :code="fnCode">
-                            <n-space>
-                                <n-tag :type="isEnabled ? 'primary' : 'error'" size="large">{{ isEnabled ? "支持全屏" : "不支持全屏" }}</n-tag>
-                                <n-tag :type="isFullScreen ? 'primary' : 'error'" size="large">{{ isFullScreen ? "全屏" : "非全屏" }}</n-tag>
-                                <n-button type="primary" @click="full">
-                                    <template #icon>
-                                        <Icon><FullscreenOutlined /></Icon>
-                                    </template>
-                                    full
-                                </n-button>
-                                <n-button type="primary" @click="exit">
-                                    <template #icon>
-                                        <Icon><FullscreenOutlined /></Icon>
-                                    </template>
-                                    exit
-                                </n-button>
-                                <n-button type="primary" @click="toggle">
-                                    <template #icon>
-                                        <Icon><FullscreenOutlined /></Icon>
-                                    </template>
-                                    toggle
-                                </n-button>
-                            </n-space>
-                        </code-card>
-                    </n-gi>
-                </n-grid>
+                <code-card title="修饰符" :code="modifiersCode">
+                    <n-space>
+                        <n-button v-fullscreen.body type="primary">
+                            <template #icon>
+                                <Icon><FullscreenOutlined /></Icon>
+                            </template>
+                            全屏
+                        </n-button>
+                        <n-button v-fullscreen:1.parent type="primary">
+                            <template #icon>
+                                <Icon><FullscreenOutlined /></Icon>
+                            </template>
+                            按钮全屏
+                        </n-button>
+                        <n-button v-fullscreen.stop type="primary">
+                            <template #icon>
+                                <Icon><FullscreenOutlined /></Icon>
+                            </template>
+                            按钮全屏
+                        </n-button>
+                    </n-space>
+                </code-card>
+            </n-gi>
+            <n-gi>
+                <code-card class="full-card" title="选择器" :code="selectorCode">
+                    <n-button v-fullscreen="'.full-card'" type="primary">
+                        <template #icon>
+                            <Icon><FullscreenOutlined /></Icon>
+                        </template>
+                        card 全屏
+                    </n-button>
+                </code-card>
+            </n-gi>
+            <n-gi>
+                <code-card class="full-card" title="函数调用" :code="fnCode">
+                    <n-space>
+                        <n-tag :type="isEnabled ? 'primary' : 'error'" size="large">{{ isEnabled ? "支持全屏" : "不支持全屏" }}</n-tag>
+                        <n-tag :type="isFullScreen ? 'primary' : 'error'" size="large">{{ isFullScreen ? "全屏" : "非全屏" }}</n-tag>
+                        <n-button type="primary" @click="full">
+                            <template #icon>
+                                <Icon><FullscreenOutlined /></Icon>
+                            </template>
+                            full
+                        </n-button>
+                        <n-button type="primary" @click="exit">
+                            <template #icon>
+                                <Icon><FullscreenOutlined /></Icon>
+                            </template>
+                            exit
+                        </n-button>
+                        <n-button type="primary" @click="toggle">
+                            <template #icon>
+                                <Icon><FullscreenOutlined /></Icon>
+                            </template>
+                            toggle
+                        </n-button>
+                    </n-space>
+                </code-card>
             </n-gi>
         </n-grid>
     </div>

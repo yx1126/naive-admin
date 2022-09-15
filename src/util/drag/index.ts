@@ -7,7 +7,7 @@ export interface DragOptions {
     type?: "x" | "y" | "xy";
 }
 
-export default function drag(current: HTMLElement, options: DragOptions) {
+export default function drag(current: HTMLElement, options?: DragOptions) {
     const { move, father, type } = Object.assign({
         move: current,
         father: document.body,

@@ -42,6 +42,18 @@
                     </n-space>
                 </code-card>
             </n-gi>
+            <n-gi>
+                <code-card title="函数调用" :code="fnCode">
+                    <n-space vertical>
+                        <n-button type="primary" @click="showFnModal = true">
+                            <template #icon>
+                                <Icon icon="drag" />
+                            </template>
+                            函数调用
+                        </n-button>
+                    </n-space>
+                </code-card>
+            </n-gi>
         </n-grid>
         <n-modal v-model:show="showBaseModal" style="width: 500px;">
             <n-card 
@@ -79,10 +91,25 @@
         >
             <span v-drag>你确认?</span>
         </n-modal>
+        <n-modal
+            v-model:show="showFnModal"
+            class="confirm"
+            preset="dialog"
+            title="提示"
+            content="你确认?"
+            positive-text="确认"
+            negative-text="算了"
+            @after-enter="onAfterEnter"
+            @after-leave="onAfterLeave"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
+import { $select } from "@/util/dom";
+import setDrag from "@/util/drag";
+import { NModal } from "naive-ui";
+
 defineOptions({
     name: "Drag",
 });
@@ -90,6 +117,19 @@ defineOptions({
 const showBaseModal = $ref(false);
 const showCardModal = $ref(false);
 const showDialogModal = $ref(false);
+const showFnModal = $ref(false);
+
+let stop: () => void;
+
+function onAfterEnter() {
+    const moveNode = $select(".n-modal.confirm") as HTMLElement;
+    const triggerNode = moveNode?.querySelector(".n-dialog__title") as HTMLElement;
+    stop = setDrag(triggerNode, { move: moveNode });
+}
+
+function onAfterLeave() {
+    stop();
+}
 
 const baseCode = `
 <template>
@@ -139,6 +179,32 @@ const dialogCode = `
 import { ref } from 'vue'
 
 const showDialogModal = ref(false);
+<\/script>
+`;
+
+const fnCode = `
+<template>
+    <n-button type="primary" @click="showFnModal = true">函数调用</n-button>
+    <n-modal v-model:show="showFnModal" class="confirm" preset="card" title="提示" content="你确认?" positive-text="确认" negative-text="算了" @after-enter="onAfterEnter" @after-leave="onAfterLeave" />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { $select } from "@/util/dom";
+import setDrag from "@/util/drag";
+
+const showFnModal = ref(false);
+let stop: () => void;
+
+function onAfterEnter() {
+    const moveNode = $select(".n-modal.confirm") as HTMLElement;
+    const triggerNode = moveNode?.querySelector(".n-dialog__title") as HTMLElement;
+    stop = setDrag(triggerNode, { move: moveNode });
+}
+
+function onAfterLeave() {
+    stop();
+}
 <\/script>
 `;
 </script>
