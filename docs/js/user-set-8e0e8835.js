@@ -1,1 +1,0 @@
-import{d as e,b as s,e as t,i as o}from"../assets/index.c1922953.js";const _={class:"user-set"},n=o("h1",null,"user-set",-1),a=[n],c={name:"UserSet"},u=e({...c,setup(r){return(d,i)=>(s(),t("div",_,a))}});export{u as default};
