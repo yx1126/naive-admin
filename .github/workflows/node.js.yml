@@ -31,12 +31,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm install
-    - run: pnpm build
+    - run: pnpm build --mode development
 
     - name: Build Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
         repository-name: yangxin11010/naive-admin
         branch: docs
-        folder: .
+        folder: docs
         commit-message: build page
