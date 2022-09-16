@@ -1,0 +1,40 @@
+.basic-table-wrapper {
+    width: 100%;
+    @each $full in fullscreen, -webkit-full-screen, -ms-fullscreen, -moz-full-screen {
+        &:#{$full} {
+            background-color: var(--table-wrapper-back) !important;
+        }
+    }
+    .basic-table-toolbar {
+        width: 100%;
+        min-height: 34px;
+        margin-bottom: 15px;
+        @extend .flex-between-center;
+        .behavior {
+            height: 100%;
+            & > *:not(:last-child) {
+                margin-right: 8px;
+            }
+        }
+        .set {
+            height: 100%;
+            @extend .flex-align-center;
+            & > *:not(:first-child) {
+                margin-left: 15px;
+            }
+        }
+        .icon {
+            cursor: pointer;
+            &:hover {
+                color: var(--icon-hover-color);
+            }
+        }
+    }
+    .basic-table {
+        width: 100%;
+    }
+    .basic-table-empty {
+        width: 100%;
+        padding: 48px 0;
+    }
+}

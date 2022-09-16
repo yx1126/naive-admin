@@ -1,0 +1,24 @@
+{
+    "set": {
+        "isCutMenu": "Split the menu",
+        "isKeepHeader": "Fixed the top bar",
+        "isKeepTags": "Fixed Tabs",
+        "isShowBreadcrumb": "Show Breadcrumb",
+        "isShowLogo": "Show Logo",
+        "isShowTabs": "Show Tabs",
+        "layoutMode": "Navigation mode",
+        "navTheme": "System theme",
+        "otherSet": "Other Settings",
+        "pageDisplay": "Page Display",
+        "pageFunction": "Page Function",
+        "reset": "reset",
+        "routerTrans": "Routing animation",
+        "themeColor": "Component theme",
+        "title": "Project configuration",
+        "uniqueMenuOpened": "Keep a submenu open",
+        "lang": "Change language",
+        "confirmSet": "Are you sure to restore the default Settings?",
+        "inverted": "Reverse background color",
+        "menuTrigger": "menu trigger"
+    }
+}

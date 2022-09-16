@@ -1,0 +1,1 @@
+import{d as e,b as o,e as a,i as t}from"../assets/index.c1922953.js";const s={class:"role-manage"},n=t("h1",null,"role-manage",-1),_=[n],c={name:"RoleManage"},m=e({...c,setup(r){return(l,d)=>(o(),a("div",s,_))}});export{m as default};
