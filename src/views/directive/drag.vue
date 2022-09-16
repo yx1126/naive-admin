@@ -2,8 +2,8 @@
     <div class="drag">
         <h1>v-drag</h1>
         <n-alert mb-12px title="提示" type="info" style="width: 600px;" closable>
-            <p>如果未使用 NModel 预设 根节点需设置 role="dialog"。</p> 
-            <p>例如：基础预设</p>
+            <p>如果未使用 NModel 预设 根节点需设置 role="dialog"。</p>
+            <p>例如：基础设置</p>
         </n-alert>
         <n-grid :cols="1" y-gap="12">
             <n-gi>
@@ -56,7 +56,7 @@
             </n-gi>
         </n-grid>
         <n-modal v-model:show="showBaseModal" style="width: 500px;">
-            <n-card 
+            <n-card
                 v-drag
                 style="width: 600px"
                 title="模态框"

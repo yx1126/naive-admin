@@ -38,7 +38,7 @@ export default defineConfig({
         proxy: {},
     },
     build: {
-        outDir: "dist",
+        outDir: "docs",
         rollupOptions: {
             output: {
                 assetFileNames: (assetInfo) => {
