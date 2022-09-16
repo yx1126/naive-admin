@@ -1,0 +1,1 @@
+import{_ as e,d as n,b as a,e as s,i as o}from"../assets/index.e8fe7c02.js";const t={class:"menu-manage"},_=o("h1",null,"menu-manage",-1),m=[_],r={name:"MenuManage"},c=n({...r,setup(i){return(u,d)=>(a(),s("div",t,m))}});var p=e(c,[["__file","/home/runner/work/naive-admin/naive-admin/src/views/permission/menu-manage.vue"]]);export{p as default};
