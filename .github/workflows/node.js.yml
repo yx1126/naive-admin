@@ -40,3 +40,4 @@ jobs:
         branch: docs
         folder: docs
         commit-message: build page
+        target-folder: docs
