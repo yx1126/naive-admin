@@ -1,5 +1,12 @@
 <template>
-    <div v-if="showTrigger" class="drawer-set" :class="`drawer-tans-${show ? 'enter' : 'leave'}`" :style="drawerStyles" @click="onUpdateShow(!show)">
+    <div
+        v-if="showTrigger"
+        class="drawer-set"
+        :class="`drawer-tans-${show ? 'enter' : 'leave'}`"
+        :style="drawerStyles"
+        @click="onUpdateShow(!show)"
+        @click.right.prevent
+    >
         <Icon :size="26" color="#fff">
             <component :is="show ? CloseOutlined : SettingOutlined" />
         </Icon>
@@ -10,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import { $select } from "@/util/dom";
+import setDrag from "@/util/drag";
 import { SettingOutlined, CloseOutlined } from "@vicons/antd";
 import { useThemeVars } from "naive-ui";
 
@@ -36,14 +45,28 @@ const emit = defineEmits<{
     (e: "update:show", value: boolean): void;
 }>();
 
+let stop: (() => void) | null =  null;
+
 const drawerStyles = computed(() => {
     return {
         "--drawer-set-color": set.themeColor,
         "--drawer-tans-leave": themeVars.cubicBezierEaseIn,
         "--drawer-tans-enter": themeVars.cubicBezierEaseOut,
-        "--drawer-opacity": props.show ? 1 : 0.4,
     };
 });
+watch(() => props.showTrigger, async (value) => {
+    await nextTick();
+    const set = $select<HTMLElement>(".drawer-set");
+    if(value && set) {
+        stop = setDrag(set, {
+            type: "y",
+            eventType: "right",
+            cursor: "pointer",
+        });
+        return;
+    }
+    if(stop) stop();
+}, { immediate: true });
 
 function onUpdateShow(show: boolean) {
     emit("update:show", show);
@@ -65,12 +88,8 @@ function onUpdateShow(show: boolean) {
     top: 50%;
     right: 1px;
     z-index: 2001;
-    opacity: var(--drawer-opacity);
-    &:hover {
-        opacity: 1;
-    }
     &.drawer-tans-enter {
-        transform: translate(-280px, -50%);
+        transform: translate(-279px, -50%);
         transition: transform 0.3s var(--drawer-tans-enter);
     }
     &.drawer-tans-leave {

@@ -16,8 +16,8 @@ export function getParentNode(node: HTMLElement, level: number | ((node: HTMLEle
     return parentNode;
 }
 
-export function $select(selectors: keyof HTMLElementTagNameMap | string) {
-    return document.querySelector(selectors);
+export function $select<T = Element>(selectors: keyof HTMLElementTagNameMap | string) {
+    return document.querySelector(selectors) as T | null;
 }
 
 export function on<T extends DOMElement, K extends keyof DOMEventKeyMap, E extends DOMEventKeyMap[K]>(

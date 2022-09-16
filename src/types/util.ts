@@ -32,3 +32,21 @@ export type DOMEventKeyMap<T = DOMElement> = T extends Window
         ? DocumentEventMap : T extends HTMLElement
             ? HTMLElementEventMap : T extends SVGElement
                 ? SVGElementEventMap : ElementEventMap;
+
+export type CursorType =
+    | "default"
+    | "auto"
+    | "crosshair"
+    | "pointer"
+    | "move"
+    | "e-resize"
+    | "ne-resize"
+    | "nw-resize"
+    | "n-resize"
+    | "se-resize"
+    | "sw-resize"
+    | "s-resize"
+    | "w-resize"
+    | "text"
+    | "wait"
+    | "help";
