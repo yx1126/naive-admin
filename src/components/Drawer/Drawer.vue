@@ -5,7 +5,6 @@
         :class="`drawer-tans-${show ? 'enter' : 'leave'}`"
         :style="drawerStyles"
         @click="onUpdateShow(!show)"
-        @click.right.prevent
     >
         <Icon :size="26" color="#fff">
             <component :is="show ? CloseOutlined : SettingOutlined" />

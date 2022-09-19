@@ -1,8 +1,8 @@
 <template>
-    <router-view #default="{ Component, route }">
+    <router-view #default="{ Component }">
         <transition :name="transition ? set.routerTrans : void 0" :mode="transitionMode">
             <keep-alive :include="keepAliveList" :exclude="['Redirect']">
-                <component :is="Component" :key="route.fullPath" />
+                <component :is="Component" />
             </keep-alive>
         </transition>
     </router-view>

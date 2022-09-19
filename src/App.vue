@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import TransRouterView from "@/components/TransRouterView";
 import Layout from "@/Layout/index.vue";
 import { NConfig } from "@/naive";
 

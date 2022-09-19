@@ -1,5 +1,12 @@
 <template>
-    <n-config-provider :hljs="hljs" :locale="locale" :date-locale="dateLocale" :theme="theme" :theme-overrides="themeOverrides" :abstract="true">
+    <n-config-provider
+        :hljs="hljs"
+        :locale="locale"
+        :date-locale="dateLocale"
+        :theme="theme"
+        :theme-overrides="themeOverrides"
+        :abstract="true"
+    >
         <n-loading-bar-provider>
             <n-dialog-provider>
                 <n-message-provider>

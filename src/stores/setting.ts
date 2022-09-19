@@ -45,9 +45,9 @@ export const menuTriggerOptions: SelectOption[] = [
 
 export const defaultSetting: SetState = {
     drawerStatus: false, // 全局设置
-    themeColor: "#409EFF",
-    navMode: "dark", // 系统主题
-    layoutMode: "aside", // 导航模式
+    themeColor: "#409EFF", // 系统主题
+    navMode: "dark", // 导航模式
+    layoutMode: "aside",
     isShowLogo: true, // 显示 logo
     isShowTabs: true, // 显示 标签页
     uniqueMenuOpened: false, // 菜单单选

@@ -7,7 +7,7 @@ export interface Tags {
     path: string;
     matchedName?: string[];
     query: Record<string, string>;
-    meta?: Partial<RouteMeta>;
+    meta: RouteMeta;
 }
 
 export interface TagsState {
@@ -17,7 +17,7 @@ export interface TagsState {
 
 export type TagsType = "keepTags" | "activeTags";
 
-const defaultTags: Tags[] = [{ title: "主控台", name: "Console", path: "/dashboard/console", query: {} }];
+const defaultTags: Tags[] = [{ title: "主控台", name: "Console", path: "/dashboard/console", query: {}, meta: {} }];
 
 const useTagsStore = defineStore(
     "tags",
@@ -49,6 +49,10 @@ const useTagsStore = defineStore(
             const tag = [...state.keepTags, ...state.activeTags].find(t => t.path === value.path);
             if(tag) return;
             state[type].push(value);
+        }
+
+        function replace() {
+            console.log("");
         }
 
         // base 移除
@@ -120,6 +124,7 @@ const useTagsStore = defineStore(
             setState,
             init,
             insert,
+            replace,
             remove,
             removeLeft,
             removeRight,

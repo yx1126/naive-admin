@@ -60,6 +60,7 @@ export default function drag(current: HTMLElement, options?: DragOptions) {
         on(document, "mousemove", onMousemove);
         on(document, "mouseup", onMouseup);
     }
+    on(current, "contextmenu", (e) => e.preventDefault());
     on(current, "mousedown", onMousedown);
     return () => {
         off(current, "mousedown", onMousedown);
