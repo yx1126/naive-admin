@@ -33,24 +33,20 @@ export default function drag(current: HTMLElement, options?: DragOptions) {
         const moveBaseLeft = ["auto", ""].includes(defaultLeft) ? 0 : Number(defaultLeft);
         const moveBaseTop = ["auto", ""].includes(defaultTop) ? 0 : Number(defaultTop);
         // 边界
-        const offsetLeft = (faRect.left || 0) - moveRect.left + moveBaseLeft;
-        const offsetTop = (faRect.top || 0) - moveRect.top + moveBaseTop;
-        const boundary = {
-            left: offsetLeft,
-            top: offsetTop,
-            right: offsetLeft + faRect.width - moveRect.width,
-            bottom: offsetTop + faRect.height - moveRect.height,
-        };
+        const left = (faRect.left || 0) - moveRect.left + moveBaseLeft;
+        const top = (faRect.top || 0) - moveRect.top + moveBaseTop;
+        const right = left + faRect.width - moveRect.width;
+        const bottom = top + faRect.height - moveRect.height;
         function onMousemove(e: MouseEvent) {
             if(["xy", "x"].includes(type)) {
                 const baseLeft = e.clientX - downEvent.clientX + moveBaseLeft;
-                const left = baseLeft <= boundary.left ? boundary.left : baseLeft >= boundary.right ? boundary.right : baseLeft;
-                move.style.left = left + "px";
+                const offsetLeft = baseLeft <= left ? left : baseLeft >= right ? right : baseLeft;
+                move.style.left = offsetLeft + "px";
             }
             if(["xy", "y"].includes(type)) {
                 const baseTop = e.clientY - downEvent.clientY + moveBaseTop;
-                const top = baseTop <= boundary.top ? boundary.top : baseTop >= boundary.bottom ? boundary.bottom : baseTop;
-                move.style.top = top + "px";
+                const offsetTop = baseTop <= top ? top : baseTop >= bottom ? bottom : baseTop;
+                move.style.top = offsetTop + "px";
             }
         }
         function onMouseup() {
