@@ -40,9 +40,7 @@ defineOptions({
 
 const message = useFeedBack("message");
 
-const page = $ref(1);
-const size = $ref(10);
-const total = $ref(1000);
+const { page, size, total } = usePage().setTotal(1000);
 
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
@@ -78,7 +76,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
+const data = $ref<RowData[]>(Array.from({ length: size.value }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,
@@ -90,6 +88,10 @@ const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
         tags: ["cool", "teacher"],
     };
 }));
+
+// onMounted(() => {
+//     total.value = 1000;
+// });
 
 function onPageChange() {
     message.info("page change");
