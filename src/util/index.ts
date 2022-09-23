@@ -39,3 +39,6 @@ export function deepCopy<T = unknown>(data: any): T {
     }
     return o as T;
 }
+export * from "./clipboard";
+export * from "./color";
+export * from "./clipboard";

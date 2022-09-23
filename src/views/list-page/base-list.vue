@@ -45,7 +45,7 @@
 import BasicTable, { useTable, type BasicTableInstance, type Behavior } from "@/components/BasicTable";
 import BasicForm, { useForm, type BasicFormInstance } from "@/components/BasicForm";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
-import { exportExcel } from "@/util/export/excel";
+import { exportExcel } from "@/util/export";
 
 defineOptions({
     name: "BaseList",
