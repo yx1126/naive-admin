@@ -39,6 +39,19 @@ export function deepCopy<T = unknown>(data: any): T {
     }
     return o as T;
 }
-export * from "./clipboard";
-export * from "./color";
-export * from "./clipboard";
+
+function pickOmit<T extends Record<string, any>>(data: T, fields: string | string[], flag = false) {
+    const fieldList = saToArray(fields) || [];
+    const keys = Object.keys(data).filter(k => flag ? fieldList.includes(k) : !fieldList.includes(k));
+    return keys.reduce((pre, cur) => {
+        pre[cur] = data[cur];
+        return pre;
+    }, {} as Record<string, any>);
+}
+
+export function pick<T extends object>(data: T, fields: string | string[]) {
+    return pickOmit(data, fields, true);
+}
+export function omit<T extends object>(data: T, fields: string | string[]) {
+    return pickOmit(data, fields);
+}

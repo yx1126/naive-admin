@@ -1,5 +1,3 @@
-import type { InjectionKey } from "vue";
-
-export default function createInjectionKey<T>() {
-    return Symbol() as InjectionKey<T>;
+export default function createInjectionKey<T = symbol>(description?: string | number) {
+    return Symbol(description) as T;
 }
