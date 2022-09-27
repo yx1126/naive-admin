@@ -9,7 +9,7 @@ function defaultInitFn(fn: string) {
 }
 
 export default function useForm<T extends object>(options: FormOptions<T>) {
-    const { data, rules, gridProps, schema } = options;
+    const { data } = options;
 
     const context = createInjectionKey<RenderFormProvide<T>>("RenderForm");
 
@@ -22,9 +22,6 @@ export default function useForm<T extends object>(options: FormOptions<T>) {
     provide(context, {
         loading,
         model,
-        rules,
-        gridProps,
-        schema: schema || [],
         init: (params) => {
             validate.value = params.validate;
             restoreValidation.value = params.restoreValidation;
@@ -32,6 +29,7 @@ export default function useForm<T extends object>(options: FormOptions<T>) {
         setModel(key, value) {
             model.value[key] = value;
         },
+        resetFields,
     });
 
     function resetFields() {

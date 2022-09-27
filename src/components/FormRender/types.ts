@@ -1,6 +1,5 @@
 import type {
     FormItemRule,
-    FormRules,
     FormValidationError,
     GridProps,
     CascaderProps,
@@ -17,7 +16,7 @@ import type {
     FormItemProps,
     FormItemGiProps,
 } from "naive-ui";
-import type { InjectionKey, Ref, VNodeChild } from "vue";
+import type { ComputedRef, InjectionKey, Ref, VNodeChild } from "vue";
 
 
 export interface FormComponents {
@@ -34,8 +33,8 @@ export interface FormComponents {
     "time-picker": TimePickerProps;
 }
 
-export interface SchemaOption<K, T extends keyof FormComponents = keyof FormComponents> {
-    path: K;
+export interface BaseSchemaOption<T extends keyof FormComponents = keyof FormComponents> {
+    path: string;
     type?: T;
     label?: string | (() => VNodeChild);
     feedback?: string | (() => VNodeChild);
@@ -45,13 +44,13 @@ export interface SchemaOption<K, T extends keyof FormComponents = keyof FormComp
     render?: () => VNodeChild;
 }
 
+export type SchemaOption = BaseSchemaOption & Omit<FormItemProps, FormItemOmit> & Omit<FormItemGiProps, FormItemOmit>;
+
 type FormItemOmit = "label" | "feedback";
 
 export interface FormOptions<T extends object> {
     data?: () => T;
     gridProps?: GridProps;
-    rules?: FormRules;
-    schema?: Array<SchemaOption<keyof T> & Omit<FormItemProps, FormItemOmit> & Omit<FormItemGiProps, FormItemOmit>>;
 }
 
 export interface RenderFormInitParams {
@@ -62,13 +61,19 @@ export interface RenderFormInitParams {
 export interface BaseRenderFormProvide<T> {
     loading: Ref<boolean>;
     model: Ref<T>;
-    rules?: FormRules;
-    gridProps?: GridProps;
     init(params: RenderFormInitParams): void;
-    schema?: SchemaOption<keyof T>[];
     setModel<K extends keyof T>(key: K, value: T[K]): void;
+    resetFields: () => void;
+}
+
+export interface BaseFormActionProvide {
+    grid: ComputedRef<boolean>;
+    loading: ComputedRef<boolean | undefined>;
+    reset: () => void;
+    validate: RenderFormInitParams["validate"];
 }
 
 export type RenderFormProvide<T> = InjectionKey<BaseRenderFormProvide<T>>;
+export type FormActionProvide = InjectionKey<BaseFormActionProvide>;
 
 export {};
