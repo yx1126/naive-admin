@@ -1,7 +1,6 @@
 import type {
     FormItemRule,
     FormValidationError,
-    GridProps,
     CascaderProps,
     CheckboxProps,
     DatePickerProps,
@@ -10,6 +9,7 @@ import type {
     RadioProps,
     CheckboxGroupProps,
     RadioGroupProps,
+    RadioButtonProps,
     SelectProps,
     SwitchProps,
     TimePickerProps,
@@ -28,30 +28,27 @@ export interface FormComponents {
     "input-number": InputNumberProps;
     radio: RadioProps;
     "radio-group": RadioGroupProps & { options: RadioProps[] };
+    "radio-button-group": RadioButtonProps & { options: RadioProps[] };
     select: SelectProps;
     switch: SwitchProps;
     "time-picker": TimePickerProps;
 }
 
-export interface BaseSchemaOption<T extends keyof FormComponents = keyof FormComponents> {
-    path: string;
+export interface SchemaOption<T extends keyof FormComponents = keyof FormComponents> {
+    path?: string;
     type?: T;
     label?: string | (() => VNodeChild);
     feedback?: string | (() => VNodeChild);
     props?: FormComponents[T];
-    // show?: boolean;
-    // display?: "show" | "if";
+    slot?: string;
+    show?: boolean;
+    displayDirective?: "show" | "if";
     render?: () => VNodeChild;
 }
 
-export type SchemaOption = BaseSchemaOption & Omit<FormItemProps, FormItemOmit> & Omit<FormItemGiProps, FormItemOmit>;
+export type FormSchema = SchemaOption & Omit<FormItemProps, FormItemOmit> & Omit<FormItemGiProps, FormItemOmit>;
 
 type FormItemOmit = "label" | "feedback";
-
-export interface FormOptions<T extends object> {
-    data?: () => T;
-    gridProps?: GridProps;
-}
 
 export interface RenderFormInitParams {
     validate(validateCallback?: (errors?: Array<FormValidationError>) => void, shouldRuleBeApplied?: (rule: FormItemRule) => boolean): Promise<void>;

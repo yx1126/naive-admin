@@ -3,18 +3,7 @@ import {
     NGrid,
     NFormItem,
     NFormItemGi,
-    NCascader,
-    NCheckbox,
-    NCheckboxGroup,
     NSpace,
-    NInput,
-    NInputNumber,
-    NRadioGroup,
-    NRadio,
-    NDatePicker,
-    NSelect,
-    NSwitch,
-    NTimePicker,
     type FormItemRule,
     type FormValidationError,
     type GridProps,
@@ -22,37 +11,22 @@ import {
 import { omit } from "@/util";
 import { isFunction, isBoolean } from "@/util/validata";
 import type { PropType, VNodeChild } from "vue";
-import { formActionContext, type RenderFormProvide } from "./index";
-import type { SchemaOption, BaseSchemaOption } from "./types";
+import { formActionContext, ComponentsMap, ComponentsOptionsMap, type RenderFormProvide } from "./index";
+import type { SchemaOption, FormSchema } from "./types";
 
-const ComponentsMap = {
-    cascader: NCascader,
-    checkbox: NCheckbox,
-    "checkbox-group": NCheckboxGroup,
-    "date-picker": NDatePicker,
-    input: NInput,
-    "input-number": NInputNumber,
-    radio: NRadio,
-    "radio-group": NRadioGroup,
-    select: NSelect,
-    switch: NSwitch,
-    "time-picker": NTimePicker,
-};
-
-const ComponentsOptionsMap = {
-    "checkbox-group": NCheckbox,
-    "radio-group": NRadio,
-};
+const NeedSpaceMap = ["checkbox-group", "radio-group"];
 
 export default defineComponent({
     name: "FormRender",
     inheritAttrs: false,
     props: {
         model: { type: Object, default: void 0 },
-        schema: { type: Array as PropType<Array<SchemaOption>>, default: () => [] },
+        schema: { type: Array as PropType<Array<FormSchema>>, default: () => [] },
         grid: { type: [Boolean, Object] as PropType<GridProps | boolean>, default: false },
         labelPlacement: { type: String as PropType<"left" | "top">, default: "left" },
+        displayDirective: { type: String as PropType<"show" | "if">, default: "show" },
         context: { type: Symbol as PropType<RenderFormProvide<Record<string, any>>>, default: Symbol("RenderForm") },
+        showColon: { type: Boolean, default: false },
     },
     setup(props, { slots }) {
 
@@ -65,6 +39,14 @@ export default defineComponent({
             return isBoolean(grid) ? {} : grid;
         });
         const isShowGrid = computed(() => !!props.grid);
+
+        const schemaList = computed(() => {
+            return props.schema.filter(s => {
+                const show = s.show ?? true;
+                const display = s.displayDirective || props.displayDirective;
+                return show ? true : display !== "if";
+            });
+        });
 
         if(formInject) {
             formInject.init({
@@ -93,33 +75,34 @@ export default defineComponent({
             formInject.setModel(key, value);
         }
 
-        function renderFormItem(schema: BaseSchemaOption, model: Record<string, any>) {
-            const path = schema.path;
-            const componentType = schema.type || "input";
+        function renderFormItem(schema: SchemaOption, model: Record<string, any>) {
+            const { render, path, slot, props = {}, type = "input" } = schema;
+            // render
+            if(render) return render();
+            // path 为空 优先渲染插槽
+            if(!path) return slot ? renderSlot(slots, slot) : null;
+            const slotName = slot ?? path;
             const modelValue = model[path];
-            const props: any = schema.props || {};
-            const component = ComponentsMap[componentType];
-            if(!component) {
-                return renderSlot(slots, path);
-            }
+            const component = ComponentsMap[type];
+            // component 组件不存在 渲插槽
+            if(!component) return renderSlot(slots, slotName);
             let result: JSX.Element;
-            if(["checkbox-group", "radio-group"].includes(componentType)) {
-                const NextCom = ComponentsOptionsMap[componentType as keyof typeof ComponentsOptionsMap];
+            if(["checkbox-group", "radio-group", "radio-button-group"].includes(type)) {
+                const GroupItem = ComponentsOptionsMap[type as keyof typeof ComponentsOptionsMap];
+                const resultChilds = renderList((props as any).options || [], (item: any, i: number) => <GroupItem {...item} key={i} />);
                 result = (
                     <component value={modelValue} onUpdateValue={(value: boolean) => setModel(path, value)} {...props}>
-                        <NSpace>
-                            { renderList(props?.options || [], (item: any, i: number) => <NextCom {...item} key={i} />) }
-                        </NSpace>
+                        { NeedSpaceMap.includes(type) ? <NSpace>{resultChilds}</NSpace> : resultChilds }
                     </component>
                 );
-            } else if(["checkbox", "radio"].includes(componentType)) {
+            } else if(["checkbox", "radio"].includes(type)) {
                 result = (
                     <component checked={modelValue} onUpdateChecked={(value: boolean) => setModel(path, value)} {...props} />
                 );
             } else {
                 result = (<component value={modelValue} onUpdateValue={(value: string) => setModel(path, value)} {...props} />);
             }
-            return renderSlot(slots, path, {}, () => [result]);
+            return renderSlot(slots, slotName, {}, () => [result]);
         }
 
         function renderVNode(value?: string | (() => VNodeChild)) {
@@ -129,6 +112,7 @@ export default defineComponent({
         return {
             nFormRef,
             formInject,
+            schemaList,
             injectModel: formInject?.model || {},
             gridProps,
             isShowGrid,
@@ -137,18 +121,18 @@ export default defineComponent({
         };
     },
     render() {
-        const { $attrs, $slots, model, injectModel, isShowGrid, gridProps, labelPlacement, schema, renderFormItem, renderVNode } = this;
+        const { $attrs, $slots, model, injectModel, isShowGrid, gridProps, labelPlacement, schemaList, renderFormItem, renderVNode, showColon } = this;
         const defaultModel = model ?? injectModel;
         const FormItem = isShowGrid ? NFormItemGi : NFormItem;
         const defaultSlot = renderSlot($slots, "default", {}, () => {
-            return renderList(schema, (item, i) => {
-                const formItemProps = omit(item, "type,props,render,feedback,label");
+            return renderList(schemaList, (item, i) => {
+                const formItemProps = omit(item, "type,props,render,feedback,label,slot,show,displayDirective");
                 return (
-                    <FormItem {...formItemProps} key={i}>
+                    <FormItem {...formItemProps} key={i} v-show={item.show ?? true}>
                         {{
                             default: () => renderFormItem(item, defaultModel),
                             feedback: renderVNode(item.feedback),
-                            label: renderVNode(item.label),
+                            label: () => [renderVNode(item.label)(), showColon ? "：" : null],
                         }}
                     </FormItem>
                 );

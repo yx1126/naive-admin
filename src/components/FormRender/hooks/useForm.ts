@@ -1,6 +1,6 @@
 import createInjectionKey from "@/util/create-key";
 import type { Ref } from "vue";
-import type { FormOptions, RenderFormProvide, RenderFormInitParams } from "../types";
+import type { RenderFormProvide, RenderFormInitParams } from "../types";
 
 function defaultInitFn(fn: string) {
     return () => {
@@ -8,8 +8,7 @@ function defaultInitFn(fn: string) {
     };
 }
 
-export default function useForm<T extends object>(options: FormOptions<T>) {
-    const { data } = options;
+export default function useForm<T extends object>(data: () => T) {
 
     const context = createInjectionKey<RenderFormProvide<T>>("RenderForm");
 
@@ -33,7 +32,7 @@ export default function useForm<T extends object>(options: FormOptions<T>) {
     });
 
     function resetFields() {
-        if(data) model.value = data();
+        model.value = data();
         restoreValidation.value();
     }
 
