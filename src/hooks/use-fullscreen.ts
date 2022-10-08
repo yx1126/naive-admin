@@ -1,5 +1,6 @@
 import Screenfull from "screenfull";
 import { isString, isUndefined } from "@/util/validata";
+import { $select } from "@/util/dom";
 import useFeedBack from "./use-feed-back";
 import type { MayBeRef } from "@/types/util";
 
@@ -37,9 +38,9 @@ export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?
         if(!isEnabled) return;
         await nextTick();
         if(isUndefined(selectors)) {
-            target.value = document.querySelector("body");
+            target.value = $select("body");
         } else if(isString(selectors)) {
-            target.value = document.querySelector<HTMLElement>(unref<string>(selectors));
+            target.value = $select<HTMLElement>(unref<string>(selectors));
         } else {
             target.value = unref(selectors) as HTMLElement;
         }
@@ -55,7 +56,7 @@ export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?
 
     return {
         isEnabled,
-        isFullScreen,
+        isFullScreen: readonly(isFullScreen),
         full,
         exit,
         toggle,

@@ -79,7 +79,7 @@ export default defineComponent({
                 } as TableColumn);
             }
             if(isShowIndex.value) {
-                data.splice(isShowCheck.value ? 1 : 0, 0, {
+                data.unshift({
                     title: "序号",
                     key: "index",
                     align: "center",

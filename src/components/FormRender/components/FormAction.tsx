@@ -22,13 +22,11 @@ export default defineComponent({
         });
 
         function submit() {
-            if(formInject) {
-                formInject.validate((errors) => {
-                    if(!errors) {
-                        emit("submit");
-                    }
-                });
-            }
+            if(!formInject) return;
+            formInject.validate((errors) => {
+                if(errors) return;
+                emit("submit");
+            });
         }
         function reset() {
             if(formInject) formInject.reset();
