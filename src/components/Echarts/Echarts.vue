@@ -27,8 +27,8 @@ const props = withDefaults(
 
 const set = useSetStore();
 
-const echartsRef = $ref<HTMLDivElement | null>(null);
-let echarts = $shallowRef<EchartsInstance | null>(null);
+const echartsRef = ref<HTMLDivElement | null>(null);
+const echarts = shallowRef<EchartsInstance | null>(null);
 
 const defaultOptions = $computed(() => {
     return {
@@ -46,7 +46,7 @@ watch([() => set.collapsed, () => set.asideMixinCollapsed], () => {
 watch(
     () => props.options,
     options => {
-        echarts?.setOption(options);
+        echarts.value?.setOption(options);
     },
     {
         deep: true,
@@ -64,7 +64,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    if(echarts) echarts.dispose();
+    if(echarts.value) echarts.value.dispose();
     off(window, "resize", resize);
 });
 
@@ -72,15 +72,15 @@ defineExpose({
     refresh,
     resize,
     clear,
-    instance: $$(echarts),
+    instance: echarts,
 });
 
 function init() {
-    if(echarts) echarts.dispose();
-    echarts = Echarts.init(echartsRef!, props.dark ? "dark" : set.navMode === "diablo" ? "dark" : void 0, {
+    if(echarts.value) echarts.value.dispose();
+    echarts.value = Echarts.init(echartsRef.value!, props.dark ? "dark" : set.navMode === "diablo" ? "dark" : void 0, {
         renderer: props.svgRender ? "svg" : "canvas",
     });
-    echarts.setOption(defaultOptions);
+    echarts.value.setOption(defaultOptions);
     if(set.layoutMode === "asideMixin") {
         setTimeout(resize, 300);
     }
@@ -89,15 +89,15 @@ function init() {
 function refresh() {
     clear();
     resize();
-    echarts?.setOption(defaultOptions);
+    echarts.value?.setOption(defaultOptions);
 }
 
 function resize() {
-    echarts?.resize();
+    echarts.value?.resize();
 }
 
 function clear() {
-    echarts?.clear();
+    echarts.value?.clear();
 }
 
 </script>

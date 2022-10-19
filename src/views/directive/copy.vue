@@ -67,7 +67,7 @@ import type { Event } from "clipboard";
 
 const message = useMessage();
 
-const copyText = ref("VueAdmin");
+const copyText = ref("NaiveAdmin");
 
 function onCopySuccess(e: Event){
     console.log(e);

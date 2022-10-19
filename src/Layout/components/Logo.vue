@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Logo>(), {
     width: 272,
     height: 50,
     collapsedWidth: 48,
-    text: "VueAdmin",
+    text: "NaiveAdmin",
     indent: 20,
 });
 

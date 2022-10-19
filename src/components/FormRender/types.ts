@@ -16,10 +16,13 @@ import type {
     FormItemProps,
     FormItemGiProps,
 } from "naive-ui";
+import type FormRender from "./FormRender";
 import type { ComputedRef, InjectionKey, Ref, VNodeChild } from "vue";
 
-
-export interface FormComponents {
+/**
+ * {@label FormComponentsProps}
+ */
+export interface FormComponentsProps {
     cascader: CascaderProps;
     checkbox: CheckboxProps;
     "checkbox-group": CheckboxGroupProps & { options: CheckboxProps[] };
@@ -34,12 +37,12 @@ export interface FormComponents {
     "time-picker": TimePickerProps;
 }
 
-export interface SchemaOption<T extends keyof FormComponents = keyof FormComponents> {
+export interface SchemaOption<T extends keyof FormComponentsProps = keyof FormComponentsProps> {
     path?: string;
     type?: T;
     label?: string | (() => VNodeChild);
     feedback?: string | (() => VNodeChild);
-    props?: FormComponents[T];
+    props?: FormComponentsProps[T];
     slot?: string;
     show?: boolean;
     displayDirective?: "show" | "if";
@@ -72,5 +75,6 @@ export interface BaseFormActionProvide {
 
 export type RenderFormProvide<T> = InjectionKey<BaseRenderFormProvide<T>>;
 export type FormActionProvide = InjectionKey<BaseFormActionProvide>;
+export type FormRenderInstance = InstanceType<typeof FormRender> | null | undefined;
 
 export {};

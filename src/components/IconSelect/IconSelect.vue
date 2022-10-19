@@ -12,7 +12,7 @@
                     <Icon :icon="defaultIcon" :size="20" />
                 </n-input-group-label>
                 <n-input
-                    v-bind="attrs"
+                    v-bind="$attrs"
                     v-model:value="defaultIcon"
                     :placeholder="placeholder"
                     :disabled="disabled"
@@ -30,8 +30,15 @@
                 <n-input v-model:value="searchKey" placeholder="请输入图标名称" clearable @update:value="onSearchChange" />
             </div>
             <div class="icon-select-list">
-                <template v-for="item in svgList" :key="item">
-                    <n-button class="button" :class="value === item ? 'icon-active' : ''" @click="onIconClick(item)">
+                <template v-for="item, i in svgList" :key="i">
+                    <n-button
+                        class="button"
+                        :title="item"
+                        :class="value === item ? 'icon-active' : ''"
+                        @click="onIconClick(item)"
+                        @mouseenter="onIconMouse(item)"
+                        @mouseleave="onIconMouse('')"
+                    >
                         <template #icon>
                             <Icon :icon="item" :size="20" />
                         </template>
@@ -39,98 +46,112 @@
                 </template>
             </div>
             <div class="paging">
+                <span>{{ iconName }}</span>
                 <n-pagination v-model:page="page" :page-size="size" :item-count="searchSvgList.length" simple />
             </div>
         </div>
     </n-popover>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import Icon from "../Icon";
 import { svgList as _svgList } from "./index";
 import { NPagination } from "naive-ui";
 import { on, off } from "@/util/dom";
+import type { PropType } from "vue";
 
-defineOptions({
+export default defineComponent({
     name: "IconSelect",
+    components: { NPagination, Icon },
     inheritAttrs: false,
+    props: {
+        value: String,
+        placeholder: { type: String, default: "请选择图标" },
+        closeable: { type: Boolean, default: true },
+        iconPlacement: { type: String as PropType<"left" | "right">, default: "left" },
+        disabled: { type: Boolean, default: false },
+    },
+    emits: ["update:value"],
+    setup(props, { emit }) {
+        const set = useSetStore();
+
+        const isShowPopver = ref(false);
+        const searchKey = ref("");
+        const page = ref(1);
+        const iconName = ref("");
+        const size = ref(24);
+
+        const iconSelectStyle = computed(() => {
+            return {
+                "--icon-select-active": set.themeColor,
+            };
+        });
+        const searchSvgList = computed(() => {
+            const key = unref(searchKey);
+            return _svgList.filter(n => key ? n.includes(key) : n);
+        });
+        const svgList =  computed(() => {
+            const pageNum = (page.value - 1) * size.value;
+            return searchSvgList.value.slice(pageNum, pageNum + size.value);
+        });
+        let defaultIcon = computed({
+            get: () => props.value || "",
+            set: value => emit("update:value", value),
+        });
+
+        function onSearchChange(value: string) {
+            page.value = value ? 1 :  getPageByChoose();
+        }
+
+        function onIconClick(name: string) {
+            defaultIcon.value = name;
+            if(props.closeable) {
+                onClickoutside();
+            }
+        }
+
+        function onIconMouse(value: string) {
+            iconName.value = value;
+        }
+
+        function onClickoutside() {
+            isShowPopver.value = false;
+            off(document, "click", onClickoutside);
+        }
+
+        function getPageByChoose(list: string[] = _svgList) {
+            const { value } = props;
+            return value ? Math.ceil((list.findIndex(item => item === value) + 1) / size.value) : 1;
+        }
+
+        function onClick() {
+            if(props.disabled) return;
+            if(!isShowPopver.value) {
+                isShowPopver.value = !isShowPopver.value;
+                searchKey.value = "";
+                page.value = getPageByChoose();
+                on(document, "click", onClickoutside);
+                return;
+            }
+            onClickoutside();
+        }
+        return {
+            iconSelectStyle,
+            page,
+            size,
+            iconName,
+            searchKey,
+            isShowPopver,
+            defaultIcon,
+            searchSvgList,
+            svgList,
+            onSearchChange,
+            onIconClick,
+            onIconMouse,
+            onClick,
+        };
+    },
 });
-
-const emit = defineEmits<{
-    (event: "update:value", value: string): void;
-}>();
-
-const props = withDefaults(defineProps<{
-    value?: string;
-    placeholder?: string;
-    closeable?: boolean;
-    iconPlacement?: "left" | "right";
-    disabled?: boolean;
-}>(), {
-    placeholder: "请选择图标",
-    closeable: true,
-    iconPlacement: "left",
-    disabled: false,
-});
-
-const attrs = useAttrs();
-const set = useSetStore();
-
-let isShowPopver = $ref(false);
-let searchKey = $ref("");
-let page = $ref(1);
-const size = $ref(24);
-
-const iconSelectStyle = $computed(() => {
-    return {
-        "--icon-select-active": set.themeColor,
-    };
-});
-const searchSvgList = $computed(() => {
-    return _svgList.filter(n => searchKey ? n.includes(searchKey) : n);
-});
-const svgList =  $computed(() => {
-    const pageNum = (page - 1) * size;
-    return searchSvgList.slice(pageNum, pageNum + size);
-});
-let defaultIcon = $computed({
-    get: () => props.value || "",
-    set: value => emit("update:value", value),
-});
-
-function onSearchChange(value: string) {
-    page = value ? 1 :  getPageByChoose();
-}
-
-function onIconClick(name: string) {
-    defaultIcon = name;
-    if(props.closeable) {
-        onClickoutside();
-    }
-}
-
-function onClickoutside() {
-    isShowPopver = false;
-    off(document, "click", onClickoutside);
-}
-
-function getPageByChoose(list: string[] = _svgList) {
-    const { value } = props;
-    return value ? Math.ceil((list.findIndex(item => item === value) + 1) / size) : 1;
-}
-
-function onClick() {
-    if(props.disabled) return;
-    if(!isShowPopver) {
-        isShowPopver = !isShowPopver;
-        searchKey = "";
-        page = getPageByChoose();
-        on(document, "click", onClickoutside);
-        return;
-    }
-    onClickoutside();
-}
-
 </script>
 
 <style lang="scss" scoped>
@@ -158,7 +179,7 @@ function onClick() {
     }
     .paging {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
     }
 }
 </style>

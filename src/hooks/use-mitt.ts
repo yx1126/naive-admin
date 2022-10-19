@@ -1,5 +1,5 @@
 import mitt from "mitt";
-import type { LoadingBarOption, DialogOption, MessageOption, NotificationOption } from "./use-feed-back";
+import type { LoadingBarOption, DialogOption, MessageOption, NotificationOption } from "./use-feedBack";
 
 type Events = {
     // loadingbar
@@ -14,6 +14,7 @@ type Events = {
     keepAlive: string;
     // show update pwd modal
     updatePwd: void;
+    scroll: Event;
 };
 
 const emitter = mitt<Events>();

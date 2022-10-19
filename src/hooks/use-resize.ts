@@ -1,4 +1,4 @@
-import type { EventOptions } from "./use-event-listener";
+import type { EventOptions } from "./use-eventListener";
 
 function useResize(fn?: ((e: Event, value: { width: number; height: number }) => void) | null, options?: EventOptions) {
 

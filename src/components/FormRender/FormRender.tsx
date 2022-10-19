@@ -11,10 +11,9 @@ import {
 import { omit } from "@/util";
 import { isFunction, isBoolean } from "@/util/validata";
 import type { PropType, VNodeChild } from "vue";
-import { formActionContext, ComponentsMap, ComponentsOptionsMap, type RenderFormProvide } from "./index";
+import { formActionContext, ComponentsMap, ComponentsOptionsMap, HasChildrenComponents, NeedSpaceMap, type RenderFormProvide } from "./index";
 import type { SchemaOption, FormSchema } from "./types";
 
-const NeedSpaceMap = ["checkbox-group", "radio-group"];
 
 export default defineComponent({
     name: "FormRender",
@@ -44,7 +43,7 @@ export default defineComponent({
             return props.schema.filter(s => {
                 const show = s.show ?? true;
                 const display = s.displayDirective || props.displayDirective;
-                return show ? true : display !== "if";
+                return show || display !== "if";
             });
         });
 
@@ -79,25 +78,21 @@ export default defineComponent({
             const { render, path, slot, props = {}, type = "input" } = schema;
             // render
             if(render) return render();
-            // path 为空 优先渲染插槽
+            // path 为空 渲染插槽
             if(!path) return slot ? renderSlot(slots, slot) : null;
             const slotName = slot ?? path;
             const modelValue = model[path];
             const component = ComponentsMap[type];
-            // component 组件不存在 渲插槽
+            // component 组件不存在 渲染插槽
             if(!component) return renderSlot(slots, slotName);
             let result: JSX.Element;
-            if(["checkbox-group", "radio-group", "radio-button-group"].includes(type)) {
+            if(HasChildrenComponents.includes(type)) {
                 const GroupItem = ComponentsOptionsMap[type as keyof typeof ComponentsOptionsMap];
                 const resultChilds = renderList((props as any).options || [], (item: any, i: number) => <GroupItem {...item} key={i} />);
                 result = (
                     <component value={modelValue} onUpdateValue={(value: boolean) => setModel(path, value)} {...props}>
                         { NeedSpaceMap.includes(type) ? <NSpace>{resultChilds}</NSpace> : resultChilds }
                     </component>
-                );
-            } else if(["checkbox", "radio"].includes(type)) {
-                result = (
-                    <component checked={modelValue} onUpdateChecked={(value: boolean) => setModel(path, value)} {...props} />
                 );
             } else {
                 result = (<component value={modelValue} onUpdateValue={(value: string) => setModel(path, value)} {...props} />);
@@ -128,7 +123,7 @@ export default defineComponent({
             return renderList(schemaList, (item, i) => {
                 const formItemProps = omit(item, "type,props,render,feedback,label,slot,show,displayDirective");
                 return (
-                    <FormItem {...formItemProps} key={i} v-show={item.show ?? true}>
+                    <FormItem {...formItemProps as any} key={i} v-show={item.show ?? true}>
                         {{
                             default: () => renderFormItem(item, defaultModel),
                             feedback: renderVNode(item.feedback),
@@ -151,8 +146,7 @@ export default defineComponent({
                 labelPlacement={labelPlacement}
                 {...$attrs}
             >
-                {isShowGrid ? NGridVNode : defaultSlot}
-                {isShowGrid ? null : renderSlot($slots, "action")}
+                {isShowGrid ? NGridVNode : [defaultSlot, renderSlot($slots, "action")]}
             </NForm>
         );
     },

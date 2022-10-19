@@ -9,6 +9,7 @@
         :inverted="inverted"
         :show-trigger="showTrigger"
         :style="comStyle"
+        :on-scroll="onScroll"
     >
         <div class="layout-container" :style="layoutConStyle">
             <slot />
@@ -27,6 +28,7 @@ import { LayoutConfig } from "@/config";
 
 const set = useSetStore();
 const user = useUserStore();
+const mitter = useMitt();
 
 const defaultMenus = $computed(() => user.menus);
 const isKeepHeader = $computed(() => set.isKeepTags || set.isKeepHeader);
@@ -76,6 +78,10 @@ function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAs
             },
         }),
     });
+}
+
+function onScroll(e: Event) {
+    mitter.emit("scroll", e);
 }
 </script>
 

@@ -25,6 +25,10 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        onScroll: {
+            type: Function as PropType<(e: Event) => void>,
+            default: void 0,
+        },
     },
     setup(props) {
         const set = useSetStore();
@@ -66,6 +70,7 @@ export default defineComponent({
                     position="absolute"
                     style={`top: ${this.contentTop}px; bottom: 0`}
                     native-scrollbar={this.nativeScrollbar}
+                    onScroll={this.onScroll}
                 >
                     {this.headerFixed ? null : HeaderLayout}
                     {this.tagsFixed ? null : TagsLayout}

@@ -3,13 +3,13 @@ import type { Component } from "vue";
 
 declare module "vue-router" {
     interface RouteMeta {
-        title?: string;
-        requiredAuth?: boolean;
-        icon?: string | Component | (() => VNode);
-        keepAlive?: boolean;
-        activeMenu?: string;
-        isLink?: boolean;
-        isIFrame?: boolean;
-        permissions?: string[];
+        readonly title?: string;
+        readonly requiredAuth?: boolean;
+        readonly icon?: string | Component | (() => VNode);
+        readonly keepAlive?: boolean;
+        readonly activeMenu?: string;
+        readonly isLink?: boolean;
+        readonly isIFrame?: boolean;
+        readonly permissions?: string[];
     }
 }

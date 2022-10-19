@@ -45,6 +45,7 @@ const { context, loading, model } = useRenderForm(() => ({
     timePickerValue: null,
     sliderValue: 0,
     transferValue: null,
+    test: false,
 }));
 
 const rules = {
@@ -109,6 +110,7 @@ const schema = $ref<FormSchema[]>([
             );
         },
     },
+    { path: "test", type: "checkbox", label: "Test" },
 ]);
 
 function onSubmit() {

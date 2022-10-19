@@ -16,16 +16,8 @@
                     </n-space>
                 </template>
                 <n-space :wrap-item="false">
-                    <template v-for="s, i in svgList" :key="s">
-                        <n-card class="icon-card" hoverable :embedded="i % 2 === 0">
-                            <div class="icon-wrapper">
-                                <div class="icon">
-                                    <Icon :icon="s" :size="26" />
-                                    <n-ellipsis :line-clamp="1">{{ s }}</n-ellipsis>
-                                </div>
-                                <n-button class="icon-action" text size="tiny" @click="onCopyIcon(s)">copy</n-button>
-                            </div>
-                        </n-card>
+                    <template v-for="s, i in _svgList" :key="i">
+                        <IconCard :show="s.includes(iconName)" :icon="s" hoverable :embedded="i % 2 === 0" @click="onCopyIcon" />
                     </template>
                 </n-space>
             </n-card>
@@ -36,6 +28,7 @@
 <script setup lang="ts">
 import IconSelect, { svgList as _svgList } from "@/components/IconSelect";
 import copy from "@/util/clipboard";
+import IconCard from "./components/IconCard.vue";
 
 defineOptions({
     name: "IconSelectPage",
@@ -47,14 +40,12 @@ const iconName = $ref("");
 const icon = $ref("");
 const flag = $ref(false);
 
-const svgList = $computed(() => _svgList.filter(n => n.includes(iconName)));
-
 const onCopyIcon = useDeounce((name: string) => {
     const copyText = flag ? `<Icon icon="${name}" />` : name;
     copy(copyText).then(() => {
         message.success(`copy ${copyText} success!`);
     });
-}, 500, true);
+}, true);
 </script>
 
 <style lang="scss" scoped>
@@ -64,30 +55,6 @@ const onCopyIcon = useDeounce((name: string) => {
     }
     .text {
         font-size: 14px;
-    }
-    .icon-card {
-        max-width: calc((100% - 48px) / 5);
-        min-width: 160px;
-        .icon-wrapper {
-            @extend .flex-between-center;
-            .icon {
-                font-size: 13px;
-                gap: 0 10px;
-                @extend .flex-center;
-            }
-            .icon-action {
-                opacity: 0;
-                transition: all .3s;
-            }
-        }
-        &:hover {
-            .icon-action {
-                opacity: 1;
-            }
-        }
-        :deep(.n-card__content) {
-            padding: 20px;
-        }
     }
 }
 </style>

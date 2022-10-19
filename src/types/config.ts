@@ -1,4 +1,4 @@
 export interface LayoutConfig {
-    headerHeight: number;
-    tagsHeight: number;
+    readonly headerHeight: number;
+    readonly tagsHeight: number;
 }

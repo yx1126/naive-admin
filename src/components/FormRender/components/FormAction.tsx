@@ -14,7 +14,7 @@ export default defineComponent({
     },
     emits: ["submit", "reset"],
     setup(props, { emit }) {
-        const formInject = inject(formActionContext)!;
+        const formInject = inject(formActionContext);
 
         const load = computed(() => {
             const loading = unref(formInject?.loading) ?? false;

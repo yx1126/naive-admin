@@ -1,7 +1,7 @@
 import Screenfull from "screenfull";
 import { isString, isUndefined } from "@/util/validata";
 import { $select } from "@/util/dom";
-import useFeedBack from "./use-feed-back";
+import useFeedBack from "./use-feedBack";
 import type { MayBeRef } from "@/types/util";
 
 export default (selectors?: MayBeRef<HTMLElement | string | undefined>, options?: FullscreenOptions) => {

@@ -13,7 +13,7 @@
 import type { PropType } from "vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { DomEditor, Boot } from "@wangeditor/editor";
-import { snToCssVars, saToArray } from "@/util";
+import { snToCssVars, toArray } from "@/util";
 import type { IDomEditor, IEditorConfig, IToolbarConfig, Toolbar as ToolbarType } from "@wangeditor/editor";
 import PreviewMenu from "./plugins/preview";
 import "@wangeditor/editor/dist/css/style.css"; // 引入 css
@@ -101,7 +101,7 @@ export default defineComponent({
         const defaultToolbarConfig = computed<Partial<IToolbarConfig>>(() => {
             const defaultValue: Partial<IToolbarConfig> = {
                 modalAppendToBody: props.modalAppendToBody,
-                excludeKeys: saToArray(props.excludeToolBar),
+                excludeKeys: toArray(props.excludeToolBar),
                 insertKeys: {
                     index: -1,
                     keys: ["preview"],
@@ -109,7 +109,7 @@ export default defineComponent({
                 ...props.toolbarConfig,
             };
             if(props.toolbar) {
-                defaultValue["toolbarKeys"] = [...(saToArray<IMenuGroup>(props.toolbar) || [])];
+                defaultValue["toolbarKeys"] = [...(toArray<IMenuGroup>(props.toolbar) || [])];
             }
             return defaultValue;
         });

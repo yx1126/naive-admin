@@ -8,7 +8,12 @@ export function snToCssVars(value?: string | number) {
     return void 0;
 }
 
-export function saToArray<T = string>(value: string | string[] | T[] | undefined, symbol = ",") {
+/**
+ * @param value - value
+ * @param symbol - separator
+ * @returns `Array<string>` or `undefined`
+ */
+export function toArray<T = string>(value: string | string[] | T[] | undefined, symbol = ",") {
     if(isString(value)) return value.split(symbol);
     if(isArray(value)) return value;
     return void 0;
@@ -40,18 +45,28 @@ export function deepCopy<T = unknown>(data: any): T {
     return o as T;
 }
 
-function pickOmit<T extends Record<string, any>>(data: T, fields: string | string[], flag = false) {
-    const fieldList = saToArray(fields) || [];
+function createPickOmit<T extends object>(data: T, fields: string | string[], flag = false) {
+    const fieldList = toArray(fields) || [];
     const keys = Object.keys(data).filter(k => flag ? fieldList.includes(k) : !fieldList.includes(k));
     return keys.reduce((pre, cur) => {
-        pre[cur] = data[cur];
+        (<any>pre)[cur] = (<any>data)[cur];
         return pre;
-    }, {} as Record<string, any>);
+    }, {} as Partial<T>);
 }
 
+/**
+ * @param data - source data
+ * @param fields - fields
+ * @remarks From data, pick a set of properties whose keys are in the fields
+ */
 export function pick<T extends object>(data: T, fields: string | string[]) {
-    return pickOmit(data, fields, true);
+    return createPickOmit(data, fields, true);
 }
+/**
+ * @param data - source data
+ * @param fields - fields
+ * @remarks Construct a object with the properties of data except for those in fields.
+ */
 export function omit<T extends object>(data: T, fields: string | string[]) {
-    return pickOmit(data, fields);
+    return createPickOmit(data, fields);
 }

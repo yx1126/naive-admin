@@ -40,6 +40,10 @@ export default defineComponent({
             type: [Boolean, String] as PropType<"bar" | "arrow-circle" | boolean>,
             default: false,
         },
+        onScroll: {
+            type: Function as PropType<(e: Event) => void>,
+            default: void 0,
+        },
     },
     emits: ["update:collapsed"],
     setup(props, { emit }) {
@@ -213,6 +217,7 @@ export default defineComponent({
                                     position="absolute"
                                     style={`top: ${this.contentTop}px; bottom: 0`}
                                     native-scrollbar={this.nativeScrollbar}
+                                    onScroll={this.onScroll}
                                 >
                                     {this.tagsFixed ? null : TagsLayout}
                                     {renderSlot(this.$slots, "default")}
