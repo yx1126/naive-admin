@@ -10,7 +10,7 @@ import {
 } from "naive-ui";
 import { omit } from "@/util";
 import { isFunction, isBoolean } from "@/util/validata";
-import type { PropType, VNodeChild } from "vue";
+import type { VNodeChild } from "vue";
 import { formActionContext, ComponentsMap, ComponentsOptionsMap, HasChildrenComponents, NeedSpaceMap, type RenderFormProvide } from "./index";
 import type { SchemaOption, FormSchema } from "./types";
 

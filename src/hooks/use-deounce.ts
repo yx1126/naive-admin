@@ -1,12 +1,11 @@
 
 import { isNumber, isBoolean } from "@/util/validata";
-import type { AnyFn } from "@/types/util";
 
-function useDeounce(fn: AnyFn): AnyFn;
-function useDeounce(fn: AnyFn, delay: number): AnyFn;
-function useDeounce(fn: AnyFn, immediate: boolean): AnyFn;
-function useDeounce(fn: AnyFn, delay: number, immediate: boolean): AnyFn;
-function useDeounce(fn: AnyFn, delay?: number | boolean, immediate?: boolean) {
+function useDeounce(fn: ArrayFn): ArrayFn;
+function useDeounce(fn: ArrayFn, delay: number): ArrayFn;
+function useDeounce(fn: ArrayFn, immediate: boolean): ArrayFn;
+function useDeounce(fn: ArrayFn, delay: number, immediate: boolean): ArrayFn;
+function useDeounce(fn: ArrayFn, delay?: number | boolean, immediate?: boolean) {
     let defaultDelay: number | undefined = 500,
         defaultImmediate: boolean | undefined = false;
     if(isNumber(delay)) {

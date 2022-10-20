@@ -1,5 +1,4 @@
 import { NForm, NGrid } from "naive-ui";
-import type { PropType } from "vue";
 
 export default defineComponent({
     name: "BasicForm",

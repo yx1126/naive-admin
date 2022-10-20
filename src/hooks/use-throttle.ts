@@ -1,11 +1,10 @@
 import { isNumber, isBoolean } from "@/util/validata";
-import type { AnyFn } from "@/types/util";
 
-function useThrottle(fn: AnyFn): AnyFn;
-function useThrottle(fn: AnyFn, delay: number): AnyFn;
-function useThrottle(fn: AnyFn, immediate: boolean): AnyFn;
-function useThrottle(fn: AnyFn, delay: number, immediate: boolean): AnyFn;
-function useThrottle(fn: AnyFn, delay?: number | boolean, immediate?: boolean) {
+function useThrottle(fn: ArrayFn): ArrayFn;
+function useThrottle(fn: ArrayFn, delay: number): ArrayFn;
+function useThrottle(fn: ArrayFn, immediate: boolean): ArrayFn;
+function useThrottle(fn: ArrayFn, delay: number, immediate: boolean): ArrayFn;
+function useThrottle(fn: ArrayFn, delay?: number | boolean, immediate?: boolean) {
     let defaultDelay: number | undefined = 500,
         defaultImmediate: boolean | undefined = false;
     if(isNumber(delay)) {

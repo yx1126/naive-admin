@@ -1,5 +1,4 @@
 import { NFormItem, NFormItemGi, NSpace, NButton, type SpaceProps } from "naive-ui";
-import type { PropType } from "vue";
 import { formActionContext } from "../index";
 
 export default defineComponent({

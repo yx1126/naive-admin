@@ -85,7 +85,7 @@ let showDropdownRef = $ref(false);
 let isShowCloseAll = $ref(false);
 let dropdownX = $ref(0);
 let dropdownY = $ref(0);
-let chooseTags = $ref<Tags | null | undefined>(null);
+let chooseTags = $ref<Empty<Tags>>(null);
 let chooseTagsIndex = $ref(-1);
 
 const keepTags = $computed(() => tags.keepTags);

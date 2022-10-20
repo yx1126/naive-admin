@@ -1,4 +1,3 @@
-import type { PropType } from "vue";
 import  { NLayout, NLayoutHeader, NLayoutSider, NLayoutContent, type MenuOption, type MenuGroupOption } from "naive-ui";
 import { LayoutConfig } from "@/config";
 import Header from "../components/Header.vue";

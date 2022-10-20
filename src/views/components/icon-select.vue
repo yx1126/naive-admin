@@ -7,7 +7,7 @@
             <n-card>
                 <template #header>
                     <n-space align="center">
-                        <n-input v-model:value="iconName" placeholder="请输入图标名称" clearable />
+                        <lazy-input v-model:value.lazy="iconName" placeholder="请输入图标名称" clearable />
                         <span class="text">copy</span>
                         <n-switch v-model:value="flag" class="switch">
                             <template #checked>code</template>
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import IconSelect, { svgList as _svgList } from "@/components/IconSelect";
+import LazyInput from "@/components/LazyInput/LazyInput.vue";
 import copy from "@/util/clipboard";
 import IconCard from "./components/IconCard.vue";
 

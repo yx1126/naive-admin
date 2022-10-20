@@ -12,7 +12,7 @@ import {
     NSwitch,
     NTimePicker,
 } from "naive-ui";
-import type { Component, PropType } from "vue";
+import type { Component } from "vue";
 import FormRender from "./FormRender";
 import useForm from "./hooks/useForm";
 import FormAction from "./components/FormAction";

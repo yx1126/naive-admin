@@ -1,4 +1,4 @@
-import type { MayBeRef, DOMElement, DOMEventKeyMap } from "@/types/util";
+import type { DOMElement, DOMEventKeyMap } from "@/types/util";
 import { isString, isNumber } from "../validata";
 
 export function getParentNode(node: HTMLElement, level: number | ((node: HTMLElement) => void | ParentNode) = 1): HTMLElement | undefined {

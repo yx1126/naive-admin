@@ -75,6 +75,6 @@ export interface BaseFormActionProvide {
 
 export type RenderFormProvide<T> = InjectionKey<BaseRenderFormProvide<T>>;
 export type FormActionProvide = InjectionKey<BaseFormActionProvide>;
-export type FormRenderInstance = InstanceType<typeof FormRender> | null | undefined;
+export type FormRenderInstance = Empty<typeof FormRender>;
 
 export {};

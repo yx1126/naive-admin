@@ -18,7 +18,7 @@ export type Behavior = "insert" | "update" | "delete" | "export";
 
 export type TableSize = "small" | "medium" | "large";
 
-export type BasicTableInstance = InstanceType<typeof BasicTable> | null | undefined;
+export type BasicTableInstance = Empty<typeof BasicTable>;
 
 export interface Column {
     title: string;

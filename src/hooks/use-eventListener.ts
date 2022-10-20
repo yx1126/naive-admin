@@ -1,6 +1,6 @@
 import { on, off } from "@/util/dom";
 import { isBoolean } from "@/util/validata";
-import type { MayBeRef, DOMElement, DOMEventKeyMap } from "@/types/util";
+import type { DOMElement, DOMEventKeyMap } from "@/types/util";
 
 export interface EventOptions extends EventListenerOptions {
     lazy?: boolean;

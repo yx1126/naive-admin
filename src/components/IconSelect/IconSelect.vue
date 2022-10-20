@@ -27,7 +27,7 @@
         </template>
         <div class="icon-select-wrapper" :style="iconSelectStyle" @click.stop>
             <div class="search">
-                <n-input v-model:value="searchKey" placeholder="请输入图标名称" clearable @update:value="onSearchChange" />
+                <lazy-input v-model:value.lazy="searchKey" placeholder="请输入图标名称" clearable @update:value="onSearchChange" />
             </div>
             <div class="icon-select-list">
                 <template v-for="item, i in svgList" :key="i">
@@ -58,11 +58,11 @@ import Icon from "../Icon";
 import { svgList as _svgList } from "./index";
 import { NPagination } from "naive-ui";
 import { on, off } from "@/util/dom";
-import type { PropType } from "vue";
+import LazyInput from "../LazyInput";
 
 export default defineComponent({
     name: "IconSelect",
-    components: { NPagination, Icon },
+    components: { NPagination, Icon, LazyInput },
     inheritAttrs: false,
     props: {
         value: String,
