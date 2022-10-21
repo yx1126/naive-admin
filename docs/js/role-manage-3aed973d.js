@@ -1,1 +1,0 @@
-import{_ as e,d as a,b as n,e as o,i as s}from"../assets/index.67c47f0d.js";const r={class:"role-manage"},t=s("h1",null,"role-manage",-1),_=[t],c={name:"RoleManage"},i=a({...c,setup(l){return(m,d)=>(n(),o("div",r,_))}});var u=e(i,[["__file","/home/runner/work/naive-admin/naive-admin/src/views/permission/role-manage.vue"]]);export{u as default};
