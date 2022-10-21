@@ -1,12 +1,5 @@
-import { RouterView, type RouteMeta } from "vue-router";
+import type { RouteMeta } from "vue-router";
 import type { MenuOptions } from "@/naive";
-
-export const Layout = defineComponent({
-    name: "DefaultLayout",
-    render() {
-        return h(RouterView);
-    },
-});
 
 export function formatMenuPath(menus: MenuOptions & RouteMeta[], path?: string) {
     return menus.map(menu => {

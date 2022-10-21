@@ -10,19 +10,20 @@ export const linkReg = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)
 // email正则验证
 export const emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 
+const map: Record<TypeOfKey, TypeOfValues> = {
+    "[object Boolean]": "boolean",
+    "[object Number]": "number",
+    "[object String]": "string",
+    "[object Function]": "function",
+    "[object Array]": "array",
+    "[object Date]": "date",
+    "[object RegExp]": "regExp",
+    "[object Undefined]": "undefined",
+    "[object Null]": "null",
+    "[object Object]": "object",
+};
+
 export function typeOf(value: any) {
-    const map: Record<TypeOfKey, TypeOfValues> = {
-        "[object Boolean]": "boolean",
-        "[object Number]": "number",
-        "[object String]": "string",
-        "[object Function]": "function",
-        "[object Array]": "array",
-        "[object Date]": "date",
-        "[object RegExp]": "regExp",
-        "[object Undefined]": "undefined",
-        "[object Null]": "null",
-        "[object Object]": "object",
-    };
     return map[Object.prototype.toString.call(value) as TypeOfKey];
 }
 
@@ -55,7 +56,8 @@ export function isUndefined(value: any): value is undefined {
     return typeOf(value) === "undefined";
 }
 
-export function isBoolean(value: any): value is boolean {
+export function isBoolean(value: any, flag?: boolean): value is boolean {
+    if(flag && ["true", "false"].includes(value)) return true;
     return typeOf(value) === "boolean";
 }
 

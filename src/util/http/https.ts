@@ -1,18 +1,67 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosRequestHeaders } from "axios";
 
+
+interface OnRejected {
+    (error: any): any;
+}
+
+interface Interceptors<T = AxiosRequestConfig, R = AxiosResponse> {
+    request: {
+        onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>;
+        onRejected?: OnRejected;
+    };
+    response: {
+        onFulfilled?: (value: AxiosResponse) => R | Promise<R>;
+        onRejected?: OnRejected;
+    };
+}
+
+const interceptors: Interceptors = {
+    request: {
+        onFulfilled: void 0,
+        onRejected: void 0,
+    },
+    response: {
+        onFulfilled: void 0,
+        onRejected: void 0,
+    },
+};
+
 class Https {
+
     private service: AxiosInstance;
+    private requestBack: number | undefined;
+    private responsBack: number | undefined;
+
+    static request<T extends AxiosRequestConfig>(onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>, onRejected?: OnRejected) {
+        interceptors.request.onFulfilled = onFulfilled;
+        interceptors.request.onRejected = onRejected;
+    }
+
+    static response<T extends AxiosResponse>(onFulfilled?: (value: AxiosResponse) => T | Promise<T>, onRejected?: OnRejected) {
+        interceptors.response.onFulfilled = onFulfilled;
+        interceptors.response.onRejected = onRejected;
+    }
 
     constructor(config?: AxiosRequestConfig) {
         this.service = axios.create(config);
+        const { request, response } = interceptors;
+        this.requestBack = this.service.interceptors.request.use(request.onFulfilled, request.onRejected);
+        this.responsBack = this.service.interceptors.response.use(response.onFulfilled, response.onRejected);
     }
 
-    request<T extends AxiosRequestConfig>(onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>, onRejected?: (error: any) => any) {
+    request<T extends AxiosRequestConfig>(onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>, onRejected?: OnRejected) {
+        if(this.requestBack !== void 0) {
+            this.service.interceptors.request.eject(this.requestBack);
+        }
         this.service.interceptors.request.use(onFulfilled, onRejected);
     }
 
-    response<T extends AxiosResponse>(onFulfilled?: (value: AxiosResponse) => T | Promise<T>, onRejected?: (error: any) => any) {
+    response<T extends AxiosResponse>(onFulfilled?: (value: AxiosResponse) => T | Promise<T>, onRejected?: OnRejected) {
+        if(this.responsBack !== void 0) {
+            this.service.interceptors.response.eject(this.responsBack);
+        }
         this.service.interceptors.response.use(onFulfilled, onRejected);
     }
 

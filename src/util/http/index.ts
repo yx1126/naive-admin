@@ -1,19 +1,15 @@
 import Https from "./https";
 
-const http = new Https({
-    baseURL: "",
-});
-
-http.request(
+Https.request(
     config => {
+        console.log("Https", config);
         return config;
     },
     error => {
         return Promise.reject(error);
     },
 );
-
-http.response(
+Https.response(
     response => {
         const { data } = response;
         if(["arraybuffer", "blob"].includes(response.config.responseType!)) {
@@ -25,5 +21,9 @@ http.response(
         return Promise.reject(error);
     },
 );
+
+const http = new Https({
+    baseURL: "",
+});
 
 export default http;
