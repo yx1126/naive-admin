@@ -6,6 +6,7 @@
         :theme="theme"
         :theme-overrides="themeOverrides"
         :abstract="true"
+        :inline-theme-disabled="false"
     >
         <n-loading-bar-provider>
             <n-dialog-provider>

@@ -9,7 +9,7 @@ import {
     FullscreenOutlined,
     FullscreenExitOutlined,
 } from "@vicons/antd";
-import TableSet from "./components/TableSet.vue";
+import TableSet from "./components/TableSetPopup.vue";
 import Icon from "../Icon";
 import { NButton, NDataTable, NTooltip, NDropdown, NSwitch, NEmpty, type DataTableColumns, type DropdownOption, type PaginationProps } from "naive-ui";
 import useTableColumns from "./hooks/useTableColumns";

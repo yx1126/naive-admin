@@ -43,8 +43,8 @@ const breadcrumbStyle = $computed(() => {
     };
 });
 
-function recursiveDropOptions<T = any>(list: Array<T>): DropdownOption[] {
-    return list.map((item: Record<string, any>) => {
+function recursiveDropOptions<T extends Record<string, any>>(list: Array<T>): DropdownOption[] {
+    return list.map((item) => {
         const data: DropdownOption = {
             key: item.name,
             label: item.meta.title,

@@ -5,18 +5,10 @@
         </template>
         <template #header>
             <div class="table-set__header">
-                <n-checkbox v-model:checked="isCheckAll">
-                    列展示
-                </n-checkbox>
-                <n-checkbox v-model:checked="isCheckIndex">
-                    序号列
-                </n-checkbox>
-                <n-checkbox v-model:checked="isCheckBox">
-                    勾选列
-                </n-checkbox>
-                <n-button type="primary" text @click="onReset">
-                    重置
-                </n-button>
+                <n-checkbox v-model:checked="isCheckAll">列展示</n-checkbox>
+                <n-checkbox v-model:checked="isCheckIndex">序号列</n-checkbox>
+                <n-checkbox v-model:checked="isCheckBox">勾选列</n-checkbox>
+                <n-button type="primary" text @click="onReset">重置</n-button>
             </div>
         </template>
         <transition-group class="table-set__list" tag="div" name="list-fade">

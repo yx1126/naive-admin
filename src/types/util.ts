@@ -11,7 +11,6 @@ export type BaseTypeOfKeys = "Boolean" | "Number" | "String" | "Function" | "Arr
 export type TypeOfKey = `[object ${BaseTypeOfKeys}]`;
 export type TypeOfValues = Uncapitalize<BaseTypeOfKeys>;
 
-export type ResolveArray<T> = T extends Array<infer A> ? A : never;
 
 export type DOMElement = Window | Document | HTMLElement | SVGElement;
 export type DOMEventKeyMap<T = DOMElement> = T extends Window

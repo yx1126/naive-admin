@@ -1,26 +1,30 @@
 <template>
     <div class="base-table">
         <CodeCard title="base-table" :code="code">
-            <basic-table
+            <table-render
+                ref="tableRenderRef"
                 v-model:page="page"
                 v-model:size="size"
                 :total="total"
                 :single-line="false"
+                striped
                 :columns="columns"
                 :data="data"
                 :max-height="200"
-                :scroll-x="1800"
+                :scroll-x="2000"
                 @page-change="onPageChange"
-                @behavior="onBehavior"
-                @refresh="onRefresh"
-            />
+            >
+                <template #tool>
+                    <table-tool @behavior="onBehavior" @refresh="onRefresh" />
+                </template>
+            </table-render>
         </CodeCard>
     </div>
 </template>
 
 <script setup lang="ts">
 import CodeCard from "@/components/CodeCard";
-import BasicTable, { type Behavior } from "@/components/BasicTable";
+import TableRender, { TableTool, type Behavior } from "@/components/TableRender";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 
 type RowData = {
@@ -44,15 +48,15 @@ const { page, size, total } = usePage().setTotal(1000);
 
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
-    { title: "Age", key: "age", width: "10%" },
-    { title: "Address", key: "address", minWidth: 300 },
-    { title: "Address1", key: "address1", minWidth: 300 },
-    { title: "Address2", key: "address2", minWidth: 300 },
-    { title: "Address3", key: "address3", minWidth: 300 },
+    { title: "Age", key: "age", width: 200 },
+    { title: "Address", key: "address", width: 300 },
+    { title: "Address1", key: "address1", width: 300 },
+    { title: "Address2", key: "address2", width: 300 },
+    { title: "Address3", key: "address3", width: 300 },
     {
         title: "Tags",
         key: "tags",
-        minWidth: 200,
+        width: 200,
         fixed: "right",
         render(row) {
             const tags = row.tags.map(tagKey => {
@@ -122,25 +126,28 @@ const code = `
 <template>
     <div class="base-table">
         <n-card>
-            <basic-table
+            <table-render
                 v-model:page="page"
                 v-model:size="size"
                 :total="total"
                 :single-line="false"
+                striped
                 :columns="columns"
                 :data="data"
                 :max-height="200"
-                :scroll-x="1800"
+                :scroll-x="2000"
                 @page-change="onPageChange"
-                @behavior="onBehavior"
-                @refresh="onRefresh"
-            />
+            >
+                <template #tool>
+                    <table-tool @behavior="onBehavior" @refresh="onRefresh" />
+                </template>
+            </table-render>
         </n-card>
     </div>
 </template>
 
 <script setup lang="ts">
-import BasicTable, { type Behavior } from "@/components/BasicTable";
+import TableRender, { TableTool, type Behavior } from "@/components/TableRender";
 import { h, ref } from "vue";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 import { useFeedBack } from "@/hooks";

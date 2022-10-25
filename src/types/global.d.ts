@@ -33,4 +33,8 @@ declare global {
     declare type DefaultFn<T = any, R = void> = (value: T) => R;
 
     declare type ArrayFn<T = any, R = void> = (...args: Array<T>) => R;
+
+    declare type ParseArray<T> = T extends Array<infer A> ? A : never;
+
+    declare type ParseRef<T> = T extends Ref<infer R> ? R : T extends ComputedRef<infer C> ? C : T;
 }
