@@ -14,15 +14,6 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
     },
     "dependencies": {
-        "@milkdown/core": "^6.3.2",
-        "@milkdown/plugin-menu": "^6.3.2",
-        "@milkdown/plugin-tooltip": "^6.3.2",
-        "@milkdown/preset-commonmark": "^6.3.2",
-        "@milkdown/preset-gfm": "^6.3.2",
-        "@milkdown/prose": "^6.3.2",
-        "@milkdown/theme-nord": "^6.3.2",
-        "@milkdown/utils": "^6.3.2",
-        "@milkdown/vue": "^6.3.2",
         "@wangeditor/editor": "^5.1.14",
         "@wangeditor/editor-for-vue": "^5.1.12",
         "axios": "^0.26.1",

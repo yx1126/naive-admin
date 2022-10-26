@@ -126,15 +126,6 @@ const routes: RouteRecordRaw[] = [
                 },
                 component: () => import("@/views/components/icon-select.vue"),
             },
-            {
-                path: "milk-down",
-                name: "MilkDownPage",
-                meta: {
-                    title: "Markdown",
-                    icon: "",
-                },
-                component: () => import("@/views/components/milk-down.vue"),
-            },
         ],
     },
     {
