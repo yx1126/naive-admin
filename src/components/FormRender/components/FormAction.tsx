@@ -16,8 +16,8 @@ export default defineComponent({
         const formInject = inject(formActionContext);
 
         const load = computed(() => {
-            const loading = unref(formInject?.loading) ?? false;
-            return props.loading !== void 0 ? props.loading : loading;
+            if(props.loading !== void 0) return props.loading;
+            return unref(formInject?.loading) ?? false;
         });
 
         function submit() {

@@ -20,18 +20,25 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2
+    - name: checkout code repository
+      uses: actions/checkout@v3
       with:
-          version: latest
+        fetch-depth: 0
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
-    - run: pnpm install
-    - run: pnpm build --mode development
+
+    - name: install pnpm
+      run: npm i pnpm@latest -g
+
+    - name: install dependencies
+      run: pnpm install
+
+    - name: build pages
+      run: pnpm build --mode development
 
     - name: Build Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.3

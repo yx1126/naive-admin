@@ -61,12 +61,9 @@
                                         :allow-input="onNoAllowSpace"
                                     />
                                 </n-form-item>
-                                <n-form-item>
-                                    <n-space>
-                                        <n-button type="primary" :loading="isLoading" @click.prevent="submit">保 存</n-button>
-                                        <n-button @click="reset">重 置</n-button>
-                                    </n-space>
-                                </n-form-item>
+                                <template #action>
+                                    <FormAction label="" submit-text="保 存" @submit="submit" />
+                                </template>
                             </form-render>
                         </n-tab-pane>
                         <n-tab-pane tab="安全设置" name="safety">
@@ -121,7 +118,7 @@
 </template>
 
 <script lang="ts" setup>
-import FormRender, { useForm, type FormRules } from "@/components/FormRender";
+import FormRender, { useForm, FormAction, type FormRules } from "@/components/FormRender";
 
 defineOptions({
     name: "Person",
@@ -130,15 +127,13 @@ defineOptions({
 const message = useFeedBack("message");
 const mitter = useMitt();
 
-const { model, formInstance, context } = useForm(() => ({
+const { model, context, loading } = useForm(() => ({
     username: "admin",
     nickName: "admin",
     sex: 1,
     email: "yx17714503091@163.com",
     description: "你在干什么！",
 }));
-
-let isLoading = $ref(false);
 
 const rules: FormRules = {
     nickName: { required: true, message: "请输入昵称！", trigger: "blur" },
@@ -155,17 +150,13 @@ const userInfoList = [
 ];
 
 function submit() {
-    isLoading = true;
+    loading.value = true;
     const timer = setTimeout(() => {
-        isLoading = false;
+        loading.value = false;
         console.log(model);
         message.success("Valid");
         clearTimeout(timer);
     }, 1000);
-}
-
-function reset() {
-    formInstance.value.resetFields();
 }
 
 function onNoAllowSpace(value: string) {
