@@ -1,1 +1,0 @@
-import{c8 as s,bv as r}from"../assets/index.fad64095.js";function c(i,e,f){let o=500,t=!1;s(e)?o=e:r(e)&&(t=e),r(f)&&(t=f);let l,u=!0;return function(...n){l&&clearTimeout(l),t&&u&&(i.call(null,...n),u=!1),l=setTimeout(t?()=>u=!0:i.bind(null,...n),o)}}export{c as u};

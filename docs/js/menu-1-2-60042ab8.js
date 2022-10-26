@@ -1,0 +1,1 @@
+import{_ as e,b as n,e as s,i as o}from"../assets/index.cf6f3e79.js";const r={},t={class:"menu-1-1"},a=o("h1",null,"menu-1-2",-1),c=[a];function _(i,m){return n(),s("div",t,c)}var d=e(r,[["render",_],["__file","/home/runner/work/naive-admin/naive-admin/src/views/router-nested/menu-1/menu-1-1/menu-1-2.vue"]]);export{d as default};
