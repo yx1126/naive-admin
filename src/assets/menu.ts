@@ -70,10 +70,6 @@ const menus: MenuOptions & RouteMeta[] = [
                 name: "图标选择器",
                 path: "icon-select",
             },
-            {
-                name: "MarkDown",
-                path: "milk-down",
-            },
         ],
     },
     {

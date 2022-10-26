@@ -7,7 +7,6 @@ const tableRenderProps = {
     page: { type: Number, default: 1 },
     size: { type: Number, default: 10 },
     total: { type: Number, default: 0 },
-    loading: { type: Boolean, default: void 0 },
     showCheck: { type: [Boolean, String] as PropType<boolean | "left">, default: false },
     showIndex: { type: [Boolean, String] as PropType<boolean | "left">, default: false },
     striped: { type: Boolean, default: false },

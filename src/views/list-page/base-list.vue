@@ -2,7 +2,7 @@
     <div class="base-list">
         <n-space vertical :wrap-item="false">
             <n-card>
-                <BasicForm ref="baseFormRef" :model="model" :show-feedback="false" inline>
+                <FormRender :context="context" :model="model" :show-feedback="false" inline>
                     <n-form-item label="name：" path="name">
                         <n-input v-model:value="model.name" placeholder="name" clearable />
                     </n-form-item>
@@ -12,38 +12,38 @@
                     <n-form-item label="address：" path="address">
                         <n-input v-model:value="model.address" placeholder="address" clearable />
                     </n-form-item>
-                    <n-form-item>
-                        <n-space>
-                            <n-button type="primary" @click="search">搜 索</n-button>
-                            <n-button @click="formInstance.resetFields">重 置</n-button>
-                        </n-space>
-                    </n-form-item>
-                </BasicForm>
+                    <template #action>
+                        <FormAction submit-text="搜 索" @submit="search" />
+                    </template>
+                </FormRender>
             </n-card>
             <n-card>
-                <basic-table
-                    ref="basicTableRef"
+                <table-render
                     v-model:page="page"
                     v-model:size="size"
                     :total="total"
                     :single-line="false"
                     :columns="columns"
                     :data="data"
-                    :scroll-x="1800"
-                    :default-show-index="false"
-                    :default-show-check="false"
+                    :scroll-x="1950"
+                    :show-index="false"
+                    :show-check="false"
+                    :loading="loading"
                     max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px - 90px)"
                     @page-change="onPageChange"
-                    @behavior="onBehavior"
-                />
+                >
+                    <template #tool>
+                        <table-tool @behavior="onBehavior" />
+                    </template>
+                </table-render>
             </n-card>
         </n-space>
     </div>
 </template>
 
 <script setup lang="ts">
-import BasicTable, { useTable, type BasicTableInstance, type Behavior } from "@/components/BasicTable";
-import BasicForm, { useForm, type BasicFormInstance } from "@/components/BasicForm";
+import TableRender, { TableTool, type Behavior } from "@/components/TableRender";
+import FormRender, { useForm, FormAction } from "@/components/FormRender";
 import { NTag, NButton, type DataTableColumns } from "naive-ui";
 import { exportExcel } from "@/util/export";
 
@@ -51,17 +51,13 @@ defineOptions({
     name: "BaseList",
 });
 
-const baseFormRef = ref<BasicFormInstance>(null);
+const loading = ref(false);
 
-const { model, formInstance } = useForm(baseFormRef, () => ({
+const { model, context } = useForm(() => ({
     name: "",
     age: "",
     address: "",
 }));
-
-const basicTableRef = $ref<BasicTableInstance>();
-const { loading } = useTable($$(basicTableRef), { size: "medium" });
-
 
 type RowData = {
     key: number;
@@ -83,14 +79,14 @@ const total = $ref(1000);
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
     { title: "Age", key: "age", width: 150 },
-    { title: "Address", key: "address", minWidth: 300 },
-    { title: "Address1", key: "address1", minWidth: 300 },
-    { title: "Address2", key: "address2", minWidth: 300 },
-    { title: "Address3", key: "address3", minWidth: 300 },
+    { title: "Address", key: "address", width: 300 },
+    { title: "Address1", key: "address1", width: 300 },
+    { title: "Address2", key: "address2", width: 300 },
+    { title: "Address3", key: "address3", width: 300 },
     {
         title: "Tags",
         key: "tags",
-        minWidth: 200,
+        width: 200,
         fixed: "right",
         render(row) {
             const tags = row.tags.map(tagKey => {
@@ -130,8 +126,8 @@ const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
 function search() {
     loading.value = true;
     setTimeout(() => {
-        loading.value = false;
         message.info("search");
+        loading.value = false;
     }, 1500);
 }
 
@@ -156,6 +152,18 @@ function onBehavior(type: Behavior) {
         const filterVal = ["key", "name", "age", "address", "tags"];
         const merges = ["A1:A2", "B1:D1", "E1:E2"];
         exportExcel(header, data, filterVal, merges);
+    } else {
+        switch (type) {
+            case "insert":
+                message.info(type);
+                break;
+            case "update":
+                message.success(type);
+                break;
+            case "delete":
+                message.error(type);
+                break;
+        }
     }
 }
 

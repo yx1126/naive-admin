@@ -22,7 +22,15 @@
                 <n-card content-style="padding: 0;">
                     <n-tabs type="line" size="large" default-value="base" :tabs-padding="20" pane-style="padding: 20px;">
                         <n-tab-pane tab="基本资料" name="base">
-                            <basic-form ref="formRef" class="userForm" :model="model" :rules="rules" label-width="auto" label-placement="top">
+                            <form-render
+                                ref="formRef"
+                                class="userForm"
+                                :context="context"
+                                :model="model"
+                                :rules="rules"
+                                label-width="auto"
+                                label-placement="top"
+                            >
                                 <n-form-item label="用户名：" path="username" required>
                                     <n-input v-model:value="model.username" readonly placeholder="请输入用户名" />
                                 </n-form-item>
@@ -59,7 +67,7 @@
                                         <n-button @click="reset">重 置</n-button>
                                     </n-space>
                                 </n-form-item>
-                            </basic-form>
+                            </form-render>
                         </n-tab-pane>
                         <n-tab-pane tab="安全设置" name="safety">
                             <n-list class="list-no-padd">
@@ -113,7 +121,7 @@
 </template>
 
 <script lang="ts" setup>
-import BasicForm, { useForm, type BasicFormInstance, type FormRules } from "@/components/BasicForm";
+import FormRender, { useForm, type FormRules } from "@/components/FormRender";
 
 defineOptions({
     name: "Person",
@@ -122,8 +130,7 @@ defineOptions({
 const message = useFeedBack("message");
 const mitter = useMitt();
 
-const formRef = ref<BasicFormInstance>(null);
-const { model, formInstance } = useForm(formRef, () => ({
+const { model, formInstance, context } = useForm(() => ({
     username: "admin",
     nickName: "admin",
     sex: 1,
@@ -148,19 +155,13 @@ const userInfoList = [
 ];
 
 function submit() {
-    formInstance.value.validate((errors) => {
-        if(!errors) {
-            isLoading = true;
-            const timer = setTimeout(() => {
-                isLoading = false;
-                console.log(model);
-                message.success("Valid");
-                clearTimeout(timer);
-            }, 1000);
-        } else {
-            message.error("Invalid");
-        }
-    });
+    isLoading = true;
+    const timer = setTimeout(() => {
+        isLoading = false;
+        console.log(model);
+        message.success("Valid");
+        clearTimeout(timer);
+    }, 1000);
 }
 
 function reset() {

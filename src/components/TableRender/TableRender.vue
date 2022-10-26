@@ -1,5 +1,5 @@
 <template>
-    <div ref="basicTableWrapperRef" class="table-render-wrapper" :style="basicTableStyle">
+    <div ref="tableRenderWrapperRef" class="table-render-wrapper" :style="tableRenderStyle">
         <slot name="tool" />
         <div v-if="columns && columns?.length <= 0" class="table-render-empty">
             <NEmpty description="暂无列数据" />
@@ -39,16 +39,16 @@ export default defineComponent({
     emits: ["update:page", "update:size", "page-change"],
     setup(props, { emit, expose }) {
 
-        const basicTableWrapperRef = ref<HTMLDivElement | undefined>();
+        const tableRenderWrapperRef = ref<HTMLDivElement | undefined>();
         const dataTableRef = ref<InstanceType<typeof NDataTable> | null>(null);
         const set = useSetStore();
-        const { isFullScreen, toggle: toggleFull } = useFullscreen(basicTableWrapperRef);
+        const { isFullScreen, toggle: toggleFull } = useFullscreen(tableRenderWrapperRef);
         const  { baseColumns, columns, showCheck, showIndex, reset } = useColumns(props);
 
         const tableSize = ref<TableSize>("medium");
         const showStriped = ref(props.striped);
 
-        const basicTableStyle = computed(() => {
+        const tableRenderStyle = computed(() => {
             return {
                 "--icon-hover-color": set.themeColor,
                 "--table-wrapper-back": set.navMode === "diablo" ? "" : "#fff",
@@ -156,12 +156,12 @@ export default defineComponent({
         });
 
         return {
-            basicTableWrapperRef,
+            tableRenderWrapperRef,
             dataTableRef,
             columns,
             tableSize,
             showStriped,
-            basicTableStyle,
+            tableRenderStyle,
             defaultPagination,
             clearFilters,
             clearSorter,

@@ -15,6 +15,7 @@ import type {
     TimePickerProps,
     FormItemProps,
     FormItemGiProps,
+    FormRules,
 } from "naive-ui";
 import type FormRender from "./FormRender";
 import type { ComputedRef, InjectionKey, Ref, VNodeChild } from "vue";
@@ -77,4 +78,6 @@ export type RenderFormProvide<T> = InjectionKey<BaseRenderFormProvide<T>>;
 export type FormActionProvide = InjectionKey<BaseFormActionProvide>;
 export type FormRenderInstance = Empty<typeof FormRender>;
 
-export {};
+export {
+    FormRules,
+};
