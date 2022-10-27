@@ -1,1 +1,0 @@
-import{_ as e,d as s,b as t,e as n,i as o}from"../assets/index.99e24d32.js";const _={class:"system-set"},a=o("h1",null,"system-set",-1),c=[a],r={name:"SystemSet"},i=s({...r,setup(m){return(d,l)=>(t(),n("div",_,c))}});var u=e(i,[["__file","/home/runner/work/naive-admin/naive-admin/src/views/set/system-set.vue"]]);export{u as default};
