@@ -38,7 +38,7 @@ let dependencies = $ref<Record<string, any>>({});
 let devDependencies = $ref<Record<string, any>>({});
 
 onBeforeMount(async () => {
-    const pkgModule = await import.meta.glob("../../../package.json")["../../../package.json"]();
+    const pkgModule: any = await import.meta.glob("../../../package.json")["../../../package.json"]();
     dependencies = pkgModule.dependencies;
     devDependencies = pkgModule.devDependencies;
 });

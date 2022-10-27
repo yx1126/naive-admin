@@ -94,7 +94,7 @@ export default defineComponent({
             const pageNum = (page.value - 1) * size.value;
             return searchSvgList.value.slice(pageNum, pageNum + size.value);
         });
-        let defaultIcon = computed({
+        const defaultIcon = computed({
             get: () => props.value || "",
             set: value => emit("update:value", value),
         });

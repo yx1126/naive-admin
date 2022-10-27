@@ -31,7 +31,7 @@
         "types": [
             "vite/client",
             "naive-ui/volar",
-            "unplugin-vue-define-options",
+            "unplugin-vue-define-options/macros-global",
             "vite-plugin-svg-icons/client"
         ],
         "paths": {
@@ -42,7 +42,7 @@
     },
     "references": [
         {
-            "path": "./tsconfig.vite-config.json"
+            "path": "./tsconfig.config.json"
         }
     ]
 }

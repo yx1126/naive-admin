@@ -1,11 +1,13 @@
 <template>
-    <n-card v-show="show" class="icon-card" v-bind="$attrs">
+    <n-card v-show="show" class="icon-card" v-bind="$attrs" @mouseenter="isShow = true" @mouseleave="isShow = false">
         <div class="icon-wrapper">
             <div class="icon">
                 <Icon :icon="icon" :size="26" />
                 <n-ellipsis :line-clamp="1">{{ icon }}</n-ellipsis>
             </div>
-            <n-button class="icon-action" text size="tiny" @click="onClick">copy</n-button>
+            <transition name="fade">
+                <n-button v-if="isShow" text size="tiny" @click="onClick">copy</n-button>
+            </transition>
         </div>
     </n-card>
 </template>
@@ -24,11 +26,14 @@ export default defineComponent({
     emits: ["click"],
     setup(props, { emit }) {
 
+        const isShow = ref(false);
+
         function onClick() {
             emit("click", props.icon);
         }
 
         return {
+            isShow,
             onClick,
         };
     },
@@ -45,15 +50,6 @@ export default defineComponent({
             font-size: 13px;
             gap: 0 10px;
             @extend .flex-center;
-        }
-        .icon-action {
-            opacity: 0;
-            transition: all .3s;
-        }
-    }
-    &:hover {
-        .icon-action {
-            opacity: 1;
         }
     }
     :deep(.n-card__content) {

@@ -12,10 +12,10 @@ function useThrottle(fn: ArrayFn, delay?: number | boolean, immediate?: boolean)
     } else if(isBoolean(delay)) {
         defaultImmediate = delay;
     }
-    if(isBoolean(immediate)) {
+    if(immediate) {
         defaultImmediate = immediate;
     }
-    let timer: NodeJS.Timeout;
+    let timer: number;
     let flag = true;
     return function(...args: any[]) {
         if(flag) {
