@@ -79,7 +79,7 @@ const dialog = useFeedBack("dialog");
 const mitter = useMitt();
 
 const tagsRef = $ref<HTMLDivElement>();
-let tagsItemRefs = $ref<InstanceType<typeof NTag>[]>([]);
+const tagsItemRefs = $ref<InstanceType<typeof NTag>[]>([]);
 
 let showDropdownRef = $ref(false);
 let isShowCloseAll = $ref(false);

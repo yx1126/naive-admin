@@ -82,10 +82,10 @@ export default defineComponent({
     setup(props, { attrs, emit, expose }) {
 
 
-        let editor = shallowRef<IDomEditor>();
-        let toolbarRef = shallowRef<ToolbarType | null>(null);
-        let showModal = ref(false);
-        let isShowMask = ref(false);
+        const editor = shallowRef<IDomEditor>();
+        const toolbarRef = shallowRef<ToolbarType | null>(null);
+        const showModal = ref(false);
+        const isShowMask = ref(false);
 
         const valueHtml = computed<string>({
             get() {

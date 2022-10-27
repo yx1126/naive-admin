@@ -37,7 +37,7 @@ jobs:
       run: pnpm install
 
     - name: build pages
-      run: pnpm build --mode development
+      run: pnpm build:dev
 
     - name: Build Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.3
