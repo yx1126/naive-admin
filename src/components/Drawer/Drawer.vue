@@ -7,69 +7,65 @@
         @click="onUpdateShow(!show)"
     >
         <Icon :size="26" color="#fff">
-            <component :is="show ? CloseOutlined : SettingOutlined" />
+            <CloseOutlined v-if="show" />
+            <SettingOutlined v-else />
         </Icon>
     </div>
-    <n-drawer class="drawer" placement="right" v-bind="attrs" :width="280" :z-index="2000" :show="show" @update:show="onUpdateShow">
+    <n-drawer class="drawer" placement="right" v-bind="$attrs" :width="280" :z-index="2000" :show="show" @update:show="onUpdateShow">
         <slot />
     </n-drawer>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { $select } from "@/util/dom";
 import setDrag from "@/util/drag";
 import { SettingOutlined, CloseOutlined } from "@vicons/antd";
 import { useThemeVars } from "naive-ui";
 
-defineOptions({
+export default defineComponent({
     name: "Drawer",
+    components: { SettingOutlined, CloseOutlined },
     inheritAttrs: false,
-});
-
-const attrs = useAttrs();
-const set = useSetStore();
-const themeVars = $(useThemeVars());
-
-const props = withDefaults(
-    defineProps<{
-        show?: boolean;
-        showTrigger?: boolean;
-    }>(),
-    {
-        showTrigger: true,
+    props: {
+        show: { type: Boolean, default: void 0 },
+        showTrigger: { type: Boolean, default: true },
     },
-);
+    emits: ["update:show"],
+    setup(props, { emit }) {
+        const set = useSetStore();
+        const themeVars = $(useThemeVars());
+        let stop: (() => void) | null =  null;
 
-const emit = defineEmits<{
-    (e: "update:show", value: boolean): void;
-}>();
-
-let stop: (() => void) | null =  null;
-
-const drawerStyles = computed(() => {
-    return {
-        "--drawer-set-color": set.themeColor,
-        "--drawer-tans-leave": themeVars.cubicBezierEaseIn,
-        "--drawer-tans-enter": themeVars.cubicBezierEaseOut,
-    };
-});
-watch(() => props.showTrigger, async (value) => {
-    await nextTick();
-    const set = $select<HTMLElement>(".drawer-set");
-    if(value && set) {
-        stop = setDrag(set, {
-            type: "y",
-            eventType: "right",
-            cursor: "pointer",
+        const drawerStyles = computed(() => {
+            return {
+                "--drawer-set-color": set.themeColor,
+                "--drawer-tans-leave": themeVars.cubicBezierEaseIn,
+                "--drawer-tans-enter": themeVars.cubicBezierEaseOut,
+            };
         });
-        return;
-    }
-    if(stop) stop();
-}, { immediate: true });
+        watch(() => props.showTrigger, async (value) => {
+            await nextTick();
+            const set = $select<HTMLElement>(".drawer-set");
+            if(value && set) {
+                stop = setDrag(set, {
+                    type: "y",
+                    eventType: "right",
+                    cursor: "pointer",
+                });
+                return;
+            }
+            if(stop) stop();
+        }, { immediate: true });
 
-function onUpdateShow(show: boolean) {
-    emit("update:show", show);
-}
+        function onUpdateShow(show: boolean) {
+            emit("update:show", show);
+        }
+        return {
+            drawerStyles,
+            onUpdateShow,
+        };
+    },
+});
 </script>
 
 <style lang="scss" scoped>

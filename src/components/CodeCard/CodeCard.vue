@@ -26,21 +26,20 @@
 </template>
 
 
-<script lang="ts" setup>
-
-defineOptions({
+<script lang="ts">
+export default defineComponent({
     name: "CodeCard",
+    props: {
+        code: { type: String, default: "" },
+        wordWrap: { type: Boolean, default: false },
+    },
+    setup() {
+        const showFooter = ref(false);
+        return {
+            showFooter,
+        };
+    },
 });
-
-withDefaults(defineProps<{
-    code?: string;
-    wordWrap?: boolean;
-}>(), {
-    code: "",
-    wordWrap: false,
-});
-
-const showFooter = $ref(false);
 </script>
 
 <style lang="scss" scoped>

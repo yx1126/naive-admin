@@ -5,6 +5,7 @@ const LayoutConfig: _LayoutConfig = {
     tagsHeight: 35,
 };
 
+
 export {
     LayoutConfig,
 };

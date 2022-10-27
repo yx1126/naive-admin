@@ -21,49 +21,51 @@
     </div>
 </template>
 
-<script setup lang="ts">
-const props = withDefaults(defineProps<{
-    page?: number;
-    size?: number;
-    total?: number;
-    showJumper?: boolean;
-}>(), {
-    page: 0,
-    size: 10,
-    total: 0,
-    showJumper: false,
+<script lang="ts">
+export default defineComponent({
+    name: "SimplePagination",
+    props: {
+        page: { type: Number, default: 0 },
+        size: { type: Number, default: 10 },
+        total: { type: Number, default: 0 },
+        showJumper: { type: Boolean, default: false },
+    },
+    emits: ["update:page", "update:size"],
+    setup(props, { emit }) {
+        const jumpNum = ref("");
+        const pageCount = computed(() => Math.ceil(props.total / props.size));
+
+        function onJump() {
+            if(!jumpNum.value) return;
+            const jump = Number(jumpNum.value);
+            emit("update:page", jump < 1 ? 1 : jump > pageCount.value ? pageCount.value as number : jump);
+            jumpNum.value = "";
+        }
+
+        function onlyAllowNumber(value: string) {
+            return !value || /^\d+$/.test(value);
+        }
+
+        function onPageChange(type: "prev" | "next") {
+            switch (type) {
+                case "prev":
+                    emit("update:page", props.page - 1);
+                    break;
+                case "next":
+                    emit("update:page", props.page + 1);
+                    break;
+            }
+        }
+        return {
+            jumpNum,
+            pageCount,
+            onJump,
+            onlyAllowNumber,
+            onPageChange,
+        };
+    },
 });
 
-const emit = defineEmits<{
-    (event: "update:page", value: number): void;
-    (event: "update:size", value: number): void;
-}>();
-
-let jumpNum = $ref("");
-
-const pageCount = $computed(() => Math.ceil(props.total / props.size));
-
-function onJump() {
-    if(!jumpNum) return;
-    const jump = Number(jumpNum);
-    emit("update:page", jump < 1 ? 1 : jump > pageCount ? pageCount as number : jump);
-    jumpNum = "";
-}
-
-function onlyAllowNumber(value: string) {
-    return !value || /^\d+$/.test(value);
-}
-
-function onPageChange(type: "prev" | "next") {
-    switch (type) {
-        case "prev":
-            emit("update:page", props.page - 1);
-            break;
-        case "next":
-            emit("update:page", props.page + 1);
-            break;
-    }
-}
 </script>
 
 <style lang="scss" scoped>

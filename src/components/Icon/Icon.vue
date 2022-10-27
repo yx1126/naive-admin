@@ -9,27 +9,28 @@
     </n-icon>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { NIcon } from "naive-ui";
 import { isString } from "@/util/validata";
 import SvgIcon from "./SvgIcon.vue";
 
-defineOptions({
-    name: "Icon",
-});
-
-const props = withDefaults(
-    defineProps<{
-        icon?: string;
-    }>(),
-    {
-        icon: void 0,
-    },
-);
-
 const iconPrefixReg = /^[a-z]{1,}-icon-/;
 
-const isIcon = computed(() => {
-    return isString(props.icon) ? iconPrefixReg.test(props.icon) : false;
+export default defineComponent({
+    name: "Icon",
+    components: { NIcon, SvgIcon },
+    props: {
+        icon: { type: String, default: void 0 },
+    },
+    setup(props) {
+
+        const isIcon = computed(() => {
+            return isString(props.icon) ? iconPrefixReg.test(props.icon) : false;
+        });
+
+        return {
+            isIcon,
+        };
+    },
 });
 </script>

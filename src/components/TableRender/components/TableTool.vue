@@ -1,76 +1,4 @@
-<template>
-    <div class="table-render-toolbar">
-        <div class="behavior">
-            <slot v-if="showBehavior" name="behavior">
-                <NButton type="primary" @click="onBehavior('insert')">
-                    <span>新增</span>
-                    <template #icon><PlusOutlined /></template>
-                </NButton>
-                <NButton type="success" @click="onBehavior('update')">
-                    <span>修改</span>
-                    <template #icon><EditOutlined /></template>
-                </NButton>
-                <NButton type="error" @click="onBehavior('delete')">
-                    <span>删除</span>
-                    <template #icon><DeleteOutlined /></template>
-                </NButton>
-                <NButton type="warning" @click="onBehavior('export')">
-                    <span>导出</span>
-                    <template #icon><DownloadOutlined /></template>
-                </NButton>
-            </slot>
-        </div>
-        <div class="set">
-            <n-tooltip>
-                <span>斑马纹</span>
-                <template #trigger>
-                    <n-switch :value="showStriped" @update:value="setStriped" />
-                </template>
-            </n-tooltip>
-            <n-tooltip>
-                <span>表格全屏</span>
-                <template #trigger>
-                    <Icon class="icon" :size="20" @click="onToggle">
-                        <FullscreenOutlined v-if="isFullScreen" />
-                        <FullscreenExitOutlined v-else />
-                    </Icon>
-                </template>
-            </n-tooltip>
-            <n-tooltip>
-                <span>刷新</span>
-                <template #trigger>
-                    <Icon class="icon" :size="20" @click="onRefresh"><ReloadOutlined /></Icon>
-                </template>
-            </n-tooltip>
-            <n-dropdown trigger="click" :options="densityOptions" @select="onSelect">
-                <n-tooltip>
-                    <span>密度</span>
-                    <template #trigger>
-                        <Icon class="icon" :size="20"><ColumnHeightOutlined /></Icon>
-                    </template>
-                </n-tooltip>
-            </n-dropdown>
-            <table-set
-                v-model:check-all="checkAll"
-                v-model:check-index="checkIndex"
-                v-model:check-box="checkBox"
-                :columns="columns"
-                @reset="onReset"
-                @update:fixed="onFixed"
-                @update:checked="onUpdateChecked"
-            >
-                <n-tooltip>
-                    <span>列设置</span>
-                    <template #trigger>
-                        <Icon class="icon" :size="20"><SettingOutlined /></Icon>
-                    </template>
-                </n-tooltip>
-            </table-set>
-        </div>
-    </div>
-</template>
-
-<script lang="ts">
+<script lang="tsx">
 import {
     SettingOutlined,
     PlusOutlined,
@@ -82,30 +10,17 @@ import {
     FullscreenOutlined,
     FullscreenExitOutlined,
 } from "@vicons/antd";
-import { NTooltip, NSwitch, NDropdown, type DropdownOption } from "naive-ui";
+import { NButton, NTooltip, NSwitch, NDropdown, type DropdownOption } from "naive-ui";
 import TableSet from "./TableSet.vue";
+import Icon from "@/components/Icon";
 import { tableToolContext } from "../index";
-import type { Behavior, TableSize, TableColumn } from "../types";
+import type { Behavior, TableColumn } from "../types";
 
 export default defineComponent({
     name: "TableTool",
-    components: {
-        PlusOutlined,
-        EditOutlined,
-        DeleteOutlined,
-        DownloadOutlined,
-        FullscreenOutlined,
-        FullscreenExitOutlined,
-        ReloadOutlined,
-        ColumnHeightOutlined,
-        SettingOutlined,
-        NTooltip,
-        NSwitch,
-        NDropdown,
-        TableSet,
-    },
     props: {
         showBehavior: { type: Boolean, default: true },
+        tools: { type: Array as PropType<string[]>, default: () => ["striped", "full", "refresh", "size", "set"] },
     },
     emits: ["behavior", "refresh"],
     setup(_, { emit }) {
@@ -129,56 +44,110 @@ export default defineComponent({
             ];
         });
 
-        const checkAll = computed({
-            get: () => columns.value.every((column: TableColumn) => !column.hidden),
-            set: (value) => {
-                tableInject.onUpdateCheckAll(!value);
-            },
-        });
-        const checkIndex = computed({
-            get: () => tableInject.showIndex.value || false,
-            set: (value) => tableInject.setValue("showIndex", value),
-        });
-        const checkBox = computed({
-            get: () => tableInject.showCheck.value || false,
-            set: (value) => tableInject.setValue("showCheck", value),
+        const checkAll = computed<boolean>(() => columns.value.every((column: TableColumn) => !column.hidden));
+        const checkIndex = computed(() => tableInject.showIndex.value);
+        const checkBox = computed(() => tableInject.showCheck.value);
+        const isFullScreen = computed(() => !tableInject.isFullScreen.value);
+        const showStriped = computed(() => tableInject.showStriped.value);
+
+        const setListMap = computed<Record<string, () => JSX.Element>>(() => {
+            const { setValue, toggleFull, reset, setFixed } = tableInject;
+            return {
+                striped: () => {
+                    return Tootip("斑马纹", <NSwitch value={showStriped.value} onUpdateValue={(value) => setValue("showStriped", value)} />);
+                },
+                full: () => {
+                    return Tootip(
+                        "表格全屏",
+                        <Icon class="icon" size={20} onClick={toggleFull}>
+                            { isFullScreen ? <FullscreenOutlined /> : <FullscreenExitOutlined /> }
+                        </Icon>,
+                    );
+                },
+                refresh: () => {
+                    return Tootip(
+                        "刷新",
+                        <Icon class="icon" size={20} onClick={() => emit("refresh")}><ReloadOutlined /></Icon>,
+                    );
+                },
+                size: () => {
+                    return (
+                        <NDropdown trigger="click" options={densityOptions.value} onSelect={(value) => setValue("size", value)}>
+                            {{ default: () => Tootip("密度", <Icon class="icon" size={20}><ColumnHeightOutlined /></Icon>) }}
+                        </NDropdown>
+                    );
+                },
+                set: () => {
+                    return (
+                        <TableSet
+                            checkAll={checkAll.value}
+                            checkIndex={checkIndex.value}
+                            checkBox={checkBox.value}
+                            onUpdate:checkAll={$event => onUpdateChecked({ checked: !$event })}
+                            onUpdate:checkIndex={$event => setValue("showIndex", $event)}
+                            onUpdate:checkBox={$event =>  setValue("showCheck", $event)}
+                            columns={columns.value}
+                            onReset={reset}
+                            onUpdate:fixed={setFixed}
+                            onUpdate:checked={onUpdateChecked}
+                        >
+                            { Tootip("列设置", <Icon class="icon" size={20}><SettingOutlined /></Icon>) }
+                        </TableSet>
+                    );
+                },
+            };
         });
 
-        function setStriped(value: boolean) {
-            tableInject.setValue("showStriped", value);
-        }
-
-        function onSelect(value: TableSize) {
-            tableInject.setValue("size", value);
+        function Tootip(value: string, node: JSX.Element) {
+            return (
+                <NTooltip>{{ default: () => <span>{value}</span>, trigger: () => node }}</NTooltip>
+            );
         }
 
         function onBehavior(type: Behavior) {
             emit("behavior", type);
         }
-        function onRefresh() {
-            emit("refresh");
-        }
-        function onUpdateChecked({ checked, index }: { checked: boolean; index: number }) {
+        function onUpdateChecked({ checked, index }: { checked: boolean; index?: number }) {
             tableInject.onUpdateCheckAll(checked, index);
         }
 
         return {
-            checkAll,
-            checkIndex,
-            checkBox,
-            isFullScreen: computed(() => !tableInject.isFullScreen.value),
-            showStriped: computed(() => tableInject.showStriped.value),
-            columns,
-            onToggle: tableInject.toggleFull,
-            setStriped,
             onBehavior,
-            onRefresh,
-            onSelect,
-            onFixed: tableInject.setFixed,
-            onReset: tableInject.reset,
-            onUpdateChecked,
-            densityOptions,
+            setListMap,
         };
+    },
+    render() {
+        const { $slots, tools, showBehavior, onBehavior, setListMap } = this;
+        return (
+            <div class="table-render-toolbar">
+                <div class="behavior">
+                    {showBehavior ? renderSlot($slots, "behavior", undefined, () => {
+                        return [
+                            <NButton type="primary" onClick={() => onBehavior("insert")}>
+                                {{ default: () => <span>新增</span>, icon: () => <PlusOutlined /> }}
+                            </NButton>,
+                            <NButton type="success" onClick={() => onBehavior("update")}>
+                                {{ default: () => <span>修改</span>, icon: () => <EditOutlined /> }}
+                            </NButton>,
+                            <NButton type="error" onClick={() => onBehavior("delete")}>
+                                {{ default: () => <span>删除</span>, icon: () => <DeleteOutlined /> }}
+                            </NButton>,
+                            <NButton type="warning" onClick={() => onBehavior("export")}>
+                                {{ default: () => <span>导出</span>, icon: () => <DownloadOutlined /> }}
+                            </NButton>,
+                        ];
+                    }) : null}
+                </div>
+                <div class="set">
+                    {
+                        [...new Set(tools)].map(tool => {
+                            const node = setListMap[tool];
+                            return node ? node() : null;
+                        })
+                    }
+                </div>
+            </div>
+        );
     },
 });
 </script>

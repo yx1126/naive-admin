@@ -15,33 +15,30 @@
     </n-pagination>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { NPagination } from "naive-ui";
 
-defineOptions({
+export default defineComponent({
     name: "Pagination",
-    extends: NPagination,
+    components: { NPagination },
+    props: {
+        size: { type: Number, default: void 0 },
+        total: { type: Number, default: void 0 },
+    },
+    emits: ["change", "update:page", "update:size"],
+    setup(_, { emit }) {
+        function onPageChange(value: number) {
+            emit("change");
+            emit("update:page", value);
+        }
+        function onSizeChange(value: number) {
+            emit("change");
+            emit("update:size", value);
+        }
+        return {
+            onPageChange,
+            onSizeChange,
+        };
+    },
 });
-
-withDefaults(
-    defineProps<{
-        size?: number;
-        total?: number;
-    }>(),
-    {},
-);
-const emit = defineEmits<{
-    (event: "change"): void;
-    (event: "update:page", value: number): void;
-    (event: "update:size", value: number): void;
-}>();
-
-function onPageChange(value: number) {
-    emit("change");
-    emit("update:page", value);
-}
-function onSizeChange(value: number) {
-    emit("change");
-    emit("update:size", value);
-}
 </script>

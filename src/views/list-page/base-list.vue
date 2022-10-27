@@ -26,10 +26,10 @@
                     :columns="columns"
                     :data="data"
                     :scroll-x="1950"
-                    :show-index="false"
-                    :show-check="false"
+                    :show-index="true"
+                    :show-check="true"
                     :loading="loading"
-                    max-height="calc(100vh - 50px - 35px - 20px - 40px - 49px - 40px - 50px - 90px)"
+                    max-height="calc(100vh - 50px - 35px - 20px - 76px - 12px - 40px - 49px - 40px - 50px)"
                     @page-change="onPageChange"
                 >
                     <template #tool>
@@ -114,7 +114,7 @@ const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,
-        age: Math.floor(Math.random() * 20),
+        age: 20 + Math.round(Math.random() * 15),
         address: "Sidney No. 1 Lake Park",
         address1: "Sidney No. 1 Lake Park",
         address2: "Sidney No. 1 Lake Park",
