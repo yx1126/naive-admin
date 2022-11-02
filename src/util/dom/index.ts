@@ -1,7 +1,9 @@
 import type { DOMElement, DOMEventKeyMap } from "@/types/util";
 import { isString, isNumber } from "../validata";
 
-export function getParentNode(node: HTMLElement, level: number | ((node: HTMLElement) => void | ParentNode) = 1): HTMLElement | undefined {
+export function getParentNode(node: HTMLElement, level: number): HTMLElement | undefined;
+export function getParentNode(node: HTMLElement, filter: (node: HTMLElement) => void | ParentNode): HTMLElement | undefined;
+export function getParentNode(node: HTMLElement, level: any = 1): HTMLElement | undefined {
     const isNum = isNumber(level);
     let index = 0,
         parentNode: HTMLElement | null = node;

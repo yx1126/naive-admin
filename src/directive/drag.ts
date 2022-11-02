@@ -14,7 +14,7 @@ const drag: Directive = {
             if(role === "dialog" && node.className.includes("n-modal")) {
                 return node;
             }
-        }) as HTMLElement | undefined;
+        });
         const cardHeader = modalNode?.querySelector(".n-card-header .n-card-header__main") as HTMLElement;
         const dialogHeader = modalNode?.querySelector(".n-dialog__title") as HTMLElement;
         if(cardHeader) {
