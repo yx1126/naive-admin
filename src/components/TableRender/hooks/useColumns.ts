@@ -1,4 +1,3 @@
-import { isString } from "@/util/validata";
 import type { DataTableColumns } from "naive-ui";
 import type { TableColumn, TableRenderProps } from "../types";
 
@@ -36,7 +35,7 @@ export default function(props: TableRenderProps) {
     });
 
     const columns = computed<TableColumn[] | undefined>(() => {
-        const { columns: propColumn, pagination, page, size, showCheck: isShowCheck, showIndex: isShowIndex } = props;
+        const { columns: propColumn, pagination, page, size, showCheck: showCheckValue, showIndex: showIndexValue } = props;
         if(!propColumn) return void 0;
         const { left, middle, right } = fixedData.value;
         const data = [...left, ...middle, ...right].filter(c => !c.hidden);
@@ -47,7 +46,7 @@ export default function(props: TableRenderProps) {
                 title: "序号",
                 key: "index",
                 align: "center",
-                fixed: left.length > 0 ? "left" : isString(isShowIndex) ? "left" : false,
+                fixed: showCheckValue === "left" ? "left" : left.length > 0 ? "left" : showIndexValue,
                 width: 80,
                 render: (_, rowIndex) => {
                     return h("span", columnIndex + rowIndex + 1);
@@ -57,7 +56,7 @@ export default function(props: TableRenderProps) {
         if(showCheck.value && !hasSelection) {
             data.unshift({
                 type: "selection",
-                fixed: isShowIndex === "left" ? "left" : left.length > 0 ? "left" : isString(isShowCheck) ? "left" : false,
+                fixed: left.length > 0 ? "left" : showCheckValue,
             } as TableColumn);
         }
         return data as TableColumn[];

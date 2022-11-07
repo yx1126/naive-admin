@@ -34,17 +34,18 @@ const set = useSetStore();
 const themeVars = $(useThemeVars());
 
 const mixinStyle = $computed(() => {
+    const { collapsed, collapsedWidth, width, height, size, inverted, border } = props;
     const defaultValue: Record<string, string> = {
-        "--collapse-width": (props.collapsed ? props.collapsedWidth : props.width) + "px",
-        "--collapse-height": props.height + "px",
-        "--collapse-padding": props.collapsed ? `0 ${(props.collapsedWidth - props.size) / 2}px` : "0 18px 0 20px",
-        "--collapse-background": props.inverted ? themeVars.invertedColor : "",
-        "--collapse-color": props.inverted ? "#BBB" : "",
-        "--collapse-hover-color": props.inverted ? "#fff" : "",
+        "--collapse-width": (collapsed ? collapsedWidth : width) + "px",
+        "--collapse-height": height + "px",
+        "--collapse-padding": collapsed ? `0 ${(collapsedWidth - size) / 2}px` : "0 18px 0 20px",
+        "--collapse-background": inverted ? themeVars.invertedColor : "",
+        "--collapse-color": inverted ? "#BBB" : "",
+        "--collapse-hover-color": inverted ? "#fff" : "",
         "--collaspe-trans": themeVars.cubicBezierEaseInOut,
     };
-    const borderKeys = typeof props.border === "string" ? props.border.split(",").map(item => `border-${item}`) : ["border"],
-          borderValue = `${props.border ? 1 : 0}px solid ${themeVars.dividerColor}`;
+    const borderKeys = typeof border === "string" ? border.split(",").map(item => `border-${item}`) : ["border"],
+          borderValue = `${border ? 1 : 0}px solid ${themeVars.dividerColor}`;
     borderKeys.forEach(item => {
         defaultValue[item] = borderValue;
     });

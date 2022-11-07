@@ -55,7 +55,7 @@ export default defineComponent({
             };
         });
 
-        provide(tableToolContext, {
+        provide(tableToolContext, reactive({
             columns: baseColumns,
             size: tableSize,
             showStriped,
@@ -67,7 +67,7 @@ export default defineComponent({
             setFixed,
             setValue,
             onUpdateCheckAll,
-        });
+        }));
 
         const defaultPagination = computed<PaginationProps | false>(() => {
             const { pagination, page, size, total } = props;

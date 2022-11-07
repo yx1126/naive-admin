@@ -1,6 +1,6 @@
 import NConfig from "./components/NConfig.vue";
 import Icon from "@/components/Icon";
-import type { Component } from "vue";
+import type { Component, VNode } from "vue";
 import type {
     useLoadingBar as useLoadingBarType,
     useDialog as useDialogType,
@@ -16,6 +16,8 @@ export type DialogApiInjection = ReturnType<typeof useDialogType>;
 export type MessageApiInjection = ReturnType<typeof useMessageType>;
 export type NotificationApiInjection = ReturnType<typeof useNotificationType>;
 
+export function renderIcon(icon: string): () => VNode;
+export function renderIcon(icon: Component): () => VNode;
 export function renderIcon(icon: string | Component) {
     if(typeof icon === "string") {
         return () => h(Icon, { icon });

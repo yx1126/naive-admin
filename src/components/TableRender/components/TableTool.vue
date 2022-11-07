@@ -32,10 +32,10 @@ export default defineComponent({
             throw new Error("[TableRedner/TableTool]：`TableTool` must be placed in `TableRedner`");
         }
 
-        const columns =  computed<any>(() => tableInject.columns.value || []);
+        const columns =  computed<any>(() => tableInject.columns || []);
 
         const densityOptions = computed<DropdownOption[]>(() => {
-            const size = tableInject.size.value;
+            const size = tableInject.size;
             const color = `color: ${set.themeColor};`;
             return [
                 { label: "紧凑", key: "small", props: { style: size === "small" ? color : "" } },
@@ -45,10 +45,10 @@ export default defineComponent({
         });
 
         const checkAll = computed<boolean>(() => columns.value.every((column: TableColumn) => !column.hidden));
-        const checkIndex = computed(() => tableInject.showIndex.value);
-        const checkBox = computed(() => tableInject.showCheck.value);
-        const isFullScreen = computed(() => !tableInject.isFullScreen.value);
-        const showStriped = computed(() => tableInject.showStriped.value);
+        const checkIndex = computed(() => tableInject.showIndex);
+        const checkBox = computed(() => tableInject.showCheck);
+        const isFullScreen = computed(() => !tableInject.isFullScreen);
+        const showStriped = computed(() => tableInject.showStriped);
 
         const setListMap = computed<Record<string, () => JSX.Element>>(() => {
             const { setValue, toggleFull, reset, setFixed } = tableInject;

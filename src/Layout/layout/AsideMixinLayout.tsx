@@ -128,98 +128,116 @@ export default defineComponent({
             menuChildrensOptions,
             layoutWrapperStyle,
             isCollapsed,
-            onUpdateCollapsed,
             themeVars,
             nodeProps,
+            onUpdateCollapsed,
             onClearEnterValue,
         };
     },
     render() {
-        const arrowCircleTriggerStyle = `transition: transform 0.3s ${
-            this.themeVars.cubicBezierEaseInOut
-        }; transform: translateX(50%) translateY(-50%) rotate(${this.collapsed ? 180 : 0}deg)`;
-        const triggerStyle = this.isCollapsed
-            ? ""
-            : `transition: right 0.3s ${this.themeVars.cubicBezierEaseInOut}; right: -${this.isCollapsed ? 28 : 188}px`;
-        const isArrowCircle = ["arrow-circle", true].includes(this.showTrigger);
+        const {
+            $slots,
+            themeVars,
+            collapsed,
+            isCollapsed,
+            showTrigger,
+            isShowTabs,
+            tagsFixed,
+            layoutWrapperStyle,
+            defaultInverted,
+            nativeScrollbar,
+            rootMenuOptions,
+            menuChildrensOptions,
+            defaultValue,
+            nodeProps,
+            inverted,
+            contentTop,
+            onUpdateCollapsed,
+            onClearEnterValue,
+            onScroll,
+        } = this;
+
+        const arrowCircleTriggerStyle = `transition: transform 0.3s ${themeVars.cubicBezierEaseInOut}; transform: translateX(50%) translateY(-50%) rotate(${collapsed ? 180 : 0}deg)`;
+        const triggerStyle = isCollapsed ? "" : `transition: right 0.3s ${themeVars.cubicBezierEaseInOut}; right: -${isCollapsed ? 28 : 188}px`;
+        const isArrowCircle = ["arrow-circle", true].includes(showTrigger);
         const isShowTrigger =
-            this.showTrigger === "bar" ? "bar" : isArrowCircle ? (this.isCollapsed ? "arrow-circle" : false) : false;
+            showTrigger === "bar" ? "bar" : isArrowCircle ? (isCollapsed ? "arrow-circle" : false) : false;
         const TagsLayout = (
-            this.isShowTabs ? (
-                <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"}>
+            isShowTabs ? (
+                <NLayoutHeader class="layout-tags" bordered position={tagsFixed ? "absolute" : "static"}>
                     <Tags />
                 </NLayoutHeader>
             ) : null
         );
         return (
-            <NLayout class="layout-wrapper layout-wrapper-asidemixin" has-sider position="absolute" style={this.layoutWrapperStyle}>
+            <NLayout class="layout-wrapper layout-wrapper-asidemixin" has-sider position="absolute" style={layoutWrapperStyle}>
                 <div class="layout-sider-wrapper">
                     <NLayoutSider
                         class="layout-sider"
-                        collapsed={this.collapsed}
+                        collapsed={collapsed}
                         collapse-mode="width"
                         width={140}
-                        inverted={this.defaultInverted}
+                        inverted={defaultInverted}
                         bordered
-                        native-scrollbar={this.nativeScrollbar}
+                        native-scrollbar={nativeScrollbar}
                         collapsed-trigger-style={triggerStyle}
                         trigger-style={triggerStyle}
                         show-trigger={isShowTrigger}
-                        onUpdate:collapsed={this.onUpdateCollapsed}
+                        onUpdate:collapsed={onUpdateCollapsed}
                     >
-                        <Logo collapsed={this.collapsed} width="auto" height={LayoutConfig.headerHeight} indent={10} onmouseenter={this.onClearEnterValue} />
+                        <Logo collapsed={collapsed} width="auto" height={LayoutConfig.headerHeight} indent={10} onmouseenter={onClearEnterValue} />
                         <Menu
                             style="--n-item-height: 36px;"
-                            options={this.rootMenuOptions}
-                            value={this.defaultValue}
+                            options={rootMenuOptions}
+                            value={defaultValue}
                             root-indent={10}
                             collapsed-icon-size={20}
                             children-field="noChild"
-                            node-props={this.nodeProps}
+                            node-props={nodeProps}
                         />
                     </NLayoutSider>
                     <Collapse
                         class="mixin-collapse"
-                        collapsed={this.collapsed}
-                        size={this.collapsed ? 24 : 22}
+                        collapsed={collapsed}
+                        size={collapsed ? 24 : 22}
                         width={140}
-                        border={this.defaultInverted ? "top" : "top,right"}
-                        inverted={this.defaultInverted}
+                        border={defaultInverted ? "top" : "top,right"}
+                        inverted={defaultInverted}
                         collapsed-width={48}
                     />
                 </div>
                 <NLayout class="n-layout-main">
-                    <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position="absolute">
+                    <NLayoutHeader class="layout-header" bordered inverted={inverted} position="absolute">
                         <Header>{{ left: () => <Breadcrumb class="breadcrumb" /> }}</Header>
                     </NLayoutHeader>
                     <NLayoutContent position="absolute" style={`top: ${LayoutConfig.headerHeight}px;`}>
                         <NLayout has-sider style="height: 100%;">
                             <NLayoutSider
                                 class="layout-sider-child"
-                                collapsed={this.isCollapsed}
+                                collapsed={isCollapsed}
                                 collapse-mode="transform"
                                 width={160}
                                 collapsed-width={0}
                                 bordered
-                                native-scrollbar={this.nativeScrollbar}
+                                native-scrollbar={nativeScrollbar}
                                 trigger-style={isArrowCircle ? arrowCircleTriggerStyle : ""}
-                                show-trigger={isArrowCircle ? (this.isCollapsed ? false : "arrow-circle") : false}
-                                onUpdate:collapsed={this.onUpdateCollapsed}
-                                onmouseleave={this.onClearEnterValue}
+                                show-trigger={isArrowCircle ? (isCollapsed ? false : "arrow-circle") : false}
+                                onUpdate:collapsed={onUpdateCollapsed}
+                                onmouseleave={onClearEnterValue}
                             >
-                                <Menu collapsed={false} inverted={false} options={this.menuChildrensOptions} indent={15} />
+                                <Menu collapsed={false} inverted={false} options={menuChildrensOptions} indent={15} />
                             </NLayoutSider>
                             <NLayout>
-                                {this.tagsFixed ? TagsLayout : null}
+                                {tagsFixed ? TagsLayout : null}
                                 <NLayoutContent
                                     class="layout-content"
                                     position="absolute"
-                                    style={`top: ${this.contentTop}px; bottom: 0`}
-                                    native-scrollbar={this.nativeScrollbar}
-                                    onScroll={this.onScroll}
+                                    style={`top: ${contentTop}px; bottom: 0`}
+                                    native-scrollbar={nativeScrollbar}
+                                    onScroll={onScroll}
                                 >
-                                    {this.tagsFixed ? null : TagsLayout}
-                                    {renderSlot(this.$slots, "default")}
+                                    {tagsFixed ? null : TagsLayout}
+                                    {renderSlot($slots, "default")}
                                 </NLayoutContent>
                             </NLayout>
                         </NLayout>

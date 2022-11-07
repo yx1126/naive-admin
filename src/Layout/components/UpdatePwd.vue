@@ -3,9 +3,8 @@
         <form-render
             ref="userFormRef"
             v-drag
-            class="update-pwd-form"
             :context="context"
-            :model="model"
+            class="update-pwd-form"
             :rules="rules"
             label-width="auto"
         >

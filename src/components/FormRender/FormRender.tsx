@@ -31,7 +31,7 @@ export default defineComponent({
 
         const nFormRef = ref<InstanceType<typeof NForm> | null>(null);
 
-        const formInject = inject(props.context);
+        const formInject = inject(props.context, null);
 
         const gridProps = computed(() => {
             const { grid } = props;
@@ -47,19 +47,17 @@ export default defineComponent({
             });
         });
 
-        if(formInject) {
-            formInject.init({
-                validate,
-                restoreValidation,
-            });
-        }
+        formInject?.init({
+            validate,
+            restoreValidation,
+        });
 
-        provide(formActionContext, {
+        provide(formActionContext, reactive({
             grid: isShowGrid,
-            loading: computed(() => unref(formInject?.loading)),
+            loading: formInject?.loading,
             reset: formInject?.resetFields,
             validate,
-        });
+        }));
 
         function validate(validateCallback?: (errors?: Array<FormValidationError>) => void, shouldRuleBeApplied?: (rule: FormItemRule) => boolean): Promise<void> {
             return nFormRef.value?.validate(validateCallback, shouldRuleBeApplied) as Promise<void>;

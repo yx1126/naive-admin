@@ -4,16 +4,19 @@ import { formActionContext } from "../index";
 export default defineComponent({
     name: "FormAction",
     inheritAttrs: false,
-    __GRID_ITEM__: true, // NGrid 内部根据 __GRID_ITEM__ 来 来识别 NFormItemGi 组件
+    __GRID_ITEM__: true,
     props: {
         submitText: { type: String, default: "提 交" },
         resetText: { type: String, default: "重 置" },
         space: { type: Object as PropType<SpaceProps>, default: () => ({}) },
         loading: { type: Boolean, default: void 0 },
     },
-    emits: ["submit", "reset"],
+    emits: ["submit", "error", "reset"],
     setup(props, { emit }) {
-        const formInject = inject(formActionContext);
+        const formInject = inject(formActionContext)!;
+        if(!formInject) {
+            throw new Error("[FormRedner/FormAction]：`FormAction` must be placed in `FormRedner`");
+        }
 
         const load = computed(() => {
             if(props.loading !== void 0) return props.loading;
@@ -21,20 +24,23 @@ export default defineComponent({
         });
 
         function submit() {
-            if(!formInject) return;
             formInject.validate((errors) => {
-                if(errors) return;
+                if(errors) {
+                    emit("error", errors);
+                    return;
+                }
                 emit("submit");
             });
         }
         function reset() {
-            if(formInject) formInject.reset();
+            if(formInject.reset)
+                formInject.reset();
             emit("reset");
         }
 
         return {
             formInject,
-            grid: formInject!.grid,
+            grid: formInject.grid,
             load,
             submit,
             reset,

@@ -18,7 +18,7 @@ import type {
     FormRules,
 } from "naive-ui";
 import type FormRender from "./FormRender";
-import type { ComputedRef, InjectionKey, Ref, VNodeChild } from "vue";
+import type { InjectionKey, Ref, VNodeChild } from "vue";
 
 /**
  * {@label FormComponentsProps}
@@ -68,8 +68,8 @@ export interface BaseRenderFormProvide<T> {
 }
 
 export interface BaseFormActionProvide {
-    grid: ComputedRef<boolean>;
-    loading: ComputedRef<boolean | undefined>;
+    grid: boolean;
+    loading: boolean | undefined;
     reset: () => void;
     validate: RenderFormInitParams["validate"];
 }

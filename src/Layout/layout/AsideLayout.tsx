@@ -65,18 +65,34 @@ export default defineComponent({
         };
     },
     render() {
-        const headerLeft = [
-            <Collapse collapsed={this.collapsed} width={LayoutConfig.headerHeight} collapsed-width={59} height={LayoutConfig.headerHeight} />,
-            <Breadcrumb />,
-        ];
+        const {
+            $slots,
+            collapsed,
+            menuOptions,
+            inverted,
+            headerFixed,
+            tagsFixed,
+            isShowTabs,
+            defaultInverted,
+            nativeScrollbar,
+            showTrigger,
+            contentTop,
+            onUpdateCollapsed,
+            onScroll,
+        } = this;
         const HeaderLayout = (
-            <NLayoutHeader class="layout-header" bordered inverted={this.inverted} position={this.headerFixed ? "absolute" : "static"}>
-                <Header>{{ left: () => headerLeft }}</Header>
+            <NLayoutHeader class="layout-header" bordered inverted={inverted} position={headerFixed ? "absolute" : "static"}>
+                <Header>{{
+                    left: () => [
+                        <Collapse collapsed={collapsed} width={LayoutConfig.headerHeight} collapsed-width={59} height={LayoutConfig.headerHeight} />,
+                        <Breadcrumb />,
+                    ],
+                }}</Header>
             </NLayoutHeader>
         );
         const TagsLayout = (
-            this.isShowTabs ? (
-                <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style={`top: ${LayoutConfig.headerHeight}px`}>
+            isShowTabs ? (
+                <NLayoutHeader class="layout-tags" bordered position={tagsFixed ? "absolute" : "static"} style={`top: ${LayoutConfig.headerHeight}px`}>
                     <Tags />
                 </NLayoutHeader>
             ) : null
@@ -84,32 +100,32 @@ export default defineComponent({
         return (
             <NLayout class="layout-wrapper" has-sider position="absolute">
                 <NLayoutSider
-                    collapsed={this.collapsed}
+                    collapsed={collapsed}
                     collapse-mode="width"
                     collapsed-width={64}
                     width={200}
-                    inverted={this.defaultInverted}
+                    inverted={defaultInverted}
                     bordered
-                    native-scrollbar={this.nativeScrollbar}
-                    show-trigger={this.showTrigger}
-                    onUpdate:collapsed={this.onUpdateCollapsed}
+                    native-scrollbar={nativeScrollbar}
+                    show-trigger={showTrigger}
+                    onUpdate:collapsed={onUpdateCollapsed}
                 >
-                    <Logo collapsed={this.collapsed} collapsed-width={64} width="auto" height={LayoutConfig.headerHeight} />
-                    <Menu options={this.menuOptions} />
+                    <Logo collapsed={collapsed} collapsed-width={64} width="auto" height={LayoutConfig.headerHeight} />
+                    <Menu options={menuOptions} />
                 </NLayoutSider>
                 <NLayout class="n-layout-main">
-                    {this.headerFixed ? HeaderLayout : null}
-                    {this.tagsFixed ? TagsLayout : null}
+                    {headerFixed ? HeaderLayout : null}
+                    {tagsFixed ? TagsLayout : null}
                     <NLayoutContent
                         class="layout-content"
                         position="absolute"
-                        style={`top: ${this.contentTop}px; bottom: 0`}
-                        native-scrollbar={this.nativeScrollbar}
-                        onScroll={this.onScroll}
+                        style={`top: ${contentTop}px; bottom: 0`}
+                        native-scrollbar={nativeScrollbar}
+                        onScroll={onScroll}
                     >
-                        {this.headerFixed ? null : HeaderLayout}
-                        {this.tagsFixed ? null : TagsLayout}
-                        {renderSlot(this.$slots, "default")}
+                        {headerFixed ? null : HeaderLayout}
+                        {tagsFixed ? null : TagsLayout}
+                        {renderSlot($slots, "default")}
                     </NLayoutContent>
                 </NLayout>
             </NLayout>

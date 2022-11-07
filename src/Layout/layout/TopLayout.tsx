@@ -45,35 +45,46 @@ export default defineComponent({
         };
     },
     render() {
+        const {
+            $slots,
+            defaultInverted,
+            headerFixed,
+            tagsFixed,
+            menuOptions,
+            isShowTabs,
+            contentTop,
+            nativeScrollbar,
+            onScroll,
+        } = this;
         const HeaderLayout = (
-            <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered position={this.headerFixed ? "absolute" : "static"}>
+            <NLayoutHeader class="layout-header" inverted={defaultInverted} bordered position={headerFixed ? "absolute" : "static"}>
                 <Header>
                     {{
                         logo: () => <Logo width={200} height={LayoutConfig.headerHeight} />,
-                        left: () => <Menu mode="horizontal" options={this.menuOptions} />,
+                        left: () => <Menu mode="horizontal" options={menuOptions} />,
                     }}
                 </Header>
             </NLayoutHeader>
         );
-        const TagsLayout = this.isShowTabs ? (
-            <NLayoutHeader class="layout-tags" bordered position={this.tagsFixed ? "absolute" : "static"} style={`top: ${LayoutConfig.headerHeight}px`}>
+        const TagsLayout = isShowTabs ? (
+            <NLayoutHeader class="layout-tags" bordered position={tagsFixed ? "absolute" : "static"} style={`top: ${LayoutConfig.headerHeight}px`}>
                 <Tags />
             </NLayoutHeader>
         ) : null;
         return (
             <NLayout class="layout-wrapper n-layout-main" position="absolute">
-                {this.headerFixed ? HeaderLayout : null}
-                {this.tagsFixed ? TagsLayout : null}
+                {headerFixed ? HeaderLayout : null}
+                {tagsFixed ? TagsLayout : null}
                 <NLayoutContent
                     class="layout-content"
                     position="absolute"
-                    style={`top: ${this.contentTop}px; bottom: 0`}
-                    native-scrollbar={this.nativeScrollbar}
-                    onScroll={this.onScroll}
+                    style={`top: ${contentTop}px; bottom: 0`}
+                    native-scrollbar={nativeScrollbar}
+                    onScroll={onScroll}
                 >
-                    {this.headerFixed ? null : HeaderLayout}
-                    {this.tagsFixed ? null : TagsLayout}
-                    {renderSlot(this.$slots, "default")}
+                    {headerFixed ? null : HeaderLayout}
+                    {tagsFixed ? null : TagsLayout}
+                    {renderSlot($slots, "default")}
                 </NLayoutContent>
             </NLayout>
         );

@@ -98,61 +98,79 @@ export default defineComponent({
         };
     },
     render() {
+        const {
+            $slots,
+            defaultValue,
+            defaultInverted,
+            menuOptions,
+            tagsFixed,
+            isShowTabs,
+            isCutMenu,
+            state,
+            inverted,
+            nativeScrollbar,
+            isShowSilder,
+            showTrigger,
+            menuChildrensOptions,
+            contentTop,
+            onUpdateCollapsed,
+            onScroll,
+        } = this;
         const CutMenuNode = (
             <Menu
                 mode="horizontal"
-                value={this.defaultValue}
+                value={defaultValue}
                 collapsed={false}
-                inverted={this.defaultInverted}
-                options={this.menuOptions}
+                inverted={defaultInverted}
+                options={menuOptions}
                 children-field="noChild"
             />
         );
-        const TagsLayout = this.isShowTabs ? <NLayoutHeader class="layout-tags" bordered><Tags /></NLayoutHeader> : null;
+        const TagsLayout = isShowTabs ? <NLayoutHeader class="layout-tags" bordered><Tags /></NLayoutHeader> : null;
         return (
             <NLayout class="layout-wrapper layout-wrapper-mixin">
-                <NLayoutHeader class="layout-header" inverted={this.defaultInverted} bordered>
+                <NLayoutHeader class="layout-header" inverted={defaultInverted} bordered>
                     <Logo width={200} height={LayoutConfig.headerHeight} />
-                    <Header>{{ left: () => (this.isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
+                    <Header>{{ left: () => (isCutMenu ? CutMenuNode : <Breadcrumb />) }}</Header>
                 </NLayoutHeader>
                 <NLayout has-sider position="absolute" style={`top: ${LayoutConfig.headerHeight}px`}>
                     <div class="layout-sider-wrapper">
                         <NLayoutSider
                             class="layout-sider"
-                            collapsed={this.state.collapsed}
+                            collapsed={state.collapsed}
                             collapse-mode="width"
-                            collapsed-width={this.state.width}
+                            collapsed-width={state.width}
                             width={200}
                             bordered
-                            inverted={this.inverted}
+                            inverted={inverted}
                             content-style="height: 100%;"
-                            native-scrollbar={this.nativeScrollbar}
-                            show-trigger={this.isShowSilder ? this.showTrigger : false}
-                            onUpdate:collapsed={this.onUpdateCollapsed}
+                            native-scrollbar={nativeScrollbar}
+                            show-trigger={isShowSilder ? showTrigger : false}
+                            onUpdate:collapsed={onUpdateCollapsed}
                         >
-                            <Menu inverted={this.inverted} options={this.menuChildrensOptions} />
+                            <Menu inverted={inverted} options={menuChildrensOptions} />
                         </NLayoutSider>
                         <Collapse
                             class="mixin-collapse"
-                            collapsed={this.state.collapsed}
-                            size={this.state.collapsed ? 24 : 22}
+                            collapsed={state.collapsed}
+                            size={state.collapsed ? 24 : 22}
                             width={200}
-                            border={this.inverted ? "top" : "top,right"}
-                            inverted={this.inverted}
-                            collapsed-width={this.state.width}
+                            border={inverted ? "top" : "top,right"}
+                            inverted={inverted}
+                            collapsed-width={state.width}
                         />
                     </div>
                     <NLayout class="n-layout-main">
-                        {this.tagsFixed ? TagsLayout : null}
+                        {tagsFixed ? TagsLayout : null}
                         <NLayoutContent
                             class="layout-content"
                             position="absolute"
-                            style={`top: ${this.contentTop}px; bottom: 0`}
-                            native-scrollbar={this.nativeScrollbar}
-                            onScroll={this.onScroll}
+                            style={`top: ${contentTop}px; bottom: 0`}
+                            native-scrollbar={nativeScrollbar}
+                            onScroll={onScroll}
                         >
-                            {this.tagsFixed ? null : TagsLayout}
-                            {renderSlot(this.$slots, "default")}
+                            {tagsFixed ? null : TagsLayout}
+                            {renderSlot($slots, "default")}
                         </NLayoutContent>
                     </NLayout>
                 </NLayout>

@@ -1,5 +1,5 @@
 import type TableRender from "./TableRender.vue";
-import type { ExtractPropTypes, InjectionKey, Ref } from "vue";
+import type { ExtractPropTypes, InjectionKey } from "vue";
 import type TableRenderProps from "./props";
 import type { DataTableColumns } from "naive-ui";
 
@@ -15,12 +15,12 @@ export type TableColumn<T = any> = ParseArray<DataTableColumns<T>> & {
 };
 
 interface BaseTableToolData {
-    columns: Ref<Array<TableColumn> | undefined>;
-    size: Ref<TableSize>;
-    isFullScreen: Ref<boolean>;
-    showStriped: Ref<boolean>;
-    showCheck: Ref<boolean>;
-    showIndex: Ref<boolean>;
+    columns: Array<TableColumn> | undefined;
+    size: TableSize;
+    isFullScreen: boolean;
+    showStriped: boolean;
+    showCheck: boolean;
+    showIndex: boolean;
 }
 
 export interface BaseTableToolVoid {
