@@ -6,5 +6,5 @@
     @if $align != "" {
         align-items: #{$align};
     }
-    @content;
+    @content ($just, $align);
 }

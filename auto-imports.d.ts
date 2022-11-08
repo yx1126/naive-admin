@@ -67,7 +67,7 @@ declare global {
   const useMitt: typeof import('./src/hooks/use-mitt')['default']
   const usePage: typeof import('./src/hooks/use-page')['default']
   const usePermission: typeof import('./src/hooks/use-permission')['default']
-  const useRequest: typeof import('./src/hooks/useRequest')['default']
+  const useRequest: typeof import('./src/hooks/use-request')['default']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
   const useSetStore: typeof import('./src/stores/exports/index')['useSetStore']

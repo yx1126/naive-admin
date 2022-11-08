@@ -94,9 +94,11 @@ class Https {
 
     postForm<T>(url: string, data?: Record<string, any>, headers?: RawAxiosRequestHeaders) {
         const form = new FormData();
-        Object.keys(data || {}).forEach(key => {
-            form.append(key, data![key]);
-        });
+        if(data) {
+            Object.keys(data).forEach(key => {
+                form.append(key, data[key]);
+            });
+        }
         return this.service.post<T>(url, form, {
             headers: {
                 "content-type": "multipart/form-data",
