@@ -63,7 +63,7 @@
                     <n-color-picker
                         v-model:value="set.themeColor"
                         class="divider-content-item__input custom-picker-set"
-                        :swatches="defaultThemeList"
+                        :swatches="LayoutConfig.theme"
                         :actions="['confirm']"
                         :to="false"
                         show-preview
@@ -93,14 +93,13 @@ import useSetStore, { navTheme, layoutMode, routerTransOptions, menuTriggerOptio
 import Drawer from "@/components/Drawer";
 import { lang } from "@/locales";
 import NavMode from "./NavMode.vue";
+import { LayoutConfig } from "@/config";
 
 const { locale, t } = useI18n({
     inheritLocale: true,
 });
 
 const set = useSetStore();
-
-const defaultThemeList = ["#409EFF", "#18a058", "#67C23A", "#E6A23C", "#F56C6C", "#909399"];
 
 const toggleDrawer = computed({
     get: () => set.drawerStatus,
@@ -129,47 +128,47 @@ watch(() => set.lang, (value) => {
 </style>
 
 <i18n locale="zh-CN" lang="yaml">
-    title: "项目配置"
-    navTheme: "系统主题"
-    layoutMode: "导航模式"
-    pageDisplay: "界面显示"
-    isShowLogo: "显示 Logo"
-    isShowBreadcrumb: "显示 面包屑"
-    isShowTabs: "显示 标签页"
-    pageFunction: "界面功能"
-    isKeepHeader: "固定顶栏"
-    isKeepTags: "固定标签页"
-    isCutMenu: "分割菜单"
-    uniqueMenuOpened: "保持一个子菜单的展开"
-    otherSet: "其他设置"
-    routerTrans: "路由动画"
-    themeColor: "组件主题"
-    reset: "还原设置"
-    lang: "语言切换"
-    confirmSet: "确认还原为默认设置吗？"
-    inverted: "反转背景色"
-    menuTrigger: "菜单 trigger"
+title: 项目配置
+navTheme: 系统主题
+layoutMode: 导航模式
+pageDisplay: 界面显示
+isShowLogo: 显示 Logo
+isShowBreadcrumb: 显示 面包屑
+isShowTabs: 显示 标签页
+pageFunction: 界面功能
+isKeepHeader: 固定顶栏
+isKeepTags: 固定标签页
+isCutMenu: 分割菜单
+uniqueMenuOpened: 保持一个子菜单的展开
+otherSet: 其他设置
+routerTrans: 路由动画
+themeColor: 组件主题
+reset: 还原设置
+lang: 语言切换
+confirmSet: 确认还原为默认设置吗？
+inverted: 反转背景色
+menuTrigger: 菜单 trigger
 </i18n>
 
 <i18n locale="enUS" lang="yaml">
-    isCutMenu: "Split the menu"
-    isKeepHeader: "Fixed the top bar"
-    isKeepTags: "Fixed Tabs"
-    isShowBreadcrumb: "Show Breadcrumb"
-    isShowLogo: "Show Logo"
-    isShowTabs: "Show Tabs"
-    layoutMode: "Navigation mode"
-    navTheme: "System theme"
-    otherSet: "Other Settings"
-    pageDisplay: "Page Display"
-    pageFunction: "Page Function"
-    reset: "reset"
-    routerTrans: "Routing animation"
-    themeColor: "Component theme"
-    title: "Project configuration"
-    uniqueMenuOpened: "Keep a submenu open"
-    lang: "Change language"
-    confirmSet: "Are you sure to restore the default Settings?"
-    inverted: "Reverse background color"
-    menuTrigger: "menu trigger"
+isCutMenu: Split the menu
+isKeepHeader: Fixed the top bar
+isKeepTags: Fixed Tabs
+isShowBreadcrumb: Show Breadcrumb
+isShowLogo: Show Logo
+isShowTabs: Show Tabs
+layoutMode: Navigation mode
+navTheme: System theme
+otherSet: Other Settings
+pageDisplay: Page Display
+pageFunction: Page Function
+reset: reset
+routerTrans: Routing animation
+themeColor: Component theme
+title: Project configuration
+uniqueMenuOpened: Keep a submenu open
+lang: Change language
+confirmSet: Are you sure to restore the default Settings?
+inverted: Reverse background color
+menuTrigger: menu trigger
 </i18n>
