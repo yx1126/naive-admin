@@ -8,6 +8,7 @@ import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import DefineOptions from "unplugin-vue-define-options/vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import Unocss from "@unocss/vite";
+import vueI18n from "@intlify/vite-plugin-vue-i18n";
 
 const resolve = (path: string) => {
     return fileURLToPath(new URL(`./${path}`, import.meta.url));
@@ -60,6 +61,9 @@ export default defineConfig({
     plugins: [
         vue({
             reactivityTransform: true,
+        }),
+        vueI18n({
+            include: resolve("src/locales/**"),
         }),
         vueJsx(),
         Unocss(),
