@@ -1,9 +1,9 @@
 @mixin flex($just: "", $align: "") {
     display: flex;
-    @if $just {
+    @if $just != "" {
         justify-content: #{$just};
     }
-    @if $align {
+    @if $align != "" {
         align-items: #{$align};
     }
     @content;

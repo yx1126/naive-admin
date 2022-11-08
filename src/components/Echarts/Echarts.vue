@@ -13,7 +13,7 @@ export default defineComponent({
     name: "Echarts",
     props: {
         options: { type: Object as PropType<EChartsCoreOption>, required: true },
-        svgRender: { type: Boolean, default: false },
+        renderer: { type: String as PropType<"svg" | "canvas">, default: "canvas" },
         dark: { type: Boolean, default: false },
     },
     setup(props, { expose }) {
@@ -35,17 +35,11 @@ export default defineComponent({
             }, 300);
         });
 
-        watch(
-            () => props.options,
-            options => {
-                echarts.value?.setOption(options);
-            },
-            {
-                deep: true,
-            },
-        );
+        watch(() => props.options, options => {
+            echarts.value?.setOption(options);
+        });
 
-        watch([() => props.svgRender, () => props.dark, () => set.navMode], () => {
+        watch([() => props.renderer, () => props.dark, () => set.navMode], () => {
             if(props.dark) return;
             init();
         });
@@ -70,7 +64,7 @@ export default defineComponent({
         function init() {
             if(echarts.value) echarts.value.dispose();
             echarts.value = Echarts.init(echartsRef.value!, props.dark ? "dark" : set.navMode === "diablo" ? "dark" : void 0, {
-                renderer: props.svgRender ? "svg" : "canvas",
+                renderer: props.renderer,
             });
             echarts.value.setOption(defaultOptions);
             if(set.layoutMode === "asideMixin") {
