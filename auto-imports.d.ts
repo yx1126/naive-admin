@@ -55,7 +55,6 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
-  const useDefaultValue: typeof import('./src/hooks/use-defaultValue')['default']
   const useDeounce: typeof import('./src/hooks/use-deounce')['default']
   const useDeouncedRef: typeof import('./src/hooks/use-deouncedRef')['default']
   const useEventListener: typeof import('./src/hooks/use-eventListener')['default']

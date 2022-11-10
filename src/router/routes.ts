@@ -18,6 +18,26 @@ const routes: RouteRecordRaw[] = [
         redirect: "/dashboard/console",
     },
     {
+        path: "/redirect/:path*",
+        name: "Redirect",
+        meta: {
+            title: "RedirectLayout",
+        },
+        redirect: "/redirect",
+        component: Layout("RedirectLayout"),
+        children: [
+            {
+                path: "",
+                name: "Redirect",
+                meta: {
+                    title: "",
+                    icon: "",
+                },
+                component: () => import("@/views/redirect/redirect.vue"),
+            },
+        ],
+    },
+    {
         path: "/dashboard",
         name: "Dashboard",
         meta: {
@@ -347,15 +367,6 @@ const routes: RouteRecordRaw[] = [
             icon: "",
         },
         component: () => import("@/views/other-pages/person.vue"),
-    },
-    {
-        path: "/redirect/:path*",
-        name: "Redirect",
-        meta: {
-            title: "",
-            icon: "",
-        },
-        component: () => import("@/views/redirect/redirect.vue"),
     },
     { path: "/:pathMatch(.*)", redirect: "/error/404" },
 ];

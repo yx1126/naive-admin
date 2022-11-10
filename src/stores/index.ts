@@ -1,5 +1,5 @@
 import { createPinia } from "pinia";
-import createVuePinia from "./plugins/vue-pinia-store/vue-pinia-store";
+import createVuePinia from "./plugins/pinia-store";
 
 const pinia = createPinia();
 pinia.use(

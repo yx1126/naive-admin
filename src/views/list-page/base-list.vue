@@ -110,7 +110,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $ref<RowData[]>(Array.from({ length: size }).map((_, i) => {
+const data = $computed<RowData[]>(() => Array.from({ length: size }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,
