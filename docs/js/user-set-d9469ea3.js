@@ -1,0 +1,1 @@
+import{d as e,j as s,k as t,p as n,_ as o}from"../assets/index.eafcb62e.js";const _={class:"user-set"},r=n("h1",null,"user-set",-1),a=[r],c=e({name:"UserSet"}),i=e({...c,setup(u){return(d,l)=>(s(),t("div",_,a))}}),p=o(i,[["__file","/home/runner/work/naive-admin/naive-admin/src/views/set/user-set.vue"]]);export{p as default};
