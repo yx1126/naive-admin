@@ -1,1 +1,0 @@
-import{c2 as n,bs as r}from"../assets/index.efd02abb.js";function c(i,e,f){let o=500,t=!1;n(e)?o=e:r(e)&&(t=e),f&&(t=f);let l,u=!0;return function(...s){l&&clearTimeout(l),t&&u&&(i.call(null,...s),u=!1),l=setTimeout(t?()=>u=!0:i.bind(null,...s),o)}}export{c as u};
