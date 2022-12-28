@@ -74,18 +74,9 @@ export default defineComponent({
                 "--icon-hover-color": set.themeColor,
             };
         });
-        const isCheckAll = computed({
-            get: () => props.checkAll,
-            set: value => emit("update:checkAll", value),
-        });
-        const isCheckIndex = computed({
-            get: () => props.checkIndex,
-            set: value => emit("update:checkIndex", value),
-        });
-        const isCheckBox = computed({
-            get: () => props.checkBox,
-            set: value => emit("update:checkBox", value),
-        });
+        const isCheckAll = useVModel(props, "checkAll");
+        const isCheckIndex = useVModel(props, "checkIndex");
+        const isCheckBox = useVModel(props, "checkBox");
 
         watch(
             props.columns,

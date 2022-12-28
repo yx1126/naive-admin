@@ -8,8 +8,8 @@ export default <P extends object, K extends keyof P>(props: P, key?: K) => {
         get() {
             return props[key!];
         },
-        set(...args) {
-            instance.emit(event, ...args);
+        set(value) {
+            instance.emit(event, value);
         },
     });
 };

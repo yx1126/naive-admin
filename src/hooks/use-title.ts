@@ -1,9 +1,9 @@
 import { isString } from "@/util/validata";
 
 export default (title: MayBeRef<Empty<string>> = null, template = "%s") => {
-    const value = $ref(title ?? document.title ?? null);
+    const value = ref(title ?? document.title ?? null);
     watch(
-        $$(value),
+        value,
         (v, ov) => {
             if(isString(v) && v !== ov && document) {
                 document.title = template.replaceAll("%s", v);
@@ -13,5 +13,5 @@ export default (title: MayBeRef<Empty<string>> = null, template = "%s") => {
             immediate: true,
         },
     );
-    return $$(value);
+    return value;
 };
