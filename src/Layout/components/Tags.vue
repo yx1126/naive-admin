@@ -191,7 +191,7 @@ async function onShowDropdown(e: MouseEvent) {
 function onMouseWheel(e: WheelEvent) {
     e.preventDefault();
     onClickoutside();
-    tagsRef.scrollLeft += e.deltaY || e.detail * 20;
+    tagsRef!.scrollLeft += e.deltaY || e.detail * 20;
 }
 
 async function onDropdownSelect(key: string | number) {
@@ -266,12 +266,12 @@ async function moveToCurrentTag() {
     if(!tagsItemRef) return;
     const tagsItemRefEl = tagsItemRef.$el as HTMLDivElement;
     // 超出 左边 视野
-    const overLeft = tagsItemRefEl.offsetLeft < tagsRef.scrollLeft;
+    const overLeft = tagsItemRefEl.offsetLeft < tagsRef!.scrollLeft;
     // 超出 右边 视野
-    const overRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.scrollLeft + tagsRef.clientWidth;
+    const overRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef!.scrollLeft + tagsRef!.clientWidth;
     if(overLeft || overRight) {
-        tagsRef.scrollTo({
-            left: overLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef.clientWidth + tagsItemRefEl.clientWidth + 100,
+        tagsRef!.scrollTo({
+            left: overLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef!.clientWidth + tagsItemRefEl.clientWidth + 100,
             behavior: "smooth",
         });
     }
