@@ -1,34 +1,36 @@
-import type { ResponseResult } from "@/types/axios";
-import { typeOf } from "@/util/validata";
+import type { ResponseResult, ListData } from "@/types/axios";
 import type { Ref } from "vue";
 
-interface UseRequestReturn<T = any> {
-    data: T extends Array<infer A> ? Ref<Array<A>> : T extends object ? T : Ref<T>;
+export interface RequestReturn<T = any> {
+    data: T;
     loading: Ref<boolean>;
-    axios: () => void;
+    request: (params: any) => void;
+    message: Ref<string>;
 }
 
-function useRequest<T = any>(request: () => Promise<ResponseResult<T>>, value: any = null, concat = false): UseRequestReturn<T> {
+export interface RequestOptions<T, U = ResponseResult<T>> {
+    request: (params: any) => Promise<U>;
+    value?: T;
+    loading?: boolean;
+    type?: "default" | "list" | "concat";
+}
 
-    const loading = ref(false);
-    let data = typeOf(value) === "object" ? reactive(value) : ref(value) as Ref<T>;
+export interface RequestListOptions<T> extends RequestOptions<T, ResponseResult<ListData<T>>> {
+    concat?: boolean;
+}
 
-    async function axios() {
+function useRequest<T extends object>(options: RequestOptions<T>): RequestReturn<T> {
+    const loading = ref(options.loading || false);
+    let data = reactive(Object.assign({}, options.value)) as T;
+    const message = ref("");
+
+    async function request(parmas: any) {
         try {
             loading.value = true;
-            const { data: result } = await request();
-            if(![null, undefined, "null", "undefined"].includes(result as any)) {
-                let newData: any;
-                if(concat && typeOf(result) === "array") {
-                    newData = [...unref(data), ...(result as any)];
-                } else {
-                    newData = result;
-                }
-                if(isRef(data)) {
-                    data.value = newData;
-                } else {
-                    data = newData;
-                }
+            const { code, data: result, message: msg } = await options.request(parmas);
+            message.value = msg;
+            if(code === 200) {
+                data = Object.assign(data, result);
             }
         } catch (error) {
             console.error(`[useRequest/request]：`, error);
@@ -37,13 +39,48 @@ function useRequest<T = any>(request: () => Promise<ResponseResult<T>>, value: a
         }
     }
 
-    onBeforeMount(axios);
-
     return {
-        axios,
-        data,
+        message,
+        request,
         loading,
+        data,
     };
 }
+
+function useListRequest<T = any>(options: RequestListOptions<T>): RequestReturn<Ref<Array<T>>> {
+    const loading = ref(options.loading || false);
+    const data: Ref<Array<T>> = ref([]);
+    const message = ref("");
+    const concat = options.concat || true;
+
+    async function request(parmas: any) {
+        try {
+            loading.value = true;
+            const { code, data: result, message: msg } = await options.request(parmas);
+            message.value = msg;
+            if(code === 200) {
+                data.value = [...(concat ? data.value : []), ...result.list];
+            }
+        } catch (error) {
+            console.error(`[useListRequest/request]：`, error);
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    return {
+        message,
+        request,
+        loading,
+        data,
+    };
+}
+
+
+export {
+    useRequest,
+    useListRequest,
+};
+
 
 export default useRequest;
