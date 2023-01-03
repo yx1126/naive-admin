@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { isUndefined } from "@/util/validata";
+import { isUndefined, isObject, isNumber } from "@/util/validata";
 
 export default defineComponent({
     name: "ScrollBar",
@@ -41,13 +41,16 @@ export default defineComponent({
         minSize: { type: Number, default: 20 },
         // 横向滚动
         xScrollable: { type: Boolean, default: false },
+        isResize: { type: Boolean, default: false },
     },
-    setup(props) {
+    emits: ["scroll"],
+    setup(props, { emit, expose }) {
 
         const scrollViewRef = ref<HTMLDivElement | null>(null);
         const horizontalThumbRef = ref<HTMLDivElement | null>(null);
         const verticalThumbRef = ref<HTMLDivElement | null>(null);
         let originalOnSelectStart: any;
+        let stopResizeObserver: any;
 
         // 滑块大小
         const thumbSize = ref(0);
@@ -68,12 +71,22 @@ export default defineComponent({
             };
         });
 
-        watch(() => [props.height, props.maxHeight], () => {
+        watch(() => [props.height, props.maxHeight, props.minSize, props.xScrollable], () => {
             if(props.native) return;
             nextTick(() => {
                 initAttributeValue();
             });
         });
+
+        watch(() => props.isResize, async (resize) => {
+            if(!props.xScrollable) return;
+            await nextTick();
+            if(resize) {
+                stopResizeObserver?.();
+            } else {
+                stopResizeObserver = useResizeObserver(scrollViewRef.value!, () => initAttributeValue());
+            }
+        }, { immediate: true });
 
         function initAttributeValue() {
             if(!scrollViewRef.value) return;
@@ -90,15 +103,28 @@ export default defineComponent({
             }
         }
 
+        function scrollTo(options: ScrollToOptions): void;
+        // eslint-disable-next-line no-redeclare
+        function scrollTo(x: number, y: number): void;
+        // eslint-disable-next-line no-redeclare
+        function scrollTo(x: unknown, y?: unknown) {
+            if(isObject(x)) {
+                scrollViewRef.value!.scrollTo(x);
+            } else if(isNumber(x) && isNumber(y)) {
+                console.log(x, y);
+                scrollViewRef.value!.scrollTo(x, y);
+            }
+        }
 
         function onScroll(e: Event) {
+            const target = e.target as HTMLDivElement;
             // 计算滑块滚动距离
             if(props.xScrollable) {
-                // scrollViewRef.value!.scrollLeft += e.deltaY || e.detail * 20;
-                translateXY.value = (e.target as HTMLDivElement).scrollLeft / scrollSize.value * thumbScrollSize.value;
+                translateXY.value = target.scrollLeft / scrollSize.value * thumbScrollSize.value;
             } else {
-                translateXY.value = (e.target as HTMLDivElement).scrollTop / scrollSize.value * thumbScrollSize.value;
+                translateXY.value = target.scrollTop / scrollSize.value * thumbScrollSize.value;
             }
+            emit("scroll", e);
         }
 
         function onMousedown(event: MouseEvent) {
@@ -120,15 +146,11 @@ export default defineComponent({
                 const list = (transform.match(/\((.+)\)/)![1] || "").split(",");
                 translateXY = Number(list[list.length - (props.xScrollable ? 2 : 1)]);
             }
-
             function onMousemove(e: MouseEvent) {
-                const xy = (props.xScrollable ? e.clientX - event.clientX :  e.clientY - event.clientY) + translateXY;
+                const { xScrollable } = props;
+                const xy = (xScrollable ? e.clientX - event.clientX :  e.clientY - event.clientY) + translateXY;
                 const moveXY = xy < 0 ? 0 : xy > thumbScrollSize.value ? thumbScrollSize.value : xy;
-                if(props.xScrollable) {
-                    scrollViewRef.value!.scrollLeft = moveXY / thumbScrollSize.value * scrollSize.value;
-                } else {
-                    scrollViewRef.value!.scrollTop = moveXY / thumbScrollSize.value * scrollSize.value;
-                }
+                scrollViewRef.value![xScrollable ? "scrollLeft" : "scrollTop"] = moveXY / thumbScrollSize.value * scrollSize.value;
             }
 
             function onMousemup() {
@@ -142,16 +164,24 @@ export default defineComponent({
             document.addEventListener("mouseup", onMousemup);
         }
 
-        onMounted(() => {
+        onMounted(async () => {
+            await nextTick();
             if(!props.native) {
-                nextTick(() => {
-                    initAttributeValue();
-                });
+                initAttributeValue();
             }
+        });
+
+        onBeforeMount(() => {
+            stopResizeObserver?.();
         });
 
         onUpdated(() => {
             initAttributeValue();
+        });
+
+
+        expose({
+            scrollTo,
         });
 
         return {
@@ -163,6 +193,7 @@ export default defineComponent({
             style,
             onScroll,
             onMousedown,
+            scrollTo,
         };
     },
 });
@@ -217,16 +248,16 @@ export default defineComponent({
                 height: var(--scroll-bar-thumb-size);
             }
         }
-        .scroll-bar__thumb {
-            border-radius: 5px;
+    }
+    &__thumb {
+        border-radius: 5px;
+        background-color: #909399;
+        cursor: pointer;
+        opacity: .3;
+        transition: all 0s;
+        &:hover {
             background-color: #909399;
-            cursor: pointer;
-            opacity: .3;
-            transition: all 0s;
-            &:hover {
-                background-color: #909399;
-                opacity: .5;
-            }
+            opacity: .5;
         }
     }
 }
