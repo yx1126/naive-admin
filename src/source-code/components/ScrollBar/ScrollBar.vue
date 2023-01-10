@@ -90,17 +90,11 @@ export default defineComponent({
 
         function initAttributeValue() {
             if(!scrollViewRef.value) return;
-            if(props.xScrollable) {
-                const size = scrollViewRef.value.offsetWidth ** 2 / scrollViewRef.value.scrollWidth;
-                thumbSize.value = Math.max(size, props.minSize);
-                scrollSize.value = scrollViewRef.value.scrollWidth - scrollViewRef.value.offsetWidth;
-                thumbScrollSize.value = scrollViewRef.value.offsetWidth - thumbSize.value;
-            } else {
-                const size = scrollViewRef.value.offsetHeight ** 2 / scrollViewRef.value.scrollHeight;
-                thumbSize.value = Math.max(size, props.minSize);
-                scrollSize.value = scrollViewRef.value.scrollHeight - scrollViewRef.value.offsetHeight;
-                thumbScrollSize.value = scrollViewRef.value.offsetHeight - thumbSize.value;
-            }
+            const { xScrollable: isX } = props;
+            const { offsetWidth: ow, offsetHeight: oh, scrollWidth: sw, scrollHeight: sh } = scrollViewRef.value;
+            thumbSize.value = Math.max(isX ? ow ** 2 / sw : oh ** 2 / sh, props.minSize);
+            scrollSize.value = isX ? sw - ow : sh - oh;
+            thumbScrollSize.value = (isX ? ow : oh) - thumbSize.value;
         }
 
         function scrollTo(options: ScrollToOptions): void;
@@ -119,11 +113,7 @@ export default defineComponent({
         function onScroll(e: Event) {
             const target = e.target as HTMLDivElement;
             // 计算滑块滚动距离
-            if(props.xScrollable) {
-                translateXY.value = target.scrollLeft / scrollSize.value * thumbScrollSize.value;
-            } else {
-                translateXY.value = target.scrollTop / scrollSize.value * thumbScrollSize.value;
-            }
+            translateXY.value = target[props.xScrollable ? "scrollLeft" : "scrollTop"] / scrollSize.value * thumbScrollSize.value;
             emit("scroll", e);
         }
 
@@ -137,28 +127,29 @@ export default defineComponent({
             originalOnSelectStart = document.onselectstart;
             document.onselectstart = () => false;
 
-            const thumb = props.xScrollable ? horizontalThumbRef.value! : verticalThumbRef.value!;
+            const thumb = props.xScrollable ? horizontalThumbRef.value : verticalThumbRef.value;
 
             // 鼠标点击时滑块Y轴默认偏移量
             let translateXY = 0;
-            const transform = getComputedStyle(thumb)["transform"];
+            const transform = getComputedStyle(thumb!)["transform"];
             if(transform !== "none") {
                 const list = (transform.match(/\((.+)\)/)![1] || "").split(",");
                 translateXY = Number(list[list.length - (props.xScrollable ? 2 : 1)]);
             }
             function onMousemove(e: MouseEvent) {
-                const { xScrollable } = props;
-                const xy = (xScrollable ? e.clientX - event.clientX :  e.clientY - event.clientY) + translateXY;
+                const { xScrollable: isX } = props;
+                const xy = (isX ? e.clientX - event.clientX :  e.clientY - event.clientY) + translateXY;
                 const moveXY = xy < 0 ? 0 : xy > thumbScrollSize.value ? thumbScrollSize.value : xy;
-                scrollViewRef.value![xScrollable ? "scrollLeft" : "scrollTop"] = moveXY / thumbScrollSize.value * scrollSize.value;
+                scrollViewRef.value![isX ? "scrollLeft" : "scrollTop"] = moveXY / thumbScrollSize.value * scrollSize.value;
             }
 
             function onMousemup() {
                 isMousedown.value = false;
                 document.removeEventListener("mousemove", onMousemove);
                 document.removeEventListener("mouseup", onMousemup);
-                if(document.onselectstart !== originalOnSelectStart)
+                if(document.onselectstart !== originalOnSelectStart) {
                     document.onselectstart = originalOnSelectStart;
+                }
             }
             document.addEventListener("mousemove", onMousemove);
             document.addEventListener("mouseup", onMousemup);

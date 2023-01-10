@@ -63,6 +63,7 @@ declare global {
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useInstance: typeof import('./src/hooks/use-instance')['default']
   const useLink: typeof import('vue-router')['useLink']
+  const useListRequest: typeof import('./src/hooks/use-request')['useListRequest']
   const useMitt: typeof import('./src/hooks/use-mitt')['default']
   const usePage: typeof import('./src/hooks/use-page')['default']
   const usePermission: typeof import('./src/hooks/use-permission')['default']

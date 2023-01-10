@@ -1,14 +1,18 @@
 # NaiveAdmin
 ## Dashboard
-![console](./src/assets/readme/console.png)
+![console](./src/assets/readme/aside.png)
+![console](./src/assets/readme/setting.png)
+![console](./src/assets/readme/top.png)
+![console](./src/assets/readme/mixin.png)
+![console](./src/assets/readme/aside-mixin.png)
 
 ## preview
-- [NaiveAdmin (gihub)](https://yangxin11010.github.io/naive-admin/#/dashboard/console)
-- [NaiveAdmin (gitee)](https://yangxin11010.gitee.io/naive-admin/#/dashboard/console)
+- <a href="https://yx1126.github.io/naive-admin/#/dashboard/console" target="_black">NaiveAdmin (Github)</a>
+- <a href="https://yangxin11010.gitee.io/naive-admin/#/dashboard/console" target="_black">NaiveAdmin (Gitee)</a>
 
 ## Project Setup
 ```sh
-https://github.com/yangxin11010/naive-admin.git
+https://github.com/yx1126/naive-admin.git
 ```
 ### or
 ```sh
@@ -16,23 +20,23 @@ https://gitee.com/yangxin11010/naive-admin.git
 ```
 ### install
 ```sh
-npm install
+pnpm install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
+pnpm dev
 ```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-npm run build
+npm build
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-npm run lint
+pnpm lint
 ```

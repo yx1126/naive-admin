@@ -87,6 +87,10 @@ export default defineComponent({
         }
         return {
             echartsRef,
+            refresh,
+            resize,
+            clear,
+            instance: echarts,
         };
     },
 });
