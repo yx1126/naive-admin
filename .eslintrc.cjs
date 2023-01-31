@@ -26,7 +26,7 @@ module.exports = defineConfig({
         "plugin:vue/vue3-recommended",
         "@vue/eslint-config-typescript/recommended",
     ],
-    plugins: ["vue", "@typescript-eslint", "eslint-plugin-tsdoc"],
+    plugins: ["vue", "@typescript-eslint"],
     overrides: [
         {
             files: ["*.ts"],
@@ -37,7 +37,6 @@ module.exports = defineConfig({
         },
     ],
     rules: {
-        "tsdoc/syntax": "warn",
         "no-undef": "off",
         "vue/html-indent": ["error", 4],
         "vue/script-indent": ["error", 4, {
@@ -111,6 +110,7 @@ module.exports = defineConfig({
         "@typescript-eslint/space-before-blocks": ["error"],
         "@typescript-eslint/type-annotation-spacing": ["error"],
         "@typescript-eslint/member-delimiter-style": ["error"],
+        "vue/one-component-per-file": "off",
     },
     globals: {
         $: "readonly",
