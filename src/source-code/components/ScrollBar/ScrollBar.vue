@@ -1,21 +1,41 @@
 <template>
-    <div class="" :class="['scroll-bar', { 'is-hover': !isMousedown && !always }]" :style="style">
+    <div class="" :class="['scroll-bar', { 'is-hover': !always }]">
         <div
             ref="scrollViewRef"
             :class="[
                 'scroll-bar__view',
                 { 'scroll-bar__view--hidden-default': !native }
             ]"
+            :style="{
+                height: height ? height + 'px' : height,
+                maxHeight: maxHeight ? maxHeight + 'px' : maxHeight,
+            }"
             @scroll="onScroll"
         >
             <slot />
         </div>
-        <template v-if="!native">
+        <template v-if="!native && isExistScroll">
             <div v-if="xScrollable" class="scroll-bar__bar is-horizontal">
-                <div ref="horizontalThumbRef" class="scroll-bar__thumb" :style="{ transform: `translateX(${translateXY}px)` }" @mousedown="onMousedown" />
+                <div
+                    ref="horizontalThumbRef"
+                    class="scroll-bar__thumb"
+                    :style="{
+                        transform: `translateX(${translateXY}px)`,
+                        width: thumbSize + 'px'
+                    }"
+                    @mousedown="onMousedown"
+                />
             </div>
             <div v-else class="scroll-bar__bar is-vertical">
-                <div ref="verticalThumbRef" class="scroll-bar__thumb" :style="{ transform: `translateY(${translateXY}px)` }" @mousedown="onMousedown" />
+                <div
+                    ref="verticalThumbRef"
+                    class="scroll-bar__thumb"
+                    :style="{
+                        transform: `translateY(${translateXY}px)`,
+                        height: thumbSize + 'px'
+                    }"
+                    @mousedown="onMousedown"
+                />
             </div>
         </template>
     </div>
@@ -24,7 +44,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { isUndefined, isObject, isNumber } from "@/util/validata";
+import { isObject, isNumber } from "@/util/validata";
 
 export default defineComponent({
     name: "ScrollBar",
@@ -52,6 +72,8 @@ export default defineComponent({
         let originalOnSelectStart: any;
         let stopResizeObserver: any;
 
+        // 是否存在滚动条
+        const isExistScroll = ref(false);
         // 滑块大小
         const thumbSize = ref(0);
         // 滚动的高度 = 容器总高度 - 容器自身高度
@@ -60,22 +82,10 @@ export default defineComponent({
         const thumbScrollSize = ref(0);
         // 滑块 移动距离
         const translateXY = ref(0);
-        const isMousedown = ref(false);
-
-        const style = computed(() => {
-            const { height, maxHeight } = props;
-            return {
-                "--scroll-view-height": !isUndefined(height) ? height + "px" : void 0,
-                "--scroll-max-height": isUndefined(height) && !isUndefined(maxHeight) ? maxHeight + "px" : void 0,
-                "--scroll-bar-thumb-size": thumbSize.value + "px",
-            };
-        });
 
         watch(() => [props.height, props.maxHeight, props.minSize, props.xScrollable], () => {
             if(props.native) return;
-            nextTick(() => {
-                initAttributeValue();
-            });
+            nextTick(init);
         });
 
         watch(() => props.isResize, async (resize) => {
@@ -84,14 +94,16 @@ export default defineComponent({
             if(resize) {
                 stopResizeObserver?.();
             } else {
-                stopResizeObserver = useResizeObserver(scrollViewRef.value!, () => initAttributeValue());
+                stopResizeObserver = useResizeObserver(scrollViewRef.value!, () => init());
             }
         }, { immediate: true });
 
-        function initAttributeValue() {
+        function init() {
             if(!scrollViewRef.value) return;
             const { xScrollable: isX } = props;
-            const { offsetWidth: ow, offsetHeight: oh, scrollWidth: sw, scrollHeight: sh } = scrollViewRef.value;
+            const { offsetWidth: ow, offsetHeight: oh, scrollWidth: sw, scrollHeight: sh, parentNode } = scrollViewRef.value;
+            const { offsetWidth: pow, offsetHeight: poh } = parentNode as ParentNode as HTMLDivElement;
+            isExistScroll.value = isX ? sw > pow : sh > poh;
             thumbSize.value = Math.max(isX ? ow ** 2 / sw : oh ** 2 / sh, props.minSize);
             scrollSize.value = isX ? sw - ow : sh - oh;
             thumbScrollSize.value = (isX ? ow : oh) - thumbSize.value;
@@ -105,7 +117,6 @@ export default defineComponent({
             if(isObject(x)) {
                 scrollViewRef.value!.scrollTo(x);
             } else if(isNumber(x) && isNumber(y)) {
-                console.log(x, y);
                 scrollViewRef.value!.scrollTo(x, y);
             }
         }
@@ -118,7 +129,6 @@ export default defineComponent({
         }
 
         function onMousedown(event: MouseEvent) {
-            isMousedown.value = true;
             event.stopPropagation();
             // 禁止鼠标 middle right 点击
             if(event.ctrlKey || [1, 2].includes(event.button)) return;
@@ -144,7 +154,6 @@ export default defineComponent({
             }
 
             function onMousemup() {
-                isMousedown.value = false;
                 document.removeEventListener("mousemove", onMousemove);
                 document.removeEventListener("mouseup", onMousemup);
                 if(document.onselectstart !== originalOnSelectStart) {
@@ -158,7 +167,7 @@ export default defineComponent({
         onMounted(async () => {
             await nextTick();
             if(!props.native) {
-                initAttributeValue();
+                init();
             }
         });
 
@@ -166,9 +175,7 @@ export default defineComponent({
             stopResizeObserver?.();
         });
 
-        onUpdated(() => {
-            initAttributeValue();
-        });
+        onUpdated(init);
 
 
         expose({
@@ -179,9 +186,9 @@ export default defineComponent({
             scrollViewRef,
             horizontalThumbRef,
             verticalThumbRef,
+            isExistScroll,
             translateXY,
-            isMousedown,
-            style,
+            thumbSize,
             onScroll,
             onMousedown,
             scrollTo,
@@ -198,6 +205,7 @@ export default defineComponent({
         .scroll-bar__thumb {
             display: none;
         }
+        &:active,
         &:hover {
             .scroll-bar__thumb {
                 display: block;
@@ -205,8 +213,6 @@ export default defineComponent({
         }
     }
     &__view {
-        height: var(--scroll-view-height);
-        max-height: var(--scroll-max-height);
         overflow: auto;
         &.scroll-bar__view--hidden-default {
             -ms-overflow-style: none;
@@ -225,7 +231,6 @@ export default defineComponent({
             width: 100%;
             height: 6px;
             .scroll-bar__thumb {
-                width: var(--scroll-bar-thumb-size);
                 height: 100%;
             }
         }
@@ -236,7 +241,6 @@ export default defineComponent({
             top: 0;
             .scroll-bar__thumb {
                 width: 100%;
-                height: var(--scroll-bar-thumb-size);
             }
         }
     }
