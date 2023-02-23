@@ -1,1 +1,0 @@
-import{d as e,j as s,k as a,p as n,_ as o}from"../assets/index.106b90c3.js";const t={class:"user-manage"},r=n("h1",null,"user-manage",-1),_=[r],c=e({name:"UserManage"}),i=e({...c,setup(m){return(u,d)=>(s(),a("div",t,_))}}),l=o(i,[["__file","/home/runner/work/naive-admin/naive-admin/src/views/permission/user-manage.vue"]]);export{l as default};
