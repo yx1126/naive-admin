@@ -8,40 +8,43 @@ type Store = PiniaPluginContext["store"];
 
 type PartialState = Partial<Store["$state"]>;
 
-type Subscriptions = Parameters<Store["$subscribe"]>[1];
+export interface Subscriptions {
+    detached?: boolean;
+    immediate?: boolean;
+    deep?: boolean;
+}
 
 type BaseStorage = Pick<Storage, "getItem" | "setItem">;
 
 type Paths<S> = (keyof S)[] | ((s: (keyof S)[]) => (keyof S)[]);
 
-type StorageOptions<S> = {
+interface StorageOptions<S> {
     key?: string;
     paths: Paths<S>;
     storage: BaseStorage;
-};
+}
 
 type StorageOption<S> = BaseStorage | StorageOptions<S>[];
 
-type StoreOption<S> = {
+interface StoreOption<S> {
     enabled?: boolean;
     key?: string;
     paths?: Paths<S>;
     storage?: StorageOption<S>;
-};
+}
 
-export type PiniaStateOptions = {
+export interface PiniaStateOptions {
     prefix?: string;
     suffix?: string;
     storage?: BaseStorage;
     subscriptions?: Subscriptions;
     callback?: (app: PiniaPluginContext, state: PartialState) => void;
-};
+}
 
 function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
     const prefix = options?.prefix ?? "vue-pinia-";
     const suffix = options?.suffix ?? "";
     const storage = options?.storage || window.localStorage;
-    const subscriptions = options?.subscriptions || {};
 
     const createDefaultKey = (key: string) => prefix + key + suffix;
 
@@ -58,11 +61,9 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
         const persistedstate = context.options.persistedstate;
         if(!persistedstate?.enabled) return;
         function createStateList(state: Store["$state"]) {
-            const stateKeys = Object.keys(state);
-            const pathsList = typeof persistedstate?.paths === "function" ? persistedstate?.paths(stateKeys) : persistedstate?.paths;
             return isArray(persistedstate?.storage)
                 ? persistedstate?.storage || []
-                : [{ storage: persistedstate?.storage || storage, paths: pathsList || stateKeys }];
+                : [{ storage: persistedstate?.storage || storage, paths: persistedstate?.paths || Object.keys(state) }];
         }
 
         store.$subscribe((mutation, state) => {
@@ -74,7 +75,7 @@ function createPiniaState(options?: PiniaStateOptions): PiniaPlugin {
                 }, {} as PartialState);
                 setItem(s.key || persistedstate?.key || mutation.storeId, value, s.storage);
             });
-        }, assign({ detached: true }, subscriptions));
+        }, assign({ detached: true }, options?.subscriptions));
 
         const storeState = createStateList(store.$state).reduce((state, s) => {
             const value = getItem(s.key || persistedstate?.key || store.$id, s.storage);

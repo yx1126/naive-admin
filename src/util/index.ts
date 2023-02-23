@@ -45,28 +45,32 @@ export function deepCopy<T = unknown>(data: any): T {
     return o as T;
 }
 
-function createPickOmit<T extends object>(data: T, fields: string | string[], flag = false) {
-    const fieldList = toArray(fields) || [];
-    const keys = Object.keys(data).filter(k => flag ? fieldList.includes(k) : !fieldList.includes(k));
-    return keys.reduce((pre, cur) => {
-        (<any>pre)[cur] = (<any>data)[cur];
-        return pre;
-    }, {} as Partial<T>);
-}
-
 /**
  * @param data - source data
  * @param fields - fields
  * @remarks From data, pick a set of properties whose keys are in the fields
  */
-export function pick<T extends object>(data: T, fields: string | string[]) {
-    return createPickOmit(data, fields, true);
+export function pick<T extends object, K extends keyof T>(data: T, keys: Array<K>) {
+    const result: Record<string, any> = {};
+    for(const key in data) {
+        if(keys.includes(key as any)) {
+            result[key] = data[key];
+        }
+    }
+    return result as Omit<T, Exclude<keyof T, K>>;
 }
+
 /**
  * @param data - source data
  * @param fields - fields
  * @remarks Construct a object with the properties of data except for those in fields.
  */
-export function omit<T extends object>(data: T, fields: string | string[]) {
-    return createPickOmit(data, fields);
+export function omit<T extends object, K extends keyof T>(data: T, keys: Array<K>) {
+    const result: Record<string, any> = {};
+    for(const key in data) {
+        if(!keys.includes(key as any)) {
+            result[key] = data[key];
+        }
+    }
+    return result as Pick<T, Exclude<keyof T, K>>;
 }

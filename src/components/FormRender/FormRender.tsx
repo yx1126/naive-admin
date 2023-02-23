@@ -119,7 +119,7 @@ export default defineComponent({
         const FormItem = isShowGrid ? NFormItemGi : NFormItem;
         const defaultSlot = renderSlot($slots, "default", {}, () => {
             return renderList(schemaList, (item, i) => {
-                const formItemProps = omit(item, "type,props,render,feedback,label,slot,show,displayDirective");
+                const formItemProps = omit(item, ["type", "props", "render", "feedback", "label", "slot", "show", "displayDirective"]);
                 return (
                     <FormItem {...formItemProps as any} key={i} v-show={item.show ?? true}>
                         {{

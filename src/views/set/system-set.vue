@@ -2,6 +2,17 @@
     <n-card class="system-set">
         <h1>system-set</h1>
         <n-space>
+            <!-- 虚拟滚动 -->
+            <n-card class="scrollbar-wrapper">
+                <virtual-scroll ref="scrollBarV2Ref" :compoment="NP" :props="{ class: 'p' }" :max-height="400" />
+                <template #footer>
+                    <n-space>
+                        <n-input-number v-model:value="scrollValue" :step="1000" placeholder="scrollTo" />
+                        <n-button type="primary" @click="onScrollTo('y')">scroll</n-button>
+                    </n-space>
+                </template>
+            </n-card>
+            <!-- 横向滚动 -->
             <n-card class="scrollbar-wrapper">
                 <scroll-bar ref="scrollBarRef" :max-height="400">
                     <p v-for="i in 400" :key="i" class="p p1">{{ i }}</p>
@@ -13,6 +24,7 @@
                     </n-space>
                 </template>
             </n-card>
+            <!-- 纵向滚动 -->
             <n-card class="scrollbar-wrapper">
                 <scroll-bar ref="scrollBarXRef" x-scrollable always>
                     <div class="box-wrapper">
@@ -31,10 +43,20 @@
 </template>
 
 <script setup lang="ts">
-import { ScrollBar } from "@/source-code";
+import { ScrollBar, VirtualScroll } from "@/source-code";
 
 defineOptions({
     name: "SystemSet",
+});
+
+const NP = defineComponent({
+    name: "NP",
+    props: {
+        text: { type: [String, Number], default: "1" },
+    },
+    render() {
+        return h("p", { class: "p" }, this.text);
+    },
 });
 
 const scrollValue = ref(10000);
@@ -63,6 +85,7 @@ function onScrollTo(placement: "x" | "y") {
 .box-wrapper {
     display: flex;
 }
+:deep(.p),
 .p {
     display: flex;
     align-items: center;

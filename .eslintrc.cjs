@@ -32,6 +32,7 @@ module.exports = defineConfig({
             files: ["*.ts"],
             rules: {
                 "indent": "off",
+                "quotes": "off",
                 "@typescript-eslint/indent": ["error", 4],
             },
         },
@@ -50,7 +51,7 @@ module.exports = defineConfig({
         "@typescript-eslint/func-call-spacing": ["error", "never"],
         "@typescript-eslint/no-non-null-assertion": "off",
         "vue/multi-word-component-names": "off",
-        "quotes": "off",
+        "quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "@typescript-eslint/quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "semi": "off",
         "@typescript-eslint/semi": ["error"],
