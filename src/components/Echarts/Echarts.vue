@@ -8,6 +8,7 @@
 import * as  Echarts from "echarts";
 import type {  EChartsCoreOption, ECharts as EchartsInstance } from "echarts";
 import { on, off } from "@/util/dom";
+import type { Ref } from "vue";
 
 export default defineComponent({
     name: "Echarts",
@@ -19,10 +20,10 @@ export default defineComponent({
     setup(props, { expose }) {
         const set = useSetStore();
 
-        const echartsRef = ref<HTMLDivElement | null>(null);
+        const echartsRef: Ref<HTMLDivElement | null> = ref(null);
         const echarts = shallowRef<EchartsInstance | null>(null);
 
-        const defaultOptions = $computed(() => {
+        const defaultOptions = computed(() => {
             return {
                 backgroundColor: props.dark ? void 0 : "transparent",
                 ...props.options,
@@ -66,7 +67,7 @@ export default defineComponent({
             echarts.value = Echarts.init(echartsRef.value!, props.dark ? "dark" : set.navMode === "diablo" ? "dark" : void 0, {
                 renderer: props.renderer,
             });
-            echarts.value.setOption(defaultOptions);
+            echarts.value.setOption(defaultOptions.value);
             if(set.layoutMode === "asideMixin") {
                 setTimeout(resize, 300);
             }
@@ -75,7 +76,7 @@ export default defineComponent({
         function refresh() {
             clear();
             resize();
-            echarts.value?.setOption(defaultOptions);
+            echarts.value?.setOption(defaultOptions.value);
         }
 
         function resize() {

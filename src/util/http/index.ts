@@ -8,6 +8,7 @@ Https.request(
         return Promise.reject(error);
     },
 );
+
 Https.response(
     response => {
         const { data } = response;

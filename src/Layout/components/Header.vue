@@ -41,13 +41,13 @@ const dialog = useFeedBack("dialog");
 const message = useFeedBack("message");
 const mitter = useMitt();
 
-let showPwdModal = $ref(false);
+const showPwdModal = ref(false);
 
 const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
     { label: "个人中心", key: "set", icon: renderIcon(UserOutlined) },
     { label: "修改密码", key: "update-pwd", icon: renderIcon("password") },
     { type: "divider" },
-    { label: "github", key: "https://github.com/yangxin11010/naive-admin", icon: renderIcon("github") },
+    { label: "github", key: "https://github.com/yx1126/naive-admin", icon: renderIcon("github") },
     { label: "gitee", key: "https://gitee.com/yangxin11010/naive-admin", icon: renderIcon("gitee") },
     { type: "divider" },
     { label: "退出登录", key: "logout", icon: renderIcon(LogoutOutlined) },
@@ -60,7 +60,7 @@ async function handleSelect(key: string, option: DropdownOption) {
             router.push("/person");
             break;
         case "update-pwd":
-            showPwdModal = true;
+            showPwdModal.value = true;
             break;
         case "logout":
             dialog.warning({
@@ -80,7 +80,7 @@ async function handleSelect(key: string, option: DropdownOption) {
 
 onBeforeMount(() => {
     mitter.on("updatePwd", () => {
-        showPwdModal = true;
+        showPwdModal.value = true;
     });
 });
 

@@ -19,7 +19,7 @@ import WangEditor from "@/components/WangEditor";
 defineOptions({
     name: "WandEditor",
 });
-const value = $ref("");
+const value = ref("");
 </script>
 
 <style lang="scss" scoped>

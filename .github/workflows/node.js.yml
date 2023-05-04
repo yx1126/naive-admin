@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -36,13 +36,13 @@ jobs:
     - name: install dependencies
       run: pnpm install
 
-    - name: build pages
+    - name: build
       run: pnpm build:dev
 
     - name: Build Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
-        repository-name: yangxin11010/naive-admin
+        repository-name: yx1126/naive-admin
         branch: docs
         folder: docs
         commit-message: build page

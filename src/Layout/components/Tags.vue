@@ -78,37 +78,37 @@ const tags = useTagsStore();
 const dialog = useFeedBack("dialog");
 const mitter = useMitt();
 
-const tagsRef = $ref<HTMLDivElement>();
-const tagsItemRefs = $ref<InstanceType<typeof NTag>[]>([]);
+const tagsRef = ref<HTMLDivElement>();
+const tagsItemRefs = ref<InstanceType<typeof NTag>[]>([]);
 
-let showDropdownRef = $ref(false);
-let isShowCloseAll = $ref(false);
-let dropdownX = $ref(0);
-let dropdownY = $ref(0);
-let chooseTags = $ref<Empty<Tags>>(null);
-let chooseTagsIndex = $ref(-1);
+const showDropdownRef = ref(false);
+const isShowCloseAll = ref(false);
+const dropdownX = ref(0);
+const dropdownY = ref(0);
+const chooseTags = ref<Empty<Tags>>(null);
+const chooseTagsIndex = ref(-1);
 
-const keepTags = $computed(() => tags.keepTags);
-const activeTags = $computed(() => tags.activeTags);
-const currentPath = $computed(() => route.path);
-const tagsStyle = $computed(() => {
+const keepTags = computed(() => tags.keepTags);
+const activeTags = computed(() => tags.activeTags);
+const currentPath = computed(() => route.path);
+const tagsStyle = computed(() => {
     return {
         "--tags-height": LayoutConfig.tagsHeight + "px",
     };
 });
 
-const dropDownOptions = $computed(() => {
+const dropDownOptions = computed(() => {
     const result: Array<DropdownOption | DropdownDividerOption> = [];
-    const isInKeep = keepTags.find(t => t.path === chooseTags?.path);
-    const isInActive = activeTags.find(t => t.path === chooseTags?.path);
-    const isIndexPage = "/dashboard/console" === chooseTags?.path;
+    const isInKeep = keepTags.value.find(t => t.path === chooseTags.value?.path);
+    const isInActive = activeTags.value.find(t => t.path === chooseTags.value?.path);
+    const isIndexPage = "/dashboard/console" === chooseTags.value?.path;
     if(isInActive) {
         result.push({ label: "关闭当前", key: "remove", icon: renderIcon(CloseOutlined) });
     }
-    if(chooseTagsIndex > 0 && isInActive) {
+    if(chooseTagsIndex.value > 0 && isInActive) {
         result.push({ label: "关闭左侧", key: "removeLeft", icon: renderIcon(ArrowLeftOutlined) });
     }
-    if(chooseTagsIndex < activeTags.length - 1 && isInActive) {
+    if(chooseTagsIndex.value < activeTags.value.length - 1 && isInActive) {
         result.push({ label: "关闭右侧", key: "removeRight", icon: renderIcon(ArrowRightOutlined) });
     }
     result.length && result.push({ type: "divider", key: "d0" });
@@ -156,80 +156,80 @@ function onTagsClick(tags: Tags) {
 }
 
 function onTagsClose(tags: Tags, index: number) {
-    chooseTags = tags;
-    chooseTagsIndex = index;
+    chooseTags.value = tags;
+    chooseTagsIndex.value = index;
     onDropdownSelect("remove");
 }
 
 async function onTagsContextmenu(e: MouseEvent, tags: Tags, index: number) {
-    isShowCloseAll = false;
-    chooseTags = tags;
-    chooseTagsIndex = index;
+    isShowCloseAll.value = false;
+    chooseTags.value = tags;
+    chooseTagsIndex.value = index;
     const currentTarget = e.currentTarget as HTMLDivElement;
     const targetOffset = currentTarget.getBoundingClientRect();
-    dropdownX = e.clientX - 13;
-    dropdownY = targetOffset.top + currentTarget.clientHeight;
-    showDropdownRef = true;
+    dropdownX.value = e.clientX - 13;
+    dropdownY.value = targetOffset.top + currentTarget.clientHeight;
+    showDropdownRef.value = true;
 }
 
 async function onShowDropdown(e: MouseEvent) {
     // 设置当前 tags index type
-    const tags = keepTags.find(t => t.path === currentPath);
-    const index = keepTags.findIndex(t => t.path === currentPath);
-    chooseTags = tags || activeTags.find(t => t.path === currentPath);
-    chooseTagsIndex = index !== -1 ? index : activeTags.findIndex(t => t.path === currentPath);
+    const tags = keepTags.value.find(t => t.path === currentPath.value);
+    const index = keepTags.value.findIndex(t => t.path === currentPath.value);
+    chooseTags.value = tags || activeTags.value.find(t => t.path === currentPath.value);
+    chooseTagsIndex.value = index !== -1 ? index : activeTags.value.findIndex(t => t.path === currentPath.value);
     // 设置  dropdown x,y
     const currentTarget = e.currentTarget as HTMLDivElement;
     const offset = currentTarget.getBoundingClientRect();
-    isShowCloseAll = true;
+    isShowCloseAll.value = true;
     // 14: dropdown 箭头距离右边的距离
-    dropdownX = offset.left + 14 + currentTarget.clientWidth / 2;
-    dropdownY = offset.top + currentTarget.clientHeight;
-    showDropdownRef = true;
+    dropdownX.value = offset.left + 14 + currentTarget.clientWidth / 2;
+    dropdownY.value = offset.top + currentTarget.clientHeight;
+    showDropdownRef.value = true;
 }
 
 function onMouseWheel(e: WheelEvent) {
     e.preventDefault();
     onClickoutside();
-    tagsRef!.scrollLeft += e.deltaY || e.detail * 20;
+    tagsRef.value!.scrollLeft += e.deltaY || e.detail * 20;
 }
 
 async function onDropdownSelect(key: string | number) {
     onClickoutside();
-    if(!chooseTags || chooseTagsIndex === -1) return;
-    const activeTagsLength = activeTags.length - 1;
-    const keepTagsLength = keepTags.length - 1;
-    const currentPageIndex = activeTags.findIndex(t => t.path === currentPath);
+    if(!chooseTags.value || chooseTagsIndex.value === -1) return;
+    const activeTagsLength = activeTags.value.length - 1;
+    const keepTagsLength = keepTags.value.length - 1;
+    const currentPageIndex = activeTags.value.findIndex(t => t.path === currentPath.value);
     switch (key) {
         case "remove":
             if(activeTagsLength < 1) {
-                router.push(keepTags[keepTagsLength].path);
+                router.push(keepTags.value[keepTagsLength].path);
             } else {
-                if(currentPath === chooseTags.path) router.push(activeTags[chooseTagsIndex + (chooseTagsIndex < activeTagsLength ? 1 : -1)].path);
+                if(currentPath.value === chooseTags.value.path) router.push(activeTags.value[chooseTagsIndex.value + (chooseTagsIndex.value < activeTagsLength ? 1 : -1)].path);
             }
-            tags.remove(chooseTags.path);
+            tags.remove(chooseTags.value.path);
             break;
         case "removeLeft":
-            if(currentPageIndex !== -1 && chooseTagsIndex > currentPageIndex) router.push(chooseTags.path);
-            tags.removeLeft(chooseTags.path);
+            if(currentPageIndex !== -1 && chooseTagsIndex.value > currentPageIndex) router.push(chooseTags.value.path);
+            tags.removeLeft(chooseTags.value.path);
             break;
         case "removeRight":
-            if(currentPageIndex !== -1 && chooseTagsIndex < currentPageIndex) router.push(chooseTags.path);
-            tags.removeRight(chooseTags.path);
+            if(currentPageIndex !== -1 && chooseTagsIndex.value < currentPageIndex) router.push(chooseTags.value.path);
+            tags.removeRight(chooseTags.value.path);
             break;
         case "removeOther":
-            if(currentPageIndex !== -1 && chooseTags.path !== currentPath) router.push(chooseTags.path);
-            tags.removeOther(chooseTags.path);
+            if(currentPageIndex !== -1 && chooseTags.value.path !== currentPath.value) router.push(chooseTags.value.path);
+            tags.removeOther(chooseTags.value.path);
             break;
         case "removeAll":
-            if(currentPageIndex !== -1) router.push(keepTags[keepTagsLength].path);
-            tags.removeAll(chooseTags.path);
+            if(currentPageIndex !== -1) router.push(keepTags.value[keepTagsLength].path);
+            tags.removeAll(chooseTags.value.path);
             break;
         case "removeFixed":
-            tags.removeFixed(chooseTags.path);
+            tags.removeFixed(chooseTags.value.path);
             break;
         case "keepFixed":
-            tags.keepFixed(chooseTags.path);
+            tags.keepFixed(chooseTags.value.path);
             break;
         case "init":
             dialog.warning({
@@ -247,7 +247,7 @@ async function onDropdownSelect(key: string | number) {
 }
 
 function onClickoutside() {
-    showDropdownRef = false;
+    showDropdownRef.value = false;
 }
 
 function onRefresh() {
@@ -259,19 +259,19 @@ async function moveToCurrentTag() {
     await nextTick();
     // v-for ref 数组不能保证与源数组相同的顺序
     // https://staging-cn.vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for
-    const tagsItemRef = tagsItemRefs.find(t => {
+    const tagsItemRef = tagsItemRefs.value.find(t => {
         const el = t.$el as HTMLDivElement;
-        return el.dataset.path === currentPath;
+        return el.dataset.path === currentPath.value;
     });
     if(!tagsItemRef) return;
     const tagsItemRefEl = tagsItemRef.$el as HTMLDivElement;
     // 超出 左边 视野
-    const overLeft = tagsItemRefEl.offsetLeft < tagsRef!.scrollLeft;
+    const overLeft = tagsItemRefEl.offsetLeft < tagsRef.value!.scrollLeft;
     // 超出 右边 视野
-    const overRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef!.scrollLeft + tagsRef!.clientWidth;
+    const overRight = tagsItemRefEl.offsetLeft + tagsItemRefEl.clientWidth > tagsRef.value!.scrollLeft + tagsRef.value!.clientWidth;
     if(overLeft || overRight) {
-        tagsRef!.scrollTo({
-            left: overLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef!.clientWidth + tagsItemRefEl.clientWidth + 100,
+        tagsRef.value!.scrollTo({
+            left: overLeft ? tagsItemRefEl.offsetLeft - 100 : tagsItemRefEl.offsetLeft - tagsRef.value!.clientWidth + tagsItemRefEl.clientWidth + 100,
             behavior: "smooth",
         });
     }

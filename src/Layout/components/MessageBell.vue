@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { BellOutlined } from "@vicons/antd";
 
-const value = $ref(10);
+const value = ref(10);
 </script>
 
 <style lang="scss" scoped>

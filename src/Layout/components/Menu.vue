@@ -21,15 +21,15 @@ const set = useSetStore();
 const route = useRoute();
 const router = useRouter();
 
-const defaultInverted = $computed(() => ["dark"].includes(set.navMode) && !["mixin"].includes(set.layoutMode));
-const defaultValue = $computed(() => route.meta?.activeMenu || route.path);
-let defaultExpendMenu = $ref<string[]>(route.matched.filter((item) => item.path !== "").map((item) => item.path));
+const defaultInverted = computed(() => ["dark"].includes(set.navMode) && !["mixin"].includes(set.layoutMode));
+const defaultValue = computed(() => route.meta?.activeMenu || route.path);
+const defaultExpendMenu = ref<string[]>(route.matched.filter((item) => item.path !== "").map((item) => item.path));
 
 watch(
     () => route.path,
     () => {
         const keys = route.matched.filter((item) => item.path !== "").map((item) => item.path);
-        onExpandedKeys(set.uniqueMenuOpened ? keys : [...new Set([...defaultExpendMenu, ...keys])]);
+        onExpandedKeys(set.uniqueMenuOpened ? keys : [...new Set([...defaultExpendMenu.value, ...keys])]);
     },
 );
 
@@ -42,7 +42,7 @@ function onUpdateValue(key: string, item: MenuOption) {
 }
 
 function onExpandedKeys(keys: string[]) {
-    defaultExpendMenu = keys;
+    defaultExpendMenu.value = keys;
 }
 </script>
 

@@ -12,10 +12,7 @@ const i18n = createI18n({
 });
 
 export type Lang = "zh-CN" | "enUS";
-export interface LangMap {
-    label: string;
-    value: Lang;
-}
+
 
 const lang: SelectOption[] = [
     { label: "简体中文", value: "zh-CN" },

@@ -1,7 +1,6 @@
 {
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "workbench.tree.indent": 20,
-    "eslint.alwaysShowStatus": true,
     "eslint.format.enable": true,
     "eslint.codeAction.showDocumentation": {
         "enable": true
@@ -28,7 +27,7 @@
         "typescript",
         "typescriptreact",
     ],
-    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorSmoothCaretAnimation": "on",
     "[typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },

@@ -50,9 +50,7 @@ export interface SchemaOption<T extends keyof FormComponentsProps = keyof FormCo
     render?: () => VNodeChild;
 }
 
-export type FormSchema = SchemaOption & Omit<FormItemProps, FormItemOmit> & Omit<FormItemGiProps, FormItemOmit>;
-
-type FormItemOmit = "label" | "feedback";
+export type FormSchema = SchemaOption & Omit<FormItemProps | FormItemGiProps, "label" | "feedback">;
 
 export interface RenderFormInitParams {
     validate(validateCallback?: (errors?: Array<FormValidationError>) => void, shouldRuleBeApplied?: (rule: FormItemRule) => boolean): Promise<void>;

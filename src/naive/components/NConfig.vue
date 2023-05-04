@@ -36,15 +36,15 @@ hljs.registerLanguage("html", xml);
 
 const set = useSetStore();
 
-const locale = $computed(() => localeMap[set.lang]);
+const locale = computed(() => localeMap[set.lang]);
 
-const dateLocale = $computed(() => dateLocaleMap[set.lang]);
+const dateLocale = computed(() => dateLocaleMap[set.lang]);
 
-const theme = $computed<typeof darkTheme | typeof lightTheme>(() => (set.navMode === "diablo" ? darkTheme : lightTheme));
+const theme = computed<typeof darkTheme | typeof lightTheme>(() => (set.navMode === "diablo" ? darkTheme : lightTheme));
 
 const PRIMARY_COLOR = "#409EFF";
 
-const themeOverrides = $computed<GlobalThemeOverrides>(() => {
+const themeOverrides = computed<GlobalThemeOverrides>(() => {
     const { themeColor } = set;
     return {
         common: {

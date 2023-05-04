@@ -20,7 +20,7 @@ const route = useRoute();
 const router = useRouter();
 const set = useSetStore();
 
-const breadcrumbList = $computed(() => {
+const breadcrumbList = computed(() => {
     return route.matched.filter((r) => r.path && r.meta.title).map(item => {
         return {
             ...item,
@@ -29,7 +29,7 @@ const breadcrumbList = $computed(() => {
     });
 });
 
-const breadcrumbStyle = $computed(() => {
+const breadcrumbStyle = computed(() => {
     return {
         "--inverted-color":
             set.navMode === "diablo"

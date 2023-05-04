@@ -31,21 +31,21 @@ const props = withDefaults(defineProps<Collapse>(), {
 });
 
 const set = useSetStore();
-const themeVars = $(useThemeVars());
+const themeVars = useThemeVars();
 
-const mixinStyle = $computed(() => {
+const mixinStyle = computed(() => {
     const { collapsed, collapsedWidth, width, height, size, inverted, border } = props;
     const defaultValue: Record<string, string> = {
         "--collapse-width": (collapsed ? collapsedWidth : width) + "px",
         "--collapse-height": height + "px",
         "--collapse-padding": collapsed ? `0 ${(collapsedWidth - size) / 2}px` : "0 18px 0 20px",
-        "--collapse-background": inverted ? themeVars.invertedColor : "",
+        "--collapse-background": inverted ? themeVars.value.invertedColor : "",
         "--collapse-color": inverted ? "#BBB" : "",
         "--collapse-hover-color": inverted ? "#fff" : "",
-        "--collaspe-trans": themeVars.cubicBezierEaseInOut,
+        "--collaspe-trans": themeVars.value.cubicBezierEaseInOut,
     };
     const borderKeys = typeof border === "string" ? border.split(",").map(item => `border-${item}`) : ["border"],
-          borderValue = `${border ? 1 : 0}px solid ${themeVars.dividerColor}`;
+          borderValue = `${border ? 1 : 0}px solid ${themeVars.value.dividerColor}`;
     borderKeys.forEach(item => {
         defaultValue[item] = borderValue;
     });

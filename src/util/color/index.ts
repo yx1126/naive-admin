@@ -16,7 +16,9 @@ export function createPressedColor(rgb: string) {
  */
 export function createColor(rgb: string, cColor: string, alpha: number) {
     return composite(rgb, changeColor(cColor, { alpha }));
-}/**
+}
+
+/**
  * @remarks RGB 转为 HEX
  *
  * @param rgb - color
@@ -52,7 +54,7 @@ export function rgbToHex(r: number | string, g?: number, b?: number) {
  */
 export function hexToRgb(hex: string): string;
 export function hexToRgb(hex: string, opacity: number | string): { r: number; g: number; b: number; rgba: string };
-export function hexToRgb(hex: string, opacity?: number | string) {
+export function hexToRgb(hex: string, opacity?: unknown) {
     const r = parseInt("0x" + hex.slice(1, 3)),
         g = parseInt("0x" + hex.slice(3, 5)),
         b = parseInt("0x" + hex.slice(5, 7));

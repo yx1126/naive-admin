@@ -32,7 +32,7 @@ import { isString } from "@/util/validata";
 import { LeftOutlined } from "@vicons/antd";
 
 const router = useRouter();
-const errGif = $ref(ErrGif + "?" + +new Date());
+const errGif = ref(ErrGif + "?" + +new Date());
 
 function back(path?: string | MouseEvent) {
     if(isString(path) && path) router.push(path);

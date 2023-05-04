@@ -114,10 +114,10 @@ defineOptions({
     name: "Drag",
 });
 
-const showBaseModal = $ref(false);
-const showCardModal = $ref(false);
-const showDialogModal = $ref(false);
-const showFnModal = $ref(false);
+const showBaseModal = ref(false);
+const showCardModal = ref(false);
+const showDialogModal = ref(false);
+const showFnModal = ref(false);
 
 let stop: () => void;
 

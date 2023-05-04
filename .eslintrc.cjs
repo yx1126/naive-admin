@@ -114,13 +114,6 @@ module.exports = defineConfig({
         "vue/one-component-per-file": "off",
     },
     globals: {
-        $: "readonly",
-        $$: "readonly",
-        $ref: "readonly",
-        $computed: "readonly",
-        $shallowRef: "readonly",
-        $customRef: "readonly",
-        $toRef: "readonly",
         defineOptions: "readonly",
     },
 });

@@ -13,6 +13,7 @@ import { NConfig } from "@/naive";
 const user = useUserStore();
 const instance = useInstance();
 
+
 onBeforeMount(() => {
     console.log(instance);
     user.initMenu();

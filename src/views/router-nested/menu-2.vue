@@ -9,7 +9,7 @@
 defineOptions({
     name: "Menu2",
 });
-const input = $ref("");
+const input = ref("");
 </script>
 
 <style lang="scss" scoped></style>

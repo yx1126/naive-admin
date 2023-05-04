@@ -9,7 +9,6 @@ import "virtual:svg-icons-register";
 import "uno.css";
 
 const app = createApp(App);
-
 app.use(Pinia);
 app.use(Router);
 app.use(Locales);

@@ -72,9 +72,9 @@ type RowData = {
 
 const message = useFeedBack("message");
 
-const page = $ref(1);
-const size = $ref(20);
-const total = $ref(1000);
+const page = ref(1);
+const size = ref(20);
+const total = ref(1000);
 
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
@@ -110,7 +110,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $computed<RowData[]>(() => Array.from({ length: size }).map((_, i) => {
+const data = computed<RowData[]>(() => Array.from({ length: size.value }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,
@@ -151,7 +151,7 @@ function onBehavior(type: Behavior) {
         ];
         const filterVal = ["key", "name", "age", "address", "tags"];
         const merges = ["A1:A2", "B1:D1", "E1:E2"];
-        exportExcel(header, data, filterVal, merges);
+        exportExcel(header, data.value, filterVal, merges);
     } else {
         switch (type) {
             case "insert":

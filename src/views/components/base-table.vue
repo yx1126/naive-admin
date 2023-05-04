@@ -80,7 +80,7 @@ const columns: DataTableColumns<RowData> = [
     },
 ];
 
-const data = $ref<RowData[]>(Array.from({ length: size.value }).map((_, i) => {
+const data = ref<RowData[]>(Array.from({ length: size.value }).map((_, i) => {
     return {
         key: i,
         name: "Joe Black -- " + i,

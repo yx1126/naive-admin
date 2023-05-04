@@ -31,66 +31,66 @@ import type { MenuOptions } from "@/naive";
 
 const user = useUserStore();
 const router = useRouter();
-const themeVars = $(useThemeVars());
+const themeVars = useThemeVars();
 
-const searchRef = $ref<InstanceType<typeof NSelect>>();
-let isShowSearch = $ref(false);
-let isShowResult = $ref(false);
-let loading = $ref(false);
-let selectOptions = $ref<SelectOption[]>([]);
-let chooseValue = $ref("");
+const searchRef = ref<InstanceType<typeof NSelect>>();
+const isShowSearch = ref(false);
+const isShowResult = ref(false);
+const loading = ref(false);
+const selectOptions = ref<SelectOption[]>([]);
+const chooseValue = ref("");
 
-const menuOptions = $computed(() => getSearchMenuList(user.menus as MenuOptions));
-const searchStyle = $computed(() => {
+const menuOptions = computed(() => getSearchMenuList(user.menus as MenuOptions));
+const searchStyle = computed(() => {
     return {
         "--search-width": isShowSearch ? "210px" : "0px",
-        "--trans-width": themeVars.cubicBezierEaseInOut,
+        "--trans-width": themeVars.value.cubicBezierEaseInOut,
     };
 });
 
 async function onClick() {
-    selectOptions = [];
-    isShowSearch = true;
+    selectOptions.value = [];
+    isShowSearch.value = true;
     on(document, "click", onBodyClick);
 }
 
 function onBodyClick() {
-    isShowSearch = false;
-    isShowResult = false;
+    isShowSearch.value = false;
+    isShowResult.value = false;
     off(document, "click", onBodyClick);
 }
 
 async function onSearch(query: string) {
     if(!query.length) {
-        isShowResult = false;
-        selectOptions = [];
+        isShowResult.value = false;
+        selectOptions.value = [];
         return;
     }
-    loading = true;
+    loading.value = true;
     // 模拟 后台接口
     window.setTimeout(() => {
-        selectOptions = menuOptions
+        selectOptions.value = menuOptions.value
             .filter(item => {
                 return (item.name as string).includes(query) || (item.path as string).includes(query);
             })
             .map(item => {
                 return { label: item.name as string, value: JSON.stringify(item) };
             });
-        loading = false;
-        isShowResult = true;
+        loading.value = false;
+        isShowResult.value = true;
     }, 500);
 }
 
 function onUpdateValue() {
-    const menu = JSON.parse(chooseValue);
+    const menu = JSON.parse(chooseValue.value);
     if(menu.isLink) {
         window.open(menu.path);
     } else {
         router.push(menu.path);
     }
-    chooseValue = "";
-    isShowResult = false;
-    selectOptions = [];
+    chooseValue.value = "";
+    isShowResult.value = false;
+    selectOptions.value = [];
 }
 </script>
 

@@ -5,7 +5,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
-import DefineOptions from "unplugin-vue-define-options/vite";
+import DefineOptions from "unplugin-vue-define-options/dist/vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import Unocss from "@unocss/vite";
 import vueI18n from "@intlify/vite-plugin-vue-i18n";
@@ -59,9 +59,7 @@ export default defineConfig({
         __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
     },
     plugins: [
-        vue({
-            reactivityTransform: true,
-        }),
+        vue(),
         vueI18n({
             include: resolve("src/locales/**"),
         }),

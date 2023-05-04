@@ -37,9 +37,9 @@ defineOptions({
 
 const message = useFeedBack("message");
 
-const iconName = $ref("");
-const icon = $ref("");
-const flag = $ref(false);
+const iconName = ref("");
+const icon = ref("");
+const flag = ref(false);
 
 const onCopyIcon = useDeounce((name: string) => {
     const copyText = flag ? `<Icon icon="${name}" />` : name;

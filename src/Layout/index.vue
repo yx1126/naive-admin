@@ -30,13 +30,13 @@ const set = useSetStore();
 const user = useUserStore();
 const mitter = useMitt();
 
-const defaultMenus = $computed(() => user.menus);
-const isKeepHeader = $computed(() => set.isKeepTags || set.isKeepHeader);
-const isKeepTags = $computed(() => set.isKeepTags);
-const showTrigger = $computed(() => {
+const defaultMenus = computed(() => user.menus);
+const isKeepHeader = computed(() => set.isKeepTags || set.isKeepHeader);
+const isKeepTags = computed(() => set.isKeepTags);
+const showTrigger = computed(() => {
     return set.menuTrigger === "false" ? false : set.menuTrigger;
 });
-const comStyle = $computed(() => {
+const comStyle = computed(() => {
     return {
         "--layoyt-header-height": LayoutConfig.headerHeight + "px",
         "--layoyt-tags-height": (set.isShowTabs ? LayoutConfig.tagsHeight : 0) + "px",
@@ -50,19 +50,19 @@ const layputMap = {
     asideMixin: loadComponent(() => import("./layout/AsideMixinLayout")),
 };
 
-const mode = $computed(() => {
+const mode = computed(() => {
     return layputMap[set.layoutMode];
 });
-const collapsed = $computed({
+const collapsed = computed({
     get: () => set.collapsed,
     set: value => set.setState("collapsed", value),
 });
-const layoutConStyle = $computed(() => {
+const layoutConStyle = computed(() => {
     return {
         "--diablo-color": set.navMode === "diablo" ? "transparent" : "#f5f7f9",
     };
 });
-const inverted = $computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
+const inverted = computed(() => (["light"].includes(set.navMode) ? false : set.inverted));
 
 function loadComponent(loader: AsyncComponentLoader): ReturnType<typeof defineAsyncComponent> {
     return defineAsyncComponent({

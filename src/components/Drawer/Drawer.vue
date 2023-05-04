@@ -33,14 +33,14 @@ export default defineComponent({
     emits: ["update:show"],
     setup(props, { emit }) {
         const set = useSetStore();
-        const themeVars = $(useThemeVars());
+        const themeVars = useThemeVars();
         let stop: (() => void) | null =  null;
 
         const drawerStyles = computed(() => {
             return {
                 "--drawer-set-color": set.themeColor,
-                "--drawer-tans-leave": themeVars.cubicBezierEaseIn,
-                "--drawer-tans-enter": themeVars.cubicBezierEaseOut,
+                "--drawer-tans-leave": themeVars.value.cubicBezierEaseIn,
+                "--drawer-tans-enter": themeVars.value.cubicBezierEaseOut,
             };
         });
         watch(() => props.showTrigger, async (value) => {

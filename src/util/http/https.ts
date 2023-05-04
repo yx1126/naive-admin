@@ -1,20 +1,20 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from "axios";
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders, InternalAxiosRequestConfig } from "axios";
 
-interface OnRejected {
-    (error: any): any;
-}
 
-interface Interceptors<T = AxiosRequestConfig, R = AxiosResponse> {
+interface Interceptors<T = InternalAxiosRequestConfig, R = AxiosResponse> {
     request: {
-        onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>;
+        onFulfilled?: (value: T) => T | Promise<T>;
         onRejected?: OnRejected;
     };
     response: {
-        onFulfilled?: (value: AxiosResponse) => R | Promise<R>;
+        onFulfilled?: (value: R) => R | Promise<R>;
         onRejected?: OnRejected;
     };
 }
+
+type OnFulfilled<T> = (value: T) => T | Promise<T>;
+type OnRejected = (error: any) => any;
 
 const interceptors: Interceptors = {
     request: {
@@ -29,16 +29,16 @@ const interceptors: Interceptors = {
 
 class Https {
 
-    private service: AxiosInstance;
-    private requestBack: number | undefined;
-    private responsBack: number | undefined;
+    private readonly service: AxiosInstance;
+    private readonly requestBack: number | undefined;
+    private readonly responsBack: number | undefined;
 
-    static request<T extends AxiosRequestConfig>(onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>, onRejected?: OnRejected) {
+    static request(onFulfilled?: OnFulfilled<InternalAxiosRequestConfig>, onRejected?: OnRejected) {
         interceptors.request.onFulfilled = onFulfilled;
         interceptors.request.onRejected = onRejected;
     }
 
-    static response<T extends AxiosResponse>(onFulfilled?: (value: AxiosResponse) => T | Promise<T>, onRejected?: OnRejected) {
+    static response(onFulfilled?: OnFulfilled<AxiosResponse>, onRejected?: OnRejected) {
         interceptors.response.onFulfilled = onFulfilled;
         interceptors.response.onRejected = onRejected;
     }
@@ -50,14 +50,14 @@ class Https {
         this.responsBack = this.service.interceptors.response.use(response.onFulfilled, response.onRejected);
     }
 
-    request<T extends AxiosRequestConfig>(onFulfilled?: (value: AxiosRequestConfig) => T | Promise<T>, onRejected?: OnRejected) {
+    request(onFulfilled?: OnFulfilled<InternalAxiosRequestConfig>, onRejected?: OnRejected) {
         if(this.requestBack !== void 0) {
             this.service.interceptors.request.eject(this.requestBack);
         }
         this.service.interceptors.request.use(onFulfilled, onRejected);
     }
 
-    response<T extends AxiosResponse>(onFulfilled?: (value: AxiosResponse) => T | Promise<T>, onRejected?: OnRejected) {
+    response(onFulfilled?: OnFulfilled<AxiosResponse>, onRejected?: OnRejected) {
         if(this.responsBack !== void 0) {
             this.service.interceptors.response.eject(this.responsBack);
         }

@@ -34,8 +34,8 @@ defineOptions({
     name: "About",
 });
 
-let dependencies = $ref<Record<string, any>>({});
-let devDependencies = $ref<Record<string, any>>({});
+let dependencies = ref<Record<string, any>>({});
+let devDependencies = ref<Record<string, any>>({});
 
 onBeforeMount(async () => {
     const res = import.meta.glob("../../../package.json")["../../../package.json"];

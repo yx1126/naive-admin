@@ -43,8 +43,8 @@ defineOptions({
 
 const message = useFeedBack("message");
 
-const copyText = $ref("v-copy");
-const copyTextFn = $ref("copyFn");
+const copyText = ref("v-copy");
+const copyTextFn = ref("copyFn");
 
 const baseCode = `
 <template>
@@ -124,7 +124,7 @@ function onCopyError(e: Event) {
 }
 
 function onCopy() {
-    copy(copyTextFn).then((e) => {
+    copy(copyTextFn.value).then((e) => {
         console.log(e);
         message.success("复制成功!");
     }).catch(error => {

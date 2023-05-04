@@ -30,7 +30,7 @@ const columns: DataTableColumns<ToDoThings> = [
             return h(NCheckbox, {
                 checked: row.isFinish,
                 onUpdateChecked: (value) => {
-                    toDoList[i].isFinish = value;
+                    toDoList.value[i].isFinish = value;
                 },
             });
         },
@@ -53,14 +53,14 @@ const columns: DataTableColumns<ToDoThings> = [
             return h(Icon, {
                 style: "cursor: pointer;",
                 onClick: () => {
-                    toDoList.splice(i, 1);
+                    toDoList.value.splice(i, 1);
                 },
             }, { default: () => h(CloseOutlined) });
         },
     },
 ];
 
-const toDoList = $ref<ToDoThings[]>([
+const toDoList = ref<ToDoThings[]>([
     { things: "今天要修复100个bug", isFinish: false },
     { things: "今天要修复100个bug", isFinish: false },
     { things: "今天要写100行代码加几个bug吧", isFinish: false },
