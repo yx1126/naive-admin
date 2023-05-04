@@ -38,6 +38,7 @@ module.exports = defineConfig({
         },
     ],
     rules: {
+        "@typescript-eslint/ban-ts-comment": "off",
         "no-undef": "off",
         "vue/html-indent": ["error", 4],
         "vue/script-indent": ["error", 4, {
