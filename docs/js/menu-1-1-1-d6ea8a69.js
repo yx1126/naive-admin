@@ -1,1 +1,0 @@
-import{d as e,j as n,k as s,p as t,_ as o}from"../assets/index.d6b43ed6.js";const _={class:"menu-1-1-1"},a=t("h1",null,"menu-1-1-1",-1),c=[a],r=e({name:"Menu111"}),u=e({...r,setup(m){return(i,d)=>(n(),s("div",_,c))}}),p=o(u,[["__file","/home/runner/work/naive-admin/naive-admin/src/views/router-nested/menu-1/menu-1-1/menu-1-1-1/menu-1-1-1.vue"]]);export{p as default};

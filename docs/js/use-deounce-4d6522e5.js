@@ -1,0 +1,1 @@
+import{bO as n,aR as r}from"../assets/index-bb041c26.js";function m(i,e,f){let o=500,t=!1;n(e)?o=e:r(e)&&(t=e),f&&(t=f);let l,u=!0;return function(...a){l&&clearTimeout(l),t&&u&&(i.call(null,...a),u=!1),l=setTimeout(t?()=>u=!0:i.bind(null,...a),o)}}export{m as u};

@@ -1,1 +1,0 @@
-import{c6 as r,bv as s}from"../assets/index.d6b43ed6.js";function c(i,e,f){let o=500,t=!1;r(e)?o=e:s(e)&&(t=e),f&&(t=f);let l,u=!0;return function(...n){l&&clearTimeout(l),t&&u&&(i.call(null,...n),u=!1),l=setTimeout(t?()=>u=!0:i.bind(null,...n),o)}}export{c as u};
