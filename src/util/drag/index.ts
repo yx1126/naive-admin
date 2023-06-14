@@ -21,6 +21,7 @@ export default function drag(current: HTMLElement, options?: DragOptions) {
     const position = getComputedStyle(move)["position"];
     if(!position || position === "static") move.style.position = "relative";
     function onMousedown(downEvent: MouseEvent) {
+        document.onselectstart = () => false;
         // 鼠标左键拖动
         if(eventType === "left" && downEvent.button !== 0) return;
         // 鼠标右键拖动
@@ -50,6 +51,7 @@ export default function drag(current: HTMLElement, options?: DragOptions) {
             }
         }
         function onMouseup() {
+            document.onselectstart = null;
             off(document, "mousemove", onMousemove);
             off(document, "mouseup", onMouseup);
         }

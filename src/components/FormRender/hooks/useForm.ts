@@ -1,5 +1,4 @@
 import createInjectionKey from "@/util/create-key";
-import type { Ref } from "vue";
 import type { RenderFormProvide, RenderFormInitParams } from "../types";
 
 function defaultInitFn(fn: string) {

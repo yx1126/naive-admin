@@ -43,7 +43,7 @@ const chooseValue = ref("");
 const menuOptions = computed(() => getSearchMenuList(user.menus as MenuOptions));
 const searchStyle = computed(() => {
     return {
-        "--search-width": isShowSearch ? "210px" : "0px",
+        "--search-width": isShowSearch.value ? "210px" : "0px",
         "--trans-width": themeVars.value.cubicBezierEaseInOut,
     };
 });

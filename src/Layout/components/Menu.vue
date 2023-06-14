@@ -8,6 +8,7 @@
         :indent="20"
         :collapsed-width="64"
         :expanded-keys="defaultExpendMenu"
+        v-bind="$attrs"
         @update:expanded-keys="onExpandedKeys"
         @update:value="onUpdateValue"
     />
@@ -45,5 +46,3 @@ function onExpandedKeys(keys: string[]) {
     defaultExpendMenu.value = keys;
 }
 </script>
-
-<style lang="scss" scoped></style>

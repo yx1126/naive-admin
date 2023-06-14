@@ -1,5 +1,7 @@
-import mitt from "mitt";
+import mitt, { type Emitter } from "mitt";
 import type { LoadingBarOption, DialogOption, MessageOption, NotificationOption } from "./use-feedBack";
+
+
 
 type Events = {
     // loadingbar
@@ -17,7 +19,7 @@ type Events = {
     scroll: Event;
 };
 
-const emitter = mitt<Events>();
+const emitter: Emitter<Events> = mitt<Events>();
 
 export default () => {
     return emitter;

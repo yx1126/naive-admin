@@ -9,7 +9,7 @@ import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import DefineOptions from "unplugin-vue-define-options/vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import Unocss from "@unocss/vite";
-import vueI18n from "@intlify/vite-plugin-vue-i18n";
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 
 const resolve = (path: string) => {
     return fileURLToPath(new URL(`./${path}`, import.meta.url));
@@ -21,7 +21,6 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": resolve("src"),
-            "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
         },
     },
     css: {
@@ -55,20 +54,18 @@ export default defineConfig({
         },
     },
     define: {
-        __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
-        __VUE_I18N_LEGACY_API__: JSON.stringify(false),
-        __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
+        __VUE_I18N_FULL_INSTALL__: false,
+        __VUE_I18N_LEGACY_API__: false,
+        __INTLIFY_PROD_DEVTOOLS__: false,
     },
     plugins: [
         vue(),
-        vueI18n({
-            include: resolve("src/locales/**"),
-        }),
+        VueI18nPlugin({}),
         vueJsx(),
         Unocss(),
         DefineOptions(),
         AutoImport({
-            dts: true,
+            dts: "./auto-imports.d.ts",
             dirs: ["./src/hooks", "./src/stores/exports"],
             imports: ["vue", "vue-router", "vue-i18n", {
                 "vue": ["renderSlot", "renderList", "mergeProps", "createVNode", "render"],

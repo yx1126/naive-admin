@@ -22,7 +22,6 @@
 <script setup lang="tsx">
 import FormRender, { useForm as useRenderForm, FormAction, type FormSchema } from "@/components/FormRender";
 import { NSlider, NTransfer, NFormItemGi, NGrid, NInput, NSelect, type FormItemRule } from "naive-ui";
-import type { Ref } from "vue";
 
 defineOptions({
     name: "BaseForm",

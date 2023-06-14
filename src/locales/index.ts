@@ -1,4 +1,5 @@
 import { zhCN, enUS, dateZhCN, dateEnUS } from "naive-ui";
+
 import { createI18n } from "vue-i18n";
 // import { location } from "@/util/storage";
 import type { SelectOption } from "naive-ui";
@@ -9,6 +10,7 @@ const i18n = createI18n({
     // locale: set?.lang || "zh-CN",
     legacy: false,
     fallbackLocale: "enUS",
+    messages: {},
 });
 
 export type Lang = "zh-CN" | "enUS";

@@ -152,7 +152,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .table-render-toolbar {
     width: 100%;
     min-height: 34px;

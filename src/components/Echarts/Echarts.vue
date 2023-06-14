@@ -6,9 +6,8 @@
 
 <script lang="ts">
 import * as  Echarts from "echarts";
-import type {  EChartsCoreOption, ECharts as EchartsInstance } from "echarts";
+import type { EChartsCoreOption, ECharts as EchartsInstance } from "echarts";
 import { on, off } from "@/util/dom";
-import type { Ref } from "vue";
 
 export default defineComponent({
     name: "Echarts",

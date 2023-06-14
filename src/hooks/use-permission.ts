@@ -1,5 +1,4 @@
 import { isArray, isString } from "@/util/validata";
-import type { ComputedRef } from "vue";
 
 export default function(role: string): ComputedRef<boolean>;
 export default function(role: string[]): ComputedRef<boolean>;

@@ -15,7 +15,7 @@
             <slot />
         </div>
         <template v-if="!native && isExistScroll">
-            <div v-if="xScrollable" class="scroll-bar__bar is-horizontal">
+            <!-- <div v-if="xScrollable" class="scroll-bar__bar is-horizontal">
                 <div
                     ref="horizontalThumbRef"
                     class="scroll-bar__thumb"
@@ -33,6 +33,17 @@
                     :style="{
                         transform: `translateY(${translateXY}px)`,
                         height: thumbSize + 'px'
+                    }"
+                    @mousedown="onMousedown"
+                />
+            </div> -->
+            <div :class="['scroll-bar__bar', xScrollable ? 'is-horizontal' : 'is-vertical']">
+                <div
+                    ref="thumbRef"
+                    class="scroll-bar__thumb"
+                    :style="{
+                        transform: `translate${xScrollable ? 'X' : 'Y'}(${translateXY}px)`,
+                        [xScrollable ? 'width' : 'height']: thumbSize + 'px'
                     }"
                     @mousedown="onMousedown"
                 />
@@ -67,8 +78,9 @@ export default defineComponent({
     setup(props, { emit, expose }) {
 
         const scrollViewRef = ref<HTMLDivElement | null>(null);
-        const horizontalThumbRef = ref<HTMLDivElement | null>(null);
-        const verticalThumbRef = ref<HTMLDivElement | null>(null);
+        // const horizontalThumbRef = ref<HTMLDivElement | null>(null);
+        // const verticalThumbRef = ref<HTMLDivElement | null>(null);
+        const thumbRef = ref<HTMLDivElement | null>(null);
         let originalOnSelectStart: any;
         let stopResizeObserver: any;
 
@@ -137,11 +149,11 @@ export default defineComponent({
             originalOnSelectStart = document.onselectstart;
             document.onselectstart = () => false;
 
-            const thumb = props.xScrollable ? horizontalThumbRef.value : verticalThumbRef.value;
+            // const thumb = props.xScrollable ? horizontalThumbRef.value : verticalThumbRef.value;
 
             // 鼠标点击时滑块Y轴默认偏移量
             let translateXY = 0;
-            const transform = getComputedStyle(thumb!)["transform"];
+            const transform = getComputedStyle(thumbRef.value!)["transform"];
             if(transform !== "none") {
                 const list = (transform.match(/\((.+)\)/)![1] || "").split(",");
                 translateXY = Number(list[list.length - (props.xScrollable ? 2 : 1)]);
@@ -184,8 +196,9 @@ export default defineComponent({
 
         return {
             scrollViewRef,
-            horizontalThumbRef,
-            verticalThumbRef,
+            thumbRef,
+            // horizontalThumbRef,
+            // verticalThumbRef,
             isExistScroll,
             translateXY,
             thumbSize,

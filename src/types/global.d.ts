@@ -1,10 +1,6 @@
-import type { Ref, ComputedRef, PropType as _PropType } from "vue";
-
 declare global {
 
-    declare type PropType<T> = _PropType<T>;
-
-    declare type Nullable<T> = T | null;
+    export declare type Nullable<T> = T | null;
 
     declare type Noable<T> = T | undefined;
 

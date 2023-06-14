@@ -1,5 +1,4 @@
 import type { ResponseResult, ListData } from "@/types/axios";
-import type { Ref } from "vue";
 
 export interface RequestReturn<T = any> {
     data: T;
