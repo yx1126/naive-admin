@@ -16,7 +16,7 @@ export interface Subscriptions {
 
 type BaseStorage = Pick<Storage, "getItem" | "setItem">;
 
-type Paths<S> = (keyof S)[] | ((s: (keyof S)[]) => (keyof S)[]);
+type Paths<S> = Array<ObjectKeys<S>> | ((s: Array<ObjectKeys<S>>) => Array<ObjectKeys<S>>);
 
 interface StorageOptions<S> {
     key?: string;

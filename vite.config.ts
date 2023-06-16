@@ -21,6 +21,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": resolve("src"),
+            "#": resolve("types"),
         },
     },
     css: {
@@ -65,14 +66,25 @@ export default defineConfig({
         Unocss(),
         DefineOptions(),
         AutoImport({
-            dts: "./auto-imports.d.ts",
+            dts: "./types/auto-imports.d.ts",
             dirs: ["./src/hooks", "./src/stores/exports"],
-            imports: ["vue", "vue-router", "vue-i18n", {
-                "vue": ["renderSlot", "renderList", "mergeProps", "createVNode", "render"],
-            }],
+            imports: [
+                "vue",
+                "vue-router",
+                "vue-i18n",
+                {
+                    "vue": [
+                        "renderSlot",
+                        "renderList",
+                        "mergeProps",
+                        "createVNode",
+                        "render",
+                    ],
+                },
+            ],
         }),
         Components({
-            dts: true,
+            dts: "./types/components.d.ts",
             resolvers: [NaiveUiResolver()],
         }),
         createSvgIconsPlugin({

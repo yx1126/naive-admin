@@ -15,7 +15,7 @@ function useThrottle(fn: ArrayFn, delay?: number | boolean, immediate?: boolean)
     if(immediate) {
         defaultImmediate = immediate;
     }
-    let timer: number;
+    let timer: NodeJS.Timeout;
     let flag = true;
     return function(...args: any[]) {
         if(flag) {

@@ -1,5 +1,5 @@
 import { on, off } from "../dom";
-import type { CursorType } from "@/types/util";
+import type { CursorType } from "#/util";
 
 export interface DragOptions {
     move?: HTMLElement;

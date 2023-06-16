@@ -14,4 +14,10 @@ app.use(Router);
 app.use(Locales);
 app.use(Directive);
 
+
+Router.isReady().then(() => {
+    console.log("ready");
+});
+
+
 app.mount("#app");

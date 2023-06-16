@@ -16,10 +16,13 @@ function useDeounce(fn: ArrayFn, delay?: number | boolean, immediate?: boolean) 
     if(immediate) {
         defaultImmediate = immediate;
     }
-    let timer: number;
+    let timer: NodeJS.Timeout | null;
     let flag = true;
     return function(...args: any[]) {
-        if(timer) clearTimeout(timer);
+        if(timer) {
+            clearTimeout(timer);
+            timer = null;
+        }
         if(defaultImmediate && flag) {
             fn.call(null, ...args);
             flag = false;

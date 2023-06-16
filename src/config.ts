@@ -1,4 +1,4 @@
-import type { LayoutConfig as _LayoutConfig } from "@/types/config";
+import type { LayoutConfig as _LayoutConfig } from "#/config";
 
 const LayoutConfig: _LayoutConfig = {
     headerHeight: 50,

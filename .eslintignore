@@ -9,5 +9,5 @@
 dist
 node_modules
 Dockerfile
-components.d.ts
-auto-imports.d.ts
+types/components.d.ts
+types/auto-imports.d.ts

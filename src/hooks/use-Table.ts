@@ -1,4 +1,4 @@
-import type { ResponseResult, ListData } from "@/types/axios";
+import type { ResponseResult, ListData } from "#/axios";
 
 export interface TableRequest<T, S> {
     page?: number;

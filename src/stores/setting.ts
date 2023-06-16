@@ -50,7 +50,7 @@ export const defaultSetting: SetState = {
     layoutMode: "aside",
     isShowLogo: true, // 显示 logo
     isShowTabs: true, // 显示 标签页
-    uniqueMenuOpened: false, // 菜单单选
+    uniqueMenuOpened: true, // 菜单单选
     isShowBreadcrumb: true, // 显示 面包屑
     isKeepHeader: true, // 固定 顶栏
     isKeepTags: true, // 固定 标签页

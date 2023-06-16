@@ -1,24 +1,28 @@
 {
+    "$schema": "https://json.schemastore.org/tsconfig",
     "include": [
         "env.d.ts",
-        "components.d.ts",
-        "auto-imports.d.ts",
+        "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.vue",
-        "src/**/*.ts",
-        "src/**/*.tsx"
+        "src/**/*.tsx",
+        "types/**/*.d.ts",
+        "vite.config.ts"
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "src/**/__tests__/*"
     ],
     "compilerOptions": {
+        "rootDir": ".",
         "baseUrl": ".",
-        "target": "esnext",
-        "module": "esnext",
-        "moduleResolution": "node",
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
         "strict": true,
         "jsx": "preserve",
+        "jsxImportSource": "vue",
         "allowJs": true,
         "checkJs": true,
         "sourceMap": true,
@@ -26,9 +30,14 @@
         "experimentalDecorators": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
+        "isolatedModules": true,
+        "noImplicitThis": true,
+        "useDefineForClassFields": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
         "lib": [
-            "esnext",
-            "dom"
+            "ESNext",
+            "DOM"
         ],
         "types": [
             "vite/client",
@@ -39,20 +48,14 @@
         "paths": {
             "@/*": [
                 "./src/*"
+            ],
+            "#/*": [
+                "./types/*"
             ]
         }
     },
-    "files": [],
-    "references": [
-        {
-            "path": "./tsconfig.node.json"
-        },
-        {
-            "path": "./tsconfig.app.json"
-        }
-    ],
     "vueCompilerOptions": {
-        "target": 3,
+        "target": "auto",
         "plugins": [
             "@vue-macros/volar/define-options"
         ]
