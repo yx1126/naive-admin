@@ -24,6 +24,7 @@
         "highlight.js": "^11.8.0",
         "mitt": "^3.0.0",
         "pinia": "^2.1.4",
+        "portal-vue": "^3.0.0",
         "screenfull": "^6.0.2",
         "seemly": "^0.3.6",
         "vue": "^3.3.4",

@@ -31,7 +31,10 @@ const user = useUserStore();
 const mitter = useMitt();
 
 const defaultMenus = computed(() => user.menus);
-const isKeepHeader = computed(() => set.isKeepTags || set.isKeepHeader);
+const isKeepHeader = computed(() => {
+    if(!set.isShowTabs) return set.isKeepHeader;
+    return set.isKeepTags || set.isKeepHeader;
+});
 const isKeepTags = computed(() => set.isKeepTags);
 const showTrigger = computed(() => {
     return set.menuTrigger === "false" ? false : set.menuTrigger;
@@ -44,10 +47,10 @@ const comStyle = computed(() => {
 });
 
 const layputMap = {
-    aside: loadComponent(() => import("./layout/AsideLayout")),
-    top: loadComponent(() => import("./layout/TopLayout")),
-    mixin: loadComponent(() => import("./layout/MixinLayout")),
-    asideMixin: loadComponent(() => import("./layout/AsideMixinLayout")),
+    aside: loadComponent(() => import("./layout/AsideLayout.vue")),
+    top: loadComponent(() => import("./layout/TopLayout.vue")),
+    mixin: loadComponent(() => import("./layout/MixinLayout.vue")),
+    asideMixin: loadComponent(() => import("./layout/AsideMixinLayout.vue")),
 };
 
 const mode = computed(() => {

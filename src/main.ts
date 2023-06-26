@@ -7,12 +7,14 @@ import App from "./App.vue";
 import "@/style/index.scss";
 import "virtual:svg-icons-register";
 import "uno.css";
+import PortalVue from "portal-vue";
 
 const app = createApp(App);
 app.use(Pinia);
 app.use(Router);
 app.use(Locales);
 app.use(Directive);
+app.use(PortalVue);
 
 
 Router.isReady().then(() => {

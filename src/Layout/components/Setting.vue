@@ -37,7 +37,7 @@
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ t("isKeepTags") }}</n-ellipsis>
-                    <n-switch v-model:value="set.isKeepTags" size="medium" />
+                    <n-switch v-model:value="set.isKeepTags" :disabled="!set.isShowTabs" size="medium" />
                 </div>
                 <div class="divider-content-item">
                     <n-ellipsis>{{ t("isCutMenu") }}</n-ellipsis>

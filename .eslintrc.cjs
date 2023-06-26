@@ -36,6 +36,14 @@ module.exports = defineConfig({
                 "@typescript-eslint/indent": ["error", 4],
             },
         },
+        {
+            files: ["*.cjs"],
+            rules: {
+                "indent": ["error", 4],
+                "quotes": "off",
+                "@typescript-eslint/indent": "off",
+            },
+        },
     ],
     rules: {
         "@typescript-eslint/ban-ts-comment": "off",
@@ -113,6 +121,7 @@ module.exports = defineConfig({
         "@typescript-eslint/type-annotation-spacing": ["error"],
         "@typescript-eslint/member-delimiter-style": ["error"],
         "vue/one-component-per-file": "off",
+        "vue/no-reserved-component-names": "off",
     },
     globals: {
         defineOptions: "readonly",

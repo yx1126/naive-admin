@@ -7,7 +7,7 @@
         "src/**/*.vue",
         "src/**/*.tsx",
         "types/**/*.d.ts",
-        "vite.config.ts"
+        "vite.config.*"
     ],
     "exclude": [
         "node_modules",
@@ -37,13 +37,15 @@
         "skipLibCheck": true,
         "lib": [
             "ESNext",
-            "DOM"
+            "DOM",
+            "DOM.Iterable"
         ],
         "types": [
             "vite/client",
             "naive-ui/volar",
             "unplugin-vue-define-options/macros-global",
-            "vite-plugin-svg-icons/client"
+            "vite-plugin-svg-icons/client",
+            "node"
         ],
         "paths": {
             "@/*": [

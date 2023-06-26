@@ -1,14 +1,6 @@
-export function downloadLink(url: string) {
-    const a = document.createElement("a");
-    a.setAttribute("href", url);
-    a.setAttribute("target", "_blank");
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
+import file, { type FileSaverOptions } from "file-saver";
 
-export default function download(data: Blob | ArrayBuffer, filename: string, options?: BlobPropertyBag) {
+export function download(data: Blob, filename: string, options?: BlobPropertyBag) {
     const blob = new Blob([data], options);
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -20,3 +12,8 @@ export default function download(data: Blob | ArrayBuffer, filename: string, opt
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
 }
+
+export default function(data: Blob | string, filename?: string, options?: FileSaverOptions) {
+    file.saveAs(data, filename, options);
+}
+
