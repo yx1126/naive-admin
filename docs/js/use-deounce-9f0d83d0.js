@@ -1,1 +1,0 @@
-import{bO as a,aR as r}from"../assets/index-0ecb1455.js";function m(i,e,f){let n=500,l=!1;a(e)?n=e:r(e)&&(l=e),f&&(l=f);let t,u=!0;return function(...o){t&&(clearTimeout(t),t=null),l&&u&&(i.call(null,...o),u=!1),t=setTimeout(l?()=>u=!0:i.bind(null,...o),n)}}export{m as u};
