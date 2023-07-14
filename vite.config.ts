@@ -5,7 +5,6 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
-// @ts-ignore
 import DefineOptions from "unplugin-vue-define-options/vite";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import Unocss from "@unocss/vite";

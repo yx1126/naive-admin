@@ -13,8 +13,7 @@
         "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml",
         ".env.dev*": ".env.*",
         "README.md": "*.md",
-        "vite.config.ts": "*config.js,*.config.ts",
-        "package.nls.json": "package.nls.*.json",
+        "vite.config.*": "*config.js,*.config.ts",
         ".eslintrc.*": ".eslintignore,.editorconfig"
     },
     "eslint.format.enable": true,

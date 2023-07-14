@@ -44,7 +44,7 @@ defineOptions({
 
 const message = useFeedBack("message");
 
-const { page, size, total } = usePage().setTotal(1000);
+const { page, size, total } = usePage({ total: 1000 });
 
 const columns: DataTableColumns<RowData> = [
     { title: "Name", key: "name", fixed: "left", width: 200 },
