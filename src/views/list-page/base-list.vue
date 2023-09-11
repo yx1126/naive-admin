@@ -153,7 +153,7 @@ function onBehavior(type: Behavior) {
         const merges = ["A1:A2", "B1:D1", "E1:E2"];
         exportExcel(header, data.value, filterVal, merges);
     } else {
-        switch (type) {
+        switch(type) {
             case "insert":
                 message.info(type);
                 break;

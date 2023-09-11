@@ -200,7 +200,7 @@ async function onDropdownSelect(key: string | number) {
     const activeTagsLength = activeTags.value.length - 1;
     const keepTagsLength = keepTags.value.length - 1;
     const currentPageIndex = activeTags.value.findIndex(t => t.path === currentPath.value);
-    switch (key) {
+    switch(key) {
         case "remove":
             if(activeTagsLength < 1) {
                 router.push(keepTags.value[keepTagsLength].path);

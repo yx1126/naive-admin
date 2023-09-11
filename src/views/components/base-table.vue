@@ -106,7 +106,7 @@ function onRefresh() {
 }
 
 function onBehavior(type: Behavior) {
-    switch (type) {
+    switch(type) {
         case "insert":
             message.info(type);
             break;

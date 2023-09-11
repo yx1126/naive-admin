@@ -47,7 +47,7 @@ export default defineComponent({
         }
 
         function onPageChange(type: "prev" | "next") {
-            switch (type) {
+            switch(type) {
                 case "prev":
                     emit("update:page", props.page - 1);
                     break;

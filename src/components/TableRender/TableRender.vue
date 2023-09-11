@@ -111,7 +111,7 @@ export default defineComponent({
             });
         }
         function setValue(key: string, value: any) {
-            switch (key) {
+            switch(key) {
                 case "size":
                     tableSize.value = value;
                     break;

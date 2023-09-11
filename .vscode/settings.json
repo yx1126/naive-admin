@@ -20,6 +20,9 @@
     "eslint.codeAction.showDocumentation": {
         "enable": true
     },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+    },
     "eslint.options": {
         "extensions": [
             ".vue",
@@ -40,7 +43,12 @@
         "javascript",
         "javascriptreact",
         "typescript",
-        "typescriptreact"
+        "typescriptreact",
+        "jsonc",
+        "json",
+        "json5",
+        "yaml",
+        "yml"
     ],
     "editor.cursorSmoothCaretAnimation": "on",
     "[typescript]": {
@@ -55,6 +63,19 @@
     "[html]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+	"[json]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[yaml]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2,
+		"editor.autoIndent": "advanced",
+		"diffEditor.ignoreTrimWhitespace": false,
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
     "i18n-ally.localesPaths": [
         "src/locales/langs"
     ],

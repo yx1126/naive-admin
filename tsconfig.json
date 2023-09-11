@@ -7,7 +7,8 @@
         "src/**/*.vue",
         "src/**/*.tsx",
         "types/**/*.d.ts",
-        "vite.config.*"
+        "vite.config.*",
+        "unocss.config.ts"
     ],
     "exclude": [
         "node_modules",
@@ -48,18 +49,12 @@
             "node"
         ],
         "paths": {
-            "@/*": [
-                "./src/*"
-            ],
-            "#/*": [
-                "./types/*"
-            ]
+            "@/*": ["./src/*"],
+            "#/*": ["./types/*"]
         }
     },
     "vueCompilerOptions": {
         "target": "auto",
-        "plugins": [
-            "@vue-macros/volar/define-options"
-        ]
+        "plugins": ["@vue-macros/volar/define-options"]
     }
 }

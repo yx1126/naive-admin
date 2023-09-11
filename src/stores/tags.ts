@@ -59,7 +59,7 @@ const useTagsStore = defineStore(
         function baseRemove(type: TagsType, path: string, direction: "this" | "left" | "right" | "other" | "all" = "this") {
             const index = state[type].findIndex(t => t.path === path);
             if(index === -1 && ["this", "left", "right"].includes(direction)) return;
-            switch (direction) {
+            switch(direction) {
                 case "this":
                     state[type].splice(index, 1);
                     break;

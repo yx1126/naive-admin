@@ -55,7 +55,7 @@ const dropdownOptions: Array<DropdownOption | DropdownDividerOption> = [
 
 async function handleSelect(key: string, option: DropdownOption) {
     console.log(key, option);
-    switch (key) {
+    switch(key) {
         case "set":
             router.push("/person");
             break;
